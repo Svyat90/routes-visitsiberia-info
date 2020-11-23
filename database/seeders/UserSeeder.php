@@ -20,5 +20,7 @@ class UserSeeder extends Seeder
             'name'           => 'Admin',
             'password'       => Hash::make('password'),
         ]);
+
+        $this->command->info('User: admin@admin.com Password: password');
     }
 }

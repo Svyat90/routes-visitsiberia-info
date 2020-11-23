@@ -15,24 +15,14 @@
                     </a>
                 </li>
 
-                <li class="nav-item has-treeview {{ request()->is('admin/dictionaries*') ? 'menu-open' : '' }}">
-                    <a class="nav-link nav-dropdown-toggle" href="#">
-                        <i class="fa-fw nav-icon fas fa-book"></i>
+                <li class="nav-item">
+                    <a href="{{ route("admin.dictionaries.index") }}" class="nav-link {{ request()->is("admin/dictionaries") ? 'active' : '' }}" >
+                        <i class="fa-fw nav-icon fas fa-book">
+                        </i>
                         <p>
                             {{ trans('cruds.dictionaryManagement.title') }}
-                            <i class="right fa fa-fw fa-angle-left nav-icon"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route("admin.dictionaries.index") }}" class="nav-link {{ request()->is('admin/dictionaries/seasons') || request()->is('admin/dictionaries/seasons/*') ? 'active' : '' }}">
-                                <i class="fa-fw nav-icon fas fa-file-alt"></i>
-                                <p>
-                                    {{ trans('cruds.seasons.title') }}
-                                </p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
 
                 <li class="nav-item">

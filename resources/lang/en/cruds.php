@@ -1,6 +1,14 @@
 <?php
 
 return [
+    'base' => [
+        'fields'         => [
+            'id'                => 'ID',
+            'created_at'        => 'Created at',
+            'updated_at'        => 'Updated at',
+            'deleted_at'        => 'Deleted at',
+        ]
+    ],
     'user'                         => [
         'title'          => 'Users',
         'title_singular' => 'User',
@@ -13,20 +21,20 @@ return [
             'password_helper'              => '',
         ],
     ],
-    'seasons'                     => [
-        'title'          => 'Seasons',
-        'title_singular' => 'Season',
+    'dictionaries'                     => [
+        'title'          => 'Dictionaries',
+        'title_singular' => 'Dictionary',
         'fields'         => [
-            'id'                => 'ID',
-            'id_helper'         => '',
             'name'              => 'Name',
             'name_helper'       => '',
-            'created_at'        => 'Created at',
-            'created_at_helper' => '',
-            'updated_at'        => 'Updated at',
-            'updated_at_helper' => '',
-            'deleted_at'        => 'Deleted at',
-            'deleted_at_helper' => '',
+            'name_ru'              => 'Name (ru)',
+            'name_ru_helper'       => '',
+            'name_en'              => 'Name (en)',
+            'name_en_helper'       => '',
+            'type'              => 'Type',
+            'type_helper'       => '',
+            'hidden'              => 'Hidden',
+            'hidden_helper'       => '',
         ],
     ],
     'dictionaryManagement'            => [
