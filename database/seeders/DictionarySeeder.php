@@ -15,12 +15,19 @@ class DictionarySeeder extends Seeder
         'Доступность в сезон' => [
             'type' => DictionaryService::TYPE_SEASON,
             'values' => [
-                'лето',
-                'осень',
                 'зима',
                 'весна',
+                'лето',
+                'осень',
                 'круглый год',
             ],
+            'date_ranges' => [
+                ["2020-12-01", "2021-02-28"],
+                ["2021-03-01", "2021-05-30"],
+                ["2021-06-01", "2021-08-01"],
+                ["2021-09-01", "2021-12-31"],
+                ["2021-01-01", "2021-12-31"],
+            ]
         ],
         'Тип отдыха' => [
             'type' => DictionaryService::TYPE_REST,
@@ -100,12 +107,16 @@ class DictionarySeeder extends Seeder
                 'type' => $data['type']
             ]);
 
-            collect($data['values'])->each(function ($childName) use ($parent) {
+            $dateRanges = $data['type'] === DictionaryService::TYPE_SEASON ? $data['date_ranges'] : [];
+
+            collect($data['values'])->each(function ($childName, $key) use ($parent, $dateRanges) {
                 $this->command->info('Child: ' . $childName);
 
                 $parent->children()->save(new Dictionary([
                     'name_ru' => $childName,
                     'name_en' => $childName,
+                    'date_range_from' => ! empty($dateRanges[$key]) ? $dateRanges[$key][0] : null,
+                    'date_range_to' => ! empty($dateRanges[$key]) ? $dateRanges[$key][1] : null,
                 ]));
             });
         });

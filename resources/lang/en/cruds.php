@@ -35,6 +35,12 @@ return [
             'type_helper'       => '',
             'hidden'              => 'Hidden',
             'hidden_helper'       => '',
+            'date_range'              => 'Date Range',
+            'date_range_helper'       => '',
+            'date_range_from'              => 'Date Range From',
+            'date_range_from_helper'       => '',
+            'date_range_to'              => 'Date Range To',
+            'date_range_to_helper'       => '',
         ],
     ],
     'dictionaryManagement'            => [

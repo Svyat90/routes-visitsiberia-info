@@ -20,6 +20,8 @@ class CreateDictionariesTable extends Migration
             $table->string('name_en', 128);
             $table->string('type', 32)->nullable()->unique();
             $table->boolean('hidden')->default(false);
+            $table->timestamp('date_range_from')->nullable();
+            $table->timestamp('date_range_to')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

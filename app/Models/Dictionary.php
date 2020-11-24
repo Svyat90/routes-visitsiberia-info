@@ -25,14 +25,17 @@ class Dictionary extends Model
      * @var string[]
      */
     protected $fillable = [
-        'name_ru', 'name_en', 'type', 'hidden'
+        'name_ru', 'name_en', 'type', 'hidden',
+        'date_range_from', 'date_range_to'
     ];
 
     /**
      * @var string[]
      */
     protected $casts = [
-        'hidden' => 'boolean'
+        'hidden' => 'boolean',
+        'date_range_from' => 'datetime',
+        'date_range_to' => 'datetime',
     ];
 
     /**
@@ -50,4 +53,5 @@ class Dictionary extends Model
     {
         return $this->hasMany(Dictionary::class, 'parent_id', 'id');
     }
+
 }

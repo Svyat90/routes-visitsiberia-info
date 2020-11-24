@@ -8,6 +8,7 @@ use App\Http\Requests\Dictionaries\StoreDictionaryRequest;
 use App\Http\Requests\Dictionaries\UpdateDictionaryRequest;
 use App\Models\Dictionary;
 use App\Repositories\DictionaryRepository;
+use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
 class DictionaryService
@@ -93,7 +94,28 @@ class DictionaryService
 
         $this->repository->handleParent($dictionary, $inputData['dictionary_id'] ?? null);
 
+        if ($dictionary->parent && $dictionary->parent->type === DictionaryService::TYPE_SEASON) {
+            $this->normalizeDateRange($inputData);
+        }
+
         return $this->repository->updateData($inputData, $dictionary);
+    }
+
+    /**
+     * @param array $inputData
+     */
+    private function normalizeDateRange(array &$inputData) : void
+    {
+        if (! isset($inputData['date_range'])) {
+            return;
+        }
+
+        [$dateRangeFrom, $dateRangeTo] = explode(" - ", $inputData['date_range']);
+
+        $inputData['date_range_from'] = Carbon::createFromFormat('d/m/Y', $dateRangeFrom)->format('d-m-Y');
+        $inputData['date_range_to'] = Carbon::createFromFormat('d/m/Y', $dateRangeTo)->format('d-m-Y');
+
+        unset($inputData['date_range']);
     }
 
 }
