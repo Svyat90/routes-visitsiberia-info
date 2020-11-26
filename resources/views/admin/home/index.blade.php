@@ -5,12 +5,12 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        Home
+                        {{ __('global.dashboard') }}
                     </div>
 
                     <div class="card-body">
                         <div class="row">
-                            Home body
+                            {{ __('global.welcome') }} &nbsp;<b>{{ auth()->user()->email }}</b>.
                         </div>
                     </div>
                 </div>

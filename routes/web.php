@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\ChangePasswordController;
 use App\Http\Controllers\Admin\DictionaryController;
+use App\Http\Controllers\Admin\TranslationController;
+use App\Http\Controllers\Admin\LanguageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +31,18 @@ Route::get('/', function () {
 Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
 
-    Route::resource('dictionaries', 'Admin\DictionaryController');
+    // Dictionaries
+    Route::delete('dictionaries/multi-destroy', [DictionaryController::class, 'massDestroy'])->name('dictionaries.multi_destroy');
     Route::get('dictionaries/child/{dictionary_id}', [DictionaryController::class, 'indexChild'])->name('dictionaries.index.child');
-    Route::delete('dictionaries/destroy', [DictionaryController::class, 'massDestroy'])->name('dictionaries.mass_destroy');
+    Route::resource('dictionaries', 'Admin\DictionaryController');
+
+    // Languages
+    Route::delete('languages/multi-destroy', [LanguageController::class, 'massDestroy'])->name('languages.multi_destroy');
+    Route::resource('languages', 'Admin\LanguageController');
+
+    // Translations
+    Route::get('translations', [TranslationController::class, 'edit'])->name('translations.edit');
+    Route::put('translations', [TranslationController::class, 'update'])->name('translations.update');
 
     // Change password
     Route::get('password', [ChangePasswordController::class, 'edit'])->name('password.edit');

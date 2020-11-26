@@ -20,9 +20,39 @@
                         <i class="fa-fw nav-icon fas fa-book">
                         </i>
                         <p>
-                            {{ trans('cruds.dictionaryManagement.title') }}
+                            {{ trans('cruds.dictionaries.title') }}
                         </p>
                     </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is("languages/*") ? 'active' : '' }}" href="{{ route('admin.languages.index') }}">
+                        <i class="fa-fw nav-icon fas fa-cogs">
+                        </i>
+                        <p>
+                            {{ trans('cruds.languages.title') }}
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item has-treeview {{ request()->is('admin/translations*') ? 'menu-open' : '' }}">
+                    <a class="nav-link nav-dropdown-toggle" href="#">
+                        <i class="fa-fw nav-icon fas fa-file-alt"></i>
+                        <p>
+                            {{ trans('global.translations') }}
+                            <i class="right fa fa-fw fa-angle-left nav-icon"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @foreach($languages as $language)
+                            <li class="nav-item">
+                                <a href="{{ route("admin.translations.edit") }}?path={{ $language->path }}" class="nav-link {{ strpos(urldecode(request()->fullUrl()), '/lang/' . $language->name) !== false ? 'active' : '' }}">
+                                    <i class="fa-fw nav-icon fas fa-file-alt"></i>
+                                    <p>{{ $language->name }}</p>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </li>
 
                 <li class="nav-item">

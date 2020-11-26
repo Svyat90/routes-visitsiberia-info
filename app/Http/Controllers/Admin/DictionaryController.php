@@ -144,7 +144,7 @@ class DictionaryController extends AdminController
     {
         $this->repository->deleteIds($request->ids);
 
-        return response(null, Response::HTTP_NO_CONTENT);
+        return response()->noContent();
     }
 
 }

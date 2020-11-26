@@ -43,8 +43,14 @@ return [
             'date_range_to_helper'       => '',
         ],
     ],
-    'dictionaryManagement'            => [
-        'title'          => 'Dictionaries',
-        'title_singular' => 'Dictionary',
+    'languages'                     => [
+        'title'          => 'Languages',
+        'title_singular' => 'Language',
+        'fields'         => [
+            'locale'              => 'Locale',
+            'locale_helper'       => '',
+            'active'              => 'Active',
+            'active_helper'       => ''
+        ],
     ],
 ];

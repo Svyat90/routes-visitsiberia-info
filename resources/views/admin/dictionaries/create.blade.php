@@ -46,9 +46,7 @@
 
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label class="" for="dictionary_id">{{ trans('global.parent') }}</label>
-                        <select class="form-control {{ $errors->has('roles') ? 'is-invalid' : '' }}"
-                                name="dictionary_id"
-                                id="dictionary_id">
+                        <select name="dictionary_id" id="dictionary_id" class="form-control {{ $errors->has('dictionary_id') ? 'is-invalid' : '' }}">
                             <option value="0">{{ trans('global.pleaseSelect') }}</option>
                             @foreach($dictionaryList as $id => $dictionary)
                                 <option value="{{ $id }}" {{ $id === old('dictionary_id') ? 'selected' : '' }}>{{ $dictionary }}</option>
