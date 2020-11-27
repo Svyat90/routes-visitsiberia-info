@@ -46,9 +46,9 @@
                     <ul class="nav nav-treeview">
                         @foreach($languages as $language)
                             <li class="nav-item">
-                                <a href="{{ route("admin.translations.edit") }}?path={{ $language->path }}" class="nav-link {{ strpos(urldecode(request()->fullUrl()), '/lang/' . $language->name) !== false ? 'active' : '' }}">
+                                <a href="{{ route("admin.translations.edit") }}?path={{ $language->path }}" class="nav-link {{ strpos(urldecode(request()->fullUrl()), '/lang/' . $language->locale) !== false ? 'active' : '' }}">
                                     <i class="fa-fw nav-icon fas fa-file-alt"></i>
-                                    <p>{{ $language->name }}</p>
+                                    <p>{{ $language->locale }}</p>
                                 </a>
                             </li>
                         @endforeach

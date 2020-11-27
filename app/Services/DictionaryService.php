@@ -42,29 +42,21 @@ class DictionaryService
      */
     public function getDictionaryDatatables(? int $dictionaryId = null)
     {
-        if ($dictionaryId) {
-            $parent = $this->repository->getDictionary($dictionaryId);
-            $queryBuilder = $parent->children();
+        $collection = $this->repository->getCollectionToIndex($dictionaryId);
 
-        } else {
-            $queryBuilder = $this->repository->getParentsBuilder();
-        }
-
-        $query = $queryBuilder->select($this->repository->table . '.*');
-
-        $name = localeColumn('name');
-
-        return Datatables::of($query)
+        return Datatables::of($collection)
             ->addColumn('placeholder', '&nbsp;')
             ->editColumn('id', fn ($row) => $row->id)
-            ->editColumn($name, fn ($row) => $row->children->count()
-                ? "<a href='" . route("admin.dictionaries.index.child", $row->id) ."'>{$row->$name}</a>"
-                : $row->$name
-            )
+            ->editColumn('name', function ($row) {
+                $name = columnTrans($row, 'name');
+                return $row->children->count()
+                    ? "<a href='" . route("admin.dictionaries.index.child", $row->id) ."'>$name</a>"
+                    : $name;
+            })
             ->editColumn('hidden', fn ($row) => LabelHelper::boolLabel($row->hidden))
             ->editColumn('created_at', fn ($row) => $row->created_at)
             ->addColumn('actions', fn ($row) => DatatablesHelper::renderActionsRow($row, 'dictionaries'))
-            ->rawColumns(['actions', 'placeholder', 'hidden', $name])
+            ->rawColumns(['actions', 'placeholder', 'hidden', 'name'])
             ->make(true);
     }
 

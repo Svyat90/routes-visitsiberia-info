@@ -11,7 +11,7 @@ trait TranslationTrait
     {
         $service = app(LanguageService::class);
 
-        $languages = $service->getActiveLanguages();
+        $languages = $service->repository->getCreatedLanguages();
 
         View::share(compact('languages'));
     }

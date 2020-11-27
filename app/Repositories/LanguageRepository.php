@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Language;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class LanguageRepository extends Language
 {
@@ -26,6 +27,14 @@ class LanguageRepository extends Language
         return static::query()
             ->pluck('locale')
             ->toArray();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCreatedLanguages() : Collection
+    {
+        return $this->getLanguagesBuilder()->get();
     }
 
     /**

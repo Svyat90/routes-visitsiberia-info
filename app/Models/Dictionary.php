@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Dictionary
@@ -14,7 +15,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Dictionary extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasTranslations;
+
+    /**
+     * @var array|string[]
+     */
+    public array $translatable = [
+        'name'
+    ];
 
     /**
      * @var string
@@ -25,7 +33,7 @@ class Dictionary extends Model
      * @var string[]
      */
     protected $fillable = [
-        'name_ru', 'name_en', 'type', 'hidden',
+        'name', 'type', 'hidden',
         'date_range_from', 'date_range_to'
     ];
 
@@ -36,6 +44,7 @@ class Dictionary extends Model
         'hidden' => 'boolean',
         'date_range_from' => 'datetime',
         'date_range_to' => 'datetime',
+        'name' => 'array'
     ];
 
     /**

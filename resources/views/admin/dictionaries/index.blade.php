@@ -24,7 +24,7 @@
                         {{ trans('cruds.base.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.dictionaries.fields.name') }}
+                        {{ trans('cruds.dictionaries.fields.name') }} ({{ app()->getLocale() }})
                     </th>
                     <th>
                         {{ trans('cruds.dictionaries.fields.hidden') }}
@@ -77,8 +77,6 @@
             }
             dtButtons.push(deleteButton)
 
-            let name = '{{ localeColumn('name') }}';
-
             let dtOverrideGlobals = {
                 buttons: dtButtons,
                 processing: true,
@@ -89,7 +87,7 @@
                 columns: [
                     {data: 'placeholder', name: 'placeholder'},
                     {data: 'id', name: 'id'},
-                    {data: name, name: name},
+                    {data: 'name', name: 'name'},
                     {data: 'hidden', name: 'hidden'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'actions', name: '{{ trans('global.actions') }}'}

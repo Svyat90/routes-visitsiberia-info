@@ -33,10 +33,30 @@ class DictionaryRepository extends Dictionary
     public function getListForSelect() : Collection
     {
         return static::query()
-            ->pluck(
-                localeColumn('name'),
-                'id'
-            );
+            ->get()
+            ->groupBy('id', true)
+            ->map(function (Collection $items) {
+                return columnTrans($items->shift(), 'name');
+            });
+    }
+
+    /**
+     * @param int|null $dictionaryId
+     * @return Collection
+     */
+    public function getCollectionToIndex(? int $dictionaryId = null) : Collection
+    {
+        if ($dictionaryId) {
+            $parent = $this->getDictionary($dictionaryId);
+            $queryBuilder = $parent->children();
+
+        } else {
+            $queryBuilder = $this->getParentsBuilder();
+        }
+
+        return $queryBuilder
+            ->select($this->table . '.*')
+            ->get();
     }
 
     /**
@@ -45,7 +65,11 @@ class DictionaryRepository extends Dictionary
      */
     public function saveDictionary(array $data) : Model
     {
-        return static::query()->create($data);
+        $dictionary = $this->fillDictionary($data);
+
+        $dictionary->save();
+
+        return $dictionary;
     }
 
     /**
@@ -56,7 +80,21 @@ class DictionaryRepository extends Dictionary
     {
         $parent = $this->getDictionary($data['dictionary_id']);
 
-        return $parent->children()->create($data);
+        $dictionary = $this->fillDictionary($data);
+
+        return $parent->children()->save($dictionary);
+    }
+
+    /**
+     * @param array $data
+     * @return Dictionary
+     */
+    public function fillDictionary(array $data) : Dictionary
+    {
+        $dictionary = new Dictionary($data);
+        $dictionary->setTranslations('name', $data['name']);
+
+        return $dictionary;
     }
 
     /**
@@ -81,6 +119,7 @@ class DictionaryRepository extends Dictionary
     public function updateData(array $data, Dictionary $dictionary) : Dictionary
     {
         $dictionary->update($data);
+        $dictionary->setTranslations('name', $data['name']);
 
         return $dictionary->refresh();
     }

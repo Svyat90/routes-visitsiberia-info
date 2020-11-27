@@ -83,7 +83,7 @@ class LanguageService
     private function fillLang(string $path) : \stdClass
     {
         $lang = new \stdClass();
-        $lang->name = collect(explode(DIRECTORY_SEPARATOR, $path))->last();
+        $lang->locale = collect(explode(DIRECTORY_SEPARATOR, $path))->last();
         $lang->path = $path;
 
         return $lang;

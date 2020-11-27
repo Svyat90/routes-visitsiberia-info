@@ -4,10 +4,16 @@ namespace Database\Seeders;
 
 use App\Models\Dictionary;
 use App\Services\DictionaryService;
+use App\Services\TranslationService;
 use Illuminate\Database\Seeder;
 
 class DictionarySeeder extends Seeder
 {
+    /**
+     * @var TranslationService
+     */
+    private TranslationService $translationService;
+
     /**
      * @var array|string[][]
      */
@@ -92,32 +98,36 @@ class DictionarySeeder extends Seeder
     ];
 
     /**
-     * Run the database seeds.
-     *
-     * @return void
+     * DictionarySeeder constructor.
+     * @param TranslationService $translationService
      */
+    public function __construct(TranslationService $translationService)
+    {
+        $this->translationService = $translationService;
+    }
+
     public function run()
     {
         collect($this->dictionaries)->each(function ($data, $parentName) {
             $this->command->info('Parent: ' . $parentName);
 
-            $parent = Dictionary::query()->create([
-                'name_ru' => $parentName,
-                'name_en' => $parentName,
-                'type' => $data['type']
-            ]);
+            $parent = new Dictionary(['type' => $data['type']]);
+            $this->translationService->setLocaleTranslates($parent, 'name', $parentName);
+            $parent->save();
 
             $dateRanges = $data['type'] === DictionaryService::TYPE_SEASON ? $data['date_ranges'] : [];
 
             collect($data['values'])->each(function ($childName, $key) use ($parent, $dateRanges) {
                 $this->command->info('Child: ' . $childName);
 
-                $parent->children()->save(new Dictionary([
-                    'name_ru' => $childName,
-                    'name_en' => $childName,
+                $child = new Dictionary([
                     'date_range_from' => ! empty($dateRanges[$key]) ? $dateRanges[$key][0] : null,
                     'date_range_to' => ! empty($dateRanges[$key]) ? $dateRanges[$key][1] : null,
-                ]));
+                ]);
+
+                $this->translationService->setLocaleTranslates($child, 'name', $childName);
+
+                $parent->children()->save($child);
             });
         });
     }

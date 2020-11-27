@@ -20,22 +20,28 @@
                         <td>{{ $dictionary->id }}</td>
                     </tr>
                     <tr>
-                        <th>{{ trans("global.parent") }}</th>
+                        <th>{{ trans("global.parent") }} ({{ app()->getLocale() }}) </th>
                         <td>
                             @if($dictionary->parent)
-                                <a href="{{ route('admin.dictionaries.show', $dictionary->parent->id) }}">{{ $dictionary->parent->{localeColumn('name')} }}</a>
+                                <a href="{{ route('admin.dictionaries.show', $dictionary->parent->id) }}">{{ columnTrans($dictionary->parent, 'name') }}</a>
                             @endif
                         </td>
                     </tr>
+
                     @foreach($dictionary->getFillable() as $field)
                         @if($field === 'hidden')
                             <tr>
-                                <th>{{ trans("cruds.dictionaries.fields.{$field}") }}</th>
+                                <th>
+                                    {{ trans("cruds.dictionaries.fields.{$field}") }}
+                                </th>
                                 <td>{!! \App\Helpers\LabelHelper::boolLabel($dictionary->{$field}) !!}</td>
                             </tr>
                         @else
                             <tr>
-                                <th>{{ trans("cruds.dictionaries.fields.{$field}") }}</th>
+                                <th>
+                                    {{ trans("cruds.dictionaries.fields.{$field}") }}
+                                    @if(isTranslable($dictionary, $field)) ({{ app()->getLocale() }}) @endif
+                                </th>
                                 <td>{{ $dictionary->{$field} }}</td>
                             </tr>
                         @endif

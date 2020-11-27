@@ -52,4 +52,5 @@ return [
 	"login_password" => "Password",
 	"logout" => "Logout",
     "welcome" => "Welcome to Admin Panel",
+    "parent" => "Parent",
 ];

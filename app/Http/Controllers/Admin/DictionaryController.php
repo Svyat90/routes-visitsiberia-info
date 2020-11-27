@@ -87,7 +87,7 @@ class DictionaryController extends AdminController
     {
         $dictionary = $this->service->createDictionary($request);
 
-        return redirect()->route('admin.dictionaries.show', $dictionary->type);
+        return redirect()->route('admin.dictionaries.show', $dictionary->id);
     }
 
     /**
