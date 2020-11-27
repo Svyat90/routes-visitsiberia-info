@@ -28,7 +28,7 @@ Route::get('/', function () {
 });
 
 // Admin
-Route::prefix('admin')->as('admin.')->group(function () {
+Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
 
     // Dictionaries

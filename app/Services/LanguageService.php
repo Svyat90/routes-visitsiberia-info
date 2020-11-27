@@ -53,7 +53,7 @@ class LanguageService
 
         $allLocales = collect(FileSystemHelper::getLangDirectories())
             ->map(function (string $path) {
-                return collect(explode("/", $path))->last();
+                return $this->filterLocale($path);
             });
 
         return $allLocales->diff($existLocales)->toArray();
@@ -68,8 +68,7 @@ class LanguageService
 
         return collect(FileSystemHelper::getLangDirectories())
             ->filter(function (string $path) use ($activeList) {
-                $locale = collect(explode(DIRECTORY_SEPARATOR, $path))->last();
-                return in_array($locale, $activeList);
+                return in_array($this->filterLocale($path), $activeList);
             })
             ->map(function ($path) {
                 return $this->fillLang($path);
@@ -83,10 +82,19 @@ class LanguageService
     private function fillLang(string $path) : \stdClass
     {
         $lang = new \stdClass();
-        $lang->locale = collect(explode(DIRECTORY_SEPARATOR, $path))->last();
+        $lang->locale = $this->filterLocale($path);
         $lang->path = $path;
 
         return $lang;
+    }
+
+    /**
+     * @param string $path
+     * @return string
+     */
+    private function filterLocale(string $path) : string
+    {
+        return collect(explode("/", $path))->last();
     }
 
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminController;
 use App\Http\Requests\User\UpdatePasswordRequest;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Http\RedirectResponse;
 
-class ChangePasswordController extends Controller
+class ChangePasswordController extends AdminController
 {
     /**
      * @return View

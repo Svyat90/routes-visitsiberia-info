@@ -30,14 +30,6 @@ class LanguageRepository extends Language
     }
 
     /**
-     * @return Collection
-     */
-    public function getCreatedLanguages() : Collection
-    {
-        return $this->getLanguagesBuilder()->get();
-    }
-
-    /**
      * @return Builder
      */
     public function getLanguagesBuilder()
