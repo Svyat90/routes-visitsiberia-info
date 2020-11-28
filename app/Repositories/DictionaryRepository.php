@@ -30,6 +30,17 @@ class DictionaryRepository extends Dictionary
     /**
      * @return Collection
      */
+    public function getBaseDictionaries() : Collection
+    {
+        return $this->getParentsBuilder()
+            ->with('children')
+            ->get()
+            ->groupBy('type');
+    }
+
+    /**
+     * @return Collection
+     */
     public function getListForSelect() : Collection
     {
         return static::query()

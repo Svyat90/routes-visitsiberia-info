@@ -9,5 +9,10 @@ use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
+    /**
+     * @var int
+     */
+    protected int $pageLimit = 24;
+
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }

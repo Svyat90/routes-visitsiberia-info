@@ -9,6 +9,7 @@ use App\Http\Requests\Dictionaries\UpdateDictionaryRequest;
 use App\Models\Dictionary;
 use App\Repositories\DictionaryRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Yajra\DataTables\Facades\DataTables;
 
 class DictionaryService
@@ -33,6 +34,14 @@ class DictionaryService
     public function __construct(DictionaryRepository $repository)
     {
         $this->repository = $repository;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getBaseDictionaries() : Collection
+    {
+        return $this->repository->getBaseDictionaries();
     }
 
     /**
