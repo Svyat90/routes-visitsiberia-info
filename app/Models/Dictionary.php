@@ -44,7 +44,7 @@ class Dictionary extends Model
         'hidden' => 'boolean',
         'date_range_from' => 'datetime',
         'date_range_to' => 'datetime',
-        'name' => 'array'
+        'name' => 'json'
     ];
 
     protected $hidden = [
