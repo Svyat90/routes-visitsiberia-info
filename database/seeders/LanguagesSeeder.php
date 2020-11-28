@@ -11,7 +11,7 @@ class LanguagesSeeder extends Seeder
      * @var string[]
      */
     private array $languages = [
-        'ru'
+        'ru', 'en'
     ];
 
     /**
