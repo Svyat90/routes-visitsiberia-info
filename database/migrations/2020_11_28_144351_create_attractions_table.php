@@ -15,7 +15,7 @@ class CreateAttractionsTable extends Migration
     {
         Schema::create('attractions', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 128)->nullable();
+            $table->json('name')->nullable();
             $table->string('lat', 32);
             $table->string('lng', 32);
             $table->timestamps();

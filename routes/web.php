@@ -27,6 +27,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', 'Front\HomeController@redirectToHome');
+Route::get('home', 'Front\HomeController@index')->name('front.home');
+
 // Admin
 Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');

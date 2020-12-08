@@ -18,15 +18,19 @@ if (! function_exists('localeColumn')) {
 if (! function_exists('columnTrans')) {
 
     /**
-     * @param Model $model
-     * @param string $column
+     * @param Model       $model
+     * @param string      $column
+     * @param string|null $locale
+     *
      * @return string
      */
-    function columnTrans(Model $model, string $column) : string
+    function columnTrans(Model $model, string $column, string $locale = null) : string
     {
         $locales = $model->getTranslations($column);
 
-        return $locales[app()->getLocale()];
+        return $locale
+            ? $locales[$locale]
+            : $locales[app()->getLocale()] ?? '';
     }
 
 }

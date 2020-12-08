@@ -129,8 +129,8 @@ class DictionaryRepository extends Dictionary
      */
     public function updateData(array $data, Dictionary $dictionary) : Dictionary
     {
-        $dictionary->update($data);
         $dictionary->setTranslations('name', $data['name']);
+        $dictionary->update($data);
 
         return $dictionary->refresh();
     }

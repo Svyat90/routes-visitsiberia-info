@@ -1,0 +1,38 @@
+.ctr {
+  max-width: 1394px;
+  margin: 204px auto 274px;
+
+  &__container {
+    display: block;
+    width: 639px;
+    min-height: 524px;
+    padding: 81px 28px 28px;
+    background: #F2F6F9;
+    border-radius: 15px;
+    cursor: pointer;
+    color: $dark-blue;
+
+    &:first-child {
+      margin-right: 116px;
+    }
+  }
+
+  &__img {
+    margin-bottom: 36px;
+  }
+
+  &__title {
+    margin-bottom: 27px;
+    font-weight: 200;
+    font-size: 36px;
+    line-height: 43px;
+    text-align: center;
+  }
+
+  &__description {
+    font-weight: 300;
+font-size: 24px;
+line-height: 30px;
+text-align: center;
+  }
+}

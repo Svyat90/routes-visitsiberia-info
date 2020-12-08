@@ -47,10 +47,14 @@ class Dictionary extends Model
         'name' => 'json'
     ];
 
+    /**
+     * @var string[]
+     */
     protected $hidden = [
         'parent_id', 'hidden', 'date_range_from', 'date_range_to',
         'created_at', 'updated_at', 'deleted_at', 'type'
     ];
+
 
     /**
      * @return BelongsTo

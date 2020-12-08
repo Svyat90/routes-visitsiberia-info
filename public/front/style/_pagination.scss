@@ -1,0 +1,33 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 145px;
+
+  &__page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 57px;
+    height: 57px;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 38px;
+    color: #599CC1;
+    border-radius: 15px;
+    transition: background-color ease 0.5s;
+
+    &.active {
+      background-color: #F2F6F9;
+      color: $dark-blue;
+    }
+
+    &:hover {
+      background-color: #f9fbfc;
+    }
+
+    &:not(:last-child) {
+      margin-right: 30px;
+    }
+  }
+}

@@ -69,7 +69,10 @@ class AttractionFactory extends Factory
         $coordinates = collect($this->coordinates)->random();
 
         return [
-            'name' => $this->faker->name,
+            'name' => [
+                'ru' => $this->faker->name,
+                'en' => $this->faker->name,
+            ],
             'lat' => $coordinates[0],
             'lng' => $coordinates[1]
         ];

@@ -37,7 +37,7 @@
                                                    type="text"
                                                    name={{ $name }}"
                                                    id={{ $name }}"
-                                                   value="{{ old($name, columnTrans($dictionary, 'name')) }}">
+                                                   value="{{ old($name, columnTrans($dictionary, 'name', $language->locale)) }}">
                                             @if($errors->has($name))
                                                 <span class="text-danger">{{ $errors->first($name) }}</span>
                                             @endif
@@ -53,8 +53,8 @@
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label class="required" for="hidden">{{ trans('cruds.dictionaries.fields.hidden') }}</label>
                         <select name="hidden" id="hidden" class="form-control">
-                            <option value="0" {{ old('hidden', $dictionary->hidden) === false ? 'selected' : '' }}>false</option>
-                            <option value="1" {{ old('hidden', $dictionary->hidden) === true ? 'selected' : '' }}>true</option>
+                            <option value="0" {{ old('hidden', $dictionary->hidden) == false ? 'selected' : '' }}>false</option>
+                            <option value="1" {{ old('hidden', $dictionary->hidden) == true ? 'selected' : '' }}>true</option>
                         </select>
                         @if($errors->has('hidden'))
                             <span class="text-danger">{{ $errors->first('hidden') }}</span>
@@ -81,7 +81,7 @@
 
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label class="" for="dictionary_id">{{ trans('global.parent') }}</label>
-                        <select class="form-control {{ $errors->has('roles') ? 'is-invalid' : '' }}"
+                        <select class="form-control {{ $errors->has('dictionary_id') ? 'is-invalid' : '' }}"
                                 name="dictionary_id"
                                 id="dictionary_id">
                             <option value="0">{{ trans('global.pleaseSelect') }}</option>
