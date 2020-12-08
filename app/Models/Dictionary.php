@@ -56,6 +56,13 @@ class Dictionary extends Model
     ];
 
     /**
+     * @var string[]
+     */
+    protected $appends = [
+        'name'
+    ];
+
+    /**
      * @return BelongsTo
      */
     public function parent()
@@ -69,6 +76,11 @@ class Dictionary extends Model
     public function children()
     {
         return $this->hasMany(Dictionary::class, 'parent_id', 'id');
+    }
+
+    public function getNameAttribute()
+    {
+        return columnTrans($this, 'name');
     }
 
 }

@@ -24,7 +24,7 @@ class DictionaryRepository extends Dictionary
      */
     public function getParentsBuilder()
     {
-        return static::query()->whereNull('parent_id');
+        return Dictionary::query()->whereNull('parent_id');
     }
 
     /**

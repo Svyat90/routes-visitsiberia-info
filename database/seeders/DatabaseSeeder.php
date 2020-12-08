@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             LanguagesSeeder::class,
             DictionarySeeder::class,
+            AttractionSeeder::class
         ]);
     }
 }
