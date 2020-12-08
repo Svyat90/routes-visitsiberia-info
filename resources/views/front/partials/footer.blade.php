@@ -89,5 +89,4 @@
     <!-- <script src="https://cdn.rawgit.com/dubrox/Multiple-Dates-Picker-for-jQuery-UI/master/jquery-ui.multidatespicker.js"></script> -->
     <script src="{{ asset('front/js/jquery.plugin.js') }}"></script>
     <script src="{{ asset('front/js/jquery.datepick.js') }}"></script>
-    <script src="{{ asset('front/js/index.js') }}"></script>
 </footer>

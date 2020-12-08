@@ -1,8 +1,6 @@
 @extends('layouts.front')
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('front/style/_index.scss') }}">
-    <script src="{{ asset('front/js/index.js') }}"></script>
 @endsection
 
 @section('content')

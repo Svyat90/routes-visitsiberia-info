@@ -7,6 +7,11 @@ use App\Http\Controllers\Admin\ChangePasswordController;
 use App\Http\Controllers\Admin\DictionaryController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\LanguageController;
+use \App\Http\Controllers\Front\RouteController;
+use \App\Http\Controllers\Front\PlaceController;
+use \App\Http\Controllers\Front\EventController;
+use \App\Http\Controllers\Front\RoomController;
+use \App\Http\Controllers\Front\MealController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +32,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', 'Front\HomeController@redirectToHome');
-Route::get('home', 'Front\HomeController@index')->name('front.home');
+Route::namespace('Front')->group(function () {
+    Route::get('/', 'HomeController@redirectToHome');
+    Route::get('home', 'HomeController@index')->name('front.home');
+
+    Route::get('routes', [RouteController::class, 'index'])->name('front.routes.index');
+    Route::get('routes/show', [RouteController::class, 'show'])->name('front.routes.show');
+
+    Route::get('places', [PlaceController::class, 'index'])->name('front.places.index');
+    Route::get('places/show', [PlaceController::class, 'show'])->name('front.places.show');
+
+    Route::get('events', [EventController::class, 'index'])->name('front.events.index');
+    Route::get('events/show', [EventController::class, 'show'])->name('front.events.show');
+
+    Route::get('rooms', [RoomController::class, 'index'])->name('front.rooms.index');
+    Route::get('rooms/show', [RoomController::class, 'show'])->name('front.rooms.show');
+
+    Route::get('meals', [MealController::class, 'index'])->name('front.meals.index');
+    Route::get('meals/show', [MealController::class, 'show'])->name('front.meals.show');
+});
 
 // Admin
 Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {

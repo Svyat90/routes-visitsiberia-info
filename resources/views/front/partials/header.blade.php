@@ -9,22 +9,22 @@
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav w-100">
                     <li class="nav-item">
-                        <a class="nav-link" href="./">Главная</a>
+                        <a class="nav-link" href="{{ route('front.home') }}">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./route.html">Маршруты</a>
+                        <a class="nav-link" href="{{ route('front.routes.index') }}">Маршруты</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./places.html">Объекты</a>
+                        <a class="nav-link" href="{{ route('front.places.index') }}">Объекты</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./events.html">События</a>
+                        <a class="nav-link" href="{{ route('front.events.index') }}">События</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./rooms.html">Проживание</a>
+                        <a class="nav-link" href="{{ route('front.rooms.index') }}">Проживание</a>
                     </li>
                     <li class="nav-item mr-auto">
-                        <a class="nav-link" href="./meal.html">Еда</a>
+                        <a class="nav-link" href="{{ route('front.meals.index') }}">Еда</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./favorites.html">Избранное</a>
