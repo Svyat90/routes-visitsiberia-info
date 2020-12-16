@@ -16,6 +16,16 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route("admin.pages.index") }}" class="nav-link {{ request()->is("admin/pages") || request()->is("admin/pages/*") ? 'active' : '' }}" >
+                        <i class="fa-fw nav-icon fas fa-book">
+                        </i>
+                        <p>
+                            {{ trans('cruds.pages.title') }}
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route("admin.dictionaries.index") }}" class="nav-link {{ request()->is("admin/dictionaries") ? 'active' : '' }}" >
                         <i class="fa-fw nav-icon fas fa-book">
                         </i>

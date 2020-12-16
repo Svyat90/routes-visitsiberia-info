@@ -56,6 +56,9 @@ Route::namespace('Front')->group(function () {
 Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
 
+    // Pages
+    Route::resource('pages', 'Admin\PageController')->only('index', 'show', 'edit', 'update');
+
     // Dictionaries
     Route::delete('dictionaries/multi-destroy', [DictionaryController::class, 'massDestroy'])->name('dictionaries.multi_destroy');
     Route::get('dictionaries/child/{dictionary_id}', [DictionaryController::class, 'indexChild'])->name('dictionaries.index.child');

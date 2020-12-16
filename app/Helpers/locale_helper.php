@@ -44,7 +44,7 @@ if (! function_exists('isTranslable')) {
      */
     function isTranslable(Model $model, string $column) : bool
     {
-        return in_array($column, $model->translatable ?? []);
+        return in_array($column, $model->getTranslatable() ?? []);
     }
 
 }

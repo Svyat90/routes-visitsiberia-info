@@ -53,4 +53,18 @@ return [
             'active_helper'       => ''
         ],
     ],
+    'pages'                     => [
+        'title'          => 'Pages',
+        'title_singular' => 'Page',
+        'fields'         => [
+            'name'              => 'Name',
+            'name_helper'       => '',
+            'title'              => 'Title',
+            'title_helper'       => '',
+            'meta_title'              => 'Meta Title',
+            'meta_title_helper'       => '',
+            'meta_description'              => 'Meta Description',
+            'meta_description_helper'       => '',
+        ],
+    ],
 ];
