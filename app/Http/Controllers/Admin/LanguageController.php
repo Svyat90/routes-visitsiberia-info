@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
-use App\Http\Requests\Languages\MassDestroyLanguageRequest;
-use App\Http\Requests\Languages\StoreLanguageRequest;
-use App\Http\Requests\Languages\UpdateLanguageRequest;
 use App\Models\Language;
 use App\Services\LanguageService;
 use Illuminate\Http\Request;
@@ -14,6 +11,9 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\Admin\Languages\StoreLanguageRequest;
+use App\Http\Requests\Admin\Languages\UpdateLanguageRequest;
+use App\Http\Requests\Admin\Languages\MassDestroyLanguageRequest;
 
 class LanguageController extends AdminController
 {

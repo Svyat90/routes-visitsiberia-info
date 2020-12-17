@@ -2,17 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Attraction;
+use App\Models\Place;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Helpers\SlugHelper;
 
-class AttractionFactory extends Factory
+class PlaceFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Attraction::class;
+    protected $model = Place::class;
 
     /**
      * @var array|\string[][]
@@ -70,11 +71,12 @@ class AttractionFactory extends Factory
 
         return [
             'name' => [
-                'ru' => $this->faker->name,
+                'ru' => $name = $this->faker->name,
                 'en' => $this->faker->name,
             ],
             'lat' => $coordinates[0],
-            'lng' => $coordinates[1]
+            'lng' => $coordinates[1],
+            'slug' => SlugHelper::generate($name)
         ];
     }
 }

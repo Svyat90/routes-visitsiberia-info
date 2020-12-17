@@ -4,14 +4,16 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\ChangePasswordController;
-use App\Http\Controllers\Admin\DictionaryController;
+use App\Http\Controllers\Admin\PlaceController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\LanguageController;
 use \App\Http\Controllers\Front\RouteController;
-use \App\Http\Controllers\Front\PlaceController;
+use \App\Http\Controllers\Admin\PlaceController as AdminPlaceController;
 use \App\Http\Controllers\Front\EventController;
 use \App\Http\Controllers\Front\RoomController;
 use \App\Http\Controllers\Front\MealController;
+use \App\Http\Controllers\Admin\MediaController;
+use \App\Http\Controllers\Api\DictionaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +58,9 @@ Route::namespace('Front')->group(function () {
 Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
 
+    // Media
+    Route::post('media', [MediaController::class, 'upload'])->name('media.upload');
+
     // Pages
     Route::resource('pages', 'Admin\PageController')->only('index', 'show', 'edit', 'update');
 
@@ -63,6 +68,10 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     Route::delete('dictionaries/multi-destroy', [DictionaryController::class, 'massDestroy'])->name('dictionaries.multi_destroy');
     Route::get('dictionaries/child/{dictionary_id}', [DictionaryController::class, 'indexChild'])->name('dictionaries.index.child');
     Route::resource('dictionaries', 'Admin\DictionaryController');
+
+    // Places
+    Route::delete('places/multi-destroy', [AdminPlaceController::class, 'massDestroy'])->name('places.multi_destroy');
+    Route::resource('places', 'Admin\PlaceController');
 
     // Languages
     Route::delete('languages/multi-destroy', [LanguageController::class, 'massDestroy'])->name('languages.multi_destroy');

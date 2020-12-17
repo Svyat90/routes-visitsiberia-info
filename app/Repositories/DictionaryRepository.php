@@ -52,6 +52,22 @@ class DictionaryRepository extends Dictionary
     }
 
     /**
+     * @return Collection
+     */
+    public function getChildrenForSelect() : Collection
+    {
+        return static::query()
+            ->whereNotNull('parent_id')
+            ->with('parent')
+            ->get()
+            ->groupBy('id', true)
+            ->map(function (Collection $items) {
+                $item = $items->shift();
+                return sprintf('%s (%s)', $item->name, $item->parent->name);
+            });
+    }
+
+    /**
      * @param int|null $dictionaryId
      * @return Collection
      */

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\LanguageFileHelper;
 use App\Http\Controllers\AdminController;
-use App\Http\Requests\Translation\EditTranslationRequest;
-use App\Http\Requests\Translation\UpdateTranslationRequest;
+use App\Http\Requests\Admin\Translation\EditTranslationRequest;
+use App\Http\Requests\Admin\Translation\UpdateTranslationRequest;
 use App\Services\TranslationService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;

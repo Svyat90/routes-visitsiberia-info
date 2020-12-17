@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
-use App\Http\Requests\Dictionaries\MassDestroyDictionaryRequest;
-use App\Http\Requests\Dictionaries\StoreDictionaryRequest;
-use App\Http\Requests\Dictionaries\UpdateDictionaryRequest;
+use App\Http\Requests\Admin\Dictionaries\MassDestroyDictionaryRequest;
+use App\Http\Requests\Admin\Dictionaries\StoreDictionaryRequest;
+use App\Http\Requests\Admin\Dictionaries\UpdateDictionaryRequest;
 use App\Models\Dictionary;
 use App\Repositories\DictionaryRepository;
 use App\Services\DictionaryService;

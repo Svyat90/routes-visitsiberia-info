@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Translation;
+namespace App\Http\Requests\Admin\Languages;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class TranslationEditRequest
- * @property string $path
- * @property array $data
+ * Class LanguageUpdateRequest
+ * @property bool $active
  */
-class UpdateTranslationRequest extends FormRequest
+class UpdateLanguageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,8 +28,7 @@ class UpdateTranslationRequest extends FormRequest
     public function rules()
     {
         return [
-            'path' => 'required|string',
-            'data' => 'required|array'
+            'active' => 'required|bool'
         ];
     }
 }

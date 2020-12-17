@@ -11,9 +11,8 @@ class LabelHelper
      */
     public static function boolLabel($val) : string
     {
-        $strBool = var_export($val, true);
+        $str = $val ? __('global.yes') : __('global.no');
 
-        return '<span class="badge badge-' . ($val ? 'success' : 'danger') . '">' . $strBool . '</span>';
+        return '<span class="badge badge-' . ($val ? 'success' : 'danger') . '">' . $str . '</span>';
     }
-
 }

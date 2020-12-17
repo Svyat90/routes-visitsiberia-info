@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\Helpers\DatatablesHelper;
 use App\Helpers\LabelHelper;
-use App\Http\Requests\Dictionaries\StoreDictionaryRequest;
-use App\Http\Requests\Dictionaries\UpdateDictionaryRequest;
+use App\Http\Requests\Admin\Dictionaries\StoreDictionaryRequest;
+use App\Http\Requests\Admin\Dictionaries\UpdateDictionaryRequest;
 use App\Models\Dictionary;
 use App\Repositories\DictionaryRepository;
 use Carbon\Carbon;
@@ -29,6 +29,7 @@ class DictionaryService
 
     /**
      * DictionaryService constructor.
+     *
      * @param DictionaryRepository $repository
      */
     public function __construct(DictionaryRepository $repository)
@@ -57,10 +58,9 @@ class DictionaryService
             ->addColumn('placeholder', '&nbsp;')
             ->editColumn('id', fn ($row) => $row->id)
             ->editColumn('name', function ($row) {
-                $name = columnTrans($row, 'name');
                 return $row->children->count()
-                    ? "<a href='" . route("admin.dictionaries.index.child", $row->id) ."'>$name</a>"
-                    : $name;
+                    ? "<a href='" . route("admin.dictionaries.index.child", $row->id) ."'>{$row->name}</a>"
+                    : $row->name;
             })
             ->editColumn('hidden', fn ($row) => LabelHelper::boolLabel($row->hidden))
             ->editColumn('created_at', fn ($row) => $row->created_at)

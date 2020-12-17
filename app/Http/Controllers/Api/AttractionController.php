@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\AttractionResource;
-use App\Models\Attraction;
+use App\Http\Resources\PlaceResource;
+use App\Models\Place;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -16,9 +16,9 @@ class AttractionController extends Controller
      */
     public function index(Request $request)
     {
-        $collection = Attraction::query()->paginate($this->pageLimit);
+        $collection = Place::query()->paginate($this->pageLimit);
 
-        return AttractionResource::collection($collection);
+        return PlaceResource::collection($collection);
     }
 
 }

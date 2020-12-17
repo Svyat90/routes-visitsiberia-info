@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Dictionary
@@ -78,9 +79,12 @@ class Dictionary extends Model
         return $this->hasMany(Dictionary::class, 'parent_id', 'id');
     }
 
-    public function getNameAttribute()
+    /**
+     * @return BelongsToMany
+     */
+    public function places()
     {
-        return columnTrans($this, 'name');
+        return $this->belongsToMany(Place::class, 'place_dictionary', 'dictionary_id', 'place_id');
     }
 
 }

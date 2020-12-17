@@ -34,7 +34,7 @@
                                 <th>
                                     {{ trans("cruds.dictionaries.fields.{$field}") }}
                                 </th>
-                                <td>{!! \App\Helpers\LabelHelper::boolLabel($dictionary->{$field}) !!}</td>
+                                <td>{!! LabelHelper::boolLabel($dictionary->{$field}) !!}</td>
                             </tr>
                         @else
                             <tr>

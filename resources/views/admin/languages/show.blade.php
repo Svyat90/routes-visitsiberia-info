@@ -24,7 +24,7 @@
                         @if($field === 'active')
                             <tr>
                                 <th>{{ trans("cruds.languages.fields.{$field}") }}</th>
-                                <td>{!! \App\Helpers\LabelHelper::boolLabel($language->{$field}) !!}</td>
+                                <td>{!! LabelHelper::boolLabel($language->{$field}) !!}</td>
                             </tr>
                         @else
                             <tr>

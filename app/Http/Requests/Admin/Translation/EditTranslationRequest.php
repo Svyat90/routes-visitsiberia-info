@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Translation;
+namespace App\Http\Requests\Admin\Translation;
 
 use Illuminate\Foundation\Http\FormRequest;
 

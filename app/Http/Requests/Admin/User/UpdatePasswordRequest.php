@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Languages;
+namespace App\Http\Requests\Admin\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * Class LanguageUpdateRequest
- * @property bool $active
- */
-class UpdateLanguageRequest extends FormRequest
+class UpdatePasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +24,8 @@ class UpdateLanguageRequest extends FormRequest
     public function rules()
     {
         return [
-            'active' => 'required|bool'
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . auth()->id()],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
 }

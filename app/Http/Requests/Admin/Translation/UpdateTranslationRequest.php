@@ -1,10 +1,15 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Admin\Translation;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePasswordRequest extends FormRequest
+/**
+ * Class TranslationEditRequest
+ * @property string $path
+ * @property array $data
+ */
+class UpdateTranslationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +29,8 @@ class UpdatePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . auth()->id()],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'path' => 'required|string',
+            'data' => 'required|array'
         ];
     }
 }

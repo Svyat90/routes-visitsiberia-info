@@ -12,6 +12,7 @@ class DictionaryController extends Controller
 
     /**
      * @param DictionaryService $service
+     *
      * @return AnonymousResourceCollection
      */
     public function index(DictionaryService $service)

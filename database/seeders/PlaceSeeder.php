@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Attraction;
+use App\Models\Place;
 use Illuminate\Database\Seeder;
 
-class AttractionSeeder extends Seeder
+class PlaceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class AttractionSeeder extends Seeder
      */
     public function run()
     {
-        Attraction::factory()
+        Place::factory()
                 ->times(100)
                 ->create();
     }

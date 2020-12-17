@@ -1,15 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Dictionaries;
+namespace App\Http\Requests\Admin\Dictionaries;
 
-use App\Services\DictionaryService;
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * Class UpdateDictionaryRequest
- * @property string $type
- */
-class UpdateDictionaryRequest extends FormRequest
+class StoreDictionaryRequest extends FormRequest
 {
     public function authorize()
     {
@@ -17,7 +12,7 @@ class UpdateDictionaryRequest extends FormRequest
     }
 
     /**
-     * @return string[]
+     * @return array
      */
     public function rules()
     {
@@ -26,11 +21,6 @@ class UpdateDictionaryRequest extends FormRequest
             'name.*' => 'string|nullable|max:128',
             'hidden' => 'required|bool',
             'dictionary_id' => 'sometimes|int',
-            'date_range' => [
-                $this->type === DictionaryService::TYPE_SEASON ? 'required' : 'sometimes',
-                'string'
-            ],
         ];
     }
-
 }
