@@ -76,7 +76,8 @@ class PlaceFactory extends Factory
             ],
             'lat' => $coordinates[0],
             'lng' => $coordinates[1],
-            'slug' => SlugHelper::generate(new Place(), ['ru' => $name])
+            'slug' => SlugHelper::generate(new Place(), ['ru' => $name]),
+            'location' => 'c. Парная'
         ];
     }
 }

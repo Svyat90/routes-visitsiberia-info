@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class DictionaryRepository extends Dictionary
+class DictionaryRepository extends Model
 {
 
     /**
@@ -16,7 +16,7 @@ class DictionaryRepository extends Dictionary
      */
     public function getDictionary(int $id) : Model
     {
-        return static::query()->find($id);
+        return Dictionary::query()->find($id);
     }
 
     /**
@@ -43,7 +43,7 @@ class DictionaryRepository extends Dictionary
      */
     public function getListForSelect() : Collection
     {
-        return static::query()
+        return Dictionary::query()
             ->get()
             ->groupBy('id', true)
             ->map(function (Collection $items) {
@@ -56,7 +56,7 @@ class DictionaryRepository extends Dictionary
      */
     public function getChildrenForSelect() : Collection
     {
-        return static::query()
+        return Dictionary::query()
             ->whereNotNull('parent_id')
             ->with('parent')
             ->get()
@@ -156,7 +156,7 @@ class DictionaryRepository extends Dictionary
      */
     public function deleteIds(array $ids) : void
     {
-        static::query()
+        Dictionary::query()
             ->whereIn('id', $ids)
             ->delete();
     }

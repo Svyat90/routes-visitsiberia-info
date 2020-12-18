@@ -75,18 +75,4 @@
             &copy; 2020. Туристский портал Красноярского края
         </p>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" integrity="sha512-Eak/29OTpb36LLo2r47IpVzPBLXnAMPAVypbSZiZ4Qkf8p/7S/XRG5xp7OKWPPYfJT6metI+IORkR5G8F900+g==" crossorigin="anonymous"></script>
-    <script>
-        new WOW().init();
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
-
-    <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <!-- <script src="./js/jquery-ui.multidatespicker.js"></script> -->
-    <!-- <script src="https://cdn.rawgit.com/dubrox/Multiple-Dates-Picker-for-jQuery-UI/master/jquery-ui.multidatespicker.js"></script> -->
-    <script src="{{ asset('front/js/jquery.plugin.js') }}"></script>
-    <script src="{{ asset('front/js/jquery.datepick.js') }}"></script>
 </footer>

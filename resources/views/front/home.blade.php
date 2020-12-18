@@ -7,59 +7,28 @@
     <main class="main" id="index">
         <div class="index d-flex flex-column" id="index-vue">
             <div class="index__header d-flex flex-column align-items-center justify-content-center">
-                <div class="index__socials d-flex flex-column align-items-center wow fadeInRight">
-                    <a href="#" class="index__social nop">
-                        <img src="{{ asset('front/img/facebook.svg') }}" alt="facebook">
-                    </a>
-                    <a href="#" class="index__social nop">
-                        <img src="{{ asset('front/img/vk.svg') }}" alt="vkontakte">
-                    </a>
-                    <a href="#" class="index__social nop">
-                        <img src="{{ asset('front/img/youtube.svg') }}" alt="youtube">
-                    </a>
-                    <a href="#" class="index__social nop">
-                        <img src="{{ asset('front/img/instagram.svg') }}" alt="instagram">
-                    </a>
-                    <a href="#" class="index__social nop">
-                        <img src="{{ asset('front/img/ok.svg') }}" alt="odnoklassniki">
-                    </a>
-                </div>
-                <h1 class="index__heading exo">
-                    Енисейская Cибирь
+                <h1 class="index__tagline">
+                    Постройте маршрут и отправляйтесь в путешествие!
                 </h1>
-                <div class="index__transports d-flex flex-row">
-                    <button class="btn material-icons index__transport">
-                        directions_car
-                    </button>
-                    <button class="btn material-icons active index__transport">
-                        directions_bus
-                    </button>
-                    <button class="btn material-icons index__transport">
-                        directions_walk
-                    </button>
-                </div>
                 <div class="index__constructor-wr">
                     <div class="index__constructor">
                         <div class="heading__selects heading__selects--index">
                             <div class="heading__select">
-                                <input
-                                    id="first"
-                                    autocomplete="off"
-                                    placeholder="Начало пути — Финиш"
-                                    readonly
-                                >
+                                <input id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
                             </div>
-                            <select id="second">
-                                <option disabled selected>Сколько дней</option>
-                                <option>1 - 3 дней</option>
-                                <option>3 - 7 дней</option>
-                                <option>7 - 10 дней</option>
-                                <option>10 - 15 дней</option>
-                                <option>15 - 25 дней</option>
-                                <option>25+ дней</option>
-                            </select>
+                            <div class="index__transports d-flex flex-row">
+                                <button class="btn material-icons index__transport">
+                                    directions_car
+                                </button>
+                                <button class="btn material-icons active index__transport">
+                                    directions_bus
+                                </button>
+                                <button class="btn material-icons index__transport">
+                                    directions_walk
+                                </button>
+                            </div>
                             <select id="third">
-                                <option disabled selected>С кем</option>
+                                <option disabled="disabled" selected="selected">С кем</option>
                                 <option>Один или вдвоем</option>
                                 <option>С ребенком до 3 лет</option>
                                 <option>С ребенком до 10 лет</option>
@@ -68,9 +37,9 @@
                                 <option>Компания от 4-х человек</option>
                             </select>
                             <select id="fourth">
-                                <option disabled selected>Тип отдыха</option>
+                                <option disabled="disabled" selected="selected">Тип отдыха</option>
                                 <option title="Включает осмотр природных достопримечательностей, парков, заповедников, гор, катание на лыжах, сноубордах и т.п.">Активно-приключенческий</option>
-                                <option title=" Включает в себя более спокойные виды отдыха, такие как отдых на озерах, вблизи рек и на Красноярском море.">Спокойный отдых</option>
+                                <option title="Включает в себя более спокойные виды отдыха, такие как отдых на озерах, вблизи рек и на Красноярском море.">Спокойный отдых</option>
                                 <option title="Включает в себя изучение таких направлений как Енисейск, Шушенское, Минусинск, Ачинск и Красноярск с точки зрения паломничества.">Культурно-познавательный</option>
                             </select>
                             <button id="index__submit">
@@ -79,9 +48,6 @@
                         </div>
                     </div>
                 </div>
-                <p class="index__tagline">
-                    Постройте маршрут и отправляйтесь в путешествие!
-                </p>
             </div>
             <div class="index__plans-wr">
                 <div class="index__plans d-flex flex-column">

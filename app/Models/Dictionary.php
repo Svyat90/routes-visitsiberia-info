@@ -11,12 +11,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Dictionary
+ *
  * @property $children
  * @property $parent
  */
-class Dictionary extends Model
+class Dictionary extends BaseModel
 {
-    use SoftDeletes, HasTranslations;
+    use SoftDeletes;
 
     /**
      * @var array|string[]
@@ -44,8 +45,7 @@ class Dictionary extends Model
     protected $casts = [
         'hidden' => 'boolean',
         'date_range_from' => 'datetime',
-        'date_range_to' => 'datetime',
-        'name' => 'json'
+        'date_range_to' => 'datetime'
     ];
 
     /**
@@ -54,13 +54,6 @@ class Dictionary extends Model
     protected $hidden = [
         'parent_id', 'hidden', 'date_range_from', 'date_range_to',
         'created_at', 'updated_at', 'deleted_at', 'type'
-    ];
-
-    /**
-     * @var string[]
-     */
-    protected $appends = [
-        'name'
     ];
 
     /**

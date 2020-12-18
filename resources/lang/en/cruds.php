@@ -101,6 +101,8 @@ return [
             'image_history_helper'       => '',
             'image_gallery'              => 'Images (Gallery)',
             'image_gallery_helper'       => '',
+            'location'              => 'Location (Text)',
+            'location_helper'       => '',
         ],
     ],
 ];
