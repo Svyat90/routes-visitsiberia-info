@@ -105,4 +105,16 @@ return [
             'location_helper'       => '',
         ],
     ],
+    'vars'                     => [
+        'title'          => 'Vars',
+        'title_singular' => 'Var',
+        'fields'         => [
+            'key'              => 'Key',
+            'key_helper'       => '',
+            'val_ru'              => 'Val (ru)',
+            'val_ru_helper'       => '',
+            'val_en'              => 'Val (en)',
+            'val_en_helper'       => '',
+        ],
+    ],
 ];

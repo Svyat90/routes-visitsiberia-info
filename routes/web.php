@@ -79,4 +79,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     // Change password
     Route::get('password', [ChangePasswordController::class, 'edit'])->name('password.edit');
     Route::post('password', [ChangePasswordController::class, 'update'])->name('password.update');
+
+    // Vars
+    Route::resource('vars', 'Admin\VarController')->except('create', 'store', 'destroy');
 });

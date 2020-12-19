@@ -18,7 +18,7 @@
                                     d="M7.02333 0L7 37.3333L28 51.3333L48.9767 37.3333L49 0H7.02333ZM23.3333 35L11.6667 23.3333L14.9567 20.02L23.3333 28.3967L41.0433 10.6867L44.3333 14L23.3333 35Z"
                                     fill="#FFB906"/>
                             </svg>
-                            <p class="article__recommendation-text">ТИЦ рекомендует</p>
+                            <p class="article__recommendation-text">{{ $vars['base_tic_recommended'] }}</p>
                         </div>
                     @endif
                     <div class="article__sign wow fadeInLeft">
@@ -35,22 +35,22 @@
 
                 <sidebar class="article__page-nav page-nav wow fadeInRight">
                     <ul class="page-nav__list">
-                        <li>Описание</li>
-                        <li class="page-nav__item">Полезная информация</li>
-                        <li class="page-nav__item">Фото</li>
-                        <li class="page-nav__item">История</li>
-                        <li class="page-nav__item">Как добраться</li>
-                        <li class="page-nav__item">Отзывы</li>
-                        <li class="page-nav__item">События рядом</li>
-                        <li class="page-nav__item">Где остановиться</li>
-                        <li class="page-nav__item">Где покушать</li>
+                        <li>{{ $vars['base_desc'] }}</li>
+                        <li class="page-nav__item">{{ $vars['base_help_info'] }}</li>
+                        <li class="page-nav__item">{{ $vars['base_photo'] }}</li>
+                        <li class="page-nav__item">{{ $vars['base_history'] }}</li>
+                        <li class="page-nav__item">{{ $vars['base_how_to_get'] }}</li>
+                        <li class="page-nav__item">{{ $vars['base_reviews'] }}</li>
+                        <li class="page-nav__item">{{ $vars['base_events_early'] }}</li>
+                        <li class="page-nav__item">{{ $vars['base_where_to_stay'] }}</li>
+                        <li class="page-nav__item">{{ $vars['base_where_to_eat'] }}</li>
                     </ul>
                     <div class="page-nav__button">
                         <button class="page-nav__off">
                             <span class="material-icons page-nav__icon-add">add</span>
                         </button>
                         <a href="#" class="page-nav__share">
-                            Поделиться
+                            {{ $vars['base_share'] }}
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="19.5px"
                                  height="22px"
                                  class="page-nav__icon-share">
@@ -60,7 +60,7 @@
                             </svg>
                         </a>
                     </div>
-                    <a href="#" class="page-nav__link-map">Перейти к маршруту</a>
+                    <a href="#" class="page-nav__link-map">{{ $vars['base_go_to_route'] }}</a>
                 </sidebar>
             </div>
 
@@ -71,7 +71,7 @@
                 <div class="article__text article__block-info wow fadeInUp">
                     {!! $place->page_desc !!}
                     <p class="article__contact-title">
-                        Полезная информация:
+                        {{ $vars['base_help_info'] }}:
                     </p>
                     {!! $place->helpful_info !!}
                 </div>
@@ -111,10 +111,10 @@
 
             <section class="article__history article__block">
                 <div class="article__history-block wow fadeInLeft">
-                    <h2 class="article__name exo">История</h2>
+                    <h2 class="article__name exo">{{ $vars['base_history'] }}</h2>
                     <div class="article__history-text">
                         <p class="article__text">
-                            {{ $place->history_desc}}
+                            {!! $place->history_desc !!}
                         </p>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
             <section class="article__block article__pass">
                 <div class="article__pass-text">
                     <h2 class="article__name wow fadeInUp">
-                        Как добраться
+                        {{ $vars['base_how_to_get'] }}
                     </h2>
                     <p class="article__text wow fadeInUp">
                         {!! $place->contact_desc !!}
@@ -134,12 +134,12 @@
                 </div>
 
                 <div class="article__map-wrap">
-                    <img src="{{ asset('front/img/Rectangle126.png') }}" alt="Map" class="article__map">
+                    <div id="map"></div>
                 </div>
             </section>
 
             <section class="article__feedback article__block">
-                <h2 class="article__name wow fadeInUp">Отзывы</h2>
+                <h2 class="article__name wow fadeInUp">{{ $vars['base_reviews'] }}:</h2>
                 <div class="article__feedback-slider wow fadeInUp">
                     <div class="feedback">
                         <div class="feedback__img-wr">
@@ -192,7 +192,7 @@
 
             <section class="article__events article__block">
                 <h2 class="article__name article__name-position wow fadeInUp">
-                    События поблизости
+                    {{ $vars['base_events_early'] }}
                 </h2>
                 <div class="article__cafe-slider wow fadeInUp">
                     <div class="swiper-container e1 article__events-slider-cont">
@@ -324,7 +324,7 @@
 
             <section class="article__place-for-sleep article__block">
                 <h2 class="article__name article__name-position wow fadeInUp">
-                    Где остановиться в пути
+                    {{ $vars['base_where_to_stay_on_way'] }}
                 </h2>
                 <div class="article__cafe-slider wow fadeInUp">
                     <div class="swiper-container e2 article__events-slider-cont">
@@ -456,7 +456,7 @@
 
             <section class="article__cafe article__block">
                 <h2 class="article__name article__name-position wow fadeInUp">
-                    Самые вкусные места на маршруте
+                    {{ $vars['base_where_to_eat_desc'] }}
                 </h2>
                 <div class="article__cafe-slider wow fadeInUp">
                     <div class="swiper-container e3 article__events-slider-cont">
@@ -591,4 +591,41 @@
 
 @section('scripts')
     @parent
+    <script>
+        ymaps.ready(init);
+
+        function init() {
+            let item = {
+                lat: '{{ $place->lat }}',
+                lng: '{{ $place->lng }}'
+            }
+
+            var myMap = new ymaps.Map('map', {
+                center: [item.lat, item.lng],
+                zoom: 10
+            }, {
+                searchControlProvider: 'yandex#search'
+            })
+
+            var MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
+                '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+            )
+
+
+            myPlacemark = new ymaps.Placemark([item.lat, item.lng], {
+                hintContent: 'Собственный значок метки',
+                balloonContent: 'Это красивая метка'
+            }, {
+                // options
+                iconLayout: 'default#imageWithContent',
+                iconImageHref: '{{ asset('front/img/geo.svg') }}',
+                iconImageSize: [48, 48],
+                iconImageOffset: [-24, -24],
+                iconContentOffset: [15, 15],
+                iconContentLayout: MyIconContentLayout
+            })
+            myMap.geoObjects.add(myPlacemark)
+
+        }
+    </script>
 @endsection

@@ -76,6 +76,16 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route("admin.vars.index") }}" class="nav-link {{ request()->is("admin/vars") || request()->is("admin/vars/*") ? 'active' : '' }}" >
+                        <i class="fa-fw nav-icon fas fa-book">
+                        </i>
+                        <p>
+                            {{ trans('cruds.vars.title') }}
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link {{ request()->is('admin/password') || request()->is('admin/password/*') ? 'active' : '' }}" href="{{ route('admin.password.edit') }}">
                         <i class="fa-fw fas fa-key nav-icon">
                         </i>

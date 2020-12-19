@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
 use App\Services\PlaceService;
 use App\Services\DictionaryService;
 use App\Helpers\CollectionHelper;
@@ -12,8 +11,9 @@ use App\Models\Place;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use App\Http\Controllers\FrontController;
 
-class PlaceController extends Controller
+class PlaceController extends FrontController
 {
 
     /**
@@ -28,6 +28,7 @@ class PlaceController extends Controller
      */
     public function __construct(PlaceService $service)
     {
+        parent::__construct();
         $this->service = $service;
     }
 
@@ -37,8 +38,9 @@ class PlaceController extends Controller
         $seasonList = $dictionaryService->getSeasonList();
         $categoryList = $dictionaryService->getCategoryPlaceList();
         $whomList = $dictionaryService->getWhomList();
+        $data = $this->service->repository->getCollectionToIndex();
 
-        $places = CollectionHelper::paginate($this->service->repository->getCollectionToIndex(), $this->pageLimit)
+        $places = CollectionHelper::paginate($data, $this->pageLimit)
             ->appends([
                 'type_id' => $request->type_id,
                 'season_id' => $request->season_id,
@@ -46,7 +48,18 @@ class PlaceController extends Controller
                 'whom_id' => $request->whom_id
             ]);
 
-        return view('front.places.index', compact('places', 'typeList', 'seasonList', 'categoryList', 'whomList'));
+        $geoData = $data->map(function (Place $place) {
+            return ['lat' => $place->lat, 'lng' => $place->lng];
+        });
+
+        return view('front.places.index', compact(
+            'places',
+            'typeList',
+            'seasonList',
+            'categoryList',
+            'whomList',
+            'geoData'
+        ));
     }
 
     /**

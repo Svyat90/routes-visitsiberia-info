@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Front;
 
-use Illuminate\Http\RedirectResponse;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\FrontController;
 
-class MealController extends Controller
+class MealController extends FrontController
 {
 
     public function index()

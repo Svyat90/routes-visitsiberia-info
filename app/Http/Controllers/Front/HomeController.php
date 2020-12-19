@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\RedirectResponse;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\FrontController;
 
-class HomeController extends Controller
+class HomeController extends FrontController
 {
 
     public function index()

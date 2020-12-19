@@ -7,14 +7,14 @@
     <main class="main" id="places">
         <div class="places d-flex flex-column" id="places">
             <div class="places__heading heading heading--yellow" id="heading">
-                <h1 class="heading__title heading__title--big">Достопримечательности</h1>
+                <h1 class="heading__title heading__title--big">{{ $vars['places_title'] }}</h1>
                 <div class="heading__selects heading__selects--places wow fadeInUp">
                     <form action="{{ route('front.places.index') }}" name="filters" style="display: flex;">
                         <div class="heading__select" id="heading-type_id">
                             <select name="type_id" id="type_id">
                                 @php $typeId = request()->get('type_id') ?? null; @endphp
 
-                                <option value="" disabled="disabled" selected="selected">Тип отдыха</option>
+                                <option value="" disabled="disabled" selected="selected">{{ $vars['places_type_rest'] }}</option>
                                     @foreach($typeList as $type)
                                         <option
                                             value="{{ $type->id }}"
@@ -28,7 +28,7 @@
                             <select name="season_id" id="season_id">
                                 @php $seasonId = request()->get('season_id') ?? null; @endphp
 
-                                <option value="" disabled="disabled" selected="selected">Сезон</option>
+                                <option value="" disabled="disabled" selected="selected">{{ $vars['places_season'] }}</option>
                                     @foreach($seasonList as $season)
                                         <option
                                             value="{{ $season->id }}"
@@ -42,7 +42,7 @@
                             <select name="category_id" id="category_id">
                                 @php $categoryId = request()->get('category_id') ?? null; @endphp
 
-                                <option value="" disabled="disabled" selected="selected">Категория</option>
+                                <option value="" disabled="disabled" selected="selected">{{ $vars['places_category'] }}</option>
                                     @foreach($categoryList as $category)
                                         <option
                                             value="{{ $category->id }}"
@@ -56,7 +56,7 @@
                             <select name="whom_id"  id="whom_id">
                                 @php $whomId = request()->get('whom_id') ?? null; @endphp
 
-                                <option disabled="disabled" selected="selected">С кем</option>
+                                <option disabled="disabled" selected="selected">{{ $vars['places_whom'] }}</option>
                                     @foreach($whomList as $whom)
                                         <option
                                             value="{{ $whom->id }}"
@@ -69,52 +69,17 @@
                     </form>
                 </div>
             </div>
-            <script>
-                $(function () {
-                    // $("#type_id").selectmenu();
-                    // $("#season_id").selectmenu();
-                    // $("#category_id").selectmenu()
-                    // $("#whom_id").selectmenu();
-
-                    let type = $('#type_id');
-                    let season = $('#season_id');
-                    let category = $('#category_id');
-                    let whom = $('#whom_id');
-                    let filterForm = $('form[name="filters"]');
-
-                    type.on('change', function (e) {
-                        e.preventDefault();
-                        filterForm.submit();
-                    })
-
-                    season.on('change', function (e) {
-                        e.preventDefault();
-                        filterForm.submit();
-                    })
-
-                    category.on('change', function (e) {
-                        e.preventDefault();
-                        filterForm.submit();
-                    })
-
-                    whom.on('change', function (e) {
-                        e.preventDefault();
-                        filterForm.submit();
-                    })
-
-                });
-            </script>
             <div class="places__items list">
                 <ul class="nav nav-pills list__tabs wow fadeInUp" id="pills-tab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Список</a>
+                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">{{ $vars['base_list'] }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">На карте</a>
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">{{ $vars['base_on_map'] }}</a>
                     </li>
                     <li class="nav-item ml-auto">
                         <p class="list__size">
-                            Показано: {{ $places->total() }} результата
+                            {{ $vars['base_showed'] }}: {{ $places->total() }} {{ $vars['base_results'] }}
                         </p>
                     </li>
                 </ul>
@@ -139,7 +104,7 @@
                                     </a>
                                     <div class="list__buttons d-flex flex-row align-items-center">
                                         <button class="list__button list__button-add">
-                                            Добавить
+                                            {{ $vars['base_add'] }}
                                         </button>
                                         <button class="list__button list__button-star material-icons active" >
                                             <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="black" width="30px" height="30px">
@@ -168,4 +133,74 @@
 
 @section('scripts')
     @parent
+
+    <script>
+        $(function () {
+            let type = $('#type_id');
+            let season = $('#season_id');
+            let category = $('#category_id');
+            let whom = $('#whom_id');
+            let filterForm = $('form[name="filters"]');
+
+            type.selectmenu();
+            season.selectmenu();
+            category.selectmenu()
+            whom.selectmenu();
+
+            type.on('selectmenuchange', e => {
+                e.preventDefault();
+                filterForm.submit();
+            })
+
+            season.on('selectmenuchange', e => {
+                e.preventDefault();
+                filterForm.submit();
+            })
+
+            category.on('selectmenuchange', e => {
+                e.preventDefault();
+                filterForm.submit();
+            })
+
+            whom.on('selectmenuchange', e => {
+                e.preventDefault();
+                filterForm.submit();
+            })
+        });
+    </script>
+
+    <script>
+        ymaps.ready(init);
+
+        function init() {
+            let data = JSON.parse('{{ $geoData->toJson() }}'.replace(/&quot;/g,'"'));
+
+            var myMap = new ymaps.Map('map', {
+                center: [data[0].lat, data[0].lng],
+                zoom: 10
+            }, {
+                searchControlProvider: 'yandex#search'
+            })
+
+            var MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
+                '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+            )
+
+            for (let i = 0; i < data.length; i++) {
+                myPlacemark = new ymaps.Placemark([data[i].lat, data[i].lng], {
+                    hintContent: 'Собственный значок метки',
+                    balloonContent: 'Это красивая метка'
+                }, {
+                    // options
+                    iconLayout: 'default#imageWithContent',
+                    iconImageHref: 'front/img/geo.svg',
+                    iconImageSize: [48, 48],
+                    iconImageOffset: [-24, -24],
+                    iconContentOffset: [15, 15],
+                    iconContentLayout: MyIconContentLayout
+                })
+                myMap.geoObjects.add(myPlacemark)
+            }
+        }
+    </script>
 @endsection

@@ -40,7 +40,7 @@ class Place extends BaseModel
      */
     protected $fillable = [
         'name', 'header_desc', 'page_desc', 'recommended', 'active',
-        'helpful_info', 'history_desc', 'contact_desc', 'lat', 'lng' , 'location'
+        'helpful_info', 'history_desc', 'contact_desc', 'lat', 'lng', 'location'
     ];
 
     /**

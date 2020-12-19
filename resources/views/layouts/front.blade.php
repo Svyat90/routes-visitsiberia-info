@@ -38,14 +38,12 @@
     new WOW().init();
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
 <script src="{{ asset('front/js/jquery.plugin.js') }}"></script>
 <script src="{{ asset('front/js/jquery.datepick.js') }}"></script>
-<script src="{{ asset('front/js/index.js') }}"></script>
 
 @yield('scripts')
 
