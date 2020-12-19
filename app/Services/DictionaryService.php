@@ -17,7 +17,7 @@ class DictionaryService
     public const TYPE_SEASON = 'season';
     public const TYPE_REST = 'rest';
     public const TYPE_WHOM = 'whom';
-    public const TYPE_CATEGORY_ATTRACTION = 'category_attraction';
+    public const TYPE_CATEGORY_PLACE = 'category_place';
     public const TYPE_CATEGORY_FOOD = 'category_food';
     public const TYPE_WAY_TRAVEL = 'way_travel';
     public const TYPE_PLACEMENT = 'placement';
@@ -45,6 +45,37 @@ class DictionaryService
         return $this->repository->getBaseDictionaries();
     }
 
+    /**
+     * @return Collection
+     */
+    public function getTypesList() : Collection
+    {
+        return $this->repository->getChildrenByType(self::TYPE_REST);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getSeasonList() : Collection
+    {
+        return $this->repository->getChildrenByType(self::TYPE_SEASON);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCategoryPlaceList() : Collection
+    {
+        return $this->repository->getChildrenByType(self::TYPE_CATEGORY_PLACE);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getWhomList() : Collection
+    {
+        return $this->repository->getChildrenByType(self::TYPE_WHOM);
+    }
     /**
      * @param int|null $dictionaryId
      * @return mixed

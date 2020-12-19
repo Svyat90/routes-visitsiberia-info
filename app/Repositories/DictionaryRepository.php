@@ -6,6 +6,7 @@ use App\Models\Dictionary;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class DictionaryRepository extends Dictionary
 {
@@ -49,6 +50,19 @@ class DictionaryRepository extends Dictionary
             ->map(function (Collection $items) {
                 return columnTrans($items->shift(), 'name');
             });
+    }
+
+    /**
+     * @param string|null $type
+     *
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getChildrenByType(? string $type)
+    {
+        return Dictionary::query()
+            ->join('dictionaries as parent', 'parent.type', '=', DB::raw("'" . $type . "'"))
+            ->where('dictionaries.parent_id', '=', DB::raw('parent.id'))
+            ->get(['dictionaries.id', 'dictionaries.name']);
     }
 
     /**

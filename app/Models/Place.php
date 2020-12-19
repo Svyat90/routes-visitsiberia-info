@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Place
@@ -28,8 +27,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Place extends BaseModel
 {
-    use HasFactory;
-
     /**
      * @var array|string[]
      */

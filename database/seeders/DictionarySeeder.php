@@ -54,7 +54,7 @@ class DictionarySeeder extends Seeder
             ]
         ],
         'Категория достопримечательности' => [
-            'type' => DictionaryService::TYPE_CATEGORY_ATTRACTION,
+            'type' => DictionaryService::TYPE_CATEGORY_PLACE,
             'values' => [
                 'озера, реки и водопады',
                 'горы и скалы',

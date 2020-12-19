@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\ChangePasswordController;
-use App\Http\Controllers\Front\PlaceController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\LanguageController;
 use \App\Http\Controllers\Front\RouteController;
@@ -30,28 +29,24 @@ Auth::routes([
     'register' => false
 ]);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\Front\HomeController::class, 'redirectToHome']);
 
-Route::namespace('Front')->group(function () {
-    Route::get('/', 'HomeController@redirectToHome');
-    Route::get('home', 'HomeController@index')->name('front.home');
+Route::namespace('Front')->as('front.')->group(function () {
+    Route::get('home', 'HomeController@index')->name('home');
 
-    Route::get('routes', [RouteController::class, 'index'])->name('front.routes.index');
-    Route::get('routes/show', [RouteController::class, 'show'])->name('front.routes.show');
+    Route::get('routes', [RouteController::class, 'index'])->name('routes.index');
+    Route::get('routes/show', [RouteController::class, 'show'])->name('routes.show');
 
-    Route::get('places', [PlaceController::class, 'index'])->name('front.places.index');
-    Route::get('places/show', [PlaceController::class, 'show'])->name('front.places.show');
+    Route::resource('places', 'PlaceController')->only('index', 'show');
 
-    Route::get('events', [EventController::class, 'index'])->name('front.events.index');
-    Route::get('events/show', [EventController::class, 'show'])->name('front.events.show');
+    Route::get('events', [EventController::class, 'index'])->name('events.index');
+    Route::get('events/show', [EventController::class, 'show'])->name('events.show');
 
-    Route::get('rooms', [RoomController::class, 'index'])->name('front.rooms.index');
-    Route::get('rooms/show', [RoomController::class, 'show'])->name('front.rooms.show');
+    Route::get('rooms', [RoomController::class, 'index'])->name('rooms.index');
+    Route::get('rooms/show', [RoomController::class, 'show'])->name('rooms.show');
 
-    Route::get('meals', [MealController::class, 'index'])->name('front.meals.index');
-    Route::get('meals/show', [MealController::class, 'show'])->name('front.meals.show');
+    Route::get('meals', [MealController::class, 'index'])->name('meals.index');
+    Route::get('meals/show', [MealController::class, 'show'])->name('meals.show');
 });
 
 // Admin

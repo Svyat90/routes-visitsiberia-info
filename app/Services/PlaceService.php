@@ -45,7 +45,7 @@ class PlaceService
             ->editColumn('active', fn ($row) => LabelHelper::boolLabel($row->active))
             ->editColumn('recommended', fn ($row) => LabelHelper::boolLabel($row->recommended))
             ->editColumn('created_at', fn ($row) => $row->created_at)
-            ->addColumn('image', fn ($row) => ImageHelper::thumbImage($row->image_grid))
+            ->addColumn('image', fn ($row) => ImageHelper::thumbImage($row->image))
             ->addColumn('actions', fn ($row) => DatatablesHelper::renderActionsRow($row, 'places'))
             ->rawColumns(['actions', 'placeholder', 'active', 'recommended', 'image'])
             ->make(true);

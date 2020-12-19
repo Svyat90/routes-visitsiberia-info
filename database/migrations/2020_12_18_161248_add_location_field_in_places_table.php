@@ -14,7 +14,7 @@ class AddLocationFieldInPlacesTable extends Migration
     public function up()
     {
         Schema::table('places', function (Blueprint $table) {
-            $table->string('location')->nullable()->after('lng');
+            $table->json('location')->nullable()->after('lng');
         });
     }
 

@@ -4,6 +4,14 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Services\PlaceService;
+use App\Services\DictionaryService;
+use App\Helpers\CollectionHelper;
+use App\Http\Requests\Front\Places\IndexPlaceRequest;
+use Illuminate\Http\Request;
+use App\Models\Place;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 
 class PlaceController extends Controller
 {
@@ -23,16 +31,33 @@ class PlaceController extends Controller
         $this->service = $service;
     }
 
-    public function index()
+    public function index(IndexPlaceRequest $request, DictionaryService $dictionaryService)
     {
-        $places = $this->service->repository->getCollectionToIndex();
+        $typeList = $dictionaryService->getTypesList();
+        $seasonList = $dictionaryService->getSeasonList();
+        $categoryList = $dictionaryService->getCategoryPlaceList();
+        $whomList = $dictionaryService->getWhomList();
 
-        return view('front.places.index', compact('places'));
+        $places = CollectionHelper::paginate($this->service->repository->getCollectionToIndex(), $this->pageLimit)
+            ->appends([
+                'type_id' => $request->type_id,
+                'season_id' => $request->season_id,
+                'category_id' => $request->category_id,
+                'whom_id' => $request->whom_id
+            ]);
+
+        return view('front.places.index', compact('places', 'typeList', 'seasonList', 'categoryList', 'whomList'));
     }
 
-    public function show()
+    /**
+     * @param Request $request
+     * @param Place   $place
+     *
+     * @return Application|Factory|View
+     */
+    public function show(Request $request, Place $place)
     {
-        return view('front.places.show');
+        return view('front.places.show', compact('place'));
     }
 
 }

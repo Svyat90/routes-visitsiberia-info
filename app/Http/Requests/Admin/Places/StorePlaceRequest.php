@@ -53,6 +53,8 @@ class StorePlaceRequest extends FormRequest
             'recommended' => 'required|bool',
             'lat' => 'required|string',
             'lng' => 'required|string',
+            'location' => 'sometimes|array',
+            'location.*' => 'string|nullable',
             'image' => 'required|string',
             'image_history' => 'sometimes|nullable|string',
             'image_gallery' => 'sometimes|nullable|array',

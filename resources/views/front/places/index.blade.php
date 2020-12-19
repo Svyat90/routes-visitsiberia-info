@@ -9,59 +9,99 @@
             <div class="places__heading heading heading--yellow" id="heading">
                 <h1 class="heading__title heading__title--big">Достопримечательности</h1>
                 <div class="heading__selects heading__selects--places wow fadeInUp">
-                    <div class="heading__select" id="heading-first">
-                        <select id="first">
-                            <option disabled="disabled" selected="selected">Тип отдыха</option>
-                            <option title="Включает осмотр природных достопримечательностей, парков, заповедников, гор, катание на лыжах, сноубордах и т.п.">
-                                Активно-приключенческий</option>
-                            <option title=" Включает в себя более спокойные виды отдыха, такие как отдых на озерах, вблизи рек и на Красноярском море.">
-                                Спокойный отдых</option>
-                            <option title="Включает в себя изучение таких направлений как Енисейск, Шушенское, Минусинск, Ачинск и Красноярск с точки зрения паломничества.">
-                                Культурно-познавательный</option>
-                        </select>
-                    </div>
-                    <div class="heading__select" id="heading-second">
-                        <select id="second">
-                            <option disabled="disabled" selected="selected">Сезон</option>
-                            <option>Зима</option>
-                            <option>Весна</option>
-                            <option>Лето</option>
-                            <option>Осень</option>
-                            <option>В любой сезон</option>
-                        </select>
-                    </div>
-                    <div class="heading__select" id="heading-third">
-                        <select id="third">
-                            <option disabled="disabled" selected="selected">Категория</option>
-                            <option>Озера, реки и водопады</option>
-                            <option>Горы и скалы</option>
-                            <option>Места силы</option>
-                            <option>Храмы и святыни</option>
-                            <option>Парки и заповедники</option>
-                            <option>Городские пространства</option>
-                            <option>Музеи</option>
-                            <option>Скульптура и архитектура</option>
-                        </select>
-                    </div>
-                    <div class="heading__select" id="heading-fourth">
-                        <select id="fourth">
-                            <option disabled="disabled" selected="selected">С кем</option>
-                            <option>Один или вдвоем</option>
-                            <option>С ребенком до 3 лет</option>
-                            <option>С ребенком до 10 лет</option>
-                            <option>С подростком</option>
-                            <option>Вся семья</option>
-                            <option>Компания от 4-х человек</option>
-                        </select>
-                    </div>
+                    <form action="{{ route('front.places.index') }}" name="filters" style="display: flex;">
+                        <div class="heading__select" id="heading-type_id">
+                            <select name="type_id" id="type_id">
+                                @php $typeId = request()->get('type_id') ?? null; @endphp
+
+                                <option value="" disabled="disabled" selected="selected">Тип отдыха</option>
+                                    @foreach($typeList as $type)
+                                        <option
+                                            value="{{ $type->id }}"
+                                            {{ $typeId && $typeId == $type->id ? 'selected' : '' }} >
+                                            {{ $type->name }}
+                                        </option>
+                                    @endforeach
+                            </select>
+                        </div>
+                        <div class="heading__select" id="heading-second">
+                            <select name="season_id" id="season_id">
+                                @php $seasonId = request()->get('season_id') ?? null; @endphp
+
+                                <option value="" disabled="disabled" selected="selected">Сезон</option>
+                                    @foreach($seasonList as $season)
+                                        <option
+                                            value="{{ $season->id }}"
+                                            {{ $seasonId && $seasonId == $season->id ? 'selected' : '' }} >
+                                            {{ $season->name }}
+                                        </option>
+                                    @endforeach
+                            </select>
+                        </div>
+                        <div class="heading__select" id="heading-third">
+                            <select name="category_id" id="category_id">
+                                @php $categoryId = request()->get('category_id') ?? null; @endphp
+
+                                <option value="" disabled="disabled" selected="selected">Категория</option>
+                                    @foreach($categoryList as $category)
+                                        <option
+                                            value="{{ $category->id }}"
+                                            {{ $categoryId && $categoryId == $category->id ? 'selected' : '' }} >
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                            </select>
+                        </div>
+                        <div class="heading__select" id="heading-fourth">
+                            <select name="whom_id"  id="whom_id">
+                                @php $whomId = request()->get('whom_id') ?? null; @endphp
+
+                                <option disabled="disabled" selected="selected">С кем</option>
+                                    @foreach($whomList as $whom)
+                                        <option
+                                            value="{{ $whom->id }}"
+                                            {{ $whomId && $whomId == $whom->id ? 'selected' : '' }} >
+                                            {{ $whom->name }}
+                                        </option>
+                                    @endforeach
+                            </select>
+                        </div>
+                    </form>
                 </div>
             </div>
             <script>
                 $(function () {
-                    $("#first").selectmenu();
-                    $("#second").selectmenu();
-                    $("#third").selectmenu()
-                    $("#fourth").selectmenu();
+                    // $("#type_id").selectmenu();
+                    // $("#season_id").selectmenu();
+                    // $("#category_id").selectmenu()
+                    // $("#whom_id").selectmenu();
+
+                    let type = $('#type_id');
+                    let season = $('#season_id');
+                    let category = $('#category_id');
+                    let whom = $('#whom_id');
+                    let filterForm = $('form[name="filters"]');
+
+                    type.on('change', function (e) {
+                        e.preventDefault();
+                        filterForm.submit();
+                    })
+
+                    season.on('change', function (e) {
+                        e.preventDefault();
+                        filterForm.submit();
+                    })
+
+                    category.on('change', function (e) {
+                        e.preventDefault();
+                        filterForm.submit();
+                    })
+
+                    whom.on('change', function (e) {
+                        e.preventDefault();
+                        filterForm.submit();
+                    })
+
                 });
             </script>
             <div class="places__items list">
@@ -74,7 +114,7 @@
                     </li>
                     <li class="nav-item ml-auto">
                         <p class="list__size">
-                            Показано: 122 результата
+                            Показано: {{ $places->total() }} результата
                         </p>
                     </li>
                 </ul>
@@ -84,17 +124,16 @@
                         <div class="list__items show">
                             @foreach($places as $place)
                                 <div class="list__item d-flex flex-column active">
-                                    <a href="#" class="d-flex flex-column nop position-relative">
+                                    <a href="{{ route('front.places.show', $place->id) }}" class="d-flex flex-column nop position-relative">
                                         <img src="{{ asset('front/img/item-top.svg') }}" class="list__item-sign" alt="">
                                         <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
+                                            {{ $place->image->img()->lazy() }}
                                         </div>
                                         <p class="list__name exo">
                                             {{ $place->name }}
                                         </p>
                                         <p class="list__city">
                                             <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
                                             {{ $place->location }}
                                         </p>
                                     </a>
@@ -115,12 +154,8 @@
                             @endforeach
                         </div>
 
-                        <div class="places__pagination pagination wow fadeInUp">
-                            <div class="pagination__page active">1</div>
-                            <div class="pagination__page">2</div>
-                            <div class="pagination__page">3</div>
-                            <div class="pagination__page">4</div>
-                        </div>
+                        {{ $places->links('front.partials.paginator') }}
+
                     </div>
                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                         <div id="map"></div>
