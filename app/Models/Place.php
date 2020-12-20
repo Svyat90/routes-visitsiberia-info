@@ -18,6 +18,9 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string $helpful_info
  * @property string $history_desc
  * @property string $contact_desc
+ * @property string $lat
+ * @property string $lng
+ * @property string $location
  * @property boolean $active
  * @property boolean $recommended
  * @property Media $image

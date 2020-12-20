@@ -13,6 +13,7 @@ use \App\Http\Controllers\Front\RoomController;
 use \App\Http\Controllers\Front\MealController;
 use \App\Http\Controllers\Admin\MediaController;
 use \App\Http\Controllers\Admin\DictionaryController;
+use \App\Http\Controllers\Admin\Csv\ExportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,4 +83,8 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
 
     // Vars
     Route::resource('vars', 'Admin\VarController')->except('create', 'store', 'destroy');
+
+    // Export
+    Route::get('export', [ExportController::class, 'index'])->name('export.index');
+    Route::post('export', [ExportController::class, 'export'])->name('export.export');
 });

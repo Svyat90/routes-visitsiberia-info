@@ -611,7 +611,6 @@
                 '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
             )
 
-
             myPlacemark = new ymaps.Placemark([item.lat, item.lng], {
                 hintContent: 'Собственный значок метки',
                 balloonContent: 'Это красивая метка'
@@ -624,8 +623,8 @@
                 iconContentOffset: [15, 15],
                 iconContentLayout: MyIconContentLayout
             })
-            myMap.geoObjects.add(myPlacemark)
 
+            myMap.geoObjects.add(myPlacemark)
         }
     </script>
 @endsection

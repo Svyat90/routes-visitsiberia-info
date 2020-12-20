@@ -58,6 +58,17 @@ class PlaceRepository extends Model
     }
 
     /**
+     * @return Collection
+     */
+    public function getCollectionToExport() : Collection
+    {
+        return Place::query()
+            ->with('dictionaries')
+            ->latest()
+            ->get();
+    }
+
+    /**
      * @param array $data
      *
      * @return Place

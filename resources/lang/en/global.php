@@ -56,4 +56,5 @@ return [
     "welcome" => "Welcome to Admin Panel",
     "parent" => "Parent",
     "dictionaries" => "Dictionaries",
+    "export" => "Export",
 ];
