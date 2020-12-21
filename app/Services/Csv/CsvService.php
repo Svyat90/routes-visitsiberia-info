@@ -155,4 +155,18 @@ abstract class CsvService
         return $filePath;
     }
 
+    /**
+     * @param array  $data
+     * @param string $key
+     *
+     * @return string
+     */
+    protected function implodeStrings(array $data, string $key) : string
+    {
+        if (isset($data[$key])) {
+            return implode(";", $data[$key]);
+        }
+
+        return '';
+    }
 }

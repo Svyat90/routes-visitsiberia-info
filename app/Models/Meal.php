@@ -21,12 +21,17 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string $lat
  * @property string $lng
  * @property string $location
+ * @property string $phones
+ * @property string $working_hours
  * @property string $site_link
  * @property string $social_links
  * @property string $contacts_representatives
  * @property string $additional_links
  * @property boolean $active
  * @property boolean $recommended
+ * @property boolean $have_breakfasts
+ * @property boolean $have_business_lunch
+ * @property boolean $delivery_available
  * @property Media $image
  * @property Media $image_history
  * @property MediaCollection $image_gallery

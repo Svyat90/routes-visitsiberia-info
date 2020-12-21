@@ -7,6 +7,8 @@ use App\Repositories\PlaceRepository;
 use App\Models\Place;
 use App\Repositories\HotelRepository;
 use App\Models\Hotel;
+use App\Repositories\MealRepository;
+use App\Models\Meal;
 
 class ExportService extends CsvService
 {
@@ -38,6 +40,9 @@ class ExportService extends CsvService
             case self::TYPE_HOTELS:
                 $this->fillHotels();
                 break;
+            case self::TYPE_MEALS:
+                $this->fillMeals();
+                break;
         }
     }
 
@@ -61,10 +66,10 @@ class ExportService extends CsvService
                 ->setCellValue($this->cols['image_author'] . $this->row, $title)
                 ->setCellValue($this->cols['image_desc'] . $this->row, $desc)
                 ->setCellValue($this->cols['image_author_link'] . $this->row, $authorLink)
-                ->setCellValue($this->cols['image_gallery'] . $this->row, implode(";", $galleryData['urls']))
-                ->setCellValue($this->cols['image_gallery_title'] . $this->row, implode(";", $galleryData['title']))
-                ->setCellValue($this->cols['image_gallery_desc'] . $this->row, implode(";", $galleryData['desc']))
-                ->setCellValue($this->cols['image_gallery_author_link'] . $this->row, implode(";", $galleryData['author_links']))
+                ->setCellValue($this->cols['image_gallery'] . $this->row, $this->implodeStrings($galleryData, 'urls'))
+                ->setCellValue($this->cols['image_gallery_title'] . $this->row, $this->implodeStrings($galleryData, 'title'))
+                ->setCellValue($this->cols['image_gallery_desc'] . $this->row, $this->implodeStrings($galleryData, 'desc'))
+                ->setCellValue($this->cols['image_gallery_author_link'] . $this->row, $this->implodeStrings($galleryData, 'author_links'))
                 ->setCellValue($this->cols['page_desc'] . $this->row, $place->page_desc)
                 ->setCellValue($this->cols['history_desc'] . $this->row, $place->history_desc)
                 ->setCellValue($this->cols['contact_desc'] . $this->row, $place->contact_desc)
@@ -100,10 +105,10 @@ class ExportService extends CsvService
                 ->setCellValue($this->cols['image_author'] . $this->row, $title)
                 ->setCellValue($this->cols['image_desc'] . $this->row, $desc)
                 ->setCellValue($this->cols['image_author_link'] . $this->row, $authorLink)
-                ->setCellValue($this->cols['image_gallery'] . $this->row, implode(";", $galleryData['urls']))
-                ->setCellValue($this->cols['image_gallery_title'] . $this->row, implode(";", $galleryData['title']))
-                ->setCellValue($this->cols['image_gallery_desc'] . $this->row, implode(";", $galleryData['desc']))
-                ->setCellValue($this->cols['image_gallery_author_link'] . $this->row, implode(";", $galleryData['author_links']))
+                ->setCellValue($this->cols['image_gallery'] . $this->row, $this->implodeStrings($galleryData, 'urls'))
+                ->setCellValue($this->cols['image_gallery_title'] . $this->row, $this->implodeStrings($galleryData, 'title'))
+                ->setCellValue($this->cols['image_gallery_desc'] . $this->row, $this->implodeStrings($galleryData, 'desc'))
+                ->setCellValue($this->cols['image_gallery_author_link'] . $this->row, $this->implodeStrings($galleryData, 'author_links'))
                 ->setCellValue($this->cols['conditions_accommodation'] . $this->row, $hotel->conditions_accommodation)
                 ->setCellValue($this->cols['conditions_payment'] . $this->row, $hotel->conditions_payment)
                 ->setCellValue($this->cols['contact_desc'] . $this->row, $hotel->contact_desc)
@@ -117,6 +122,45 @@ class ExportService extends CsvService
                 ->setCellValue($this->cols['lat'] . $this->row, $hotel->lat)
                 ->setCellValue($this->cols['lng'] . $this->row, $hotel->lng)
                 ->setCellValue($this->cols['location'] . $this->row, $hotel->location);
+        }
+    }
+
+    private function fillMeals() : void
+    {
+        $meals = (new MealRepository())->getCollectionToExport();
+
+        /** @var Meal $meal */
+        foreach ($meals as $meal) {
+            ++$this->row;
+
+            [$link, $title, $desc, $authorLink] = $this->generateImageData($meal);
+            $galleryData = $this->generateImageData($meal, 'image_gallery');
+            $properties = $this->generateDictionariesData($meal);
+
+            $this->sheet
+                ->setCellValue($this->cols['id'] . $this->row, $meal->id)
+                ->setCellValue($this->cols['name'] . $this->row, $meal->name)
+                ->setCellValue($this->cols['properties'] . $this->row, implode(";", $properties))
+                ->setCellValue($this->cols['image'] . $this->row, $link)
+                ->setCellValue($this->cols['image_author'] . $this->row, $title)
+                ->setCellValue($this->cols['image_desc'] . $this->row, $desc)
+                ->setCellValue($this->cols['image_author_link'] . $this->row, $authorLink)
+                ->setCellValue($this->cols['image_gallery'] . $this->row, $this->implodeStrings($galleryData, 'urls'))
+                ->setCellValue($this->cols['image_gallery_title'] . $this->row, $this->implodeStrings($galleryData, 'title'))
+                ->setCellValue($this->cols['image_gallery_desc'] . $this->row, $this->implodeStrings($galleryData, 'desc'))
+                ->setCellValue($this->cols['image_gallery_author_link'] . $this->row, $this->implodeStrings($galleryData, 'author_links'))
+                ->setCellValue($this->cols['page_desc'] . $this->row, $meal->page_desc)
+                ->setCellValue($this->cols['working_hours'] . $this->row, $meal->working_hours)
+                ->setCellValue($this->cols['site_link'] . $this->row, $meal->site_link)
+                ->setCellValue($this->cols['social_links'] . $this->row, $meal->social_links)
+                ->setCellValue($this->cols['phones'] . $this->row, $meal->phones)
+                ->setCellValue($this->cols['lat'] . $this->row, $meal->lat)
+                ->setCellValue($this->cols['lng'] . $this->row, $meal->lng)
+                ->setCellValue($this->cols['location'] . $this->row, $meal->location)
+                ->setCellValue($this->cols['recommended'] . $this->row, $meal->recommended)
+                ->setCellValue($this->cols['have_breakfasts'] . $this->row, $meal->have_breakfasts)
+                ->setCellValue($this->cols['have_business_lunch'] . $this->row, $meal->have_business_lunch)
+                ->setCellValue($this->cols['delivery_available'] . $this->row, $meal->delivery_available);
         }
     }
 
