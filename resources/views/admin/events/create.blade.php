@@ -1,13 +1,12 @@
 @extends('layouts.admin')
 @section('content')
-
     <div class="card">
         <div class="card-header">
-            {{ __('global.create') }} {{ __('cruds.places.title_singular') }}
+            {{ __('global.create') }} {{ __('cruds.events.title_singular') }}
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route("admin.places.store") }}">
+            <form method="POST" action="{{ route("admin.events.store") }}">
                 @csrf
                 <div class="row">
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -27,7 +26,7 @@
                                 <div class="tab-pane {{ $loop->index === 0 ? 'show active' : '' }}" role="tabpanel"
                                      id="{{ $language->locale }}">
                                     <div class="m-3">
-                                        @foreach($place->getTranslatable() as $field)
+                                        @foreach($event->getTranslatable() as $field)
                                             @php $oldLocale = old($field); @endphp
 
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -35,18 +34,18 @@
                                                     @if (in_array($field, ['page_desc', 'helpful_info', 'history_desc', 'contact_desc']))
                                                         <div class="form-group">
                                                             <label for="{{ $name = $field . '[' . $language->locale . ']' }}">
-                                                                {{ __("cruds.places.fields.$field") }}
+                                                                {{ __("cruds.events.fields.$field") }}
                                                             </label>
                                                             <textarea class="form-control tinymceTextarea {{ $errors->has($name) ? 'is-invalid' : '' }}"
                                                                       name="{{ $name }}" id="{{ $name }}">{!! $oldLocale[$language->locale] ?? "" !!}</textarea>
                                                             @if($errors->has($name))
                                                                 <span class="text-danger">{{ $errors->first($name) }}</span>
                                                             @endif
-                                                            <span class="help-block">{{ __("cruds.places.fields.{$field}_helper") }}</span>
+                                                            <span class="help-block">{{ __("cruds.events.fields.{$field}_helper") }}</span>
                                                         </div>
                                                     @else
                                                         <label class="" for="{{ $name = $field . '[' . $language->locale . ']' }}">
-                                                            {{ __('cruds.places.fields.' . $field) }}
+                                                            {{ __('cruds.events.fields.' . $field) }}
                                                         </label>
                                                         <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
                                                                type="text"
@@ -57,7 +56,7 @@
                                                             <span class="text-danger">{{ $errors->first($name) }}</span>
                                                         @endif
                                                         <span
-                                                            class="help-block">{{ __("cruds.places.fields.{$field}_helper") }}</span>
+                                                            class="help-block">{{ __("cruds.events.fields.{$field}_helper") }}</span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -69,7 +68,7 @@
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'active' }}">{{ __("cruds.places.fields.$name") }}</label>
+                        <label class="required" for="{{ $name = 'active' }}">{{ __("cruds.events.fields.$name") }}</label>
                         <select name="{{ $name }}" id="{{ $name }}" class="form-control">
                             <option value="0" {{ old($name, null) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
                             <option value="1" {{ old($name, null) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
@@ -77,11 +76,11 @@
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.places.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.events.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'recommended' }}">{{ __("cruds.places.fields.$name") }}</label>
+                        <label class="required" for="{{ $name = 'recommended' }}">{{ __("cruds.events.fields.$name") }}</label>
                         <select name="{{ $name }}" id="{{ $name }}" class="form-control">
                             <option value="0" {{ old($name, null) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
                             <option value="1" {{ old($name, null) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
@@ -89,11 +88,11 @@
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.places.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.events.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'lat' }}">{{ __("cruds.places.fields.$name") }}</label>
+                        <label class="required" for="{{ $name = 'lat' }}">{{ __("cruds.events.fields.$name") }}</label>
                         <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
                                type="text"
                                name="{{ $name }}"
@@ -102,11 +101,11 @@
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.places.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.events.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'lng' }}">{{ __("cruds.places.fields.$name") }}</label>
+                        <label class="required" for="{{ $name = 'lng' }}">{{ __("cruds.events.fields.$name") }}</label>
                         <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
                                type="text"
                                name="{{ $name }}"
@@ -115,7 +114,7 @@
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.places.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.events.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -139,33 +138,33 @@
                     </div>
 
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="required" for="{{ $name = 'image' }}">{{ __("cruds.places.fields.$name") }}</label>
+                        <label class="required" for="{{ $name = 'image' }}">{{ __("cruds.events.fields.$name") }}</label>
                         <div class="needsclick dropzone {{ $errors->has('file') ? 'is-invalid' : '' }}" id="{{ $name }}">
                         </div>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.places.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.events.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="" for="{{ $name = 'image_history' }}">{{ __("cruds.places.fields.$name") }}</label>
+                        <label class="" for="{{ $name = 'image_history' }}">{{ __("cruds.events.fields.$name") }}</label>
                         <div class="needsclick dropzone {{ $errors->has($name) ? 'is-invalid' : '' }}" id="{{ $name }}">
                         </div>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.places.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.events.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="" for="{{ $name = 'image_gallery' }}">{{ __("cruds.places.fields.$name") }}</label>
+                        <label class="" for="{{ $name = 'image_gallery' }}">{{ __("cruds.events.fields.$name") }}</label>
                         <div class="needsclick dropzone {{ $errors->has($name) ? 'is-invalid' : '' }}" id="{{ $name }}">
                         </div>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.places.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.events.fields.{$name}_helper") }}</span>
                     </div>
 
                 </div>

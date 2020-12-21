@@ -45,7 +45,6 @@ class PlaceController extends AdminController
         if ($request->ajax()) {
             return $this->service->getDatatablesData();
         }
-
         return view('admin.places.index');
     }
 
@@ -58,7 +57,6 @@ class PlaceController extends AdminController
     public function create(Place $place, DictionaryRepository $dictionaryRepository) : View
     {
         $dictionaryChildren = $dictionaryRepository->getChildrenForSelect();
-
         return view('admin.places.create', compact('place', 'dictionaryChildren'));
     }
 

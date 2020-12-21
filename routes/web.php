@@ -8,9 +8,12 @@ use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\LanguageController;
 use \App\Http\Controllers\Front\RouteController;
 use \App\Http\Controllers\Admin\PlaceController as AdminPlaceController;
+use \App\Http\Controllers\Admin\HoteltController;
 use \App\Http\Controllers\Front\EventController;
+use \App\Http\Controllers\Admin\EventController as AdminEventController;
 use \App\Http\Controllers\Front\RoomController;
 use \App\Http\Controllers\Front\MealController;
+use \App\Http\Controllers\Admin\MealsController;
 use \App\Http\Controllers\Admin\MediaController;
 use \App\Http\Controllers\Admin\DictionaryController;
 use \App\Http\Controllers\Admin\Csv\ExportController;
@@ -68,6 +71,17 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     // Places
     Route::delete('places/multi-destroy', [AdminPlaceController::class, 'massDestroy'])->name('places.multi_destroy');
     Route::resource('places', 'Admin\PlaceController');
+
+    // Events
+    Route::delete('events/multi-destroy', [AdminEventController::class, 'massDestroy'])->name('events.multi_destroy');
+    Route::resource('events', 'Admin\EventController');
+
+    // Hotels
+    Route::delete('hotels/multi-destroy', [HoteltController::class, 'massDestroy'])->name('hotels.multi_destroy');
+    Route::resource('hotels', 'Admin\HoteltController');
+    // Meals
+    Route::delete('meals/multi-destroy', [MealsController::class, 'massDestroy'])->name('meals.multi_destroy');
+    Route::resource('meals', 'Admin\MealsController');
 
     // Languages
     Route::delete('languages/multi-destroy', [LanguageController::class, 'massDestroy'])->name('languages.multi_destroy');

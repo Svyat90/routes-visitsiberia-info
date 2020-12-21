@@ -9,6 +9,7 @@ class EventController extends FrontController
 
     public function index()
     {
+
         return view('front.events.index');
     }
 

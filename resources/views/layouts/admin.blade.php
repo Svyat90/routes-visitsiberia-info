@@ -101,7 +101,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.tiny.cloud/1/3cxkc5j53grtakrophpztytjw1takqzon6sbc03nchk36tiw/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 <script>
     $(function () {

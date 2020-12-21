@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Language;
 use App\Services\LanguageService;
 use Illuminate\Support\Facades\View;
 
@@ -11,8 +12,7 @@ trait TranslationTrait
     {
         $service = app(LanguageService::class);
 
-        $languages = $service->getActiveLanguages();
-
+        $languages = Language::where('active',1)->get();
         View::share(compact('languages'));
     }
 }
