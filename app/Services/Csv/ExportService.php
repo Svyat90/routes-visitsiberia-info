@@ -14,27 +14,7 @@ class ExportService extends CsvService
      */
     public function __construct()
     {
-        parent::__construct('Places', [
-            'id' => 'A',
-            'name' => 'B',
-            'properties' => 'C',
-            'image' => 'D',
-            'image_title' => 'E',
-            'image_desc' => 'F',
-            'image_author_link' => 'G',
-            'image_gallery' => 'H',
-            'image_gallery_title' => 'I',
-            'image_gallery_desc' => 'J',
-            'image_gallery_author_link' => 'K',
-            'page_desc' => 'L',
-            'history_desc' => 'M',
-            'contact_desc' => 'N',
-            'life_hacks' => 'O',
-            'helpful_info' => 'P',
-            'lat' => 'Q',
-            'lng' => 'R',
-            'location' => 'S',
-        ]);
+        parent::__construct('Places');
     }
 
     /**
@@ -56,25 +36,25 @@ class ExportService extends CsvService
             $properties = $this->generateDictionariesData($place);
 
             $this->sheet
-                ->setCellValue($this->csvCols['id'] . $this->row, $place->id)
-                ->setCellValue($this->csvCols['name'] . $this->row, $place->name)
-                ->setCellValue($this->csvCols['properties'] . $this->row, implode(";", $properties))
-                ->setCellValue($this->csvCols['image'] . $this->row, $link)
-                ->setCellValue($this->csvCols['image_title'] . $this->row, $title)
-                ->setCellValue($this->csvCols['image_desc'] . $this->row, $desc)
-                ->setCellValue($this->csvCols['image_author_link'] . $this->row, $authorLink)
-                ->setCellValue($this->csvCols['image_gallery'] . $this->row, implode(";", $galleryData['urls']))
-                ->setCellValue($this->csvCols['image_gallery_title'] . $this->row, implode(";", $galleryData['title']))
-                ->setCellValue($this->csvCols['image_gallery_desc'] . $this->row, implode(";", $galleryData['desc']))
-                ->setCellValue($this->csvCols['image_gallery_author_link'] . $this->row, implode(";", $galleryData['author_links']))
-                ->setCellValue($this->csvCols['page_desc'] . $this->row, $place->page_desc)
-                ->setCellValue($this->csvCols['history_desc'] . $this->row, $place->history_desc)
-                ->setCellValue($this->csvCols['contact_desc'] . $this->row, $place->contact_desc)
-                ->setCellValue($this->csvCols['life_hacks'] . $this->row, '')
-                ->setCellValue($this->csvCols['helpful_info'] . $this->row, $place->helpful_info)
-                ->setCellValue($this->csvCols['lat'] . $this->row, $place->lat)
-                ->setCellValue($this->csvCols['lng'] . $this->row, $place->lng)
-                ->setCellValue($this->csvCols['location'] . $this->row, $place->location);
+                ->setCellValue($this->cols['id'] . $this->row, $place->id)
+                ->setCellValue($this->cols['name'] . $this->row, $place->name)
+                ->setCellValue($this->cols['properties'] . $this->row, implode(";", $properties))
+                ->setCellValue($this->cols['image'] . $this->row, $link)
+                ->setCellValue($this->cols['image_title'] . $this->row, $title)
+                ->setCellValue($this->cols['image_desc'] . $this->row, $desc)
+                ->setCellValue($this->cols['image_author_link'] . $this->row, $authorLink)
+                ->setCellValue($this->cols['image_gallery'] . $this->row, implode(";", $galleryData['urls']))
+                ->setCellValue($this->cols['image_gallery_title'] . $this->row, implode(";", $galleryData['title']))
+                ->setCellValue($this->cols['image_gallery_desc'] . $this->row, implode(";", $galleryData['desc']))
+                ->setCellValue($this->cols['image_gallery_author_link'] . $this->row, implode(";", $galleryData['author_links']))
+                ->setCellValue($this->cols['page_desc'] . $this->row, $place->page_desc)
+                ->setCellValue($this->cols['history_desc'] . $this->row, $place->history_desc)
+                ->setCellValue($this->cols['contact_desc'] . $this->row, $place->contact_desc)
+                ->setCellValue($this->cols['life_hacks'] . $this->row, $place->life_hacks)
+                ->setCellValue($this->cols['helpful_info'] . $this->row, $place->helpful_info)
+                ->setCellValue($this->cols['lat'] . $this->row, $place->lat)
+                ->setCellValue($this->cols['lng'] . $this->row, $place->lng)
+                ->setCellValue($this->cols['location'] . $this->row, $place->location);
         }
 
         return $this->saveFile();

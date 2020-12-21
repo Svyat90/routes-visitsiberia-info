@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string $helpful_info
  * @property string $history_desc
  * @property string $contact_desc
+ * @property string $life_hacks
  * @property string $lat
  * @property string $lng
  * @property string $location
@@ -35,14 +36,14 @@ class Place extends BaseModel
      */
     public array $translatable = [
         'name', 'header_desc', 'page_desc', 'location',
-        'helpful_info', 'history_desc', 'contact_desc',
+        'helpful_info', 'history_desc', 'contact_desc', 'life_hacks'
     ];
 
     /**
      * @var string[]
      */
     protected $fillable = [
-        'name', 'header_desc', 'page_desc', 'recommended', 'active',
+        'name', 'header_desc', 'page_desc', 'recommended', 'active', 'life_hacks',
         'helpful_info', 'history_desc', 'contact_desc', 'lat', 'lng', 'location'
     ];
 

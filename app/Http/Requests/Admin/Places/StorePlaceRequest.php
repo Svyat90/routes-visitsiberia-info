@@ -49,6 +49,8 @@ class StorePlaceRequest extends FormRequest
             'history_desc.*' => 'string|nullable',
             'contact_desc' => 'sometimes|array',
             'contact_desc.*' => 'string|nullable',
+            'life_hacks' => 'sometimes|array',
+            'life_hacks.*' => 'string|nullable',
             'active' => 'required|bool',
             'recommended' => 'required|bool',
             'lat' => 'required|string',

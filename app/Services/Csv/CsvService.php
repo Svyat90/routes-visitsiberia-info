@@ -36,25 +36,29 @@ abstract class CsvService
     /**
      * @var int
      */
-    protected int $row;
+    protected int $row = 1;
 
     /**
      * @var string[]
      */
-    protected array $csvCols = [];
+    protected array $cols;
+
+    /**
+     * @var array
+     */
+    private array $config;
 
     /**
      * CsvController constructor.
      *
      * @param string $sheetName
-     * @param array  $csvCols
      */
-    public function __construct(string $sheetName, array $csvCols)
+    public function __construct(string $sheetName)
     {
         $this->sheetName = $sheetName;
-        $this->csvCols = $csvCols;
         $this->spreadsheet = new Spreadsheet();
-        $this->row = 1;
+        $this->config = include (config_path('export.php'));
+        $this->cols = $this->config['cols'][strtolower($sheetName)];
     }
 
     public function initWorkSheet() : void
@@ -63,7 +67,7 @@ abstract class CsvService
             ->getActiveSheet()
             ->setTitle($this->sheetName);
 
-        foreach ($this->csvCols as $name => $index) {
+        foreach ($this->cols as $name => $index) {
             $this->sheet->setCellValue($index . $this->row, $name);
         }
     }
