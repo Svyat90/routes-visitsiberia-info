@@ -1,14 +1,16 @@
 @extends('layouts.admin')
 @section('content')
-
     <div class="card">
         <div class="card-header">
-            {{ __('global.create') }} {{ __('cruds.hotels.title_singular') }}
+            {{ __('global.edit') }} {{ __('cruds.meals.title_singular') }}
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route("admin.hotels.store") }}">
+            <form method="POST" action="{{ route("admin.meals.update", [$meal->id]) }}">
+                <input name="id" type="hidden" value="{{ $meal->id }}"/>
+                @method('PUT')
                 @csrf
+
                 <div class="row">
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
@@ -27,39 +29,42 @@
                                 <div class="tab-pane {{ $loop->index === 0 ? 'show active' : '' }}" role="tabpanel"
                                      id="{{ $language->locale }}">
                                     <div class="m-3">
-                                        @foreach($hotel->getTranslatable() as $field)
-                                            @php $oldLocale = old($field); @endphp
+                                        @foreach($meal->getTranslatable() as $field)
+                                            @php
+                                                $oldLocale = old($field);
+                                                $oldLocaleVal = $oldLocale[$language->locale] ?? null;
+                                            @endphp
 
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                    @if (in_array($field, ['page_desc', 'page_desc', 'history_desc', 'contact_desc']))
-                                                        <div class="form-group">
-                                                            <label for="{{ $name = $field . '[' . $language->locale . ']' }}">
-                                                                {{ __("cruds.hotels.fields.$field") }}
-                                                            </label>
-                                                            <textarea class="form-control tinymceTextarea {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                                                                      name="{{ $name }}" id="{{ $name }}">{!! $oldLocale[$language->locale] ?? "" !!}</textarea>
-                                                            @if($errors->has($name))
-                                                                <span class="text-danger">{{ $errors->first($name) }}</span>
-                                                            @endif
-                                                            <span class="help-block">{{ __("cruds.hotels.fields.{$field}_helper") }}</span>
-                                                        </div>
-                                                    @else
-                                                        <label class="" for="{{ $name = $field . '[' . $language->locale . ']' }}">
-                                                            {{ __('cruds.hotels.fields.' . $field) }}
+                                                @if (in_array($field, ['page_desc', 'history_desc', 'contact_desc', 'working_hours']))
+                                                    <div class="form-group">
+                                                        <label for="{{ $name = $field . '[' . $language->locale . ']' }}">
+                                                            {{ __("cruds.meals.fields.$field") }}
                                                         </label>
-                                                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                                                               type="text"
-                                                               name="{{ $name }}"
-                                                               id="{{ $name }}"
-                                                               value="{{ $oldLocale[$language->locale] ?? "" }}" />
+                                                        <textarea class="form-control tinymceTextarea {{ $errors->has($name) ? 'is-invalid' : '' }}"
+                                                                  name="{{ $name }}" id="{{ $name }}">{!! $oldLocale[$language->locale] ?? $meal->getTranslation($field, $language->locale) !!}</textarea>
                                                         @if($errors->has($name))
                                                             <span class="text-danger">{{ $errors->first($name) }}</span>
                                                         @endif
-                                                        <span
-                                                            class="help-block">{{ __("cruds.hotels.fields.{$field}_helper") }}</span>
+                                                        <span class="help-block">{{ __("cruds.meals.fields.{$field}_helper") }}</span>
+                                                    </div>
+                                                @else
+                                                    <label class=""
+                                                           for="{{ $name = $field . '[' . $language->locale . ']' }}">
+                                                        {{ __('cruds.meals.fields.' . $field) }}
+                                                    </label>
+                                                    <input
+                                                        class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
+                                                        type="text"
+                                                        name="{{ $name }}"
+                                                        id="{{ $name }}"
+                                                        value="{{ $oldLocaleVal ?? $meal->getTranslation($field, $language->locale) }}" />
+                                                    @if($errors->has($name))
+                                                        <span class="text-danger">{{ $errors->first($name) }}</span>
                                                     @endif
-                                                </div>
+                                                    <span
+                                                        class="help-block">{{ __("cruds.meals.fields.{$field}_helper") }}</span>
+                                                @endif
                                             </div>
                                         @endforeach
                                     </div>
@@ -69,129 +74,158 @@
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'active' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <label class="required"
+                               for="{{ $name = 'active' }}">{{ __("cruds.meals.fields.$name") }}</label>
                         <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="0" {{ old($name, null) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
-                            <option value="1" {{ old($name, null) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
+                            <option value="0" {{ old($name, $meal->$name) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
+                            <option value="1" {{ old($name, $meal->$name) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
                         </select>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'recommended' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <label class="required"
+                               for="{{ $name = 'recommended' }}">{{ __("cruds.meals.fields.$name") }}</label>
                         <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="0" {{ old($name, null) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
-                            <option value="1" {{ old($name, null) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
+                            <option value="0" {{ old($name, $meal->$name) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
+                            <option value="1" {{ old($name, $meal->$name) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
                         </select>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'have_breakfasts' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <label class="required" for="{{ $name = 'have_breakfasts' }}">{{ __("cruds.meals.fields.$name") }}</label>
                         <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="0" {{ old($name, null) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
-                            <option value="1" {{ old($name, null) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
+                            <option value="0" {{ old($name, $meal->$name) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
+                            <option value="1" {{ old($name, $meal->$name) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
                         </select>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'have_business_lunch' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <label class="required" for="{{ $name = 'have_business_lunch' }}">{{ __("cruds.meals.fields.$name") }}</label>
                         <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="0" {{ old($name, null) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
-                            <option value="1" {{ old($name, null) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
+                            <option value="0" {{ old($name, $meal->$name) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
+                            <option value="1" {{ old($name, $meal->$name) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
                         </select>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'delivery_available' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <label class="required" for="{{ $name = 'delivery_available' }}">{{ __("cruds.meals.fields.$name") }}</label>
                         <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="0" {{ old($name, null) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
-                            <option value="1" {{ old($name, null) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
+                            <option value="0" {{ old($name, $meal->$name) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
+                            <option value="1" {{ old($name, $meal->$name) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
                         </select>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'lat' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <label class="" for="{{ $name = 'site_link' }}">{{ __("cruds.meals.fields.$name") }}</label>
                         <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
                                type="text"
                                name="{{ $name }}"
                                id="{{ $name }}"
-                               value="{{ old($name, '') }}" />
+                               value="{{ old($name, $meal->$name) }}" />
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'lng' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <label class="" for="{{ $name = 'social_links' }}">{{ __("cruds.meals.fields.$name") }}</label>
                         <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
                                type="text"
                                name="{{ $name }}"
                                id="{{ $name }}"
-                               value="{{ old($name, '') }}" />
+                               value="{{ old($name, $meal->$name) }}" />
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="" for="{{ $name = 'site_link' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <label class="required" for="{{ $name = 'lat' }}">{{ __("cruds.meals.fields.$name") }}</label>
                         <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
                                type="text"
                                name="{{ $name }}"
                                id="{{ $name }}"
-                               value="{{ old($name, '') }}" />
+                               value="{{ old($name, $meal->$name) }}" />
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="" for="{{ $name = 'social_links' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <label class="required" for="{{ $name = 'lng' }}">{{ __("cruds.meals.fields.$name") }}</label>
                         <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
                                type="text"
                                name="{{ $name }}"
                                id="{{ $name }}"
-                               value="{{ old($name, '') }}" />
+                               value="{{ old($name, $meal->$name) }}" />
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="" for="{{ $name = 'phones' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <label class="" for="{{ $name = 'site_link' }}">{{ __("cruds.meals.fields.$name") }}</label>
                         <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
                                type="text"
                                name="{{ $name }}"
                                id="{{ $name }}"
-                               value="{{ old($name, '') }}" />
+                               value="{{ old($name, $meal->$name) }}" />
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
                     </div>
+
+                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                        <label class="" for="{{ $name = 'social_links' }}">{{ __("cruds.meals.fields.$name") }}</label>
+                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
+                               type="text"
+                               name="{{ $name }}"
+                               id="{{ $name }}"
+                               value="{{ old($name, $meal->$name) }}" />
+                        @if($errors->has($name))
+                            <span class="text-danger">{{ $errors->first($name) }}</span>
+                        @endif
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
+                    </div>
+
+                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                        <label class="" for="{{ $name = 'phones' }}">{{ __("cruds.meals.fields.$name") }}</label>
+                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
+                               type="text"
+                               name="{{ $name }}"
+                               id="{{ $name }}"
+                               value="{{ old($name, $meal->$name) }}" />
+                        @if($errors->has($name))
+                            <span class="text-danger">{{ $errors->first($name) }}</span>
+                        @endif
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
+                    </div>
+
 
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label class="" for="{{ $name = 'dictionary_ids' }}">{{ __('global.dictionaries') }}</label>
@@ -205,7 +239,7 @@
                                 name="{{ $name }}[]"
                                 id="{{ $name }}" multiple >
                             @foreach($dictionaryChildren as $id => $dictionary)
-                                <option value="{{ $id }}" {{ in_array($id, old($name, [])) ? 'selected' : '' }}>{{ $dictionary }}</option>
+                                <option value="{{ $id }}" {{ in_array($id, old($name, $dictionaryIds)) ? 'selected' : '' }}>{{ $dictionary }}</option>
                             @endforeach
                         </select>
                         @if($errors->has($name))
@@ -214,35 +248,34 @@
                     </div>
 
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="required" for="{{ $name = 'image' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <label class="" for="{{ $name = 'image' }}">{{ __("cruds.meals.fields.$name") }}</label>
                         <div class="needsclick dropzone {{ $errors->has('file') ? 'is-invalid' : '' }}" id="{{ $name }}">
                         </div>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="" for="{{ $name = 'image_history' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <label class="" for="{{ $name = 'image_history' }}">{{ __("cruds.meals.fields.$name") }}</label>
                         <div class="needsclick dropzone {{ $errors->has($name) ? 'is-invalid' : '' }}" id="{{ $name }}">
                         </div>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
                     </div>
 
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="" for="{{ $name = 'image_gallery' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <label class="" for="{{ $name = 'image_gallery' }}">{{ __("cruds.meals.fields.$name") }}</label>
                         <div class="needsclick dropzone {{ $errors->has($name) ? 'is-invalid' : '' }}" id="{{ $name }}">
                         </div>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
                     </div>
-
                 </div>
 
                 <div class="form-group">
@@ -288,6 +321,15 @@
                 }
             },
             init: function () {
+                @php $media = $meal->getFirstMedia($name = 'image'); @endphp
+                @if($media)
+                    var file = {!! json_encode($media) !!}
+                        this.options.addedfile.call(this, file)
+                    this.options.thumbnail.call(this, file, '{{ $media->getUrl('thumb') }}')
+                    file.previewElement.classList.add('dz-complete')
+                    $('form').append('<input type="hidden" name="{{ $name }}" value="' + file.file_name + '">')
+                    this.options.maxFiles = this.options.maxFiles - 1
+                @endif
             },
             error: function (file, response) {
                 if ($.type(response) === 'string') {
@@ -331,6 +373,15 @@
                 }
             },
             init: function () {
+                @php $media = $meal->getFirstMedia($name = 'image_history'); @endphp
+                @if($media)
+                    var file = {!! json_encode($media) !!}
+                        this.options.addedfile.call(this, file)
+                    this.options.thumbnail.call(this, file, '{{ $media->getUrl('thumb') }}')
+                    file.previewElement.classList.add('dz-complete')
+                    $('form').append('<input type="hidden" name="{{ $name }}" value="' + file.file_name + '">')
+                    this.options.maxFiles = this.options.maxFiles - 1
+                @endif
             },
             error: function (file, response) {
                 if ($.type(response) === 'string') {
@@ -369,11 +420,22 @@
             removedfile: function (file) {
                 file.previewElement.remove()
                 if (file.status !== 'error') {
-                    $('form').find('input[name="file"]').remove()
+                    $('form').find('input[id="image_gallery_' + file.id + '"]').remove()
                     this.options.maxFiles = this.options.maxFiles + 1
                 }
             },
             init: function () {
+                @php $mediaList = $meal->getMedia('image_gallery'); @endphp
+                @if($mediaList)
+                    @foreach($mediaList as $media)
+                        var file = {!! json_encode($media) !!}
+                            this.options.addedfile.call(this, file)
+                        this.options.thumbnail.call(this, file, '{{ $media->getUrl('thumb') }}')
+                        file.previewElement.classList.add('dz-complete')
+                        $('form').append('<input type="hidden" id="image_gallery_{{ $media->id }}" name="image_gallery[]" value="' + file.file_name + '">')
+                        this.options.maxFiles = this.options.maxFiles - 1
+                    @endforeach
+                @endif
             },
             error: function (file, response) {
                 if ($.type(response) === 'string') {

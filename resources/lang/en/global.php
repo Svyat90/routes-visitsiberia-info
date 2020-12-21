@@ -57,4 +57,5 @@ return [
     "parent" => "Parent",
     "dictionaries" => "Dictionaries",
     "export" => "Export",
+    "meals" => "Meals",
 ];

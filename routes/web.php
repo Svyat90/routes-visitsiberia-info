@@ -9,9 +9,8 @@ use App\Http\Controllers\Admin\LanguageController;
 use \App\Http\Controllers\Front\RouteController;
 use \App\Http\Controllers\Admin\PlaceController as AdminPlaceController;
 use \App\Http\Controllers\Admin\HotelController as AdminHotelController;
+use \App\Http\Controllers\Admin\MealController as AdminMealController;
 use \App\Http\Controllers\Front\EventController;
-use \App\Http\Controllers\Front\HotelController;
-use \App\Http\Controllers\Front\MealController;
 use \App\Http\Controllers\Admin\MediaController;
 use \App\Http\Controllers\Admin\DictionaryController;
 use \App\Http\Controllers\Admin\Csv\ExportController;
@@ -39,15 +38,12 @@ Route::namespace('Front')->as('front.')->group(function () {
     Route::get('routes', [RouteController::class, 'index'])->name('routes.index');
     Route::get('routes/show', [RouteController::class, 'show'])->name('routes.show');
 
-    Route::resource('places', 'PlaceController')->only('index', 'show');
-
     Route::get('events', [EventController::class, 'index'])->name('events.index');
     Route::get('events/show', [EventController::class, 'show'])->name('events.show');
 
+    Route::resource('places', 'PlaceController')->only('index', 'show');
     Route::resource('hotels', 'HotelController')->only('index', 'show');
-
-    Route::get('meals', [MealController::class, 'index'])->name('meals.index');
-    Route::get('meals/show', [MealController::class, 'show'])->name('meals.show');
+    Route::resource('meals', 'MealController')->only('index', 'show');
 });
 
 // Admin
@@ -72,6 +68,10 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     // Hotels
     Route::delete('hotels/multi-destroy', [AdminHotelController::class, 'massDestroy'])->name('hotels.multi_destroy');
     Route::resource('hotels', 'Admin\HotelController');
+
+    // Meals
+    Route::delete('meals/multi-destroy', [AdminMealController::class, 'massDestroy'])->name('meals.multi_destroy');
+    Route::resource('meals', 'Admin\MealController');
 
     // Languages
     Route::delete('languages/multi-destroy', [LanguageController::class, 'massDestroy'])->name('languages.multi_destroy');
