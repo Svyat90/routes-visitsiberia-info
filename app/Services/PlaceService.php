@@ -77,7 +77,7 @@ class PlaceService
         $this->handleMediaFiles($request, $place);
         $this->handleRelationships($place, $request);
 
-        return $this->repository->updateData($request->validated(), $place);
+        return $this->repository->updateData($request->all(), $place);
     }
 
     /**

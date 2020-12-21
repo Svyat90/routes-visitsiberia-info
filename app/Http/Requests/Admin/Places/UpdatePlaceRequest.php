@@ -13,7 +13,6 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property array $name
  * @property array $header_desc
  * @property array $page_desc
- * @property array $helpful_info
  * @property array $history_desc
  * @property array $contact_desc
  * @property boolean $active
@@ -51,8 +50,6 @@ class UpdatePlaceRequest extends FormRequest
             'header_desc.*' => 'string|nullable',
             'page_desc' => 'sometimes|array',
             'page_desc.*' => 'string|nullable',
-            'helpful_info' => 'sometimes|array',
-            'helpful_info.*' => 'string|nullable',
             'history_desc' => 'sometimes|array',
             'history_desc.*' => 'string|nullable',
             'contact_desc' => 'sometimes|array',

@@ -15,13 +15,16 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string $name
  * @property string $header_desc
  * @property string $page_desc
- * @property string $helpful_info
  * @property string $history_desc
  * @property string $contact_desc
  * @property string $life_hacks
  * @property string $lat
  * @property string $lng
  * @property string $location
+ * @property string $site_link
+ * @property string $social_links
+ * @property string $contacts_representatives
+ * @property string $additional_links
  * @property boolean $active
  * @property boolean $recommended
  * @property Media $image
@@ -36,8 +39,9 @@ class Place extends BaseModel
      */
     public array $translatable = [
         'name', 'header_desc', 'page_desc', 'location',
-        'helpful_info', 'history_desc', 'contact_desc', 'life_hacks',
-        'meta_title', 'meta_description'
+        'history_desc', 'contact_desc', 'life_hacks',
+        'meta_title', 'meta_description', 'contacts_representatives',
+        'additional_links',
     ];
 
     /**
@@ -45,8 +49,9 @@ class Place extends BaseModel
      */
     protected $fillable = [
         'name', 'header_desc', 'page_desc', 'recommended', 'active', 'life_hacks',
-        'helpful_info', 'history_desc', 'contact_desc', 'lat', 'lng', 'location',
-        'meta_title', 'meta_description'
+        'history_desc', 'contact_desc', 'lat', 'lng', 'location',
+        'meta_title', 'meta_description', 'site_link', 'social_links',
+        'contacts_representatives', 'additional_links',
     ];
 
     /**

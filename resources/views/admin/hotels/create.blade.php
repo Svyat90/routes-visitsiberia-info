@@ -32,7 +32,7 @@
 
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                    @if (in_array($field, ['page_desc', 'helpful_info', 'history_desc', 'contact_desc']))
+                                                    @if (in_array($field, ['page_desc', 'history_desc', 'contact_desc']))
                                                         <div class="form-group">
                                                             <label for="{{ $name = $field . '[' . $language->locale . ']' }}">
                                                                 {{ __("cruds.hotels.fields.$field") }}
@@ -107,6 +107,32 @@
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                         <label class="required" for="{{ $name = 'lng' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
+                               type="text"
+                               name="{{ $name }}"
+                               id="{{ $name }}"
+                               value="{{ old($name, '') }}" />
+                        @if($errors->has($name))
+                            <span class="text-danger">{{ $errors->first($name) }}</span>
+                        @endif
+                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                    </div>
+
+                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                        <label class="" for="{{ $name = 'site_link' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
+                               type="text"
+                               name="{{ $name }}"
+                               id="{{ $name }}"
+                               value="{{ old($name, '') }}" />
+                        @if($errors->has($name))
+                            <span class="text-danger">{{ $errors->first($name) }}</span>
+                        @endif
+                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                    </div>
+
+                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                        <label class="" for="{{ $name = 'social_links' }}">{{ __("cruds.hotels.fields.$name") }}</label>
                         <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
                                type="text"
                                name="{{ $name }}"

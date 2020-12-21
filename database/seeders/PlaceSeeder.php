@@ -90,10 +90,6 @@ class PlaceSeeder extends Seeder
                         шлагбаум), или напрямую в гору, но с препятствиями в виде противопожарных рвов. Это объездной путь.',
                     'en' => $contactDesc,
                 ],
-                'helpful_info' => [
-                    'ru' => $helpfulInfo = '<a href="#" class="article__contact article__link">Тепсей: молитва вечному небу. Какие тайны скрываетлегендарная гора?</a><a href="#" class="article__contact article__link">Гора Тепсей - ТУРИСТСКИЙ ИНФОРМАЦИОННЫЙ ЦЕНТР</a>',
-                    'en' => $helpfulInfo,
-                ],
                 'history_desc' => [
                     'ru' => $historyDesc = '
                       На протяжении нескольких тысячелетий гора Тепсей считалась сакральной у народов Хакассии. Древние люди

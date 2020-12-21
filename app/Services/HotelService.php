@@ -77,7 +77,7 @@ class HotelService
         $this->handleMediaFiles($request, $hotel);
         $this->handleRelationships($hotel, $request);
 
-        return $this->repository->updateData($request->validated(), $hotel);
+        return $this->repository->updateData($request->all(), $hotel);
     }
 
     /**

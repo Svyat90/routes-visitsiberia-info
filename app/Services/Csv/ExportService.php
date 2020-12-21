@@ -58,7 +58,7 @@ class ExportService extends CsvService
                 ->setCellValue($this->cols['name'] . $this->row, $place->name)
                 ->setCellValue($this->cols['properties'] . $this->row, implode(";", $properties))
                 ->setCellValue($this->cols['image'] . $this->row, $link)
-                ->setCellValue($this->cols['image_title'] . $this->row, $title)
+                ->setCellValue($this->cols['image_author'] . $this->row, $title)
                 ->setCellValue($this->cols['image_desc'] . $this->row, $desc)
                 ->setCellValue($this->cols['image_author_link'] . $this->row, $authorLink)
                 ->setCellValue($this->cols['image_gallery'] . $this->row, implode(";", $galleryData['urls']))
@@ -69,10 +69,14 @@ class ExportService extends CsvService
                 ->setCellValue($this->cols['history_desc'] . $this->row, $place->history_desc)
                 ->setCellValue($this->cols['contact_desc'] . $this->row, $place->contact_desc)
                 ->setCellValue($this->cols['life_hacks'] . $this->row, $place->life_hacks)
-                ->setCellValue($this->cols['helpful_info'] . $this->row, $place->helpful_info)
                 ->setCellValue($this->cols['lat'] . $this->row, $place->lat)
                 ->setCellValue($this->cols['lng'] . $this->row, $place->lng)
-                ->setCellValue($this->cols['location'] . $this->row, $place->location);
+                ->setCellValue($this->cols['location'] . $this->row, $place->location)
+                ->setCellValue($this->cols['site_link'] . $this->row, $place->site_link)
+                ->setCellValue($this->cols['social_links'] . $this->row, $place->social_links)
+                ->setCellValue($this->cols['contacts_representatives'] . $this->row, $place->contacts_representatives)
+                ->setCellValue($this->cols['additional_links'] . $this->row, $place->additional_links)
+                ->setCellValue($this->cols['contacts_delivery'] . $this->row, $place->contacts_delivery);
         }
     }
 
