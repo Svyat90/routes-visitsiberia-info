@@ -46,6 +46,16 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route("admin.hotels.index") }}" class="nav-link {{ request()->is("admin/hotels") ? 'active' : '' }}" >
+                        <i class="fa-fw nav-icon fas fa-book">
+                        </i>
+                        <p>
+                            {{ trans('cruds.hotels.title') }}
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link {{ request()->is("languages/*") ? 'active' : '' }}" href="{{ route('admin.languages.index') }}">
                         <i class="fa-fw nav-icon fas fa-cogs">
                         </i>

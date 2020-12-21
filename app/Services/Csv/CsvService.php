@@ -17,6 +17,9 @@ abstract class CsvService
     use FilterConstantsTrait;
 
     public const TYPE_PLACES = 'places';
+    public const TYPE_HOTELS = 'hotels';
+    public const TYPE_MEALS = 'meals';
+    public const TYPE_EVENTS = 'events';
 
     /**
      * @var Spreadsheet
@@ -50,26 +53,11 @@ abstract class CsvService
 
     /**
      * CsvController constructor.
-     *
-     * @param string $sheetName
      */
-    public function __construct(string $sheetName)
+    public function __construct()
     {
-        $this->sheetName = $sheetName;
         $this->spreadsheet = new Spreadsheet();
         $this->config = include (config_path('export.php'));
-        $this->cols = $this->config['cols'][strtolower($sheetName)];
-    }
-
-    public function initWorkSheet() : void
-    {
-        $this->sheet = $this->spreadsheet
-            ->getActiveSheet()
-            ->setTitle($this->sheetName);
-
-        foreach ($this->cols as $name => $index) {
-            $this->sheet->setCellValue($index . $this->row, $name);
-        }
     }
 
     /**
@@ -78,6 +66,23 @@ abstract class CsvService
     public function getExportTypes()
     {
         return self::filterConstants('TYPE');
+    }
+
+    /**
+     * @param string $sheetName
+     */
+    protected function initWorkSheet(string $sheetName) : void
+    {
+        $this->sheetName = $sheetName;
+        $this->cols = $this->config['cols'][$sheetName];
+
+        $this->sheet = $this->spreadsheet
+            ->getActiveSheet()
+            ->setTitle($this->sheetName);
+
+        foreach ($this->cols as $name => $index) {
+            $this->sheet->setCellValue($index . $this->row, $name);
+        }
     }
 
     /**

@@ -8,6 +8,8 @@ use Illuminate\Foundation\Http\FormRequest;
  * Class UpdatePlaceRequest
  *
  * @property int $id
+ * @property string $meta_title
+ * @property string $meta_description
  * @property array $name
  * @property array $header_desc
  * @property array $page_desc
@@ -41,6 +43,10 @@ class UpdatePlaceRequest extends FormRequest
             'id' => 'required|int|exists:places,id',
             'name' => 'sometimes|array',
             'name.*' => 'string|nullable',
+            'meta_title' => 'sometimes|array',
+            'meta_title.*' => 'string|nullable',
+            'meta_description' => 'sometimes|array',
+            'meta_description.*' => 'string|nullable',
             'header_desc' => 'sometimes|array',
             'header_desc.*' => 'string|nullable',
             'page_desc' => 'sometimes|array',

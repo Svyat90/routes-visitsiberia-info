@@ -1,20 +1,28 @@
 <?php
 
-namespace App\Http\Requests\Admin\Places;
+namespace App\Http\Requests\Admin\Hotels;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class StorePlaceRequest
+ * Class StoreHotelRequest
  *
- * @property array $name
+ * @property string $name
  * @property string $meta_title
  * @property string $meta_description
- * @property array $header_desc
- * @property array $page_desc
- * @property array $helpful_info
- * @property array $history_desc
- * @property array $contact_desc
+ * @property string $conditions_accommodation
+ * @property string $conditions_payment
+ * @property string $room_desc
+ * @property string $additional_services
+ * @property string $food_desc
+ * @property string $contact_desc
+ * @property string $site_link
+ * @property string $social_links
+ * @property string $aggregator_links
+ * @property string $phones
+ * @property string $location
+ * @property string $lat
+ * @property string $lng
  * @property boolean $active
  * @property boolean $recommended
  * @property string $image
@@ -22,7 +30,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property array $image_gallery
  * @property array $dictionary_ids
  */
-class StorePlaceRequest extends FormRequest
+class StoreHotelRequest extends FormRequest
 {
 
     /**
@@ -45,22 +53,26 @@ class StorePlaceRequest extends FormRequest
             'meta_title.*' => 'string|nullable',
             'meta_description' => 'sometimes|array',
             'meta_description.*' => 'string|nullable',
-            'header_desc' => 'sometimes|array',
-            'header_desc.*' => 'string|nullable',
-            'page_desc' => 'sometimes|array',
-            'page_desc.*' => 'string|nullable',
-            'helpful_info' => 'sometimes|array',
-            'helpful_info.*' => 'string|nullable',
-            'history_desc' => 'sometimes|array',
-            'history_desc.*' => 'string|nullable',
+            'conditions_accommodation' => 'sometimes|array',
+            'conditions_accommodation.*' => 'string|nullable',
+            'conditions_payment' => 'sometimes|array',
+            'conditions_payment.*' => 'string|nullable',
+            'room_desc' => 'sometimes|array',
+            'room_desc.*' => 'string|nullable',
+            'additional_services' => 'sometimes|array',
+            'additional_services.*' => 'string|nullable',
             'contact_desc' => 'sometimes|array',
             'contact_desc.*' => 'string|nullable',
-            'life_hacks' => 'sometimes|array',
-            'life_hacks.*' => 'string|nullable',
+            'food_desc' => 'sometimes|array',
+            'food_desc.*' => 'string|nullable',
             'active' => 'required|bool',
             'recommended' => 'required|bool',
             'lat' => 'required|string',
             'lng' => 'required|string',
+            'site_link' => 'sometimes|nullable|string',
+            'social_links' => 'sometimes|nullable|string',
+            'aggregator_links' => 'sometimes|nullable|string',
+            'phones' => 'sometimes|nullable|string',
             'location' => 'sometimes|array',
             'location.*' => 'string|nullable',
             'image' => 'required|string',

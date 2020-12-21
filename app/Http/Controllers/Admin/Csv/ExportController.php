@@ -50,7 +50,7 @@ class ExportController extends AdminController
      */
     public function export(Request $request)
     {
-        $filePath = $this->exportService->generateFile();
+        $filePath = $this->exportService->generateFile($request->input('type'));
 
         return response()->download($filePath);
     }

@@ -80,4 +80,12 @@ class Dictionary extends BaseModel
         return $this->belongsToMany(Place::class, 'place_dictionary', 'dictionary_id', 'place_id');
     }
 
+    /**
+     * @return BelongsToMany
+     */
+    public function hotels()
+    {
+        return $this->belongsToMany(Hotel::class, 'hotel_dictionary', 'dictionary_id', 'hotel_id');
+    }
+
 }

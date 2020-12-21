@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             LanguagesSeeder::class,
             DictionarySeeder::class,
             PlaceSeeder::class,
-            PagesSeeder::class
+            PagesSeeder::class,
+            VarsSeeder::class
         ]);
     }
 }

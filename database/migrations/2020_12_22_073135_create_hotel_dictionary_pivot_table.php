@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlaceDictionaryPivotTable extends Migration
+class CreateHotelDictionaryPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreatePlaceDictionaryPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('place_dictionary', function (Blueprint $table) {
-            $table->unsignedBigInteger('place_id');
-            $table->foreign('place_id')
-                ->references('id')->on('places')
+        Schema::create('hotel_dictionary', function (Blueprint $table) {
+            $table->unsignedBigInteger('hotel_id');
+            $table->foreign('hotel_id')
+                ->references('id')->on('hotels')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->unsignedBigInteger('dictionary_id');
@@ -33,6 +33,6 @@ class CreatePlaceDictionaryPivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('place_dictionary');
+        Schema::dropIfExists('hotel_dictionary');
     }
 }

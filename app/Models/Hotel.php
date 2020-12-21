@@ -12,41 +12,49 @@ use Illuminate\Database\Eloquent\Collection;
  *
  * @property int $id
  * @property string $slug
- * @property string $name
- * @property string $header_desc
- * @property string $page_desc
- * @property string $helpful_info
- * @property string $history_desc
- * @property string $contact_desc
- * @property string $life_hacks
- * @property string $lat
- * @property string $lng
- * @property string $location
  * @property boolean $active
  * @property boolean $recommended
+ * @property string $name
+ * @property string $meta_title
+ * @property string $meta_description
+ * @property string $conditions_accommodation
+ * @property string $conditions_payment
+ * @property string $room_desc
+ * @property string $additional_services
+ * @property string $food_desc
+ * @property string $contact_desc
+ * @property string $site_link
+ * @property string $social_links
+ * @property string $aggregator_links
+ * @property string $phones
+ * @property string $location
+ * @property string $lat
+ * @property string $lng
  * @property Media $image
  * @property Media $image_history
  * @property MediaCollection $image_gallery
  * @property Collection $dictionaries
  */
-class Place extends BaseModel
+class Hotel extends BaseModel
 {
     /**
      * @var array|string[]
      */
     public array $translatable = [
-        'name', 'header_desc', 'page_desc', 'location',
-        'helpful_info', 'history_desc', 'contact_desc', 'life_hacks',
-        'meta_title', 'meta_description'
+        'name', 'meta_title', 'meta_description',
+        'conditions_accommodation', 'conditions_payment',
+        'room_desc', 'additional_services','food_desc',
+        'contact_desc', 'location',
     ];
 
     /**
      * @var string[]
      */
     protected $fillable = [
-        'name', 'header_desc', 'page_desc', 'recommended', 'active', 'life_hacks',
-        'helpful_info', 'history_desc', 'contact_desc', 'lat', 'lng', 'location',
-        'meta_title', 'meta_description'
+        'active', 'recommended', 'name', 'meta_title', 'meta_description',
+        'conditions_accommodation', 'conditions_payment', 'room_desc', 'additional_services',
+        'food_desc', 'contact_desc', 'site_link', 'social_links', 'aggregator_links',
+        'phones', 'location', 'lat', 'lng',
     ];
 
     /**
@@ -68,7 +76,7 @@ class Place extends BaseModel
      */
     public function dictionaries()
     {
-        return $this->belongsToMany(Dictionary::class, 'place_dictionary', 'place_id', 'dictionary_id');
+        return $this->belongsToMany(Dictionary::class, 'hotel_dictionary', 'hotel_id', 'dictionary_id');
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\LanguageController;
 use \App\Http\Controllers\Front\RouteController;
 use \App\Http\Controllers\Admin\PlaceController as AdminPlaceController;
+use \App\Http\Controllers\Admin\HotelController as AdminHotelController;
 use \App\Http\Controllers\Front\EventController;
 use \App\Http\Controllers\Front\RoomController;
 use \App\Http\Controllers\Front\MealController;
@@ -68,6 +69,10 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     // Places
     Route::delete('places/multi-destroy', [AdminPlaceController::class, 'massDestroy'])->name('places.multi_destroy');
     Route::resource('places', 'Admin\PlaceController');
+
+    // Hotels
+    Route::delete('hotels/multi-destroy', [AdminHotelController::class, 'massDestroy'])->name('hotels.multi_destroy');
+    Route::resource('hotels', 'Admin\HotelController');
 
     // Languages
     Route::delete('languages/multi-destroy', [LanguageController::class, 'massDestroy'])->name('languages.multi_destroy');

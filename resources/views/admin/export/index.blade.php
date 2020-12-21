@@ -12,7 +12,7 @@
 
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'export' }}">{{ __("global.export") }}</label>
+                        <label class="required" for="{{ $name = 'type' }}">{{ __("global.export") }}</label>
                         <select name="{{ $name }}" id="{{ $name }}" class="form-control">
                             @foreach($types as $type)
                                 <option value="{{ $type }}" {{ old($name) == $type ? 'selected' : '' }}>{{ $type }}</option>
