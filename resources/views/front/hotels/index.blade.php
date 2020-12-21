@@ -8,9 +8,12 @@
         <div class="rooms d-flex flex-column" id="rooms">
             <div class="rooms__heading heading heading--blue" id="heading">
                 <h1 class="heading__title">Проживание</h1>
+                <div class="heading__select" id="heading-first">
+                    <input id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
+                </div>
                 <div class="heading__selects heading__selects--rooms">
-                    <div class="heading__select" id="heading-first">
-                        <select class="heading__select" id="first">
+                    <div class="heading__select">
+                        <select class="heading__select" id="second">
                             <option disabled selected>Город</option>
                             <option>Активно</option>
                             <option>Спокойный</option>
@@ -26,7 +29,7 @@
                         </select>
                     </div>
                     <div class="heading__select" id="heading-second">
-                        <select class="heading__select" id="second">
+                        <select class="heading__select" id="third">
                             <option disabled selected>Расстояние</option>
                             <option>&lt; 1км от центра</option>
                             <option>&lt; 3км от центра</option>
@@ -34,7 +37,7 @@
                         </select>
                     </div>
                     <div class="heading__select" id="heading-third">
-                        <select class="heading__select" id="third">
+                        <select class="heading__select" id="fourth">
                             <option disabled selected>Тип размещения</option>
                             <option>Отели</option>
                             <option>Хостелы</option>
