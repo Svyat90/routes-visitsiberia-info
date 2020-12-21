@@ -34,7 +34,7 @@ class SlugHelper
             }
 
             if ($slug) {
-                return Str::slug($slug, "-", app()->getLocale());
+                return $slug;
             }
         }
 
@@ -50,11 +50,13 @@ class SlugHelper
      */
     private static function generateUniqueSlug(Model $model, string $slug, $count = 0)
     {
+        $slug = Str::slug($slug, "-", app()->getLocale());
         if ($model::query()->where('slug', '=', $slug)->count() > 0) {
-            return self::generateUniqueSlug($model, $slug . '=' . ++$count, $count);
-        }
+            return self::generateUniqueSlug($model, $slug . '-' . ++$count, $count);
 
-        return $count ? $slug . '-' . $count : $slug;
+        } else {
+            return $slug;
+        }
     }
 
     /**

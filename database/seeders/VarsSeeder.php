@@ -40,6 +40,10 @@ class VarsSeeder extends Seeder
             'ru' => 'История',
             'en' => 'History'
         ],
+        'base_contacts' => [
+            'ru' => 'Контакты',
+            'en' => 'Contacts'
+        ],
         'base_how_to_get' => [
             'ru' => 'Как добраться',
             'en' => 'How to get there'

@@ -115,6 +115,8 @@ return [
             'site_link_helper'       => '',
             'social_links'              => 'Social Links',
             'social_links_helper'       => 'Example: http://google.com,http://yandex.ru',
+            'price'              => 'Price',
+            'price_helper'       => '',
         ],
     ],
     'vars'                     => [

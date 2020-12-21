@@ -188,8 +188,8 @@
 
             for (let i = 0; i < data.length; i++) {
                 myPlacemark = new ymaps.Placemark([data[i].lat, data[i].lng], {
-                    hintContent: 'Собственный значок метки',
-                    balloonContent: 'Это красивая метка'
+                    hintContent: data[i].name,
+                    balloonContent: data[i].name
                 }, {
                     // options
                     iconLayout: 'default#imageWithContent',

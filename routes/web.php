@@ -10,7 +10,7 @@ use \App\Http\Controllers\Front\RouteController;
 use \App\Http\Controllers\Admin\PlaceController as AdminPlaceController;
 use \App\Http\Controllers\Admin\HotelController as AdminHotelController;
 use \App\Http\Controllers\Front\EventController;
-use \App\Http\Controllers\Front\RoomController;
+use \App\Http\Controllers\Front\HotelController;
 use \App\Http\Controllers\Front\MealController;
 use \App\Http\Controllers\Admin\MediaController;
 use \App\Http\Controllers\Admin\DictionaryController;
@@ -44,8 +44,7 @@ Route::namespace('Front')->as('front.')->group(function () {
     Route::get('events', [EventController::class, 'index'])->name('events.index');
     Route::get('events/show', [EventController::class, 'show'])->name('events.show');
 
-    Route::get('rooms', [RoomController::class, 'index'])->name('rooms.index');
-    Route::get('rooms/show', [RoomController::class, 'show'])->name('rooms.show');
+    Route::resource('hotels', 'HotelController')->only('index', 'show');
 
     Route::get('meals', [MealController::class, 'index'])->name('meals.index');
     Route::get('meals/show', [MealController::class, 'show'])->name('meals.show');

@@ -16,7 +16,7 @@
                                 d="M7.02333 0L7 37.3333L28 51.3333L48.9767 37.3333L49 0H7.02333ZM23.3333 35L11.6667 23.3333L14.9567 20.02L23.3333 28.3967L41.0433 10.6867L44.3333 14L23.3333 35Z"
                                 fill="#FFB906" />
                         </svg>
-                        <p class="article__recommendation-text">ТИЦ рекомендует</p>
+                        <p class="article__recommendation-text" id="desc">ТИЦ рекомендует</p>
                     </div>
 
                     <div class="article__sign wow fadeInLeft">
@@ -73,7 +73,7 @@
                     надписи (более 1,5 тысяч), которые вы можете увидеть, если будете внимательны. Вот уже на протяжении 150 лет
                     гора Тепсей является объектом пристального изучения историков. Тепсей таит в себе еще множество загадок и
                     манит их разгадать...
-                    <p class="article__contact-title">
+                    <p class="article__contact-title" id="info">
                         Полезная информация:
                     </p>
                     <a href="#" class="article__contact article__link">Тепсей: молитва вечному небу. Какие тайны скрывает
@@ -82,7 +82,7 @@
                 </div>
             </section>
 
-            <section class="article__history article__block">
+            <section class="article__history article__block" id="story">
                 <div class="article__history-block wow fadeInLeft">
                     <h2 class="article__name exo">История</h2>
                     <div class="article__history-text">
@@ -106,7 +106,7 @@
                 </div>
             </section>
 
-            <section class="article__block article__pass">
+            <section class="article__block article__pass" id="way">
                 <div class="article__pass-text">
                     <h2 class="article__name wow fadeInUp">
                         Как добраться
@@ -130,7 +130,7 @@
                 </div>
             </section>
 
-            <section class="article__feedback article__block">
+            <section class="article__feedback article__block" id="reviews">
                 <h2 class="article__name wow fadeInUp">Отзывы</h2>
                 <div class="article__feedback-slider wow fadeInUp">
                     <div class="feedback">
@@ -180,7 +180,7 @@
                 </button>
             </section>
 
-            <section class="article__events article__block">
+            <section class="article__events article__block" id="events">
                 <h2 class="article__name article__name-position wow fadeInUp">
                     События поблизости
                 </h2>
@@ -312,7 +312,7 @@
                 </div>
             </section>
 
-            <section class="article__place-for-sleep article__block">
+            <section class="article__place-for-sleep article__block" id="places">
                 <h2 class="article__name article__name-position wow fadeInUp">
                     Где остановиться в пути
                 </h2>
@@ -444,7 +444,7 @@
                 </div>
             </section>
 
-            <section class="article__cafe article__block">
+            <section class="article__cafe article__block" id="meals">
                 <h2 class="article__name article__name-position wow fadeInUp">
                     Самые вкусные места на маршруте
                 </h2>

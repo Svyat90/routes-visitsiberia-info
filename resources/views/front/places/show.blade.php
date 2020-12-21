@@ -18,7 +18,7 @@
                                     d="M7.02333 0L7 37.3333L28 51.3333L48.9767 37.3333L49 0H7.02333ZM23.3333 35L11.6667 23.3333L14.9567 20.02L23.3333 28.3967L41.0433 10.6867L44.3333 14L23.3333 35Z"
                                     fill="#FFB906"/>
                             </svg>
-                            <p class="article__recommendation-text">{{ $vars['base_tic_recommended'] }}</p>
+                            <p class="article__recommendation-text" id="desc">{{ $vars['base_tic_recommended'] }}</p>
                         </div>
                     @endif
                     <div class="article__sign wow fadeInLeft">
@@ -70,14 +70,14 @@
                 </div>
                 <div class="article__text article__block-info wow fadeInUp">
                     {!! $place->page_desc !!}
-                    <p class="article__contact-title">
+                    <p class="article__contact-title" id="info">
                         {{ $vars['base_help_info'] }}:
                     </p>
                     {!! $place->helpful_info !!}
                 </div>
             </section>
 
-            <section class="article__slider article__block wow fadeInUp">
+            <section class="article__slider article__block wow fadeInUp" id="photo">
                 <div class="swiper-container article__slider-container">
                     <div class="swiper-wrapper">
                         @foreach($place->image_gallery as $image)
@@ -109,7 +109,7 @@
                 </script>
             </section>
 
-            <section class="article__history article__block">
+            <section class="article__history article__block" id="story">
                 <div class="article__history-block wow fadeInLeft">
                     <h2 class="article__name exo">{{ $vars['base_history'] }}</h2>
                     <div class="article__history-text">
@@ -118,12 +118,14 @@
                         </p>
                     </div>
                 </div>
-                <div class="article__img-wr wow fadeInRight">
-                    {{ $place->image_history->img()->attributes(['class' => 'article__map'])->lazy() }}
-                </div>
+                @if($hotel->image_history)
+                    <div class="article__img-wr wow fadeInRight">
+                        {{ $place->image_history->img()->attributes(['class' => 'article__map'])->lazy() }}
+                    </div>
+                @endif
             </section>
 
-            <section class="article__block article__pass">
+            <section class="article__block article__pass" id="way">
                 <div class="article__pass-text">
                     <h2 class="article__name wow fadeInUp">
                         {{ $vars['base_how_to_get'] }}
@@ -138,7 +140,7 @@
                 </div>
             </section>
 
-            <section class="article__feedback article__block">
+            <section class="article__feedback article__block" id="reviews">
                 <h2 class="article__name wow fadeInUp">{{ $vars['base_reviews'] }}:</h2>
                 <div class="article__feedback-slider wow fadeInUp">
                     <div class="feedback">
@@ -190,7 +192,7 @@
                 </button>
             </section>
 
-            <section class="article__events article__block">
+            <section class="article__events article__block" id="events">
                 <h2 class="article__name article__name-position wow fadeInUp">
                     {{ $vars['base_events_early'] }}
                 </h2>
@@ -322,7 +324,7 @@
                 </div>
             </section>
 
-            <section class="article__place-for-sleep article__block">
+            <section class="article__place-for-sleep article__block" id="places">
                 <h2 class="article__name article__name-position wow fadeInUp">
                     {{ $vars['base_where_to_stay_on_way'] }}
                 </h2>
@@ -454,7 +456,7 @@
                 </div>
             </section>
 
-            <section class="article__cafe article__block">
+            <section class="article__cafe article__block" id="meals">
                 <h2 class="article__name article__name-position wow fadeInUp">
                     {{ $vars['base_where_to_eat_desc'] }}
                 </h2>

@@ -32,6 +32,12 @@ class PlaceController extends FrontController
         $this->service = $service;
     }
 
+    /**
+     * @param IndexPlaceRequest $request
+     * @param DictionaryService $dictionaryService
+     *
+     * @return Application|Factory|View
+     */
     public function index(IndexPlaceRequest $request, DictionaryService $dictionaryService)
     {
         $typeList = $dictionaryService->getTypesList();
@@ -48,8 +54,8 @@ class PlaceController extends FrontController
                 'whom_id' => $request->whom_id
             ]);
 
-        $geoData = $data->map(function (Place $place) {
-            return ['lat' => $place->lat, 'lng' => $place->lng];
+        $geoData = $data->map(function (Place $hotel) {
+            return ['lat' => $hotel->lat, 'lng' => $hotel->lng, 'name' => $hotel->name];
         });
 
         return view('front.places.index', compact(

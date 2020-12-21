@@ -23,7 +23,7 @@
                         <a class="nav-link" href="{{ route('front.events.index') }}">События</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('front.rooms.index') }}">Проживание</a>
+                        <a class="nav-link" href="{{ route('front.hotels.index') }}">Проживание</a>
                     </li>
                     <li class="nav-item mr-auto">
                         <a class="nav-link" href="{{ route('front.meals.index') }}">Еда</a>
