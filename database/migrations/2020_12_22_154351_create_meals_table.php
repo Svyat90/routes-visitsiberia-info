@@ -15,7 +15,7 @@ class CreateMealsTable extends Migration
     {
         Schema::create('meals', function (Blueprint $table) {
             $table->id();
-            $table->string('slug', 256)->unique();
+            $table->string('slug', 128)->unique();
             $table->boolean('active')->default(false);
             $table->boolean('recommended')->default(false);
             $table->boolean('have_breakfasts')->default(false);

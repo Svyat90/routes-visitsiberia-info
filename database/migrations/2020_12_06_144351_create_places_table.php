@@ -15,7 +15,7 @@ class CreatePlacesTable extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->id();
-            $table->string('slug', 256)->unique();
+            $table->string('slug', 128)->unique();
             $table->boolean('active')->default(false);
             $table->boolean('recommended')->default(false);
             $table->string('lat', 32)->nullable();

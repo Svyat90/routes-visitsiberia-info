@@ -16,8 +16,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Schema::defaultStringLength(191);
-
         $this->app->bind(LanguageService::class, function ($app) {
             $repository = new LanguageRepository();
             return new LanguageService($repository);
@@ -31,6 +29,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Schema::defaultStringLength(191);
     }
 }

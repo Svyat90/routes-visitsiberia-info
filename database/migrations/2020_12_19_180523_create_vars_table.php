@@ -15,7 +15,7 @@ class CreateVarsTable extends Migration
     {
         Schema::create('vars', function (Blueprint $table) {
             $table->id();
-            $table->string('key', 256)->unique();
+            $table->string('key', 128)->unique();
             $table->text('val_ru')->nullable();
             $table->text('val_en')->nullable();
             $table->timestamps();

@@ -15,7 +15,7 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('slug', 256)->unique();
+            $table->string('slug', 128)->unique();
             $table->boolean('active')->default(false);
             $table->boolean('have_camping')->default(false);
             $table->string('lat', 32)->nullable();
