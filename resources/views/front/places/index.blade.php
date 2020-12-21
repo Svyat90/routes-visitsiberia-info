@@ -92,7 +92,7 @@
                                     <a href="{{ route('front.places.show', $place->id) }}" class="d-flex flex-column nop position-relative">
                                         <img src="{{ asset('front/img/item-top.svg') }}" class="list__item-sign" alt="">
                                         <div class="list__img">
-                                            {{ $place->image->img()->lazy() }}
+                                            {{ $place->image ? $place->image->img()->lazy() : '' }}
                                         </div>
                                         <p class="list__name exo">
                                             {{ $place->name }}

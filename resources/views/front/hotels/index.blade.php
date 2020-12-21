@@ -45,15 +45,6 @@
                     </div>
                 </div>
             </div>
-            <script>
-                $(function () {
-                    $("#first").selectmenu();
-
-                    $("#second").selectmenu();
-
-                    $("#third").selectmenu()
-                });
-            </script>
             <div class="rooms__items list">
                 <ul class="nav nav-pills list__tabs" id="pills-tab" role="tablist">
                     <li class="nav-item">

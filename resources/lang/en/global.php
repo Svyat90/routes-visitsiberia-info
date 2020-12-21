@@ -58,4 +58,5 @@ return [
     "dictionaries" => "Dictionaries",
     "export" => "Export",
     "meals" => "Meals",
+    "events" => "Events",
 ];

@@ -44,6 +44,10 @@ class VarsSeeder extends Seeder
             'ru' => 'Контакты',
             'en' => 'Contacts'
         ],
+        'base_contacts_owners' => [
+            'ru' => 'Контакты организаторов',
+            'en' => 'Contacts owners'
+        ],
         'base_how_to_get' => [
             'ru' => 'Как добраться',
             'en' => 'How to get there'

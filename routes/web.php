@@ -10,6 +10,7 @@ use \App\Http\Controllers\Front\RouteController;
 use \App\Http\Controllers\Admin\PlaceController as AdminPlaceController;
 use \App\Http\Controllers\Admin\HotelController as AdminHotelController;
 use \App\Http\Controllers\Admin\MealController as AdminMealController;
+use \App\Http\Controllers\Admin\EventController as AdminEventController;
 use \App\Http\Controllers\Front\EventController;
 use \App\Http\Controllers\Admin\MediaController;
 use \App\Http\Controllers\Admin\DictionaryController;
@@ -38,12 +39,10 @@ Route::namespace('Front')->as('front.')->group(function () {
     Route::get('routes', [RouteController::class, 'index'])->name('routes.index');
     Route::get('routes/show', [RouteController::class, 'show'])->name('routes.show');
 
-    Route::get('events', [EventController::class, 'index'])->name('events.index');
-    Route::get('events/show', [EventController::class, 'show'])->name('events.show');
-
     Route::resource('places', 'PlaceController')->only('index', 'show');
     Route::resource('hotels', 'HotelController')->only('index', 'show');
     Route::resource('meals', 'MealController')->only('index', 'show');
+    Route::resource('events', 'EventController')->only('index', 'show');
 });
 
 // Admin
@@ -72,6 +71,10 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     // Meals
     Route::delete('meals/multi-destroy', [AdminMealController::class, 'massDestroy'])->name('meals.multi_destroy');
     Route::resource('meals', 'Admin\MealController');
+
+    // Events
+    Route::delete('events/multi-destroy', [AdminEventController::class, 'massDestroy'])->name('events.multi_destroy');
+    Route::resource('events', 'Admin\EventController');
 
     // Languages
     Route::delete('languages/multi-destroy', [LanguageController::class, 'massDestroy'])->name('languages.multi_destroy');

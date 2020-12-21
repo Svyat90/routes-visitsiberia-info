@@ -4,138 +4,141 @@
 @endsection
 
 @section('content')
-    <main class="main" id="event-item">
+    <main class="main" id="places-item">
         <article class="main__article article">
             <div class="article__header">
                 <div class="article__description wow fadeInLeft">
-                    <h1 class="article__title">Тепсей</h1>
-                    <div class="article__recommendation">
-                        <svg width="32" height="32" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="8" y="5.6665" width="32" height="32" fill="white" />
-                            <path
-                                d="M7.02333 0L7 37.3333L28 51.3333L48.9767 37.3333L49 0H7.02333ZM23.3333 35L11.6667 23.3333L14.9567 20.02L23.3333 28.3967L41.0433 10.6867L44.3333 14L23.3333 35Z"
-                                fill="#FFB906" />
-                        </svg>
-                        <p class="article__recommendation-text" id="desc">ТИЦ рекомендует</p>
-                    </div>
-
+                    <h1 class="article__title">{{ $event->name }}</h1>
                     <div class="article__sign wow fadeInLeft">
-                        <p class="article__sign-bold">
-                            Категория: <a href="#" class="article__link">Горы и скалы</a>
-                        </p>
-                        <p class="article__sign-bold">
-                            Сезон: <a href="#" class="article__link">Круглый год</a>
-                        </p>
+                        @foreach($event->dictionaries as $dictionary)
+                            <p class="article__sign-bold">
+                                {{ $dictionary->parent->name }}: <span href="#" class="article__link">{{ $dictionary->name }}</span>
+                            </p>
+                        @endforeach
                         <p class="article__information">
-                            Тепсей — величественная двуглавая гора высотой 639 метров, расположенная на правом берегу Енисея, в устье
-                            реки Туба. В хакасском фольклоре считается священной. Северо-восточный склон — пологий, западный и южный
-                            круто обрываются к Енисею и Тубе. С левобережной стороны расположен хребет Оглахты.
+                            {!! $event->header_desc !!}
                         </p>
                     </div>
                 </div>
 
                 <sidebar class="article__page-nav page-nav wow fadeInRight">
                     <ul class="page-nav__list">
-                        <li>Описание</li>
-                        <li class="page-nav__item">Полезная информация</li>
-                        <li class="page-nav__item">Фото</li>
-                        <li class="page-nav__item">История</li>
-                        <li class="page-nav__item">Как добраться</li>
-                        <li class="page-nav__item">Отзывы</li>
-                        <li class="page-nav__item">События рядом</li>
-                        <li class="page-nav__item">Где остановиться</li>
-                        <li class="page-nav__item">Где покушать</li>
+                        <li class="page-nav__item"><a href="#desc">{{ $vars['base_desc'] }}</a></li>
+                        <li class="page-nav__item"><a href="#info">{{ $vars['base_help_info'] }}</a></li>
+                        <li class="page-nav__item"><a href="#photo">{{ $vars['base_photo'] }}</a></li>
+                        <li class="page-nav__item"><a href="#story">{{ $vars['base_history'] }}</a></li>
+                        <li class="page-nav__item"><a href="#way">{{ $vars['base_how_to_get'] }}</a></li>
+                        <li class="page-nav__item"><a href="#reviews">{{ $vars['base_reviews'] }}</a></li>
+                        <li class="page-nav__item"><a href="#events">{{ $vars['base_events_early'] }}</a></li>
+                        <li class="page-nav__item"><a href="#places">{{ $vars['base_where_to_stay'] }}</a></li>
+                        <li class="page-nav__item"><a href="#meals">{{ $vars['base_where_to_eat'] }}</a></li>
                     </ul>
                     <div class="page-nav__button">
                         <button class="page-nav__off">
                             <span class="material-icons page-nav__icon-add">add</span>
                         </button>
                         <a href="#" class="page-nav__share">
-                            Поделиться
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="19.5px" height="22px"
+                            {{ $vars['base_share'] }}
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="19.5px"
+                                 height="22px"
                                  class="page-nav__icon-share">
-                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M0 0h24v24H0z" fill="none"/>
                                 <path
-                                    d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+                                    d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
                             </svg>
                         </a>
                     </div>
-                    <a href="#" class="page-nav__link-map">Перейти к маршруту</a>
+                    <a href="#" class="page-nav__link-map">{{ $vars['base_go_to_route'] }}</a>
                 </sidebar>
             </div>
+
             <section class="article__info">
                 <div class="article__img-wr wow fadeInUp">
-                    <img src="{{ asset('front/img/Tepsey-img1.png') }}" alt="article__image">
+                    {{ $event->image ? $event->image->img()->lazy() : '' }}
                 </div>
                 <div class="article__text article__block-info wow fadeInUp">
-                    Эта гора, окутанная множеством легенд, считалась священной на протяжении нескольких тысячелетий. Древние люди
-                    создавали здесь свои святилища и кладбища. Они оставили многочисленные наскальные изображения и рунические
-                    надписи (более 1,5 тысяч), которые вы можете увидеть, если будете внимательны. Вот уже на протяжении 150 лет
-                    гора Тепсей является объектом пристального изучения историков. Тепсей таит в себе еще множество загадок и
-                    манит их разгадать...
+                    {!! $event->page_desc !!}
                     <p class="article__contact-title" id="info">
-                        Полезная информация:
+                        {{ $vars['base_contacts_owners'] }}:
                     </p>
-                    <a href="#" class="article__contact article__link">Тепсей: молитва вечному небу. Какие тайны скрывает
-                        легендарная гора?</a>
+                    @if($event->site_link)
+                        <a href="{{ $event->site_link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $event->name }}</a>
+                    @endif
+                    <a href="#" class="article__contact article__link">Тепсей: молитва вечному небу. Какие тайны скрываетлегендарная гора?</a>
                     <a href="#" class="article__contact article__link">Гора Тепсей - ТУРИСТСКИЙ ИНФОРМАЦИОННЫЙ ЦЕНТР</a>
                 </div>
             </section>
 
+            <section class="article__slider article__block wow fadeInUp" id="photo">
+                <div class="swiper-container article__slider-container">
+                    <div class="swiper-wrapper">
+                        @foreach($event->image_gallery as $image)
+                            <div class="swiper-slide d-flex flex-column align-items-center">
+                                <div class="article__slider-img-wr">
+                                    {{ $image->img()->lazy() }}
+                                </div>
+                                <p class="article__slider-description exo">
+                                    {{ $image->getCustomProperty('title') }}
+                                </p>
+                                <p class="article__slider-author">
+                                    {{ $image->getCustomProperty('desc') }}
+                                </p>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="swiper-button-next swiper-button"></div>
+                <div class="swiper-button-prev swiper-button"></div>
+                <script>
+                    const gallerySwiper = new Swiper('.article__slider-container', {
+                        slidesPerView: 1,
+
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                    })
+                </script>
+            </section>
+
             <section class="article__history article__block" id="story">
                 <div class="article__history-block wow fadeInLeft">
-                    <h2 class="article__name exo">История</h2>
+                    <h2 class="article__name exo">{{ $vars['base_history'] }}</h2>
                     <div class="article__history-text">
                         <p class="article__text">
-                            На протяжении нескольких тысячелетий гора Тепсей считалась сакральной у народов Хакассии. Древние люди
-                            сооружали на ней святилища, могильники, оставляли загадочные послания и надписи. В местном эпосе с
-                            урочищем связано множество преданий и былин.
-                            <br><br>
-                            В одной из легенд Тепсей предстает в образе окаменевшего воина-великана. В другой говорится о замурованных
-                            пещерах, скрывающих несметные богатства средневековых кыргызских князей.
-                            <br><br>
-                            В третьем сказании повествуется о красавице, жившей на левом берегу Енисея. Ее похитили горные духи и
-                            вскоре она стала супругой Тепсея. А в качестве калыма хозяева гор преподнесли золото, меха и шелковые
-                            одеяния. С тех пор люди, сплавляющиеся по Енисею, временами видели девушку в коричневом шелковом платье.
-                            Она сидела на скале у берега реки и расчесывала волосы золотым гребнем.
+                            {!! $event->history_desc !!}
                         </p>
                     </div>
                 </div>
-                <div class="article__img-wr wow fadeInRight">
-                    <img src="{{ asset('front/img/Tepsey-history.png') }}" alt="Image with mountin Tepsey">
-                </div>
+                @if($event->image_history)
+                    <div class="article__img-wr wow fadeInRight">
+                        {{ $event->image_history->img()->attributes(['class' => 'article__map'])->lazy() }}
+                    </div>
+                @endif
             </section>
 
             <section class="article__block article__pass" id="way">
                 <div class="article__pass-text">
                     <h2 class="article__name wow fadeInUp">
-                        Как добраться
+                        {{ $vars['base_how_to_get'] }}
                     </h2>
                     <p class="article__text wow fadeInUp">
-                        Первый вариант: из Красноярска до Минусинска, а дальше по дороге идущей на Краснотуранск до п. Городок. От
-                        Городка – по дороге на п. Николо-Петровка, миновав которую двигаться дальше вдоль Тубинского залива.
-                        <br><br>
-                        Второй вариант: из Красноярска до Новоселово, откуда летом ходит паром. Паром переправит вас на другой берег
-                        Красноярского моря. Дальше 150 км до Краснотуранска, после - по грунтовой дороге. Выехав с грунтовки, едем в
-                        сторону Минусинска. Перед рекой Туба, сворачиваем направо к селу Листвягово (на обочине есть указатель) и
-                        едем по грунтовой дороге примерно 12 км.
-                        <br><br>
-                        К самой горе можно подобраться от воды со стороны водохранилища, проехав через платный въезд (да, там есть
-                        шлагбаум), или напрямую в гору, но с препятствиями в виде противопожарных рвов. Это объездной путь.
+                        {!! $event->contact_desc !!}
                     </p>
                 </div>
 
                 <div class="article__map-wrap">
-                    <img src="{{ asset('front/img/Rectangle126.png') }}" alt="Map" class="article__map">
+                    <div id="map"></div>
                 </div>
             </section>
 
             <section class="article__feedback article__block" id="reviews">
-                <h2 class="article__name wow fadeInUp">Отзывы</h2>
+                <h2 class="article__name wow fadeInUp">{{ $vars['base_reviews'] }}:</h2>
                 <div class="article__feedback-slider wow fadeInUp">
                     <div class="feedback">
                         <div class="feedback__img-wr">
-                            <img src="{{ asset('front/img/feedback.png') }}" alt="Image feedback" class="feedback__img">
+                            <img src="{{  asset('front/img/feedback.png')  }}" alt="Image feedback"
+                                 class="feedback__img">
                         </div>
                         <p class="feedback__name">Королёв В.</p>
                         <p class="feedback__data">3 октября 2020</p>
@@ -146,15 +149,16 @@
                             <span class="material-icons feedback__star">star</span>
                             <span class="material-icons feedback__star">star</span>
                         </div>
-                        <p class="feedback__text">“Все очень понравилось! Это как раз тот случай, когда можно спланировать поездку
+                        <p class="feedback__text">“Все очень понравилось! Это как раз тот случай, когда можно
+                            спланировать поездку
                             от начала до конца”</p>
 
                         <div class="feedback__admin">
                             <div class="feedback__admin-title">
                                 <div class="feedback__reply">
-                  <span class="material-icons feedback__icon">
-                    reply
-                  </span>
+                                  <span class="material-icons feedback__icon">
+                                    reply
+                                  </span>
                                     <p class="feedback__reply-name">Ответ администратора</p>
                                 </div>
                                 <div class="feedback__reply-data">
@@ -182,7 +186,7 @@
 
             <section class="article__events article__block" id="events">
                 <h2 class="article__name article__name-position wow fadeInUp">
-                    События поблизости
+                    {{ $vars['base_events_early'] }}
                 </h2>
                 <div class="article__cafe-slider wow fadeInUp">
                     <div class="swiper-container e1 article__events-slider-cont">
@@ -314,7 +318,7 @@
 
             <section class="article__place-for-sleep article__block" id="places">
                 <h2 class="article__name article__name-position wow fadeInUp">
-                    Где остановиться в пути
+                    {{ $vars['base_where_to_stay_on_way'] }}
                 </h2>
                 <div class="article__cafe-slider wow fadeInUp">
                     <div class="swiper-container e2 article__events-slider-cont">
@@ -446,7 +450,7 @@
 
             <section class="article__cafe article__block" id="meals">
                 <h2 class="article__name article__name-position wow fadeInUp">
-                    Самые вкусные места на маршруте
+                    {{ $vars['base_where_to_eat_desc'] }}
                 </h2>
                 <div class="article__cafe-slider wow fadeInUp">
                     <div class="swiper-container e3 article__events-slider-cont">
@@ -581,4 +585,54 @@
 
 @section('scripts')
     @parent
+    <script>
+        $('#first').datepick({
+            onSelect: function(dates) { console.log(dates); },
+            yearRange:'c-0:c+2',
+            firstDay: 1,
+            multiSelect: 2,
+            multiSeparator: ' — ',
+            dateFormat: 'd M yyyyy',
+            dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+            monthNamesShort: ['янв', 'фев', 'мар', 'апр', 'май', 'июн',
+                'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'],
+            monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+        });
+
+        ymaps.ready(init);
+
+        function init() {
+            let item = {
+                lat: '{{ $event->lat }}',
+                lng: '{{ $event->lng }}'
+            }
+
+            var myMap = new ymaps.Map('map', {
+                center: [item.lat, item.lng],
+                zoom: 10
+            }, {
+                searchControlProvider: 'yandex#search'
+            })
+
+            var MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
+                '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+            )
+
+            myPlacemark = new ymaps.Placemark([item.lat, item.lng], {
+                hintContent: 'Собственный значок метки',
+                balloonContent: 'Это красивая метка'
+            }, {
+                // options
+                iconLayout: 'default#imageWithContent',
+                iconImageHref: '{{ asset('front/img/geo.svg') }}',
+                iconImageSize: [48, 48],
+                iconImageOffset: [-24, -24],
+                iconContentOffset: [15, 15],
+                iconContentLayout: MyIconContentLayout
+            })
+
+            myMap.geoObjects.add(myPlacemark)
+        }
+    </script>
 @endsection

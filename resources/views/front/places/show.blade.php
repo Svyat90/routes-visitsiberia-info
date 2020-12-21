@@ -66,7 +66,7 @@
 
             <section class="article__info">
                 <div class="article__img-wr wow fadeInUp">
-                    {{ $place->image->img()->lazy() }}
+                    {{ $place->image ? $place->image->img()->lazy() : '' }}
                 </div>
                 <div class="article__text article__block-info wow fadeInUp">
                     {!! $place->page_desc !!}
