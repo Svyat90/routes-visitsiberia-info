@@ -29,7 +29,7 @@
                             </p>
                         @endforeach
                         <p class="article__information">
-                            {{ $route->header_desc }}
+                            {!! $route->header_desc !!}
                         </p>
                     </div>
                 </div>
