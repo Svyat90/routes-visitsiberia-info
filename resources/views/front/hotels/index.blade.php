@@ -8,10 +8,10 @@
         <div class="rooms d-flex flex-column" id="rooms">
             <div class="rooms__heading heading heading--blue" id="heading">
                 <h1 class="heading__title">Проживание</h1>
-                <div class="heading__select" id="heading-first">
-                    <input id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
-                </div>
                 <div class="heading__selects heading__selects--rooms">
+                    <div class="heading__select" id="heading-first">
+                        <input id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
+                    </div>
                     <div class="heading__select">
                         <select class="heading__select" id="second">
                             <option disabled selected>Город</option>
