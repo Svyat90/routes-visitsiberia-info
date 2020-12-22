@@ -104,7 +104,7 @@ class DictionarySeeder extends Seeder
             ]
         ],
         'Доступность для людей с дополнительными потребностями' => [
-            'type' => DictionaryService::TYPE_TAG,
+            'type' => DictionaryService::TYPE_BREAK_PEOPLE,
             'values' => [
                 'для слабослышащих людей',
                 'для слабовидящих людей',

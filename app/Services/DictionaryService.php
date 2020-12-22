@@ -22,6 +22,7 @@ class DictionaryService
     public const TYPE_WAY_TRAVEL = 'way_travel';
     public const TYPE_PLACEMENT = 'placement';
     public const TYPE_TAG = 'tag';
+    public const TYPE_BREAK_PEOPLE = 'break_people';
 
     /**
      * @var DictionaryRepository
