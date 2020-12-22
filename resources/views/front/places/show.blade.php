@@ -73,6 +73,31 @@
                         {{ $vars['base_help_info'] }}:
                     </p>
                     {!! $place->helpful_info !!}
+
+                    {!! $place->life_hacks !!}
+                    {!! $place->contacts_representatives !!}
+                    {!! $place->additional_links !!}
+                    {!! $place->contacts_delivery !!}
+
+                    <p class="article__contact-title" id="info">
+                        {{ $vars['base_contacts'] }}:
+                    </p>
+
+                    @if($place->site_link)
+                        <a href="{{ $place->site_link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $place->name }}</a>
+                    @endif
+
+                    @if($place->social_links)
+                        @php $links =  explode("," , $place->social_links) @endphp
+                        @foreach($links as $link)
+                            @if($link)
+                                <a href="{{ $link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    <a href="#" class="material-icons article__contact article__link"><span class="material-icons">room</span>
+                        {{ $place->location }}</a>
                 </div>
             </section>
 

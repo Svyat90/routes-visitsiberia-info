@@ -36,7 +36,7 @@
                                             @endphp
 
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                @if (in_array($field, ['page_desc', 'history_desc', 'contact_desc']))
+                                                @if (in_array($field, ['page_desc', 'helpful_info', 'history_desc', 'contact_desc', 'life_hacks', 'contacts_representatives', 'additional_links', 'contacts_delivery']))
                                                     <div class="form-group">
                                                         <label for="{{ $name = $field . '[' . $language->locale . ']' }}">
                                                             {{ __("cruds.places.fields.$field") }}
