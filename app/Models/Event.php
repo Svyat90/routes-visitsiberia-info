@@ -82,6 +82,11 @@ class Event extends BaseModel
         return $this->belongsToMany(Dictionary::class, 'event_dictionary', 'event_id', 'dictionary_id');
     }
 
+    public function routable()
+    {
+        return $this->morphMany(Routable::class, 'routable');
+    }
+
     /**
      * @return Media|null
      */

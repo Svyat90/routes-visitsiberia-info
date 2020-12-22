@@ -35,6 +35,20 @@ class HotelRepository extends Model
     }
 
     /**
+     * @return Collection
+     */
+    public function getListForRoutable()
+    {
+        return Hotel::query()
+            ->get()
+            ->map(function (Hotel $hotel) {
+                $key = 'hotel_' . $hotel->id;
+                $val = $hotel->name . ' (' . __('global.hotels') . ')';
+                return [$key => $val];
+            })->collapse();
+    }
+
+    /**
      * @param Hotel $hotel
      *
      * @return array

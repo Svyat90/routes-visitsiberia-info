@@ -79,6 +79,11 @@ class Meal extends BaseModel
         return $this->belongsToMany(Dictionary::class, 'place_dictionary', 'place_id', 'dictionary_id');
     }
 
+    public function routable()
+    {
+        return $this->morphMany(Routable::class, 'routable');
+    }
+
     /**
      * @return Media|null
      */

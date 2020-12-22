@@ -12,76 +12,71 @@ use Illuminate\Database\Eloquent\Collection;
  *
  * @property int $id
  * @property string $slug
- * @property boolean $active
- * @property boolean $recommended
  * @property string $name
- * @property string $meta_title
- * @property string $meta_description
- * @property string $conditions_accommodation
- * @property string $conditions_payment
- * @property string $room_desc
- * @property string $additional_services
- * @property string $food_desc
+ * @property string $header_desc
+ * @property string $page_desc
+ * @property string $history_desc
  * @property string $contact_desc
- * @property string $site_link
- * @property string $social_links
- * @property string $aggregator_links
- * @property string $phones
- * @property string $location
+ * @property string $life_hacks
  * @property string $lat
  * @property string $lng
+ * @property string $location
+ * @property string $site_link
+ * @property string $social_links
+ * @property string $contacts_representatives
+ * @property string $additional_links
+ * @property boolean $active
+ * @property boolean $recommended
  * @property Media $image
  * @property Media $image_history
  * @property MediaCollection $image_gallery
  * @property Collection $dictionaries
  */
-class Hotel extends BaseModel
+class Route extends BaseModel
 {
+
     /**
      * @var array|string[]
      */
     public array $translatable = [
-        'name', 'meta_title', 'meta_description',
-        'conditions_accommodation', 'conditions_payment',
-        'room_desc', 'additional_services','food_desc',
-        'contact_desc', 'location', 'price'
+        'name', 'header_desc', 'page_desc', 'location', 'history_desc', 'contact_desc', 'life_hacks',
+        'meta_title', 'meta_description', 'additional_links', 'features',
+        'static_info', 'duration', 'list_points', 'what_take', 'addresses_representatives',
+        'phones_representatives', 'more_info',
     ];
 
     /**
      * @var string[]
      */
     protected $fillable = [
-        'active', 'recommended', 'name', 'meta_title', 'meta_description',
-        'conditions_accommodation', 'conditions_payment', 'room_desc', 'additional_services',
-        'food_desc', 'contact_desc', 'site_link', 'social_links', 'aggregator_links',
-        'phones', 'location', 'lat', 'lng',
+        'name', 'header_desc', 'page_desc', 'recommended', 'active', 'life_hacks', 'history_desc',
+        'contact_desc', 'lat', 'lng', 'location', 'meta_title', 'meta_description', 'site_link',
+        'social_links', 'additional_links', 'features',
+        'static_info', 'duration', 'list_points', 'what_take', 'addresses_representatives',
+        'phones_representatives', 'more_info',
     ];
 
     /**
      * @var string[]
      */
-    protected $hidden = [
-        'created_at', 'updated_at', 'deleted_at'
-    ];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @var string[]
      */
-    protected $appends = [
-        'image', 'image_history', 'image_gallery'
-    ];
+    protected $appends = ['image', 'image_history', 'image_gallery', 'pdf_map'];
 
     /**
      * @return BelongsToMany
      */
     public function dictionaries()
     {
-        return $this->belongsToMany(Dictionary::class, 'hotel_dictionary', 'hotel_id', 'dictionary_id');
+        return $this->belongsToMany(Dictionary::class, 'place_dictionary', 'place_id', 'dictionary_id');
     }
 
-    public function routable()
+    public function routables()
     {
-        return $this->morphMany(Routable::class, 'routable');
+        return $this->hasMany(Routable::class);
     }
 
     /**
@@ -120,6 +115,14 @@ class Hotel extends BaseModel
         return $mediaCollect->map(function (Media $media) {
             return $this->fillMedia($media);
         });
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPdfMapAttribute()
+    {
+        return $this->getMedia('pdf_map')->last();
     }
 
 }

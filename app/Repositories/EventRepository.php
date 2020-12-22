@@ -35,6 +35,20 @@ class EventRepository extends Model
     }
 
     /**
+     * @return Collection
+     */
+    public function getListForRoutable()
+    {
+        return Event::query()
+            ->get()
+            ->map(function (Event $event) {
+                $key = 'event_' . $event->id;
+                $val = $event->name . ' (' . __('global.events') . ')';
+                return [$key => $val];
+            })->collapse();
+    }
+
+    /**
      * @param Event $event
      *
      * @return array

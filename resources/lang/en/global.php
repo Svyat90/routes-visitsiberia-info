@@ -59,4 +59,9 @@ return [
     "export" => "Export",
     "meals" => "Meals",
     "events" => "Events",
+    "routes" => "Routes",
+    "places" => "Places",
+    "hotels" => "Hotels",
+    "route_list" => "Route List",
+    "route" => "Route",
 ];

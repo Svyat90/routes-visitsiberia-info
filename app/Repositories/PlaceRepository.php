@@ -35,6 +35,20 @@ class PlaceRepository extends Model
     }
 
     /**
+     * @return Collection
+     */
+    public function getListForRoutable()
+    {
+        return Place::query()
+            ->get()
+            ->map(function (Place $place) {
+                $key = 'place_' . $place->id;
+                $val = $place->name . ' (' . __('global.places') . ')';
+                return [$key => $val];
+            })->collapse();
+    }
+
+    /**
      * @param Place $place
      *
      * @return array

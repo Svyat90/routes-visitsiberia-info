@@ -10,7 +10,7 @@
                         <i class="fas fa-fw fa-tachometer-alt nav-icon">
                         </i>
                         <p>
-                            {{ trans('global.dashboard') }}
+                            {{ __('global.dashboard') }}
                         </p>
                     </a>
                 </li>
@@ -20,7 +20,7 @@
                         <i class="fa-fw nav-icon fas fa-book">
                         </i>
                         <p>
-                            {{ trans('cruds.pages.title') }}
+                            {{ __('cruds.pages.title') }}
                         </p>
                     </a>
                 </li>
@@ -30,7 +30,7 @@
                         <i class="fa-fw nav-icon fas fa-book">
                         </i>
                         <p>
-                            {{ trans('cruds.dictionaries.title') }}
+                            {{ __('cruds.dictionaries.title') }}
                         </p>
                     </a>
                 </li>
@@ -40,7 +40,7 @@
                         <i class="fa-fw nav-icon fas fa-book">
                         </i>
                         <p>
-                            {{ trans('cruds.places.title') }}
+                            {{ __('cruds.places.title') }}
                         </p>
                     </a>
                 </li>
@@ -50,7 +50,7 @@
                         <i class="fa-fw nav-icon fas fa-book">
                         </i>
                         <p>
-                            {{ trans('cruds.hotels.title') }}
+                            {{ __('cruds.hotels.title') }}
                         </p>
                     </a>
                 </li>
@@ -60,7 +60,7 @@
                         <i class="fa-fw nav-icon fas fa-book">
                         </i>
                         <p>
-                            {{ trans('cruds.meals.title') }}
+                            {{ __('cruds.meals.title') }}
                         </p>
                     </a>
                 </li>
@@ -70,9 +70,29 @@
                         <i class="fa-fw nav-icon fas fa-book">
                         </i>
                         <p>
-                            {{ trans('cruds.events.title') }}
+                            {{ __('cruds.events.title') }}
                         </p>
                     </a>
+                </li>
+
+                <li class="nav-item has-treeview {{ request()->is('admin/routes*') ? 'menu-open' : '' }}">
+                    <a class="nav-link nav-dropdown-toggle" href="#">
+                        <i class="fa-fw nav-icon fas fa-file-alt"></i>
+                        <p>
+                            {{ __('global.routes') }}
+                            <i class="right fa fa-fw fa-angle-left nav-icon"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route("admin.routes.index") }}" class="nav-link {{ request()->is("admin/routes*") ? 'active' : '' }}">
+                                <i class="fa-fw nav-icon fas fa-file-alt"></i>
+                                <p>
+                                    {{ __('global.route_list') }}
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="nav-item">
@@ -80,7 +100,7 @@
                         <i class="fa-fw nav-icon fas fa-cogs">
                         </i>
                         <p>
-                            {{ trans('cruds.languages.title') }}
+                            {{ __('cruds.languages.title') }}
                         </p>
                     </a>
                 </li>
@@ -89,7 +109,7 @@
                     <a class="nav-link nav-dropdown-toggle" href="#">
                         <i class="fa-fw nav-icon fas fa-file-alt"></i>
                         <p>
-                            {{ trans('global.translations') }}
+                            {{ __('global.translations') }}
                             <i class="right fa fa-fw fa-angle-left nav-icon"></i>
                         </p>
                     </a>
@@ -110,7 +130,7 @@
                         <i class="fa-fw nav-icon fas fa-book">
                         </i>
                         <p>
-                            {{ trans('cruds.vars.title') }}
+                            {{ __('cruds.vars.title') }}
                         </p>
                     </a>
                 </li>
@@ -120,7 +140,7 @@
                         <i class="fa-fw nav-icon fas fa-book">
                         </i>
                         <p>
-                            {{ trans('global.export') }}
+                            {{ __('global.export') }}
                         </p>
                     </a>
                 </li>
@@ -130,7 +150,7 @@
                         <i class="fa-fw fas fa-key nav-icon">
                         </i>
                         <p>
-                            {{ trans('global.change_password') }}
+                            {{ __('global.change_password') }}
                         </p>
                     </a>
                 </li>
@@ -141,7 +161,7 @@
                             <i class="fas fa-fw fa-sign-out-alt nav-icon">
 
                             </i>
-                            <p>{{ trans('global.logout') }}</p>
+                            <p>{{ __('global.logout') }}</p>
                         </p>
                     </a>
                 </li>

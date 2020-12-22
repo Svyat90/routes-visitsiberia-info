@@ -35,6 +35,20 @@ class MealRepository extends Model
     }
 
     /**
+     * @return Collection
+     */
+    public function getListForRoutable()
+    {
+        return Meal::query()
+            ->get()
+            ->map(function (Meal $meal) {
+                $key = 'meal_' . $meal->id;
+                $val = $meal->name . ' (' . __('global.meals') . ')';
+                return [$key => $val];
+            })->collapse();
+    }
+
+    /**
      * @param Meal $place
      *
      * @return array
