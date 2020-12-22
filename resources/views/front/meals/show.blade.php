@@ -28,7 +28,7 @@
                             </p>
                         @endforeach
                         <p class="article__information">
-                            {!! $meal->header_desc !!}
+                            {!! $meal->page_desc !!}
                         </p>
                     </div>
                 </div>
@@ -73,15 +73,75 @@
                     <p class="article__contact-title" id="info">
                         {{ $vars['base_help_info'] }}:
                     </p>
+
                     {!! $meal->helpful_info !!}
+
+                    @if($meal->working_hours)
+                        Рабочий график:
+                        {!! $meal->working_hours !!}
+                    @endif
+
+                    <p>Есть завтрак:
+                    @if($meal->working_hours)
+                        Да
+                    @else
+                        Нет
+                    @endif
+                    </p>
+
+                    <p>Есть бизнес ланч:
+                    @if($meal->have_business_lunch)
+                        Да
+                    @else
+                        Нет
+                    @endif
+                    </p>
+
+                    <p>Есть доставка:
+                    @if($meal->delivery_available)
+                        Да
+                    @else
+                        Нет
+                    @endif
+                    </p>
+
                     <p class="article__contact-title" id="info">
                         {{ $vars['base_contacts'] }}:
                     </p>
+
                     @if($meal->site_link)
                         <a href="{{ $meal->site_link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $meal->name }}</a>
                     @endif
-                    <a href="#" class="material-icons article__contact article__link"><span class="material-icons">call</span> Гора Тепсей - ТУРИСТСКИЙ ИНФОРМАЦИОННЫЙ ЦЕНТР</a>
-                    <a href="#" class="material-icons article__contact article__link"><span class="material-icons">room</span> Гора Тепсей - ТУРИСТСКИЙ ИНФОРМАЦИОННЫЙ ЦЕНТР</a>
+
+                    @if($meal->aggregator_links)
+                        @php $links =  explode("," , $meal->aggregator_links) @endphp
+                        @foreach($links as $link)
+                            @if($link)
+                                <a href="{{ $link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    @if($meal->social_links)
+                        @php $links =  explode("," , $meal->social_links) @endphp
+                        @foreach($links as $link)
+                            @if($link)
+                                <a href="{{ $link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    @if($meal->phones)
+                        @php $phones =  explode("," , $meal->phones) @endphp
+                        @foreach($phones as $phone)
+                            @if($phone)
+                                <a href="{{ $phone }}" class="material-icons article__contact article__link"><span class="material-icons">call</span>{{ $phone }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    <a href="#" class="material-icons article__contact article__link"><span class="material-icons">room</span>
+                        {{ $meal->location }}</a>
                 </div>
             </section>
 
