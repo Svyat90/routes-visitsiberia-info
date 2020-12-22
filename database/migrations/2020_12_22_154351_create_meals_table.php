@@ -31,9 +31,9 @@ class CreateMealsTable extends Migration
             $table->json('location')->nullable();
             $table->json('contact_desc')->nullable();
             $table->json('history_desc')->nullable();
-            $table->string('site_link', 512)->nullable();
-            $table->string('social_links', 512)->nullable();
-            $table->string('phones', 512)->nullable();
+            $table->string('site_link', 1024)->nullable();
+            $table->string('social_links', 1024)->nullable();
+            $table->string('phones', 1024)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

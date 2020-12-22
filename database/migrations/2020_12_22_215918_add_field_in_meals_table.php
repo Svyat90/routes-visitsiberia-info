@@ -14,7 +14,7 @@ class AddFieldInMealsTable extends Migration
     public function up()
     {
         Schema::table('meals', function (Blueprint $table) {
-            $table->string('aggregator_links', 512)->nullable();
+            $table->string('aggregator_links', 1024)->nullable();
         });
     }
 

@@ -29,10 +29,10 @@ class CreateHotelsTable extends Migration
             $table->json('food_desc')->nullable();
             $table->json('contact_desc')->nullable();
             $table->json('price')->nullable();
-            $table->string('site_link', 512)->nullable();
-            $table->string('social_links', 512)->nullable();
-            $table->string('aggregator_links', 512)->nullable();
-            $table->string('phones', 512)->nullable();
+            $table->string('site_link', 1024)->nullable();
+            $table->string('social_links', 1024)->nullable();
+            $table->string('aggregator_links', 1024)->nullable();
+            $table->string('phones', 1024)->nullable();
             $table->json('location')->nullable();
             $table->string('lat', 32)->nullable();
             $table->string('lng', 32)->nullable();

@@ -105,7 +105,7 @@
                                type="text"
                                name="{{ $name }}"
                                id="{{ $name }}"
-                               value="{{ old($name, $hotel->$name) }}" />
+                               value="{{ old($name, $place->$name) }}" />
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
@@ -118,7 +118,7 @@
                                type="text"
                                name="{{ $name }}"
                                id="{{ $name }}"
-                               value="{{ old($name, $hotel->$name) }}" />
+                               value="{{ old($name, $place->$name) }}" />
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif

@@ -28,7 +28,7 @@
                             </p>
                         @endforeach
                         <p class="article__information">
-                            {!! $place->header_desc !!}
+                            {!! $place->page_desc !!}
                         </p>
                     </div>
                 </div>
@@ -69,7 +69,6 @@
                     {{ $place->image ? $place->image->img()->lazy() : '' }}
                 </div>
                 <div class="article__text article__block-info wow fadeInUp">
-                    {!! $place->page_desc !!}
                     <p class="article__contact-title" id="info">
                         {{ $vars['base_help_info'] }}:
                     </p>
