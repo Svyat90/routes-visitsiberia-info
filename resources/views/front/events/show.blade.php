@@ -16,7 +16,7 @@
                             </p>
                         @endforeach
                         <p class="article__information">
-                            {!! $event->header_desc !!}
+                            {!! $event->page_desc !!}
                         </p>
                     </div>
                 </div>
@@ -57,15 +57,42 @@
                     {{ $event->image ? $event->image->img()->lazy() : '' }}
                 </div>
                 <div class="article__text article__block-info wow fadeInUp">
-                    {!! $event->page_desc !!}
+
                     <p class="article__contact-title" id="info">
-                        {{ $vars['base_contacts_owners'] }}:
+                        {{ $vars['base_help_info'] }}:
                     </p>
+
+                    <p>Есть кемпинг:
+                        @if($event->have_camping)
+                            Да
+                        @else
+                            Нет
+                        @endif
+                    </p>
+
+                    {!! $event->life_hacks !!}
+                    {!! $event->addresses_representatives !!}
+                    {!! $event->phones_representatives !!}
+
+                    <p class="article__contact-title" id="info">
+                        {{ $vars['base_contacts'] }}:
+                    </p>
+
                     @if($event->site_link)
                         <a href="{{ $event->site_link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $event->name }}</a>
                     @endif
-                    <a href="#" class="article__contact article__link">Тепсей: молитва вечному небу. Какие тайны скрываетлегендарная гора?</a>
-                    <a href="#" class="article__contact article__link">Гора Тепсей - ТУРИСТСКИЙ ИНФОРМАЦИОННЫЙ ЦЕНТР</a>
+
+                    @if($event->additional_links)
+                        @php $links =  explode("," , $event->additional_links) @endphp
+                        @foreach($links as $link)
+                            @if($link)
+                                <a href="{{ $link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    <a href="#" class="material-icons article__contact article__link"><span class="material-icons">room</span>
+                        {{ $event->location }}</a>
                 </div>
             </section>
 
