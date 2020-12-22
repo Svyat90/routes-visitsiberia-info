@@ -22,7 +22,6 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string $lng
  * @property string $location
  * @property string $site_link
- * @property string $social_links
  * @property string $contacts_representatives
  * @property string $additional_links
  * @property boolean $active
@@ -51,7 +50,7 @@ class Route extends BaseModel
     protected $fillable = [
         'name', 'header_desc', 'page_desc', 'recommended', 'active', 'life_hacks', 'history_desc',
         'contact_desc', 'lat', 'lng', 'location', 'meta_title', 'meta_description', 'site_link',
-        'social_links', 'additional_links', 'features',
+        'additional_links', 'features', 'email',
         'static_info', 'duration', 'list_points', 'what_take', 'addresses_representatives',
         'phones_representatives', 'more_info',
     ];
@@ -71,7 +70,7 @@ class Route extends BaseModel
      */
     public function dictionaries()
     {
-        return $this->belongsToMany(Dictionary::class, 'place_dictionary', 'place_id', 'dictionary_id');
+        return $this->belongsToMany(Dictionary::class, 'route_dictionary', 'route_id', 'dictionary_id');
     }
 
     public function routables()

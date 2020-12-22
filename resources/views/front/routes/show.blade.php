@@ -29,7 +29,7 @@
                             </p>
                         @endforeach
                         <p class="article__information">
-                            {!! $route->header_desc !!}
+                            {!! $route->page_desc !!}
                         </p>
                     </div>
                 </div>
@@ -88,12 +88,26 @@
                     <p class="article__contact-title" id="info">
                         {{ $vars['base_help_info'] }}::
                     </p>
+
+                    <p>{!! $route->life_hacks !!}</p>
+                    <p>{!! $route->features !!}</p>
+                    <p>{!! $route->static_info !!}</p>
+                    <p>{!! $route->duration !!}</p>
+                    <p>{!! $route->list_points !!}</p>
+                    <p>{!! $route->addresses_representatives !!}</p>
+                    <p>{!! $route->phones_representatives !!}</p>
+                    <p>{!! $route->more_info !!}</p>
+
                     @if($route->site_link)
                         <a href="{{ $route->site_link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $route->name }}</a>
                     @endif
-                    <a href="#" class="article__contact article__link">Тепсей: молитва вечному небу. Какие тайны скрывает
-                        легендарная гора?</a>
-                    <a href="#" class="article__contact article__link">Гора Тепсей - ТУРИСТСКИЙ ИНФОРМАЦИОННЫЙ ЦЕНТР</a>
+
+                    @if($route->email)
+                        <a href="{{ $route->email }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $route->email }}</a>
+                    @endif
+
+                    <a href="#" class="material-icons article__contact article__link"><span class="material-icons">room</span>
+                        {{ $route->location }}</a>
                 </div>
             </section>
 
