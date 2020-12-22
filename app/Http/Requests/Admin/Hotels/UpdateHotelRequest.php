@@ -48,7 +48,7 @@ class UpdateHotelRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|int|exists:places,id',
+            'id' => 'required|int|exists:hotels,id',
             'name' => 'sometimes|array',
             'name.*' => 'string|nullable',
             'meta_title' => 'sometimes|array',

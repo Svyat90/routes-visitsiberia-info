@@ -54,7 +54,7 @@ class Meal extends BaseModel
         'name', 'page_desc', 'recommended', 'active', 'have_breakfasts',
         'have_business_lunch', 'delivery_available', 'working_hours',
         'contact_desc', 'lat', 'lng', 'location', 'history_desc', 'phones',
-        'meta_title', 'meta_description', 'site_link', 'social_links'
+        'meta_title', 'meta_description', 'site_link', 'social_links', 'aggregator_links'
     ];
 
     /**

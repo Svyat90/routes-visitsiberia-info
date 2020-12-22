@@ -214,6 +214,19 @@
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                        <label class="" for="{{ $name = 'aggregator_links' }}">{{ __("cruds.meals.fields.$name") }}</label>
+                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
+                               type="text"
+                               name="{{ $name }}"
+                               id="{{ $name }}"
+                               value="{{ old($name, $meal->$name) }}" />
+                        @if($errors->has($name))
+                            <span class="text-danger">{{ $errors->first($name) }}</span>
+                        @endif
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
+                    </div>
+
+                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
                         <label class="" for="{{ $name = 'phones' }}">{{ __("cruds.meals.fields.$name") }}</label>
                         <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
                                type="text"
