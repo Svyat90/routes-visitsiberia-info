@@ -235,6 +235,8 @@ return [
             'site_link_helper'       => '',
             'social_links'              => 'Social Links',
             'social_links_helper'       => 'Example: http://google.com,http://yandex.ru',
+            'aggregator_links'              => 'Aggregator Links',
+            'aggregator_links_helper'       => 'Example: http://google.com,http://yandex.ru',
             'working_hours'              => 'Working hours',
             'working_hours_helper'       => '',
             'phones'              => 'Phones',
