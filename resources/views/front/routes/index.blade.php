@@ -10,24 +10,16 @@
                 <h1 class="heading__title">Маршруты</h1>
                 <div class="heading__selects heading__selects--route">
                     <div class="heading__select">
-                        <input
-                            id="first"
-                            autocomplete="off"
-                            placeholder="Начало пути — Финиш"
-                            readonly
-                        >
+                        <input id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
                     </div>
                     <select id="second">
-                        <option disabled selected>Сколько дней</option>
-                        <option>1 - 3 дней</option>
-                        <option>3 - 7 дней</option>
-                        <option>7 - 10 дней</option>
-                        <option>10 - 15 дней</option>
-                        <option>15 - 25 дней</option>
-                        <option>25+ дней</option>
+                        <option disabled="disabled" selected="selected">Транспорт</option>
+                        <option>Машина</option>
+                        <option>Автобус</option>
+                        <option>Пешком</option>
                     </select>
                     <select id="third">
-                        <option disabled selected>С кем</option>
+                        <option disabled="disabled" selected="selected">С кем</option>
                         <option>Один или вдвоем</option>
                         <option>С ребенком до 3 лет</option>
                         <option>С ребенком до 10 лет</option>
@@ -36,13 +28,23 @@
                         <option>Компания от 4-х человек</option>
                     </select>
                     <select id="fourth">
-                        <option disabled selected>Тип отдыха</option>
-                        <option title="Включает осмотр природных достопримечательностей, парков, заповедников, гор, катание на лыжах, сноубордах и т.п.">Активно-приключенческий</option>
-                        <option title=" Включает в себя более спокойные виды отдыха, такие как отдых на озерах, вблизи рек и на Красноярском море.">Спокойный отдых</option>
-                        <option title="Включает в себя изучение таких направлений как Енисейск, Шушенское, Минусинск, Ачинск и Красноярск с точки зрения паломничества.">Культурно-познавательный</option>
+                        <option disabled="disabled" selected="selected">Тип отдыха</option>
+                        <option
+                            title="Включает осмотр природных достопримечательностей, парков, заповедников, гор, катание на лыжах, сноубордах и т.п.">
+                            Активно-приключенческий
+                        </option>
+                        <option
+                            title=" Включает в себя более спокойные виды отдыха, такие как отдых на озерах, вблизи рек и на Красноярском море.">
+                            Спокойный отдых
+                        </option>
+                        <option
+                            title="Включает в себя изучение таких направлений как Енисейск, Шушенское, Минусинск, Ачинск и Красноярск с точки зрения паломничества.">
+                            Культурно-познавательный
+                        </option>
                     </select>
                 </div>
             </div>
+
             <div class="route__items list">
                 <ul class="nav nav-pills list__tabs wow fadeInUp" id="pills-tab" role="tablist">
                     <li class="nav-item">
@@ -55,257 +57,54 @@
                     </li>
                     <li class="nav-item ml-auto">
                         <p class="list__size">
-                            Показано: 122 результата
+                            {{ $vars['base_showed'] }}: {{ $routes->count() }} {{ $vars['base_results'] }}
                         </p>
                     </li>
                 </ul>
+
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active list__sliders-wr" id="pills-home" role="tabpanel"
                          aria-labelledby="pills-home-tab">
                         <div class="list__sliders show">
-                            <div class="list__slider d-flex flex-column list__slider--1 wow fadeInUp">
-                                <p class="list__slider-title">Название маршрута</p>
+                            @foreach($routes as $route)
+                                <div class="list__slider d-flex flex-column list__slider--1 wow fadeInUp">
+                                <p class="list__slider-title">{{ $route['model']->name }}</p>
                                 <div class="swiper-container list__slider-container">
-                                    <p class="list__slider-story exo">В этом активном туре по Красноярскому краю у вас появится счастливая
-                                        возможность пройти самые экзотические пешеходные маршруты Сибири:</p>
+                                    <div class="list__slider-story exo">
+                                        {!! $route['model']->page_desc !!}
+                                    </div>
                                     <div class="swiper-wrapper list__slider-wr">
-                                        <div class="swiper-slide list__slide-wr">
+                                        @foreach($route['routable'] as $entity)
+                                            <div class="swiper-slide list__slide-wr">
                                             <div class="list__slide">
                                                 <div class="list__slide-img-wr">
-                                                    <img src="{{ asset('front/img/route-slider-img.jpg') }}" alt="">
+                                                    {{ $entity->image ? $entity->image->img()->lazy() : '' }}
                                                 </div>
-                                                <a href="{{ route('front.routes.show') }}" class="list__slide-name exo">
-                                                    Музей артефактов на вершине пика Грандиозный
+                                                <a href="{{ route('front.routes.show', $route['model']->id) }}" class="list__slide-name exo">
+                                                    {{ $entity->name }}
                                                 </a>
                                                 <p class="list__slide-city">
                                                     <span class="material-icons">room&nbsp;</span>
-                                                    г. Тыва
+                                                    {{ $entity->location }}
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="swiper-slide list__slide-wr">
-                                            <div class="list__slide">
-                                                <div class="list__slide-img-wr">
-                                                    <img src="{{ asset('front/img/route-slider-img.jpg') }}" alt="">
-                                                </div>
-                                                <a href="{{ route('front.routes.show') }}" class="list__slide-name exo">
-                                                    Гостинница “Огни Енисея”
-                                                </a>
-                                                <p class="list__slide-city">
-                                                    <span class="material-icons">room&nbsp;</span>
-                                                    г. Тыва
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide list__slide-wr">
-                                            <div class="list__slide">
-                                                <div class="list__slide-img-wr">
-                                                    <img src="{{ asset('front/img/route-slider-img.jpg') }}" alt="">
-                                                </div>
-                                                <a href="{{ route('front.routes.show') }}" class="list__slide-name exo">
-                                                    Гостинница “Огни Енисея”
-                                                </a>
-                                                <p class="list__slide-city">
-                                                    <span class="material-icons">room&nbsp;</span>
-                                                    г. Тыва
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide list__slide-wr">
-                                            <div class="list__slide">
-                                                <div class="list__slide-img-wr">
-                                                    <img src="{{ asset('front/img/route-slider-img.jpg') }}" alt="">
-                                                </div>
-                                                <a href="{{ route('front.routes.show') }}" class="list__slide-name exo">
-                                                    Музей артефактов на вершине пика Грандиозный
-                                                </a>
-                                                <p class="list__slide-city">
-                                                    <span class="material-icons">room&nbsp;</span>
-                                                    г. Тыва
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide list__slide-wr">
-                                            <div class="list__slide">
-                                                <div class="list__slide-img-wr">
-                                                    <img src="{{ asset('front/img/route-slider-img.jpg') }}" alt="">
-                                                </div>
-                                                <a href="{{ route('front.routes.show') }}" class="list__slide-name exo">
-                                                    Гостинница “Огни Енисея”
-                                                </a>
-                                                <p class="list__slide-city">
-                                                    <span class="material-icons">room&nbsp;</span>
-                                                    г. Тыва
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide list__slide-wr">
-                                            <div class="list__slide">
-                                                <div class="list__slide-img-wr">
-                                                    <img src="{{ asset('front/img/route-slider-img.jpg') }}" alt="">
-                                                </div>
-                                                <a href="{{ route('front.routes.show') }}" class="list__slide-name exo">
-                                                    Гостинница “Огни Енисея”
-                                                </a>
-                                                <p class="list__slide-city">
-                                                    <span class="material-icons">room&nbsp;</span>
-                                                    г. Тыва
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide list__slide-wr">
-                                            <div class="list__slide">
-                                                <div class="list__slide-img-wr">
-                                                    <img src="{{ asset('front/img/route-slider-img.jpg') }}" alt="">
-                                                </div>
-                                                <a href="{{ route('front.routes.show') }}" class="list__slide-name exo">
-                                                    Гостинница “Огни Енисея”
-                                                </a>
-                                                <p class="list__slide-city">
-                                                    <span class="material-icons">room&nbsp;</span>
-                                                    г. Тыва
-                                                </p>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                     <div class="swiper-pagination"></div>
                                     <div class="swiper-scrollbar"></div>
                                 </div>
                             </div>
-                            <div class="list__slider d-flex flex-column list__slider--2 wow fadeInUp">
-                                <p class="list__slider-title">Название маршрута</p>
-                                <div class="swiper-container list__slider-container">
-                                    <p class="list__slider-story exo">В этом активном туре по Красноярскому краю у вас появится счастливая
-                                        возможность пройти самые экзотические пешеходные маршруты Сибири:</p>
-                                    <div class="swiper-wrapper list__slider-wr">
-                                        <div class="swiper-slide list__slide-wr">
-                                            <div class="list__slide">
-                                                <div class="list__slide-img-wr">
-                                                    <img src="{{ asset('front/img/route-slider-img.jpg') }}" alt="">
-                                                </div>
-                                                <a href="{{ route('front.routes.show') }}" class="list__slide-name exo">
-                                                    Музей артефактов на вершине пика Грандиозный
-                                                </a>
-                                                <p class="list__slide-city">
-                                                    <span class="material-icons">room&nbsp;</span>
-                                                    г. Тыва
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide list__slide-wr">
-                                            <div class="list__slide">
-                                                <div class="list__slide-img-wr">
-                                                    <img src="{{ asset('front/img/route-slider-img.jpg') }}" alt="">
-                                                </div>
-                                                <a href="{{ route('front.routes.show') }}" class="list__slide-name exo">
-                                                    Гостинница “Огни Енисея”
-                                                </a>
-                                                <p class="list__slide-city">
-                                                    <span class="material-icons">room&nbsp;</span>
-                                                    г. Тыва
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide list__slide-wr">
-                                            <div class="list__slide">
-                                                <div class="list__slide-img-wr">
-                                                    <img src="{{ asset('front/img/route-slider-img.jpg') }}" alt="">
-                                                </div>
-                                                <a href="{{ route('front.routes.show') }}" class="list__slide-name exo">
-                                                    Гостинница “Огни Енисея”
-                                                </a>
-                                                <p class="list__slide-city">
-                                                    <span class="material-icons">room&nbsp;</span>
-                                                    г. Тыва
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide list__slide-wr">
-                                            <div class="list__slide">
-                                                <div class="list__slide-img-wr">
-                                                    <img src="{{ asset('front/img/route-slider-img.jpg') }}" alt="">
-                                                </div>
-                                                <a href="{{ route('front.routes.show') }}" class="list__slide-name exo">
-                                                    Музей артефактов на вершине пика Грандиозный
-                                                </a>
-                                                <p class="list__slide-city">
-                                                    <span class="material-icons">room&nbsp;</span>
-                                                    г. Тыва
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-pagination"></div>
-                                    <div class="swiper-scrollbar"></div>
-                                </div>
-                            </div>
-                            <div class="list__slider d-flex flex-column list__slider--3 wow fadeInUp">
-                                <p class="list__slider-title">Название маршрута</p>
-                                <div class="swiper-container list__slider-container">
-                                    <p class="list__slider-story exo">В этом активном туре по Красноярскому краю у вас появится счастливая
-                                        возможность пройти самые экзотические пешеходные маршруты Сибири:</p>
-                                    <div class="swiper-wrapper list__slider-wr">
-                                        <div class="swiper-slide list__slide-wr">
-                                            <div class="list__slide">
-                                                <div class="list__slide-img-wr">
-                                                    <img src="{{ asset('front/img/route-slider-img.jpg') }}" alt="">
-                                                </div>
-                                                <a href="{{ route('front.routes.show') }}" class="list__slide-name exo">
-                                                    Музей артефактов на вершине пика Грандиозный
-                                                </a>
-                                                <p class="list__slide-city">
-                                                    <span class="material-icons">room&nbsp;</span>
-                                                    г. Тыва
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide list__slide-wr">
-                                            <div class="list__slide">
-                                                <div class="list__slide-img-wr">
-                                                    <img src="{{ asset('front/img/route-slider-img.jpg') }}" alt="">
-                                                </div>
-                                                <a href="{{ route('front.routes.show') }}" class="list__slide-name exo">
-                                                    Гостинница “Огни Енисея”
-                                                </a>
-                                                <p class="list__slide-city">
-                                                    <span class="material-icons">room&nbsp;</span>
-                                                    г. Тыва
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide list__slide-wr">
-                                            <div class="list__slide">
-                                                <div class="list__slide-img-wr">
-                                                    <img src="{{ asset('front/img/route-slider-img.jpg') }}" alt="">
-                                                </div>
-                                                <a href="{{ route('front.routes.show') }}" class="list__slide-name exo">
-                                                    Гостинница “Огни Енисея”
-                                                </a>
-                                                <p class="list__slide-city">
-                                                    <span class="material-icons">room&nbsp;</span>
-                                                    г. Тыва
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-pagination"></div>
-                                    <div class="swiper-scrollbar"></div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
-                    <div class="places__pagination pagination">
-                        <div class="pagination__page active">1</div>
-                        <div class="pagination__page">2</div>
-                        <div class="pagination__page">3</div>
-                        <div class="pagination__page">4</div>
+
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                     </div>
-                </div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    map
+
+{{--                    {{ $routes->links('front.partials.paginator') }}--}}
                 </div>
             </div>
-        </div>
         </div>
     </main>
 @endsection
@@ -314,16 +113,21 @@
     @parent
     <script>
         $('#first').datepick({
-            yearRange:'c-0:c+2',
+            onSelect: function (dates) {
+                console.log(dates);
+            },
+            yearRange: 'c-0:c+2',
             firstDay: 1,
             multiSelect: 2,
             multiSeparator: ' — ',
             dateFormat: 'd M yyyyy',
             dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
             monthNamesShort: ['янв', 'фев', 'мар', 'апр', 'май', 'июн',
-                'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'],
+                'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'
+            ],
             monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+            ],
         });
 
         $("#second").selectmenu();
@@ -331,29 +135,58 @@
         $("#third").selectmenu()
 
         $("#fourth").selectmenu();
+
+        let first = $('#first')
+        let second = $('#second')
+        let third = $('#third')
+        let fourth = $('#fourth')
+
+        second.on('selectmenuchange', e => {
+            console.log(e.toElement.innerHTML)
+            //тут нужно будет применять indexOf у массива вариантов селекта,
+            //чтобы следить за измененяиями
+        })
+        third.on('selectmenuchange', e => {
+            console.log(e.toElement.innerHTML)
+        })
+        fourth.on('selectmenuchange', e => {
+            console.log(e.toElement.innerHTML)
+        })
+    </script>
+
+    <script>
+        const key = 'cffbde42-9a9e-4630-b8af-50781fa386c1'
     </script>
 
     <script>
         var mySwiper = new Swiper('.swiper-container', {
-            spaceBetween: 136,
+            spaceBetween: 76,
             slidesPerView: 'auto',
             slidePrevClass: 'list__slide--prev',
-            /* pagination: {
-               el: '.swiper-pagination',
-               type: 'progressbar',
-             },*/
             scrollbar: {
                 el: '.swiper-scrollbar',
                 hide: false,
                 dragSize: 300,
             },
-
+            breakpoints: {
+                0: {
+                    spaceBetween: 10
+                },
+                576: {
+                    spaceBetween: 76
+                },
+                768: {
+                    spaceBetween: 136,
+                }
+            },
             on: {
                 init() {
                     if (this.slides.length <= 3) {
-                        this.allowSlideNext = false
-                        this.allowSlidePrev = false
-                        this.scrollbar.el.destroy()
+                        if (window.innerWidth > 1440) {
+                            this.allowSlideNext = false
+                            this.allowSlidePrev = false
+                            this.scrollbar.el && this.scrollbar.el.destroy()
+                        }
                     }
                 }
             }
@@ -361,21 +194,45 @@
     </script>
 
     <script>
-        const vue = new Vue({
-            el: 'route',
-            data() {
-                return {
-                    data: []
+        ymaps.ready(init);
+
+        let geoData = '{{ $geoData->toJson() }}';
+        let items = JSON.parse(geoData.replace(/&quot;/g,'"'));
+
+        function init() {
+            for (let i = 0; i < items.length; i++) {
+                let item = items[i]
+                let id = item.name
+                const domEl = document.createElement('div')
+                domEl.id = id
+                domEl.classList.add('route__map')
+
+                document.getElementById('pills-profile').appendChild(domEl)
+
+                var myMap = new ymaps.Map(id, {
+                    center: [item.items[0].lat, item.items[0].lng],
+                    zoom: 10
+                }, {
+                    searchControlProvider: 'yandex#search'
+                })
+
+                let points = []
+                for (let idx = 0; idx < Object.keys(item.items).length; idx++) {
+                    let lat = item.items[idx].lat
+                    let lng = item.items[idx].lng
+
+                    points.push([lat, lng])
                 }
-            },
-            async mounted() {
-                const res = await fetch('url')
-                const data = await res.json()
-                // data is raw data from the server
-                this.data = data
-            },
-            methods: {
+
+                var multiRoute = new ymaps.multiRouter.MultiRoute({
+                    referencePoints: points,
+                    params: {
+                        results: 1
+                    }
+                });
+
+                myMap.geoObjects.add(multiRoute);
             }
-        })
+        }
     </script>
 @endsection

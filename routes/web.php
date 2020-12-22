@@ -36,13 +36,11 @@ Route::get('/', [\App\Http\Controllers\Front\HomeController::class, 'redirectToH
 Route::namespace('Front')->as('front.')->group(function () {
     Route::get('home', 'HomeController@index')->name('home');
 
-    Route::get('routes', [RouteController::class, 'index'])->name('routes.index');
-    Route::get('routes/show', [RouteController::class, 'show'])->name('routes.show');
-
     Route::resource('places', 'PlaceController')->only('index', 'show');
     Route::resource('hotels', 'HotelController')->only('index', 'show');
     Route::resource('meals', 'MealController')->only('index', 'show');
     Route::resource('events', 'EventController')->only('index', 'show');
+    Route::resource('routes', 'RouteController')->only('index', 'show');
 });
 
 // Admin

@@ -9,49 +9,49 @@
             <div class="article__header">
                 <div class="article__description wow fadeInLeft">
                     <h1 class="article__title">Тепсей</h1>
-                    <div class="article__recommendation">
-                        <svg width="32" height="32" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="8" y="5.6665" width="32" height="32" fill="white" />
-                            <path
-                                d="M7.02333 0L7 37.3333L28 51.3333L48.9767 37.3333L49 0H7.02333ZM23.3333 35L11.6667 23.3333L14.9567 20.02L23.3333 28.3967L41.0433 10.6867L44.3333 14L23.3333 35Z"
-                                fill="#FFB906" />
-                        </svg>
-                        <p class="article__recommendation-text" id="desc">ТИЦ рекомендует</p>
-                    </div>
+                    @if($route->recommended)
+                        <div class="article__recommendation">
+                            <svg width="32" height="32" viewBox="0 0 56 56" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <rect x="8" y="5.6665" width="32" height="32" fill="white"/>
+                                <path
+                                    d="M7.02333 0L7 37.3333L28 51.3333L48.9767 37.3333L49 0H7.02333ZM23.3333 35L11.6667 23.3333L14.9567 20.02L23.3333 28.3967L41.0433 10.6867L44.3333 14L23.3333 35Z"
+                                    fill="#FFB906"/>
+                            </svg>
+                            <p class="article__recommendation-text" id="desc">{{ $vars['base_tic_recommended'] }}</p>
+                        </div>
+                    @endif
 
                     <div class="article__sign wow fadeInLeft">
-                        <p class="article__sign-bold">
-                            Категория: <a href="#" class="article__link">Горы и скалы</a>
-                        </p>
-                        <p class="article__sign-bold">
-                            Сезон: <a href="#" class="article__link">Круглый год</a>
-                        </p>
+                        @foreach($route->dictionaries as $dictionary)
+                            <p class="article__sign-bold">
+                                {{ $dictionary->parent->name }}: <span href="#" class="article__link">{{ $dictionary->name }}</span>
+                            </p>
+                        @endforeach
                         <p class="article__information">
-                            Тепсей — величественная двуглавая гора высотой 639 метров, расположенная на правом берегу Енисея, в устье
-                            реки Туба. В хакасском фольклоре считается священной. Северо-восточный склон — пологий, западный и южный
-                            круто обрываются к Енисею и Тубе. С левобережной стороны расположен хребет Оглахты.
+                            {{ $route->header_desc }}
                         </p>
                     </div>
                 </div>
 
                 <sidebar class="article__page-nav page-nav wow fadeInRight">
                     <ul class="page-nav__list">
-                        <li>Описание</li>
-                        <li class="page-nav__item">Полезная информация</li>
-                        <li class="page-nav__item">Фото</li>
-                        <li class="page-nav__item">История</li>
-                        <li class="page-nav__item">Как добраться</li>
-                        <li class="page-nav__item">Отзывы</li>
-                        <li class="page-nav__item">События рядом</li>
-                        <li class="page-nav__item">Где остановиться</li>
-                        <li class="page-nav__item">Где покушать</li>
+                        <li class="page-nav__item"><a href="#desc">{{ $vars['base_desc'] }}</a></li>
+                        <li class="page-nav__item"><a href="#info">{{ $vars['base_help_info'] }}</a></li>
+                        <li class="page-nav__item"><a href="#photo">{{ $vars['base_photo'] }}</a></li>
+                        <li class="page-nav__item"><a href="#story">{{ $vars['base_history'] }}</a></li>
+                        <li class="page-nav__item"><a href="#way">{{ $vars['base_how_to_get'] }}</a></li>
+                        <li class="page-nav__item"><a href="#reviews">{{ $vars['base_reviews'] }}</a></li>
+                        <li class="page-nav__item"><a href="#events">{{ $vars['base_events_early'] }}</a></li>
+                        <li class="page-nav__item"><a href="#places">{{ $vars['base_where_to_stay'] }}</a></li>
+                        <li class="page-nav__item"><a href="#meals">{{ $vars['base_where_to_eat'] }}</a></li>
                     </ul>
                     <div class="page-nav__button">
                         <button class="page-nav__off">
                             <span class="material-icons page-nav__icon-add">add</span>
                         </button>
                         <a href="#" class="page-nav__share">
-                            Поделиться
+                            {{ $vars['base_share'] }}
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="19.5px" height="22px"
                                  class="page-nav__icon-share">
                                 <path d="M0 0h24v24H0z" fill="none" />
@@ -63,132 +63,70 @@
                     <a href="#" class="page-nav__link-map">Перейти к маршруту</a>
                 </sidebar>
             </div>
-            <section class="page__route">
-                <div class="page__route-item">
-                    <div class="page__route-img-wr">
-                        <img src="{{ asset('front/img/item-slider-img2.jpg') }}" alt="">
+
+            <section class="page__route" id="photo">
+                @foreach($routable as $entity)
+                    <div class="page__route-item">
+                        <div class="page__route-img-wr">
+                            {{ $entity->image ? $entity->image->img()->lazy() : '' }}
+                        </div>
+                        <a href="#" class="page__route-name exo">{{ $entity->name }}</a>
+                        <a href="#" class="page__route-city">
+                            <span class="material-icons">room</span>
+                            {{ $entity->location }}
+                        </a>
                     </div>
-                    <a href="#" class="page__route-name exo">Хостел "Енисей"</a>
-                    <a href="#" class="page__route-city">
-                        <span class="material-icons">room</span>
-                        г. Тыва
-                    </a>
-                </div>
-                <div class="page__route-item">
-                    <div class="page__route-img-wr">
-                        <img src="{{ asset('front/img/item-slider-img2.jpg') }}" alt="">
-                    </div>
-                    <a href="#" class="page__route-name exo">Хостел "Енисей"</a>
-                    <a href="#" class="page__route-city">
-                        <span class="material-icons">room</span>
-                        г. Тыва
-                    </a>
-                </div>
-                <div class="page__route-item">
-                    <div class="page__route-img-wr">
-                        <img src="{{ asset('front/img/item-slider-img2.jpg') }}" alt="">
-                    </div>
-                    <a href="#" class="page__route-name exo">Хостел "Енисей"</a>
-                    <a href="#" class="page__route-city">
-                        <span class="material-icons">room</span>
-                        г. Тыва
-                    </a>
-                </div>
-                <div class="page__route-item">
-                    <div class="page__route-img-wr">
-                        <img src="{{ asset('front/img/item-slider-img2.jpg') }}" alt="">
-                    </div>
-                    <a href="#" class="page__route-name exo">Хостел "Енисей"</a>
-                    <a href="#" class="page__route-city">
-                        <span class="material-icons">room</span>
-                        г. Тыва
-                    </a>
-                </div>
-                <div class="page__route-item">
-                    <div class="page__route-img-wr">
-                        <img src="{{ asset('front/img/item-slider-img2.jpg') }}" alt="">
-                    </div>
-                    <a href="#" class="page__route-name exo">Хостел "Енисей"</a>
-                    <a href="#" class="page__route-city">
-                        <span class="material-icons">room</span>
-                        г. Тыва
-                    </a>
-                </div>
-                <div class="page__route-item">
-                    <div class="page__route-img-wr">
-                        <img src="{{ asset('front/img/item-slider-img2.jpg') }}" alt="">
-                    </div>
-                    <a href="#" class="page__route-name exo">Хостел "Енисей"</a>
-                    <a href="#" class="page__route-city">
-                        <span class="material-icons">room</span>
-                        г. Тыва
-                    </a>
-                </div>
+                @endforeach
             </section>
+
             <section class="article__info">
                 <div class="article__img-wr wow fadeInUp">
-                    <img src="{{ asset('front/img/Tepsey-img1.png') }}" alt="article__image">
+                    {{ $route->image ? $route->image->img()->lazy() : '' }}
                 </div>
                 <div class="article__text article__block-info wow fadeInUp">
-                    Эта гора, окутанная множеством легенд, считалась священной на протяжении нескольких тысячелетий. Древние люди
-                    создавали здесь свои святилища и кладбища. Они оставили многочисленные наскальные изображения и рунические
-                    надписи (более 1,5 тысяч), которые вы можете увидеть, если будете внимательны. Вот уже на протяжении 150 лет
-                    гора Тепсей является объектом пристального изучения историков. Тепсей таит в себе еще множество загадок и
-                    манит их разгадать...
+                    {!! $route->page_desc !!}
                     <p class="article__contact-title" id="info">
-                        Полезная информация:
+                        {{ $vars['base_help_info'] }}::
                     </p>
+                    @if($route->site_link)
+                        <a href="{{ $route->site_link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $route->name }}</a>
+                    @endif
                     <a href="#" class="article__contact article__link">Тепсей: молитва вечному небу. Какие тайны скрывает
                         легендарная гора?</a>
                     <a href="#" class="article__contact article__link">Гора Тепсей - ТУРИСТСКИЙ ИНФОРМАЦИОННЫЙ ЦЕНТР</a>
                 </div>
             </section>
 
-            <section class="article__history article__block" id="story">
-                <div class="article__history-block wow fadeInLeft">
-                    <h2 class="article__name exo">История</h2>
-                    <div class="article__history-text">
-                        <p class="article__text">
-                            На протяжении нескольких тысячелетий гора Тепсей считалась сакральной у народов Хакассии. Древние люди
-                            сооружали на ней святилища, могильники, оставляли загадочные послания и надписи. В местном эпосе с
-                            урочищем связано множество преданий и былин.
-                            <br><br>
-                            В одной из легенд Тепсей предстает в образе окаменевшего воина-великана. В другой говорится о замурованных
-                            пещерах, скрывающих несметные богатства средневековых кыргызских князей.
-                            <br><br>
-                            В третьем сказании повествуется о красавице, жившей на левом берегу Енисея. Ее похитили горные духи и
-                            вскоре она стала супругой Тепсея. А в качестве калыма хозяева гор преподнесли золото, меха и шелковые
-                            одеяния. С тех пор люди, сплавляющиеся по Енисею, временами видели девушку в коричневом шелковом платье.
-                            Она сидела на скале у берега реки и расчесывала волосы золотым гребнем.
-                        </p>
+            @if($route->history_desc)
+                <section class="article__history article__block" id="story">
+                    <div class="article__history-block wow fadeInLeft">
+                        <h2 class="article__name exo">{{ $vars['base_history'] }}</h2>
+                        <div class="article__history-text">
+                            <p class="article__text">
+                                {!! $route->history_desc !!}
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="article__img-wr wow fadeInRight">
-                    <img src="{{ asset('front/img/Tepsey-history.png') }}" alt="Image with mountin Tepsey">
-                </div>
-            </section>
+                    @if($route->image_history)
+                        <div class="article__img-wr wow fadeInRight">
+                            {{ $route->image_history->img()->attributes(['class' => 'article__map'])->lazy() }}
+                        </div>
+                    @endif
+                </section>
+            @endif
 
             <section class="article__block article__pass" id="way">
                 <div class="article__pass-text">
                     <h2 class="article__name wow fadeInUp">
-                        Как добраться
+                        {{ $vars['base_how_to_get'] }}
                     </h2>
                     <p class="article__text wow fadeInUp">
-                        Первый вариант: из Красноярска до Минусинска, а дальше по дороге идущей на Краснотуранск до п. Городок. От
-                        Городка – по дороге на п. Николо-Петровка, миновав которую двигаться дальше вдоль Тубинского залива.
-                        <br><br>
-                        Второй вариант: из Красноярска до Новоселово, откуда летом ходит паром. Паром переправит вас на другой берег
-                        Красноярского моря. Дальше 150 км до Краснотуранска, после - по грунтовой дороге. Выехав с грунтовки, едем в
-                        сторону Минусинска. Перед рекой Туба, сворачиваем направо к селу Листвягово (на обочине есть указатель) и
-                        едем по грунтовой дороге примерно 12 км.
-                        <br><br>
-                        К самой горе можно подобраться от воды со стороны водохранилища, проехав через платный въезд (да, там есть
-                        шлагбаум), или напрямую в гору, но с препятствиями в виде противопожарных рвов. Это объездной путь.
+                        {!! $route->contact_desc !!}
                     </p>
                 </div>
 
                 <div class="article__map-wrap">
-                    <img src="{{ asset('front/img/Rectangle126.png') }}" alt="Map" class="article__map">
+                    <div id="map"></div>
                 </div>
             </section>
 
@@ -643,4 +581,38 @@
 
 @section('scripts')
     @parent
+    <script>
+        $('a[href^="#"]').click(function(e) {
+            e.preventDefault()
+            var target = $(this).attr('href');
+            $('html').animate({scrollTop: $(target).offset().top - 130 }, 900);
+        })
+    </script>
+
+    <script>
+        ymaps.ready(init);
+
+        function init() {
+            let geoData = '{{ $geoData->toJson() }}';
+            let route = JSON.parse(geoData.replace(/&quot;/g,'"'));
+
+            var myMap = new ymaps.Map('map', {
+                center: [route[0].lat, route[0].lng],
+                zoom: 10
+            }, {
+                searchControlProvider: 'yandex#search'
+            })
+
+            var multiRoute = new ymaps.multiRouter.MultiRoute({
+                referencePoints: route.map(el => {
+                    return [el.lat, el.lng]
+                }),
+                params: {
+                    results: 1
+                }
+            });
+
+            myMap.geoObjects.add(multiRoute);
+        }
+    </script>
 @endsection

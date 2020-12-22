@@ -115,6 +115,19 @@ class RouteRepository extends Model
     /**
      * @param Route $route
      *
+     * @return Collection
+     */
+    public function getRoutableEntities(Route $route) : Collection
+    {
+        return $route->routables->sortBy('order')
+            ->map(function (Routable $routable) {
+                return $routable->routable;
+            });
+    }
+
+    /**
+     * @param Route $route
+     *
      * @return mixed
      */
     public function getRelatedRoutableIds(Route $route)

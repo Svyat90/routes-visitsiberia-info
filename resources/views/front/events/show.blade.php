@@ -101,21 +101,23 @@
                 </script>
             </section>
 
-            <section class="article__history article__block" id="story">
-                <div class="article__history-block wow fadeInLeft">
-                    <h2 class="article__name exo">{{ $vars['base_history'] }}</h2>
-                    <div class="article__history-text">
-                        <p class="article__text">
-                            {!! $event->history_desc !!}
-                        </p>
+            @if($event->history_desc)
+                <section class="article__history article__block" id="story">
+                    <div class="article__history-block wow fadeInLeft">
+                        <h2 class="article__name exo">{{ $vars['base_history'] }}</h2>
+                        <div class="article__history-text">
+                            <p class="article__text">
+                                {!! $event->history_desc !!}
+                            </p>
+                        </div>
                     </div>
-                </div>
-                @if($event->image_history)
-                    <div class="article__img-wr wow fadeInRight">
-                        {{ $event->image_history->img()->attributes(['class' => 'article__map'])->lazy() }}
-                    </div>
-                @endif
-            </section>
+                    @if($event->image_history)
+                        <div class="article__img-wr wow fadeInRight">
+                            {{ $event->image_history->img()->attributes(['class' => 'article__map'])->lazy() }}
+                        </div>
+                    @endif
+                </section>
+            @endif
 
             <section class="article__block article__pass" id="way">
                 <div class="article__pass-text">
