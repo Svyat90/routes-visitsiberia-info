@@ -68,7 +68,9 @@
                         <div class="list__sliders show">
                             @foreach($routes as $route)
                                 <div class="list__slider d-flex flex-column list__slider--1 wow fadeInUp">
-                                <p class="list__slider-title">{{ $route['model']->name }}</p>
+                                <p class="list__slider-title">
+                                    <a href="{{ route('front.routes.show', $route['model']->id) }}" style="color: #011b2b !important;">{{ $route['model']->name }}</a>
+                                </p>
                                 <div class="swiper-container list__slider-container">
                                     <div class="list__slider-story exo">
                                         {!! $route['model']->page_desc !!}
@@ -80,7 +82,7 @@
                                                 <div class="list__slide-img-wr">
                                                     {{ $entity->image ? $entity->image->img()->lazy() : '' }}
                                                 </div>
-                                                <a href="{{ route('front.routes.show', $route['model']->id) }}" class="list__slide-name exo">
+                                                <a href="{{ route('front.' . strtolower(\Illuminate\Support\Str::plural(class_basename($entity))) . '.show', $entity->id) }}" class="list__slide-name exo">
                                                     {{ $entity->name }}
                                                 </a>
                                                 <p class="list__slide-city">
