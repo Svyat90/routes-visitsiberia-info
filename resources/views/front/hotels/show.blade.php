@@ -28,7 +28,7 @@
                             </p>
                         @endforeach
                         <p class="article__information">
-                            {!! $hotel->header_desc !!}
+                            {!! $hotel->description !!}
                         </p>
                     </div>
                 </div>
@@ -73,15 +73,51 @@
                     <p class="article__contact-title" id="info">
                         {{ $vars['base_help_info'] }}:
                     </p>
+
                     {!! $hotel->helpful_info !!}
+
+                    {!! $hotel->food_desc !!}
+                    {!! $hotel->room_desc !!}
+                    {!! $hotel->additional_services !!}
+                    {!! $hotel->conditions_payment !!}
+                    {!! $hotel->conditions_accommodation !!}
+
                     <p class="article__contact-title" id="info">
                         {{ $vars['base_contacts'] }}:
                     </p>
                     @if($hotel->site_link)
                         <a href="{{ $hotel->site_link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $hotel->name }}</a>
                     @endif
-                    <a href="#" class="material-icons article__contact article__link"><span class="material-icons">call</span> Гора Тепсей - ТУРИСТСКИЙ ИНФОРМАЦИОННЫЙ ЦЕНТР</a>
-                    <a href="#" class="material-icons article__contact article__link"><span class="material-icons">room</span> Гора Тепсей - ТУРИСТСКИЙ ИНФОРМАЦИОННЫЙ ЦЕНТР</a>
+
+                    @if($hotel->aggregator_links)
+                        @php $links =  explode("," , $hotel->aggregator_links) @endphp
+                        @foreach($links as $link)
+                            @if($link)
+                                <a href="{{ $link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    @if($hotel->social_links)
+                        @php $links =  explode("," , $hotel->social_links) @endphp
+                        @foreach($links as $link)
+                            @if($link)
+                                <a href="{{ $link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    @if($hotel->phones)
+                        @php $phones =  explode("," , $hotel->phones) @endphp
+                        @foreach($phones as $phone)
+                            @if($phone)
+                                <a href="{{ $phone }}" class="material-icons article__contact article__link"><span class="material-icons">call</span>{{ $phone }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    <a href="#" class="material-icons article__contact article__link"><span class="material-icons">room</span>
+                        {{ $hotel->location }}</a>
                 </div>
             </section>
 
