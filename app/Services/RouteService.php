@@ -15,8 +15,9 @@ use App\Repositories\PlaceRepository;
 use App\Repositories\HotelRepository;
 use App\Repositories\MealRepository;
 use App\Repositories\EventRepository;
-use App\Models\Routable;
-use Ramsey\Collection\Collection;
+use App\Http\Requests\Front\IndexRouteRequest;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class RouteService
 {
@@ -88,6 +89,71 @@ class RouteService
         $this->handleRelationships($route, $request);
 
         return $this->repository->updateData($request->all(), $route);
+    }
+
+    /**
+     * @param IndexRouteRequest $request
+     *
+     * @return Collection
+     */
+    public function getFilteredRoutes(IndexRouteRequest $request) : Collection
+    {
+        return Route::query()
+            ->where('active', true)
+            ->get()
+            ->filter(function (Route $route) use ($request) {
+                $dictionaryIds = $route->dictionaries->pluck('id');
+                return $this->setFilters($dictionaryIds, $request);
+            });
+    }
+
+    /**
+     * @param                   $dictionaryIds
+     * @param IndexRouteRequest $request
+     *
+     * @return bool
+     */
+    private function setFilters($dictionaryIds, IndexRouteRequest $request)
+    {
+        $type = true;
+        if (! empty($request->type_id) && $request->type_id) {
+            $type = $dictionaryIds->contains($request->type_id);
+        }
+
+        $transport = true;
+        if (! empty($request->transport_id) && $request->transport_id) {
+            $transport = $dictionaryIds->contains($request->transport_id);
+        }
+
+        $whom = true;
+        if (! empty($request->whom_id) && $request->whom_id) {
+            $whom = $dictionaryIds->contains($request->whom_id);
+        }
+
+        return $type && $transport && $whom;
+    }
+
+    /**
+     * @param Route $route
+     * @param       $geoData
+     *
+     * @return array
+     */
+    public function fillRouteData(Route $route, &$geoData) : array
+    {
+        $routable = $this->repository->getRoutableEntities($route);
+
+        $geoData[] = [
+            'name' => $route->name,
+            'items' => $routable->map(function (Model $model) {
+                return ['lat' => $model->lat, 'lng' => $model->lng];
+            })->toArray()
+        ];
+
+        return [
+            'model' => $route,
+            'routable' => $routable
+        ];
     }
 
     /**

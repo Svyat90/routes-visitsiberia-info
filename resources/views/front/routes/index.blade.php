@@ -9,39 +9,50 @@
             <div class="route__heading heading heading--pink" id="heading">
                 <h1 class="heading__title">Маршруты</h1>
                 <div class="heading__selects heading__selects--route">
-                    <div class="heading__select">
-                        <input id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
-                    </div>
-                    <select id="second">
-                        <option disabled="disabled" selected="selected">Транспорт</option>
-                        <option>Машина</option>
-                        <option>Автобус</option>
-                        <option>Пешком</option>
-                    </select>
-                    <select id="third">
-                        <option disabled="disabled" selected="selected">С кем</option>
-                        <option>Один или вдвоем</option>
-                        <option>С ребенком до 3 лет</option>
-                        <option>С ребенком до 10 лет</option>
-                        <option>С подростком</option>
-                        <option>Вся семья</option>
-                        <option>Компания от 4-х человек</option>
-                    </select>
-                    <select id="fourth">
-                        <option disabled="disabled" selected="selected">Тип отдыха</option>
-                        <option
-                            title="Включает осмотр природных достопримечательностей, парков, заповедников, гор, катание на лыжах, сноубордах и т.п.">
-                            Активно-приключенческий
-                        </option>
-                        <option
-                            title=" Включает в себя более спокойные виды отдыха, такие как отдых на озерах, вблизи рек и на Красноярском море.">
-                            Спокойный отдых
-                        </option>
-                        <option
-                            title="Включает в себя изучение таких направлений как Енисейск, Шушенское, Минусинск, Ачинск и Красноярск с точки зрения паломничества.">
-                            Культурно-познавательный
-                        </option>
-                    </select>
+                    <form action="{{ route('front.routes.index') }}" name="filters" style="display: flex;">
+                        <input name="date_from" type="hidden" />
+                        <input name="date_to" type="hidden" />
+
+                        <div class="heading__select">
+                            <input id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
+                        </div>
+
+                        <select name="transport_id"  id="transport_id">
+                            @php $transportId = request()->get('transport_id') ?? null; @endphp
+                            <option disabled="disabled" selected="selected">Транспорт</option>
+                            @foreach($transportList as $transport)
+                                <option
+                                    value="{{ $transport->id }}"
+                                    {{ $transportId && $transportId == $transport->id ? 'selected' : '' }} >
+                                    {{ $transport->name }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        <select name="whom_id"  id="whom_id">
+                            @php $whomId = request()->get('whom_id') ?? null; @endphp
+                            <option disabled="disabled" selected="selected">{{ $vars['places_whom'] }}</option>
+                            @foreach($whomList as $whom)
+                                <option
+                                    value="{{ $whom->id }}"
+                                    {{ $whomId && $whomId == $whom->id ? 'selected' : '' }} >
+                                    {{ $whom->name }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        <select name="type_id" id="type_id">
+                            @php $typeId = request()->get('type_id') ?? null; @endphp
+                            <option value="" disabled="disabled" selected="selected">{{ $vars['places_type_rest'] }}</option>
+                            @foreach($typeList as $type)
+                                <option
+                                    value="{{ $type->id }}"
+                                    {{ $typeId && $typeId == $type->id ? 'selected' : '' }} >
+                                    {{ $type->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
                 </div>
             </div>
 
@@ -57,7 +68,7 @@
                     </li>
                     <li class="nav-item ml-auto">
                         <p class="list__size">
-                            {{ $vars['base_showed'] }}: {{ $routes->count() }} {{ $vars['base_results'] }}
+                            {{ $vars['base_showed'] }}: {{ $routes->total() }} {{ $vars['base_results'] }}
                         </p>
                     </li>
                 </ul>
@@ -66,7 +77,8 @@
                     <div class="tab-pane fade show active list__sliders-wr" id="pills-home" role="tabpanel"
                          aria-labelledby="pills-home-tab">
                         <div class="list__sliders show">
-                            @foreach($routes as $route)
+
+                            @foreach($routes as $key => $route)
                                 <div class="list__slider d-flex flex-column list__slider--1 wow fadeInUp">
                                 <p class="list__slider-title">
                                     <a href="{{ route('front.routes.show', $route['model']->id) }}" style="color: #011b2b !important;">{{ $route['model']->name }}</a>
@@ -98,13 +110,15 @@
                                 </div>
                             </div>
                             @endforeach
+
                         </div>
                     </div>
 
                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                     </div>
 
-{{--                    {{ $routes->links('front.partials.paginator') }}--}}
+                    {{ $routes->links('front.partials.paginator') }}
+
                 </div>
             </div>
         </div>
@@ -114,9 +128,31 @@
 @section('scripts')
     @parent
     <script>
-        $('#first').datepick({
+        let dateRange = $('#first');
+        let type = $('#type_id');
+        let transport = $('#transport_id');
+        let whom = $('#whom_id');
+        let filterForm = $('form[name="filters"]');
+        let dateFrom = $('input[name="date_from"]');
+        let dateTo = $('input[name="date_to"]');
+
+        type.selectmenu();
+        transport.selectmenu()
+        whom.selectmenu();
+
+        dateRange.datepick({
             onSelect: function (dates) {
-                console.log(dates);
+                dates.map((date, index) => {
+                    if (index === 0) {
+                        dateFrom.val((new Date(date)).getTime() / 1000)
+                    } else {
+                        dateTo.val((new Date(date)).getTime() / 1000)
+                    }
+                });
+
+                if (dates.length === 2) {
+                    // filterForm.submit();
+                }
             },
             yearRange: 'c-0:c+2',
             firstDay: 1,
@@ -132,27 +168,19 @@
             ],
         });
 
-        $("#second").selectmenu();
-
-        $("#third").selectmenu()
-
-        $("#fourth").selectmenu();
-
-        let first = $('#first')
-        let second = $('#second')
-        let third = $('#third')
-        let fourth = $('#fourth')
-
-        second.on('selectmenuchange', e => {
-            console.log(e.toElement.innerHTML)
-            //тут нужно будет применять indexOf у массива вариантов селекта,
-            //чтобы следить за измененяиями
+        type.on('selectmenuchange', e => {
+            e.preventDefault();
+            filterForm.submit();
         })
-        third.on('selectmenuchange', e => {
-            console.log(e.toElement.innerHTML)
+
+        transport.on('selectmenuchange', e => {
+            e.preventDefault();
+            filterForm.submit();
         })
-        fourth.on('selectmenuchange', e => {
-            console.log(e.toElement.innerHTML)
+
+        whom.on('selectmenuchange', e => {
+            e.preventDefault();
+            filterForm.submit();
         })
     </script>
 

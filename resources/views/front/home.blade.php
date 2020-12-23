@@ -13,38 +13,53 @@
                 <div class="index__constructor-wr">
                     <div class="index__constructor">
                         <div class="heading__selects heading__selects--index">
-                            <div class="heading__select">
-                                <input id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
-                            </div>
-                            <div class="index__transports d-flex flex-row">
-                                <button class="btn material-icons index__transport">
-                                    directions_car
+                            <form action="{{ route('front.routes.index') }}" name="filters" style="display: flex;">
+                                <input name="date_from" type="hidden" />
+                                <input name="date_to" type="hidden" />
+                                <div class="heading__select">
+                                    <input id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
+                                </div>
+
+                                <select name="transport_id"  id="transport_id">
+                                    @php $transportId = request()->get('transport_id') ?? null; @endphp
+                                    <option disabled="disabled" selected="selected">Транспорт</option>
+                                    @foreach($transportList as $transport)
+                                        <option
+                                            value="{{ $transport->id }}"
+                                            {{ $transportId && $transportId == $transport->id ? 'selected' : '' }} >
+                                            {{ $transport->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <select name="whom_id"  id="whom_id">
+                                    @php $whomId = request()->get('whom_id') ?? null; @endphp
+                                    <option disabled="disabled" selected="selected">{{ $vars['places_whom'] }}</option>
+                                    @foreach($whomList as $whom)
+                                        <option
+                                            value="{{ $whom->id }}"
+                                            {{ $whomId && $whomId == $whom->id ? 'selected' : '' }} >
+                                            {{ $whom->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <select name="type_id" id="type_id">
+                                    @php $typeId = request()->get('type_id') ?? null; @endphp
+                                    <option value="" disabled="disabled" selected="selected">{{ $vars['places_type_rest'] }}</option>
+                                    @foreach($typeList as $type)
+                                        <option
+                                            value="{{ $type->id }}"
+                                            {{ $typeId && $typeId == $type->id ? 'selected' : '' }} >
+                                            {{ $type->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <button id="index__submit">
+                                    <img src="{{ asset('front/img/index-arrow.svg') }}" alt="">
                                 </button>
-                                <button class="btn material-icons active index__transport">
-                                    directions_bus
-                                </button>
-                                <button class="btn material-icons index__transport">
-                                    directions_walk
-                                </button>
-                            </div>
-                            <select id="third">
-                                <option disabled="disabled" selected="selected">С кем</option>
-                                <option>Один или вдвоем</option>
-                                <option>С ребенком до 3 лет</option>
-                                <option>С ребенком до 10 лет</option>
-                                <option>С подростком</option>
-                                <option>Вся семья</option>
-                                <option>Компания от 4-х человек</option>
-                            </select>
-                            <select id="fourth">
-                                <option disabled="disabled" selected="selected">Тип отдыха</option>
-                                <option title="Включает осмотр природных достопримечательностей, парков, заповедников, гор, катание на лыжах, сноубордах и т.п.">Активно-приключенческий</option>
-                                <option title="Включает в себя более спокойные виды отдыха, такие как отдых на озерах, вблизи рек и на Красноярском море.">Спокойный отдых</option>
-                                <option title="Включает в себя изучение таких направлений как Енисейск, Шушенское, Минусинск, Ачинск и Красноярск с точки зрения паломничества.">Культурно-познавательный</option>
-                            </select>
-                            <button id="index__submit">
-                                <img src="{{ asset('front/img/index-arrow.svg') }}" alt="">
-                            </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -82,60 +97,44 @@
                         Готовые маршруты по <br> Красноярскому краю
                     </h2>
                     <div class="index__ways-places d-flex flex-column">
-                        <div class="index__ways-place d-flex index__ways-place--left">
-                            <div class="index__ways-img wow slideInLeft">
-                                <img src="{{ asset('front/img/main-way-1.jpg') }}" alt="">
-                            </div>
-                            <div class="index__ways-info index__ways-info--left wow fadeInUp d-flex flex-column justify-content-center">
-                                <span class="index__ways-place-year">2020</span>
-                                <a class="index__ways-place-name exo">Койское белогоръе - Топольские столбы</a>
-                                <a class="index__ways-place-city">
-                                    <span class="material-icons">room&nbsp;</span>
-                                    Красноярский край, Тыва
-                                </a>
-                            </div>
-                        </div>
-                        <div class="index__ways-place d-flex index__ways-place--right">
-                            <div class="index__ways-img wow slideInRight">
-                                <img src="{{ asset('front/img/main-way-1.jpg') }}" alt="">
-                            </div>
-                            <div class="index__ways-info index__ways-info--right wow fadeInUp d-flex flex-column justify-content-center">
-                                <span class="index__ways-place-year">2019</span>
-                                <a class="index__ways-place-name exo">Река Енисей</a>
-                                <a class="index__ways-place-city">
-                                    <span class="material-icons">room&nbsp;</span>
-                                    Красноярский край, Тыва
-                                </a>
-                            </div>
-                        </div>
-                        <div class="index__ways-place d-flex index__ways-place--left">
-                            <div class="index__ways-img wow slideInLeft">
-                                <img src="{{ asset('front/img/main-way-1.jpg') }}" alt="">
-                            </div>
-                            <div class="index__ways-info index__ways-info--left wow fadeInUp d-flex flex-column justify-content-center">
-                                <span class="index__ways-place-year">2019</span>
-                                <a class="index__ways-place-name exo">Музей артефактов на вершине пика Грандиозный</a>
-                                <a class="index__ways-place-city">
-                                    <span class="material-icons">room&nbsp;</span>
-                                    Енисей
-                                </a>
-                            </div>
-                        </div>
-                        <div class="index__ways-place d-flex index__ways-place--right">
-                            <div class="index__ways-img wow slideInRight">
-                                <img src="{{ asset('front/img/main-way-1.jpg') }}" alt="">
-                            </div>
-                            <div class="index__ways-info index__ways-info--right wow fadeInUp d-flex flex-column justify-content-center">
-                                <span class="index__ways-place-year">2018</span>
-                                <a class="index__ways-place-name exo">Река Енисей</a>
-                                <a class="index__ways-place-city">
-                                    <span class="material-icons">room&nbsp;</span>
-                                    Красноярский край, Тыва
-                                </a>
-                            </div>
-                        </div>
+                        @foreach($routes as $route)
+                            @if($loop->odd)
+                                <div class="index__ways-place d-flex index__ways-place--left">
+                                    <div class="index__ways-img wow slideInLeft">
+                                        {{ $route->image ? $route->image->img()->lazy() : '' }}
+                                    </div>
+                                    <div class="index__ways-info index__ways-info--left wow fadeInUp d-flex flex-column justify-content-center">
+                                        <span class="index__ways-place-year">{{ DateHelper::year($route) }}</span>
+                                        <a class="index__ways-place-name exo">{{ $route->name }}</a>
+                                        <a class="index__ways-place-city">
+                                            @if($route->location)
+                                                <span class="material-icons">room&nbsp;</span>
+                                                {{ $route->location }}
+                                            @endif
+                                        </a>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="index__ways-place d-flex index__ways-place--right">
+                                    <div class="index__ways-img wow slideInRight">
+                                        {{ $route->image ? $route->image->img()->lazy() : '' }}
+                                    </div>
+                                    <div class="index__ways-info index__ways-info--right wow fadeInUp d-flex flex-column justify-content-center">
+                                        <span class="index__ways-place-year">{{ DateHelper::year($route) }}</span>
+                                        <a class="index__ways-place-name exo">{{ $route->name }}</a>
+                                        <a class="index__ways-place-city">
+                                            @if($route->location)
+                                                <span class="material-icons">room&nbsp;</span>
+                                                {{ $route->location }}
+                                            @endif
+                                        </a>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+
                         <div class="index__ways-place d-flex justify-content-center">
-                            <a href="#" class="index__ways-link exo">Все маршруты</a>
+                            <a href="{{ route('front.routes.index') }}" class="index__ways-link exo">Все маршруты</a>
                         </div>
                     </div>
                 </div>
@@ -147,71 +146,25 @@
                     </div>
                     <div class="index__events-slider swiper-container">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide index__events-slide">
-                                <a class="index__events-img nop">
-                                    <img src="{{ asset('front/img/main-slider-1.jpg') }}" alt="">
-                                </a>
-                                <div class="index__events-info d-flex flex-column">
-                                    <span class="index__ways-place-year">2018</span>
-                                    <a class="index__ways-place-name exo">Река Енисей</a>
-                                    <a class="index__ways-place-city">
-                                        <span class="material-icons">room&nbsp;</span>
-                                        Красноярский край, Тыва
+
+                            @foreach($events as $event)
+                                <div class="swiper-slide index__events-slide">
+                                    <a class="index__events-img nop">
+                                        {{ $event->image ? $event->image->img()->lazy() : '' }}
                                     </a>
+                                    <div class="index__events-info d-flex flex-column">
+                                        <span class="index__ways-place-year">{{ DateHelper::year($event) }}</span>
+                                        <a class="index__ways-place-name exo">{{ $event->name }}</a>
+                                        <a class="index__ways-place-city">
+                                            @if($event->location)
+                                                <span class="material-icons">room&nbsp;</span>
+                                                {{ $event->location }}
+                                            @endif
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="swiper-slide index__events-slide">
-                                <a class="index__events-img nop">
-                                    <img src="{{ asset('front/img/main-slider-1.jpg') }}" alt="">
-                                </a>
-                                <div class="index__events-info d-flex flex-column">
-                                    <span class="index__ways-place-year">2018</span>
-                                    <a class="index__ways-place-name exo">Река Енисей</a>
-                                    <a class="index__ways-place-city">
-                                        <span class="material-icons">room&nbsp;</span>
-                                        Красноярский край, Тыва
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide index__events-slide">
-                                <a class="index__events-img nop">
-                                    <img src="{{ asset('front/img/main-slider-1.jpg') }}" alt="">
-                                </a>
-                                <div class="index__events-info d-flex flex-column">
-                                    <span class="index__ways-place-year">2018</span>
-                                    <a class="index__ways-place-name exo">Река Енисей</a>
-                                    <a class="index__ways-place-city">
-                                        <span class="material-icons">room&nbsp;</span>
-                                        Красноярский край, Тыва
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide index__events-slide">
-                                <a class="index__events-img nop">
-                                    <img src="{{ asset('front/img/main-slider-1.jpg') }}" alt="">
-                                </a>
-                                <div class="index__events-info d-flex flex-column">
-                                    <span class="index__ways-place-year">2018</span>
-                                    <a class="index__ways-place-name exo">Река Енисей</a>
-                                    <a class="index__ways-place-city">
-                                        <span class="material-icons">room&nbsp;</span>
-                                        Красноярский край, Тыва
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide index__events-slide">
-                                <a class="index__events-img nop">
-                                    <img src="{{ asset('front/img/main-slider-1.jpg') }}" alt="">
-                                </a>
-                                <div class="index__events-info d-flex flex-column">
-                                    <span class="index__ways-place-year">2018</span>
-                                    <a class="index__ways-place-name exo">Река Енисей</a>
-                                    <a class="index__ways-place-city">
-                                        <span class="material-icons">room&nbsp;</span>
-                                        Красноярский край, Тыва
-                                    </a>
-                                </div>
-                            </div>
+                            @endforeach
+
                         </div>
                         <div class="swiper-button swiper-button-prev"></div>
                         <div class="swiper-button swiper-button-next"></div>
@@ -226,7 +179,7 @@
                         })
                     </script>
                     <div class="d-flex justify-content-center">
-                        <a href="#" class="index__events-link exo">Все события</a>
+                        <a href="{{ route('front.events.index') }}" class="index__events-link exo">Все события</a>
                     </div>
                 </div>
             </div>
@@ -237,29 +190,40 @@
 @section('scripts')
     @parent
     <script>
-        $('#first').datepick({
-            yearRange:'c-0:c+2',
+        let dateRange = $('#first');
+        let type = $('#type_id');
+        let transport = $('#transport_id');
+        let whom = $('#whom_id');
+        let filterForm = $('form[name="filters"]');
+        let dateFrom = $('input[name="date_from"]');
+        let dateTo = $('input[name="date_to"]');
+
+        type.selectmenu();
+        transport.selectmenu()
+        whom.selectmenu();
+
+        dateRange.datepick({
+            onSelect: function (dates) {
+                dates.map((date, index) => {
+                    if (index === 0) {
+                        dateFrom.val((new Date(date)).getTime() / 1000)
+                    } else {
+                        dateTo.val((new Date(date)).getTime() / 1000)
+                    }
+                });
+            },
+            yearRange: 'c-0:c+2',
             firstDay: 1,
             multiSelect: 2,
             multiSeparator: ' — ',
             dateFormat: 'd M yyyyy',
             dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
             monthNamesShort: ['янв', 'фев', 'мар', 'апр', 'май', 'июн',
-                'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'],
+                'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'
+            ],
             monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+            ],
         });
-
-        $("#second").selectmenu();
-        $("#third").selectmenu()
-        $("#fourth").selectmenu();
-    </script>
-    <script>
-        const indexVue = new Vue({
-            el: 'index-vue',
-            mounted() {
-                //console.log('VUE!')
-            }
-        })
     </script>
 @endsection

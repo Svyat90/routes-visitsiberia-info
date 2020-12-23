@@ -16,7 +16,7 @@ class EventRepository extends Model
     public function getListForHome() : Collection
     {
         return Event::query()
-            ->oldest()
+            ->latest()
             ->limit(6)
             ->get();
     }

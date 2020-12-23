@@ -228,6 +228,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'MediaHelper' => App\Helpers\MediaHelper::class,
         'LabelHelper' => App\Helpers\LabelHelper::class,
+        'DateHelper' => App\Helpers\DateHelper::class,
     ],
 
 ];

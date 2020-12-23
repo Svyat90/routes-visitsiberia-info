@@ -111,6 +111,14 @@ class DictionarySeeder extends Seeder
                 'для маломобильных'
             ]
         ],
+        'Транспорт' => [
+            'type' => DictionaryService::TYPE_TRANSPORT,
+            'values' => [
+                'Машина',
+                'Автобус',
+                'Пешком'
+            ]
+        ],
     ];
 
     /**

@@ -21,6 +21,7 @@ class DictionaryService
     public const TYPE_CATEGORY_FOOD = 'category_food';
     public const TYPE_WAY_TRAVEL = 'way_travel';
     public const TYPE_PLACEMENT = 'placement';
+    public const TYPE_TRANSPORT = 'transport';
     public const TYPE_TAG = 'tag';
     public const TYPE_BREAK_PEOPLE = 'break_people';
 
@@ -61,6 +62,14 @@ class DictionaryService
     public function getSeasonList() : Collection
     {
         return $this->repository->getChildrenByType(self::TYPE_SEASON);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getTransportList() : Collection
+    {
+        return $this->repository->getChildrenByType(self::TYPE_TRANSPORT);
     }
 
     /**

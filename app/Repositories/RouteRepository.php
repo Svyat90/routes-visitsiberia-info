@@ -17,8 +17,8 @@ class RouteRepository extends Model
     public function getListForHome() : Collection
     {
         return Route::query()
-            ->oldest()
-            ->limit(6)
+            ->latest()
+            ->limit(4)
             ->get();
     }
 

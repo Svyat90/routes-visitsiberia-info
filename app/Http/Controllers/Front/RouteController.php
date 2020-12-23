@@ -11,7 +11,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
+use App\Http\Requests\Front\IndexRouteRequest;
+use App\Helpers\CollectionHelper;
 
 class RouteController extends FrontController
 {
@@ -31,30 +32,33 @@ class RouteController extends FrontController
         $this->service = $service;
     }
 
-    public function index(Request $request, DictionaryService $dictionaryService)
+    public function index(IndexRouteRequest $request, DictionaryService $dictionaryService)
     {
-        $data = $this->service->repository->getCollectionToIndex();
+        $transportList = $dictionaryService->getTransportList();
+        $whomList = $dictionaryService->getWhomList();
+        $typeList = $dictionaryService->getTypesList();
 
-        $geoData = new Collection();
-        $routes = $data->map(function (Route $route) use (&$geoData) {
-            $routable = $this->service->repository->getRoutableEntities($route);
+        $geoData = collect();
+        $data = $this->service->getFilteredRoutes($request)
+            ->map(function (Route $route) use (&$geoData) {
+                return $this->service->fillRouteData($route, $geoData);
+            });
 
-            $geoData[] = [
-                'name' => $route->name,
-                'items' => $routable->map(function (Model $model) {
-                    return ['lat' => $model->lat, 'lng' => $model->lng];
-                })->toArray()
-            ];
-
-            return [
-                'model' => $route,
-                'routable' => $routable
-            ];
-        });
+        $routes = CollectionHelper::paginate($data, $this->pageLimit)
+            ->appends([
+                'type_id' => $request->type_id,
+                'transport_id' => $request->transport_id,
+                'date_from' => $request->date_from,
+                'date_to' => $request->date_to,
+                'whom_id' => $request->whom_id
+            ]);
 
         return view('front.routes.index', compact(
             'routes',
-            'geoData'
+            'geoData',
+            'transportList',
+            'whomList',
+            'typeList'
         ));
     }
 

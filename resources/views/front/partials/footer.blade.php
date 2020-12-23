@@ -1,5 +1,5 @@
 <footer class="footer">
-    <div class="footer__content justify-content-between flex-wrap">
+    <div class="footer__content flex-wrap">
         <div class="footer__nav">
             <div class="footer__col">
                 <p class="footer__col-name">
@@ -25,25 +25,26 @@
                         </a>
                     </li>
                 </ul>
-            </div>
-            <div class="footer__col ml-auto mr-auto">
-                <p class="footer__col-name">
-                    Контакты
-                </p>
-                <ul class="footer__col-list pl-0">
-                    <li class="footer__item">
-                        <a href="#" class="footer__link">Полезные контакты</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="#" class="footer__link">Обратная связь</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="#" class="footer__link">Туристические центры края</a>
-                    </li>
-                </ul>
+                <div class="footer__socials footer__mobile">
+                    <a href="#" class="footer__social">
+                        <img src="{{ asset('front/img/facebook-c.svg') }}" alt="facebook">
+                    </a>
+                    <a href="#" class="footer__social">
+                        <img src="{{ asset('front/img/vk-c.svg') }}" alt="vkontakte">
+                    </a>
+                    <a href="#" class="footer__social">
+                        <img src="{{ asset('front/img/youtube-c.svg') }}" alt="youtube">
+                    </a>
+                    <a href="#" class="footer__social">
+                        <img src="{{ asset('front/img/instagram-c.svg') }}" alt="instagram">
+                    </a>
+                    <a href="#" class="footer__social">
+                        <img src="{{ asset('front/img/ok-c.svg') }}" alt="odnoklassniki">
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="footer__col">
+        <div class="footer__col footer__mob-first">
             <p class="footer__col-text">
                 Получайте актуальные новости
             </p>
@@ -53,7 +54,7 @@
                 </div>
                 <button type="submit" class="btn footer__btn">Ок</button>
             </form>
-            <div class="footer__socials">
+            <div class="footer__socials footer__desktop">
                 <a href="#" class="footer__social">
                     <img src="{{ asset('front/img/facebook-c.svg') }}" alt="facebook">
                 </a>
