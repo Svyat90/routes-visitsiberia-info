@@ -105,8 +105,8 @@
                                     </div>
                                     <div class="index__ways-info index__ways-info--left wow fadeInUp d-flex flex-column justify-content-center">
                                         <span class="index__ways-place-year">{{ DateHelper::year($route) }}</span>
-                                        <a class="index__ways-place-name exo">{{ $route->name }}</a>
-                                        <a class="index__ways-place-city">
+                                        <a href="{{ route('front.routes.show', $route->id) }}" class="index__ways-place-name exo text-color-imp">{{ $route->name }}</a>
+                                        <a href="{{ route('front.routes.show', $route->id) }}" class="index__ways-place-city text-color-imp">
                                             @if($route->location)
                                                 <span class="material-icons">room&nbsp;</span>
                                                 {{ $route->location }}
@@ -121,8 +121,8 @@
                                     </div>
                                     <div class="index__ways-info index__ways-info--right wow fadeInUp d-flex flex-column justify-content-center">
                                         <span class="index__ways-place-year">{{ DateHelper::year($route) }}</span>
-                                        <a class="index__ways-place-name exo">{{ $route->name }}</a>
-                                        <a class="index__ways-place-city">
+                                        <a href="{{ route('front.routes.show', $route->id) }}" class="index__ways-place-name exo text-color-imp">{{ $route->name }}</a>
+                                        <a href="{{ route('front.routes.show', $route->id) }}" class="index__ways-place-city text-color-imp">
                                             @if($route->location)
                                                 <span class="material-icons">room&nbsp;</span>
                                                 {{ $route->location }}
@@ -147,15 +147,15 @@
                     <div class="index__events-slider swiper-container">
                         <div class="swiper-wrapper">
 
-                            @foreach($events as $event)
+                            @forelse($events as $event)
                                 <div class="swiper-slide index__events-slide">
-                                    <a class="index__events-img nop">
+                                    <a href="{{ route('front.events.show', $event->id) }}" class="index__events-img nop">
                                         {{ $event->image ? $event->image->img()->lazy() : '' }}
                                     </a>
                                     <div class="index__events-info d-flex flex-column">
                                         <span class="index__ways-place-year">{{ DateHelper::year($event) }}</span>
-                                        <a class="index__ways-place-name exo">{{ $event->name }}</a>
-                                        <a class="index__ways-place-city">
+                                        <a href="{{ route('front.events.show', $event->id) }}" class="index__ways-place-name exo text-color-imp">{{ $event->name }}</a>
+                                        <a href="{{ route('front.events.show', $event->id) }}" class="index__ways-place-city text-color-imp">
                                             @if($event->location)
                                                 <span class="material-icons">room&nbsp;</span>
                                                 {{ $event->location }}
@@ -163,7 +163,11 @@
                                         </a>
                                     </div>
                                 </div>
-                            @endforeach
+                            @empty
+                                <div class="swiper-slide index__events-slide">
+                                    Нет событий
+                                </div>
+                            @endforelse
 
                         </div>
                         <div class="swiper-button swiper-button-prev"></div>

@@ -81,7 +81,7 @@
                             @foreach($routes as $key => $route)
                                 <div class="list__slider d-flex flex-column list__slider--1 wow fadeInUp">
                                 <p class="list__slider-title">
-                                    <a href="{{ route('front.routes.show', $route['model']->id) }}" style="color: #011b2b !important;">{{ $route['model']->name }}</a>
+                                    <a href="{{ route('front.routes.show', $route['model']->id) }}" class="text-color-imp">{{ $route['model']->name }}</a>
                                 </p>
                                 <div class="swiper-container list__slider-container">
                                     <div class="list__slider-story exo">
