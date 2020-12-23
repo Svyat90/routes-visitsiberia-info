@@ -11,8 +11,10 @@ use App\Repositories\PlaceRepository;
 use Yajra\DataTables\Facades\DataTables;
 use App\Helpers\MediaHelper;
 use App\Helpers\ImageHelper;
+use App\Http\Requests\Front\Places\IndexPlaceRequest;
+use Illuminate\Support\Collection;
 
-class PlaceService
+class PlaceService extends BaseService
 {
     /**
      * @var PlaceRepository
@@ -26,6 +28,7 @@ class PlaceService
      */
     public function __construct(PlaceRepository $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
     }
 
@@ -78,6 +81,40 @@ class PlaceService
         $this->handleRelationships($place, $request);
 
         return $this->repository->updateData($request->all(), $place);
+    }
+
+    /**
+     * @param IndexPlaceRequest $request
+     *
+     * @return Collection
+     */
+    public function getFilteredPlaces(IndexPlaceRequest $request) : Collection
+    {
+        return Place::query()
+            ->active()
+            ->get()
+            ->filter(function (Place $place) use ($request) {
+                $dictionaryIds = $place->dictionaries->pluck('id');
+                return $this->setFilters($dictionaryIds, $request);
+            });
+    }
+
+    /**
+     * @param Collection        $dictionaryIds
+     * @param IndexPlaceRequest $request
+     *
+     * @return bool
+     */
+    private function setFilters(Collection $dictionaryIds, IndexPlaceRequest $request)
+    {
+        $this->setDictionaryIds($dictionaryIds);
+
+        return $this->filterDictionaries(
+            $request->type_id,
+            $request->category_id,
+            $request->whom_id,
+            $request->season_id
+        );
     }
 
     /**

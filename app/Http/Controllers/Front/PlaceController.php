@@ -44,7 +44,8 @@ class PlaceController extends FrontController
         $seasonList = $dictionaryService->getSeasonList();
         $categoryList = $dictionaryService->getCategoryPlaceList();
         $whomList = $dictionaryService->getWhomList();
-        $data = $this->service->repository->getCollectionToIndex();
+
+        $data = $this->service->getFilteredPlaces($request);
 
         $places = CollectionHelper::paginate($data, $this->pageLimit)
             ->appends([
