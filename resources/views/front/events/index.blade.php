@@ -4,11 +4,11 @@
 @endsection
 
 @section('content')
-    <main class="main" id="rooms">
-        <div class="rooms d-flex flex-column" id="rooms">
-            <div class="rooms__heading heading heading--blue" id="heading">
-                <h1 class="heading__title">Проживание</h1>
-                <div class="heading__selects heading__selects--rooms">
+    <main class="main" id="events">
+        <div class="events d-flex flex-column" id="events">
+            <div class="events__heading heading heading--blue" id="heading">
+                <h1 class="heading__title">События</h1>
+                <div class="heading__selects heading__selects--events">
                     <div class="heading__select" id="heading-first">
                         <input id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
                     </div>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </div>
-            <div class="rooms__items list">
+            <div class="events__items list">
                 <ul class="nav nav-pills list__tabs" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
