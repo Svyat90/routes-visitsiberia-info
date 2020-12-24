@@ -122,7 +122,7 @@ class RouteRepository extends Model
         return $route->routables->sortBy('order')
             ->map(function (Routable $routable) {
                 return $routable->routable;
-            });
+            })->filter();
     }
 
     /**

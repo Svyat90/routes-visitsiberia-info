@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
 use Illuminate\Database\Eloquent\Collection;
+use Carbon\Carbon;
 
 /**
  * Class Place
@@ -30,6 +31,8 @@ use Illuminate\Database\Eloquent\Collection;
  * @property Media $image_history
  * @property MediaCollection $image_gallery
  * @property Collection $dictionaries
+ * @property Carbon $date_from
+ * @property Carbon $date_to
  */
 class Event extends BaseModel
 {
@@ -50,7 +53,7 @@ class Event extends BaseModel
         'name', 'page_desc', 'recommended', 'active', 'life_hacks',
         'history_desc', 'contact_desc', 'lat', 'lng', 'location', 'phones_representatives',
         'meta_title', 'meta_description', 'site_link', 'additional_links',
-        'have_camping', 'addresses_representatives',
+        'have_camping', 'addresses_representatives', 'date_from', 'date_to'
     ];
 
     /**

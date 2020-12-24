@@ -10,11 +10,12 @@
                 <h1 class="heading__title">Маршруты</h1>
                 <div class="heading__selects heading__selects--route">
                     <form action="{{ route('front.routes.index') }}" name="filters" style="display: flex;">
-                        <input name="date_from" type="hidden" />
-                        <input name="date_to" type="hidden" />
+                        <input name="date_from" type="hidden" value="{{ request()->get('date_from') ?? '' }}" />
+                        <input name="date_to" type="hidden" value="{{ request()->get('date_to') ?? '' }}" />
 
                         <div class="heading__select">
-                            <input id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
+                            @php $dateRange = request()->get('date_range') ?? ''; @endphp
+                            <input name="date_range" id="first" value="{{ $dateRange }}" autocomplete="off" placeholder="Сроки" readonly="readonly">
                         </div>
 
                         <select name="transport_id"  id="transport_id">

@@ -9,36 +9,43 @@
             <div class="events__heading heading heading--blue" id="heading">
                 <h1 class="heading__title">События</h1>
                 <div class="heading__selects heading__selects--events">
-                    <div class="heading__select" id="heading-first">
-                        <input id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
-                    </div>
-                    <div class="heading__select" id="heading-second">
-                        <select id="second">
-                            <option disabled="disabled" selected="selected">Город</option>
-                            <option>Активно</option>
-                            <option>Спокойный</option>
-                            <option>Культурно</option>
-                            <option>Озера, реки и водопады</option>
-                            <option>Горы и скалы</option>
-                            <option>Места силы</option>
-                            <option>Храмы и святыни</option>
-                            <option>Парки и заповедники</option>
-                            <option>Городские пространства</option>
-                            <option>Музеи</option>
-                            <option>Скульптура и архитектура</option>
-                        </select>
-                    </div>
-                    <div class="heading__select" id="heading-third">
-                        <select id="third">
-                            <option disabled="disabled" selected="selected">С кем</option>
-                            <option>Один или вдвоем</option>
-                            <option>С ребенком до 3 лет</option>
-                            <option>С ребенком до 10 лет</option>
-                            <option>С подростком</option>
-                            <option>Вся семья</option>
-                            <option>Компания от 4-х человек</option>
-                        </select>
-                    </div>
+                    <form action="{{ route('front.events.index') }}" name="filters" style="display: flex;">
+                        <input name="date_from" type="hidden" value="{{ request()->get('date_from') ?? '' }}" />
+                        <input name="date_to" type="hidden" value="{{ request()->get('date_to') ?? '' }}" />
+
+                        <div class="heading__select" id="heading-first">
+                            @php $dateRange = request()->get('date_range') ?? ''; @endphp
+                            <input name="date_range" id="first" value="{{ $dateRange }}" autocomplete="off" placeholder="Сроки" readonly="readonly">
+                        </div>
+
+                        <div class="heading__select" id="heading-type_id">
+                            <select name="city_id" id="city_id">
+                                @php $cityId = request()->get('city_id') ?? null; @endphp
+                                <option value="" disabled="disabled" selected="selected">Город</option>
+                                @foreach($cityList as $city)
+                                    <option
+                                        value="{{ $city->id }}"
+                                        {{ $cityId && $cityId == $city->id ? 'selected' : '' }} >
+                                        {{ $city->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="heading__select" id="heading-fourth">
+                            <select name="whom_id"  id="whom_id">
+                                @php $whomId = request()->get('whom_id') ?? null; @endphp
+                                <option disabled="disabled" selected="selected">{{ $vars['places_whom'] }}</option>
+                                @foreach($whomList as $whom)
+                                    <option
+                                        value="{{ $whom->id }}"
+                                        {{ $whomId && $whomId == $whom->id ? 'selected' : '' }} >
+                                        {{ $whom->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="events__items list">
@@ -118,9 +125,40 @@
     @parent
     <script>
         $(function () {
-            $('#first').datepick({
+            let dateRange = $('#first');
+            let city = $('#city_id');
+            let whom = $('#whom_id');
+            let filterForm = $('form[name="filters"]');
+            let dateFrom = $('input[name="date_from"]');
+            let dateTo = $('input[name="date_to"]');
+
+            city.selectmenu();
+            whom.selectmenu();
+
+            city.on('selectmenuchange', e => {
+                e.preventDefault();
+                filterForm.submit();
+            })
+
+            whom.on('selectmenuchange', e => {
+                e.preventDefault();
+                filterForm.submit();
+            })
+
+            dateRange.datepick({
                 onSelect: function (dates) {
                     console.log(dates);
+                    dates.map((date, index) => {
+                        if (index === 0) {
+                            dateFrom.val((new Date(date)).getTime() / 1000)
+                        } else {
+                            dateTo.val((new Date(date)).getTime() / 1000)
+                        }
+                    });
+
+                    if (dates.length === 2) {
+                        filterForm.submit();
+                    }
                 },
                 yearRange: 'c-0:c+2',
                 firstDay: 1,
@@ -129,34 +167,12 @@
                 dateFormat: 'd M yyyyy',
                 dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
                 monthNamesShort: ['янв', 'фев', 'мар', 'апр', 'май', 'июн',
-                    'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'],
+                    'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'
+                ],
                 monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-                    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+                ],
             });
-
-            $("#second").selectmenu();
-            $("#third").selectmenu()
-            $("#fourth").selectmenu()
-
-            let first = $('#first')
-            let second = $('#second')
-            let third = $('#third')
-            let fourth = $('#fourth')
-
-            first.on('selectmenuchange', e => {
-                console.log(e.toElement.innerHTML)
-            })
-            second.on('selectmenuchange', e => {
-                console.log(e.toElement.innerHTML)
-                //тут нужно будет применять indexOf у массива вариантов селекта,
-                //чтобы следить за измененяиями
-            })
-            third.on('selectmenuchange', e => {
-                console.log(e.toElement.innerHTML)
-            })
-            fourth.on('selectmenuchange', e => {
-                console.log(e.toElement.innerHTML)
-            })
         });
     </script>
 
@@ -166,31 +182,33 @@
         function init() {
             let data = JSON.parse('{{ $geoData->toJson() }}'.replace(/&quot;/g,'"'));
 
-            var myMap = new ymaps.Map('map', {
-                center: [data[0].lat, data[0].lng],
-                zoom: 10
-            }, {
-                searchControlProvider: 'yandex#search'
-            })
-
-            var MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
-                '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
-            )
-
-            for (let i = 0; i < data.length; i++) {
-                myPlacemark = new ymaps.Placemark([data[i].lat, data[i].lng], {
-                    hintContent: data[i].name,
-                    balloonContent: data[i].name
+            if (data.length > 0) {
+                var myMap = new ymaps.Map('map', {
+                    center: [data[0].lat, data[0].lng],
+                    zoom: 10
                 }, {
-                    // options
-                    iconLayout: 'default#imageWithContent',
-                    iconImageHref: 'front/img/geo.svg',
-                    iconImageSize: [48, 48],
-                    iconImageOffset: [-24, -24],
-                    iconContentOffset: [15, 15],
-                    iconContentLayout: MyIconContentLayout
+                    searchControlProvider: 'yandex#search'
                 })
-                myMap.geoObjects.add(myPlacemark)
+
+                var MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
+                    '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+                )
+
+                for (let i = 0; i < data.length; i++) {
+                    myPlacemark = new ymaps.Placemark([data[i].lat, data[i].lng], {
+                        hintContent: data[i].name,
+                        balloonContent: data[i].name
+                    }, {
+                        // options
+                        iconLayout: 'default#imageWithContent',
+                        iconImageHref: 'front/img/geo.svg',
+                        iconImageSize: [48, 48],
+                        iconImageOffset: [-24, -24],
+                        iconContentOffset: [15, 15],
+                        iconContentLayout: MyIconContentLayout
+                    })
+                    myMap.geoObjects.add(myPlacemark)
+                }
             }
         }
     </script>

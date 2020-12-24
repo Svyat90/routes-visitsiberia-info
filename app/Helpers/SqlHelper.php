@@ -5,7 +5,7 @@ namespace App\Helpers;
 class SqlHelper
 {
 
-    function getSql($query)
+    public static function getSql($query)
     {
         $bindings = $query->getBindings();
 

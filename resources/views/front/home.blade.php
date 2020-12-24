@@ -17,7 +17,7 @@
                                 <input name="date_from" type="hidden" />
                                 <input name="date_to" type="hidden" />
                                 <div class="heading__select">
-                                    <input id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
+                                    <input name="date_range" id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
                                 </div>
 
                                 <select name="transport_id"  id="transport_id">

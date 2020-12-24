@@ -151,6 +151,32 @@
                         <span class="help-block">{{ __("cruds.events.fields.{$name}_helper") }}</span>
                     </div>
 
+                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                        <label class="" for="{{ $name = 'date_from' }}">{{ __("cruds.events.fields.$name") }}</label>
+                        <input class="form-control date {{ $errors->has($name) ? 'is-invalid' : '' }}"
+                               type="text"
+                               name="{{ $name }}"
+                               id="{{ $name }}"
+                               value="{{ old($name, $event->$name) }}" />
+                        @if($errors->has($name))
+                            <span class="text-danger">{{ $errors->first($name) }}</span>
+                        @endif
+                        <span class="help-block">{{ __("cruds.events.fields.{$name}_helper") }}</span>
+                    </div>
+
+                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                        <label class="" for="{{ $name = 'date_to' }}">{{ __("cruds.events.fields.$name") }}</label>
+                        <input class="form-control date {{ $errors->has($name) ? 'is-invalid' : '' }}"
+                               type="text"
+                               name="{{ $name }}"
+                               id="{{ $name }}"
+                               value="{{ old($name, $event->$name) }}" />
+                        @if($errors->has($name))
+                            <span class="text-danger">{{ $errors->first($name) }}</span>
+                        @endif
+                        <span class="help-block">{{ __("cruds.events.fields.{$name}_helper") }}</span>
+                    </div>
+
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label class="" for="{{ $name = 'dictionary_ids' }}">{{ __('global.dictionaries') }}</label>
                         <div style="padding-bottom: 4px">

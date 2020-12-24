@@ -119,6 +119,29 @@ class DictionarySeeder extends Seeder
                 'Пешком'
             ]
         ],
+        'Доставка' => [
+            'type' => DictionaryService::TYPE_DELIVERY_FOOD,
+            'values' => [
+                'В заведении',
+                'С доставкой',
+            ]
+        ],
+        'Город' => [
+            'type' => DictionaryService::TYPE_CITY,
+            'values' => [
+                'г. Красноярск',
+                'г. Шарыпово',
+                'г. Ачинск',
+            ]
+        ],
+        'Расстояние' => [
+            'type' => DictionaryService::TYPE_DISTANCE,
+            'values' => [
+                '< 1км от центра',
+                '< 3км от центра',
+                '< 5км от центра',
+            ]
+        ],
     ];
 
     /**

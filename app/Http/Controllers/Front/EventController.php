@@ -11,6 +11,7 @@ use App\Services\EventService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use App\Http\Requests\Front\Events\IndexEventRequest;
 
 class EventController extends FrontController
 {
@@ -31,14 +32,17 @@ class EventController extends FrontController
     }
 
     /**
-     * @param Request           $request
+     * @param IndexEventRequest $request
      * @param DictionaryService $dictionaryService
      *
      * @return Application|Factory|View
      */
-    public function index(Request $request, DictionaryService $dictionaryService)
+    public function index(IndexEventRequest $request, DictionaryService $dictionaryService)
     {
-        $data = $this->service->repository->getCollectionToIndex();
+        $cityList = $dictionaryService->getCityList();
+        $whomList = $dictionaryService->getWhomList();
+
+        $data = $this->service->getFilteredEvents($request);
 
         $geoData = $data->map(function (Event $event) {
             return ['lat' => $event->lat, 'lng' => $event->lng, 'name' => $event->name];
@@ -46,14 +50,16 @@ class EventController extends FrontController
 
         $events = CollectionHelper::paginate($data, $this->pageLimit)
             ->appends([
-                'type_id' => $request->type_id,
-                'season_id' => $request->season_id,
-                'category_id' => $request->category_id,
-                'whom_id' => $request->whom_id
+                'city_id' => $request->city_id,
+                'whom_id' => $request->whom_id,
+                'date_from' => $request->date_from,
+                'date_to' => $request->date_to,
             ]);
 
         return view('front.events.index', compact(
             'events',
+            'cityList',
+            'whomList',
             'geoData'
         ));
     }

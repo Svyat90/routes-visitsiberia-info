@@ -13,7 +13,6 @@
                         <div class="heading__select" id="heading-type_id">
                             <select name="type_id" id="type_id">
                                 @php $typeId = request()->get('type_id') ?? null; @endphp
-
                                 <option value="" disabled="disabled" selected="selected">{{ $vars['places_type_rest'] }}</option>
                                     @foreach($typeList as $type)
                                         <option
@@ -24,10 +23,10 @@
                                     @endforeach
                             </select>
                         </div>
+
                         <div class="heading__select" id="heading-second">
                             <select name="season_id" id="season_id">
                                 @php $seasonId = request()->get('season_id') ?? null; @endphp
-
                                 <option value="" disabled="disabled" selected="selected">{{ $vars['places_season'] }}</option>
                                     @foreach($seasonList as $season)
                                         <option
@@ -38,10 +37,10 @@
                                     @endforeach
                             </select>
                         </div>
+
                         <div class="heading__select" id="heading-third">
                             <select name="category_id" id="category_id">
                                 @php $categoryId = request()->get('category_id') ?? null; @endphp
-
                                 <option value="" disabled="disabled" selected="selected">{{ $vars['places_category'] }}</option>
                                     @foreach($categoryList as $category)
                                         <option
@@ -52,10 +51,10 @@
                                     @endforeach
                             </select>
                         </div>
+
                         <div class="heading__select" id="heading-fourth">
                             <select name="whom_id"  id="whom_id">
                                 @php $whomId = request()->get('whom_id') ?? null; @endphp
-
                                 <option disabled="disabled" selected="selected">{{ $vars['places_whom'] }}</option>
                                     @foreach($whomList as $whom)
                                         <option
@@ -175,31 +174,33 @@
         function init() {
             let data = JSON.parse('{{ $geoData->toJson() }}'.replace(/&quot;/g,'"'));
 
-            var myMap = new ymaps.Map('map', {
-                center: [data[0].lat, data[0].lng],
-                zoom: 10
-            }, {
-                searchControlProvider: 'yandex#search'
-            })
-
-            var MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
-                '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
-            )
-
-            for (let i = 0; i < data.length; i++) {
-                myPlacemark = new ymaps.Placemark([data[i].lat, data[i].lng], {
-                    hintContent: data[i].name,
-                    balloonContent: data[i].name
+            if (data.length > 0) {
+                var myMap = new ymaps.Map('map', {
+                    center: [data[0].lat, data[0].lng],
+                    zoom: 10
                 }, {
-                    // options
-                    iconLayout: 'default#imageWithContent',
-                    iconImageHref: 'front/img/geo.svg',
-                    iconImageSize: [48, 48],
-                    iconImageOffset: [-24, -24],
-                    iconContentOffset: [15, 15],
-                    iconContentLayout: MyIconContentLayout
+                    searchControlProvider: 'yandex#search'
                 })
-                myMap.geoObjects.add(myPlacemark)
+
+                var MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
+                    '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+                )
+
+                for (let i = 0; i < data.length; i++) {
+                    myPlacemark = new ymaps.Placemark([data[i].lat, data[i].lng], {
+                        hintContent: data[i].name,
+                        balloonContent: data[i].name
+                    }, {
+                        // options
+                        iconLayout: 'default#imageWithContent',
+                        iconImageHref: 'front/img/geo.svg',
+                        iconImageSize: [48, 48],
+                        iconImageOffset: [-24, -24],
+                        iconContentOffset: [15, 15],
+                        iconContentLayout: MyIconContentLayout
+                    })
+                    myMap.geoObjects.add(myPlacemark)
+                }
             }
         }
     </script>

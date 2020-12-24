@@ -287,6 +287,10 @@ return [
             'have_camping_helper'       => '',
             'additional_links'              => 'Additional Links',
             'additional_links_helper'       => 'Example: http://google.com,http://yandex.ru',
+            'date_from'              => 'Date From',
+            'date_from_helper'       => '',
+            'date_to'              => 'Date To',
+            'date_to_helper'       => '',
         ],
     ],
     'routes'                     => [

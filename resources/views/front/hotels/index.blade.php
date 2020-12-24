@@ -10,11 +10,12 @@
                 <h1 class="heading__title">Проживание</h1>
                 <div class="heading__selects heading__selects--rooms">
                     <form action="{{ route('front.hotels.index') }}" name="filters" style="display: flex;">
-                        <input name="date_from" type="hidden" />
-                        <input name="date_to" type="hidden" />
+                        <input name="date_from" type="hidden" value="{{ request()->get('date_from') ?? '' }}" />
+                        <input name="date_to" type="hidden" value="{{ request()->get('date_to') ?? '' }}" />
 
                         <div class="heading__select" id="heading-first">
-                            <input id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
+                            @php $dateRange = request()->get('date_range') ?? ''; @endphp
+                            <input name="date_range" id="first" value="{{ $dateRange }}" autocomplete="off" placeholder="Сроки" readonly="readonly">
                         </div>
 
                         <div class="heading__select" id="heading-type_id">
@@ -208,31 +209,33 @@
         function init() {
             let data = JSON.parse('{{ $geoData->toJson() }}'.replace(/&quot;/g,'"'));
 
-            var myMap = new ymaps.Map('map', {
-                center: [data[0].lat, data[0].lng],
-                zoom: 10
-            }, {
-                searchControlProvider: 'yandex#search'
-            })
-
-            var MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
-                '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
-            )
-
-            for (let i = 0; i < data.length; i++) {
-                myPlacemark = new ymaps.Placemark([data[i].lat, data[i].lng], {
-                    hintContent: data[i].name,
-                    balloonContent: data[i].name
+            if (data.length > 0) {
+                var myMap = new ymaps.Map('map', {
+                    center: [data[0].lat, data[0].lng],
+                    zoom: 10
                 }, {
-                    // options
-                    iconLayout: 'default#imageWithContent',
-                    iconImageHref: 'front/img/geo.svg',
-                    iconImageSize: [48, 48],
-                    iconImageOffset: [-24, -24],
-                    iconContentOffset: [15, 15],
-                    iconContentLayout: MyIconContentLayout
+                    searchControlProvider: 'yandex#search'
                 })
-                myMap.geoObjects.add(myPlacemark)
+
+                var MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
+                    '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+                )
+
+                for (let i = 0; i < data.length; i++) {
+                    myPlacemark = new ymaps.Placemark([data[i].lat, data[i].lng], {
+                        hintContent: data[i].name,
+                        balloonContent: data[i].name
+                    }, {
+                        // options
+                        iconLayout: 'default#imageWithContent',
+                        iconImageHref: 'front/img/geo.svg',
+                        iconImageSize: [48, 48],
+                        iconImageOffset: [-24, -24],
+                        iconContentOffset: [15, 15],
+                        iconContentLayout: MyIconContentLayout
+                    })
+                    myMap.geoObjects.add(myPlacemark)
+                }
             }
         }
     </script>

@@ -155,31 +155,33 @@
         function init() {
             let data = JSON.parse('{{ $geoData->toJson() }}'.replace(/&quot;/g,'"'));
 
-            var myMap = new ymaps.Map('map', {
-                center: [data[0].lat, data[0].lng],
-                zoom: 10
-            }, {
-                searchControlProvider: 'yandex#search'
-            })
-
-            var MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
-                '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
-            )
-
-            for (let i = 0; i < data.length; i++) {
-                myPlacemark = new ymaps.Placemark([data[i].lat, data[i].lng], {
-                    hintContent: data[i].name,
-                    balloonContent: data[i].name
+            if (data.length > 0) {
+                var myMap = new ymaps.Map('map', {
+                    center: [data[0].lat, data[0].lng],
+                    zoom: 10
                 }, {
-                    // options
-                    iconLayout: 'default#imageWithContent',
-                    iconImageHref: 'front/img/geo.svg',
-                    iconImageSize: [48, 48],
-                    iconImageOffset: [-24, -24],
-                    iconContentOffset: [15, 15],
-                    iconContentLayout: MyIconContentLayout
+                    searchControlProvider: 'yandex#search'
                 })
-                myMap.geoObjects.add(myPlacemark)
+
+                var MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
+                    '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+                )
+
+                for (let i = 0; i < data.length; i++) {
+                    myPlacemark = new ymaps.Placemark([data[i].lat, data[i].lng], {
+                        hintContent: data[i].name,
+                        balloonContent: data[i].name
+                    }, {
+                        // options
+                        iconLayout: 'default#imageWithContent',
+                        iconImageHref: 'front/img/geo.svg',
+                        iconImageSize: [48, 48],
+                        iconImageOffset: [-24, -24],
+                        iconContentOffset: [15, 15],
+                        iconContentLayout: MyIconContentLayout
+                    })
+                    myMap.geoObjects.add(myPlacemark)
+                }
             }
         }
     </script>
