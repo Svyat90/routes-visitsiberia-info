@@ -11,8 +11,10 @@ use App\Repositories\HotelRepository;
 use Yajra\DataTables\Facades\DataTables;
 use App\Helpers\MediaHelper;
 use App\Helpers\ImageHelper;
+use Illuminate\Support\Collection;
+use App\Http\Requests\Front\Hotels\IndexHotelRequest;
 
-class HotelService
+class HotelService extends BaseService
 {
     /**
      * @var HotelRepository
@@ -26,6 +28,7 @@ class HotelService
      */
     public function __construct(HotelRepository $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
     }
 
@@ -78,6 +81,39 @@ class HotelService
         $this->handleRelationships($hotel, $request);
 
         return $this->repository->updateData($request->all(), $hotel);
+    }
+
+    /**
+     * @param IndexHotelRequest $request
+     *
+     * @return Collection
+     */
+    public function getFilteredHotels(IndexHotelRequest $request) : Collection
+    {
+        return Hotel::query()
+            ->active()
+            ->get()
+            ->filter(function (Hotel $hotel) use ($request) {
+                $dictionaryIds = $hotel->dictionaries->pluck('id');
+                return $this->setFilters($dictionaryIds, $request);
+            });
+    }
+
+    /**
+     * @param Collection        $dictionaryIds
+     * @param IndexHotelRequest $request
+     *
+     * @return bool
+     */
+    private function setFilters(Collection $dictionaryIds, IndexHotelRequest $request)
+    {
+        $this->setDictionaryIds($dictionaryIds);
+
+        return $this->filterDictionaries(
+            $request->city_id,
+            $request->distance_id,
+            $request->placement_id
+        );
     }
 
     /**

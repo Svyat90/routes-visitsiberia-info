@@ -5,12 +5,13 @@ namespace App\Http\Requests\Front\Hotels;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class IndexPlaceRequest
+ * Class IndexHotelRequest
  *
- * @property string $type_id
- * @property string $season_id
- * @property string $category_id
- * @property string $whom_id
+ * @property string $date_from
+ * @property string $date_to
+ * @property string $city_id
+ * @property string $distance_id
+ * @property string $placement_id
  */
 class IndexHotelRequest extends FormRequest
 {
@@ -29,10 +30,11 @@ class IndexHotelRequest extends FormRequest
     public function rules()
     {
         return [
-            'type_id' => 'sometimes|nullable|exists:dictionaries,id',
-            'season_id' => 'sometimes|nullable|exists:dictionaries,id',
-            'category_id' => 'sometimes|nullable|exists:dictionaries,id',
-            'whom_id' => 'sometimes|nullable|exists:dictionaries,id',
+            'date_from' => 'sometimes|nullable|string',
+            'date_to' => 'sometimes|nullable|string',
+            'city_id' => 'sometimes|nullable|exists:dictionaries,id',
+            'distance_id' => 'sometimes|nullable|exists:dictionaries,id',
+            'placement_id' => 'sometimes|nullable|exists:dictionaries,id',
         ];
     }
 

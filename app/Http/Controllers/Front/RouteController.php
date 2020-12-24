@@ -11,8 +11,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Requests\Front\IndexRouteRequest;
 use App\Helpers\CollectionHelper;
+use App\Http\Requests\Front\Routes\IndexRouteRequest;
 
 class RouteController extends FrontController
 {

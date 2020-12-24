@@ -15,9 +15,9 @@ use App\Repositories\PlaceRepository;
 use App\Repositories\HotelRepository;
 use App\Repositories\MealRepository;
 use App\Repositories\EventRepository;
-use App\Http\Requests\Front\IndexRouteRequest;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Requests\Front\Routes\IndexRouteRequest;
 
 class RouteService
 {

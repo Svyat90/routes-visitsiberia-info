@@ -26,6 +26,7 @@ class DictionaryService
     public const TYPE_BREAK_PEOPLE = 'break_people';
     public const TYPE_DELIVERY_FOOD = 'delivery_food';
     public const TYPE_CITY = 'city';
+    public const TYPE_DISTANCE = 'distance';
 
     /**
      * @var DictionaryRepository
@@ -104,6 +105,30 @@ class DictionaryService
     public function getCategoryFoodList() : Collection
     {
         return $this->repository->getChildrenByType(self::TYPE_CATEGORY_FOOD);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCityList() : Collection
+    {
+        return $this->repository->getChildrenByType(self::TYPE_CITY);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getDistanceList() : Collection
+    {
+        return $this->repository->getChildrenByType(self::TYPE_DISTANCE);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPlacementList() : Collection
+    {
+        return $this->repository->getChildrenByType(self::TYPE_PLACEMENT);
     }
 
     /**

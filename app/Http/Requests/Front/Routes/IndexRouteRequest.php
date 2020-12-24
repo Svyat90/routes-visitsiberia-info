@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Front;
+namespace App\Http\Requests\Front\Routes;
 
 use Illuminate\Foundation\Http\FormRequest;
 
