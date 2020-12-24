@@ -24,6 +24,8 @@ class DictionaryService
     public const TYPE_TRANSPORT = 'transport';
     public const TYPE_TAG = 'tag';
     public const TYPE_BREAK_PEOPLE = 'break_people';
+    public const TYPE_DELIVERY_FOOD = 'delivery_food';
+    public const TYPE_CITY = 'city';
 
     /**
      * @var DictionaryRepository
@@ -87,6 +89,23 @@ class DictionaryService
     {
         return $this->repository->getChildrenByType(self::TYPE_WHOM);
     }
+
+    /**
+     * @return Collection
+     */
+    public function getDeliveryFoodList() : Collection
+    {
+        return $this->repository->getChildrenByType(self::TYPE_DELIVERY_FOOD);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCategoryFoodList() : Collection
+    {
+        return $this->repository->getChildrenByType(self::TYPE_CATEGORY_FOOD);
+    }
+
     /**
      * @param int|null $dictionaryId
      * @return mixed

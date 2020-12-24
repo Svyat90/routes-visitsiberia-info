@@ -11,6 +11,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use App\Models\Meal;
 use App\Helpers\CollectionHelper;
+use App\Http\Requests\Front\Meals\IndexMealRequest;
 
 class MealController extends FrontController
 {
@@ -31,14 +32,18 @@ class MealController extends FrontController
     }
 
     /**
-     * @param Request           $request
+     * @param IndexMealRequest  $request
      * @param DictionaryService $dictionaryService
      *
      * @return Application|Factory|View
      */
-    public function index(Request $request, DictionaryService $dictionaryService)
+    public function index(IndexMealRequest $request, DictionaryService $dictionaryService)
     {
-        $data = $this->service->repository->getCollectionToIndex();
+        $seasonList = $dictionaryService->getSeasonList();
+        $categoryList = $dictionaryService->getCategoryFoodList();
+        $deliveryList = $dictionaryService->getDeliveryFoodList();
+
+        $data = $this->service->getFilteredMeals($request);
 
         $geoData = $data->map(function (Meal $meal) {
             return ['lat' => $meal->lat, 'lng' => $meal->lng, 'name' => $meal->name];
@@ -46,14 +51,16 @@ class MealController extends FrontController
 
         $meals = CollectionHelper::paginate($data, $this->pageLimit)
             ->appends([
-                'type_id' => $request->type_id,
                 'season_id' => $request->season_id,
                 'category_id' => $request->category_id,
-                'whom_id' => $request->whom_id
+                'delivery_id' => $request->delivery_id
             ]);
 
         return view('front.meals.index', compact(
             'meals',
+            'seasonList',
+            'categoryList',
+            'deliveryList',
             'geoData'
         ));
     }

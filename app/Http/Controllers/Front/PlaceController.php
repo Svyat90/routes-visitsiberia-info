@@ -47,6 +47,10 @@ class PlaceController extends FrontController
 
         $data = $this->service->getFilteredPlaces($request);
 
+        $geoData = $data->map(function (Place $hotel) {
+            return ['lat' => $hotel->lat, 'lng' => $hotel->lng, 'name' => $hotel->name];
+        });
+
         $places = CollectionHelper::paginate($data, $this->pageLimit)
             ->appends([
                 'type_id' => $request->type_id,
@@ -54,10 +58,6 @@ class PlaceController extends FrontController
                 'category_id' => $request->category_id,
                 'whom_id' => $request->whom_id
             ]);
-
-        $geoData = $data->map(function (Place $hotel) {
-            return ['lat' => $hotel->lat, 'lng' => $hotel->lng, 'name' => $hotel->name];
-        });
 
         return view('front.places.index', compact(
             'places',

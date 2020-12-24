@@ -116,6 +116,10 @@ class VarsSeeder extends Seeder
             'ru' => 'С кем',
             'en' => 'Whom'
         ],
+        'meals_title' => [
+            'ru' => 'Еда',
+            'en' => 'Food'
+        ],
     ];
 
     /**

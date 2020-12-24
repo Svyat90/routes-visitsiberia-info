@@ -4,43 +4,59 @@
 @endsection
 
 @section('content')
-    <main class="main" id="places">
-        <div class="places d-flex flex-column" id="places">
-            <div class="places__heading heading heading--yellow" id="heading">
-                <h1 class="heading__title heading__title--big">{{ $vars['places_title'] }}</h1>
+    <main class="main" id="meals">
+        <div class="meals d-flex flex-column" id="meals">
+            <div class="meals__heading heading heading--yellow" id="heading">
+                <h1 class="heading__title heading__title--big">{{ $vars['meals_title'] }}</h1>
                 <div class="heading__selects heading__selects--meal">
-                    <div class="heading__select" id="heading-first">
-                        <select id="first">
-                            <option disabled selected>Заведение</option>
-                            <option>Кафе</option>
-                            <option>Кофейни</option>
-                            <option>Бары</option>
-                            <option>Рестораны</option>
-                            <option>Столовые</option>
-                            <option>Булочные и кондитерские</option>
-                        </select>
-                    </div>
-                    <div class="heading__select" id="heading-second">
-                        <select id="second">
-                            <option disabled selected>Сезон</option>
-                            <option>Зима</option>
-                            <option>Весна</option>
-                            <option>Лето</option>
-                            <option>Осень</option>
-                            <option>В любой сезон</option>
-                        </select>
-                    </div>
-                    <div class="heading__select" id="heading-third">
-                        <select id="third">
-                            <option disabled selected>Доставка</option>
-                            <option>В заведении</option>
-                            <option>С доставкой</option>
-                        </select>
-                    </div>
+                    <form action="{{ route('front.meals.index') }}" name="filters" style="display: flex;">
+
+                        <div class="heading__select" id="heading-third">
+                            <select name="category_id" id="category_id">
+                                @php $categoryId = request()->get('category_id') ?? null; @endphp
+                                <option value="" disabled="disabled" selected="selected">Категория</option>
+                                @foreach($categoryList as $category)
+                                    <option
+                                        value="{{ $category->id }}"
+                                        {{ $categoryId && $categoryId == $category->id ? 'selected' : '' }} >
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="heading__select" id="heading-second">
+                            <select name="season_id" id="season_id">
+                                @php $seasonId = request()->get('season_id') ?? null; @endphp
+                                <option value="" disabled="disabled" selected="selected">Сезон</option>
+                                @foreach($seasonList as $season)
+                                    <option
+                                        value="{{ $season->id }}"
+                                        {{ $seasonId && $seasonId == $season->id ? 'selected' : '' }} >
+                                        {{ $season->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="heading__select" id="heading-fourth">
+                            <select name="delivery_id"  id="delivery_id">
+                                @php $deliveryId = request()->get('delivery_id') ?? null; @endphp
+                                <option disabled="disabled" selected="selected">Доставка</option>
+                                @foreach($deliveryList as $delivery)
+                                    <option
+                                        value="{{ $delivery->id }}"
+                                        {{ $deliveryId && $deliveryId == $delivery->id ? 'selected' : '' }} >
+                                        {{ $delivery->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                    </form>
                 </div>
             </div>
-            </div>
-            <div class="places__items list">
+            <div class="meals__items list">
                 <ul class="nav nav-pills list__tabs wow fadeInUp" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">{{ $vars['base_list'] }}</a>
@@ -107,32 +123,28 @@
 
     <script>
         $(function () {
-            $("#first").selectmenu();
+            let season = $('#season_id');
+            let category = $('#category_id');
+            let delivery = $('#delivery_id');
+            let filterForm = $('form[name="filters"]');
 
-            $("#second").selectmenu();
+            season.selectmenu();
+            category.selectmenu()
+            delivery.selectmenu();
 
-            $("#third").selectmenu()
-
-            $("#fourth").selectmenu();
-
-            let first = $('#first')
-            let second = $('#second')
-            let third = $('#third')
-            let fourth = $('#fourth')
-
-            first.on('selectmenuchange', e => {
-                console.log(e.toElement.innerHTML)
+            season.on('selectmenuchange', e => {
+                e.preventDefault();
+                filterForm.submit();
             })
-            second.on('selectmenuchange', e => {
-                console.log(e.toElement.innerHTML)
-                //тут нужно будет применять indexOf у массива вариантов селекта,
-                //чтобы следить за измененяиями
+
+            category.on('selectmenuchange', e => {
+                e.preventDefault();
+                filterForm.submit();
             })
-            third.on('selectmenuchange', e => {
-                console.log(e.toElement.innerHTML)
-            })
-            fourth.on('selectmenuchange', e => {
-                console.log(e.toElement.innerHTML)
+
+            delivery.on('selectmenuchange', e => {
+                e.preventDefault();
+                filterForm.submit();
             })
         });
     </script>

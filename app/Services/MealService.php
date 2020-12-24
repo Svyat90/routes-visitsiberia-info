@@ -11,8 +11,10 @@ use App\Repositories\MealRepository;
 use Yajra\DataTables\Facades\DataTables;
 use App\Helpers\MediaHelper;
 use App\Helpers\ImageHelper;
+use Illuminate\Support\Collection;
+use App\Http\Requests\Front\Meals\IndexMealRequest;
 
-class MealService
+class MealService extends BaseService
 {
     /**
      * @var MealRepository
@@ -26,6 +28,7 @@ class MealService
      */
     public function __construct(MealRepository $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
     }
 
@@ -78,6 +81,39 @@ class MealService
         $this->handleRelationships($place, $request);
 
         return $this->repository->updateData($request->all(), $place);
+    }
+
+    /**
+     * @param IndexMealRequest $request
+     *
+     * @return Collection
+     */
+    public function getFilteredMeals(IndexMealRequest $request) : Collection
+    {
+        return Meal::query()
+            ->active()
+            ->get()
+            ->filter(function (Meal $place) use ($request) {
+                $dictionaryIds = $place->dictionaries->pluck('id');
+                return $this->setFilters($dictionaryIds, $request);
+            });
+    }
+
+    /**
+     * @param Collection        $dictionaryIds
+     * @param IndexMealRequest $request
+     *
+     * @return bool
+     */
+    private function setFilters(Collection $dictionaryIds, IndexMealRequest $request)
+    {
+        $this->setDictionaryIds($dictionaryIds);
+
+        return $this->filterDictionaries(
+            $request->category_id,
+            $request->season_id,
+            $request->delivery_id
+        );
     }
 
     /**
