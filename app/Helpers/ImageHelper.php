@@ -18,4 +18,15 @@ class ImageHelper
             ? sprintf('<img src="%s" />', $media->getFullUrl('thumb'))
             : '';
     }
+
+    /**
+     * @param string|null $path
+     *
+     * @return string
+     */
+    public static function image(? string $path)
+    {
+        return sprintf('<img src="%s/storage/%s" />', config('app.url'), $path);
+    }
+
 }

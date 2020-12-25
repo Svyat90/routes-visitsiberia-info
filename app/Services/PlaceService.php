@@ -100,6 +100,24 @@ class PlaceService extends BaseService
     }
 
     /**
+     * @param Place $place
+     *
+     * @return array
+     */
+    public function getNearData(Place $place)
+    {
+        $events = $this->getNearObjects('events', $place->lat, $place->lng);
+        $meals = $this->getNearObjects('meals', $place->lat, $place->lng);
+        $hotels = $this->getNearObjects('hotels', $place->lat, $place->lng);
+
+        $geoData = $events
+            ->merge($meals)
+            ->merge($hotels);
+
+        return [$events, $meals, $hotels, $geoData];
+    }
+
+    /**
      * @param Collection        $dictionaryIds
      * @param IndexPlaceRequest $request
      *

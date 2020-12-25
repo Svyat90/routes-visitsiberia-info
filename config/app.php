@@ -229,6 +229,7 @@ return [
         'MediaHelper' => App\Helpers\MediaHelper::class,
         'LabelHelper' => App\Helpers\LabelHelper::class,
         'DateHelper' => App\Helpers\DateHelper::class,
+        'ImageHelper' => App\Helpers\ImageHelper::class,
     ],
 
 ];
