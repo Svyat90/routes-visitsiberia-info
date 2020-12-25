@@ -100,6 +100,24 @@ class MealService extends BaseService
     }
 
     /**
+     * @param Meal $meal
+     *
+     * @return array
+     */
+    public function getNearData(Meal $meal)
+    {
+        $events = $this->getNearObjects('events', $meal->lat, $meal->lng);
+        $places = $this->getNearObjects('places', $meal->lat, $meal->lng);
+        $hotels = $this->getNearObjects('hotels', $meal->lat, $meal->lng);
+
+        $geoData = $events
+            ->merge($hotels)
+            ->merge($places);
+
+        return [$events, $hotels, $places, $geoData];
+    }
+
+    /**
      * @param Collection        $dictionaryIds
      * @param IndexMealRequest $request
      *

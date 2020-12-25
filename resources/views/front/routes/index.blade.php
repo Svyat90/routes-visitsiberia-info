@@ -74,7 +74,8 @@
                     </li>
                 </ul>
 
-                <div class="tab-content" id="pills-tabContent">
+                @if($routes->count())
+                    <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active list__sliders-wr" id="pills-home" role="tabpanel"
                          aria-labelledby="pills-home-tab">
                         <div class="list__sliders show">
@@ -121,6 +122,13 @@
                     {{ $routes->links('front.partials.paginator') }}
 
                 </div>
+                @else
+                    <div class="list__no-items">
+                        <p class="list__no-text exo">
+                            Нет маршрутов
+                        </p>
+                    </div>
+                @endif
             </div>
         </div>
     </main>

@@ -75,6 +75,14 @@ class HotelController extends FrontController
      */
     public function show(Request $request, Hotel $hotel)
     {
-        return view('front.hotels.show', compact('hotel'));
+        [$events, $meals, $places, $nearGeoData] = $this->service->getNearData($hotel);
+
+        return view('front.hotels.show', compact(
+            'hotel',
+            'events',
+            'meals',
+            'places',
+            'nearGeoData'
+        ));
     }
 }

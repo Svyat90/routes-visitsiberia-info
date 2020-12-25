@@ -13,6 +13,7 @@ use App\Helpers\MediaHelper;
 use App\Helpers\ImageHelper;
 use Illuminate\Support\Collection;
 use App\Http\Requests\Front\Hotels\IndexHotelRequest;
+use App\Models\Place;
 
 class HotelService extends BaseService
 {
@@ -97,6 +98,24 @@ class HotelService extends BaseService
                 $dictionaryIds = $hotel->dictionaries->pluck('id');
                 return $this->setFilters($dictionaryIds, $request);
             });
+    }
+
+    /**
+     * @param Hotel $hotel
+     *
+     * @return array
+     */
+    public function getNearData(Hotel $hotel)
+    {
+        $events = $this->getNearObjects('events', $hotel->lat, $hotel->lng);
+        $places = $this->getNearObjects('places', $hotel->lat, $hotel->lng);
+        $meals = $this->getNearObjects('meals', $hotel->lat, $hotel->lng);
+
+        $geoData = $events
+            ->merge($meals)
+            ->merge($places);
+
+        return [$events, $meals, $places, $geoData];
     }
 
     /**

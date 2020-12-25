@@ -75,6 +75,7 @@ abstract class BaseModel extends Model implements HasMedia
      */
     protected function fillMedia(Media $media)
     {
+        $media->id = $media->getAttribute('id');
         $media->url = $media->getFullUrl();
         $media->file_name = $media->getAttribute('file_name');
         $media->thumb = $media->getUrl('thumb');

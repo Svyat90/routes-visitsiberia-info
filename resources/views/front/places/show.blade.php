@@ -320,7 +320,15 @@
         function init() {
             let item = {
                 lat: '{{ $place->lat }}',
-                lng: '{{ $place->lng }}'
+                lng: '{{ $place->lng }}',
+                name: '{{ $place->name }}',
+            }
+
+            let image = '{!! $place->image ? ImageHelper::image($place->image->id . '/' . $place->image->file_name, 100) : '' !!}';
+
+            let name = '';
+            if (item.name) {
+                name = item.name;
             }
 
             let nearItems = JSON.parse('{{ $nearGeoData->toJson() }}'.replace(/&quot;/g,'"'));
@@ -337,8 +345,8 @@
             )
 
             placeMap.geoObjects.add(new ymaps.Placemark([item.lat, item.lng], {
-                    hintContent: item.name,
-                    balloonContent: item.name
+                    hintContent: name,
+                    balloonContent: image
                 }, {
                     // options
                     iconLayout: 'default#imageWithContent',
@@ -352,7 +360,6 @@
 
             for (let j = 0; j < nearItems.length; j++) {
                 let item = nearItems[j]
-                console.log(item);
 
                 let image = '';
                 if (item.imagePath) {

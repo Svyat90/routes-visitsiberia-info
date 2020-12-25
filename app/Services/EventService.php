@@ -65,26 +65,26 @@ class EventService extends BaseService
      */
     public function createEvent(StoreEventRequest $request) : Event
     {
-        $hotel = $this->repository->saveEvent($request->all());
+        $event = $this->repository->saveEvent($request->all());
 
-        $this->handleMediaFiles($request, $hotel);
-        $this->handleRelationships($hotel, $request);
+        $this->handleMediaFiles($request, $event);
+        $this->handleRelationships($event, $request);
 
-        return $hotel;
+        return $event;
     }
 
     /**
      * @param UpdateEventRequest $request
-     * @param Event              $hotel
+     * @param Event              $event
      *
      * @return Event
      */
-    public function updateEvent(UpdateEventRequest $request, Event $hotel) : Event
+    public function updateEvent(UpdateEventRequest $request, Event $event) : Event
     {
-        $this->handleMediaFiles($request, $hotel);
-        $this->handleRelationships($hotel, $request);
+        $this->handleMediaFiles($request, $event);
+        $this->handleRelationships($event, $request);
 
-        return $this->repository->updateData($request->all(), $hotel);
+        return $this->repository->updateData($request->all(), $event);
     }
 
     /**
@@ -126,6 +126,24 @@ class EventService extends BaseService
     }
 
     /**
+     * @param Event $event
+     *
+     * @return array
+     */
+    public function getNearData(Event $event)
+    {
+        $hotels = $this->getNearObjects('hotels', $event->lat, $event->lng);
+        $places = $this->getNearObjects('places', $event->lat, $event->lng);
+        $meals = $this->getNearObjects('meals', $event->lat, $event->lng);
+
+        $geoData = $hotels
+            ->merge($meals)
+            ->merge($places);
+
+        return [$hotels, $meals, $places, $geoData];
+    }
+
+    /**
      * @param Collection        $dictionaryIds
      * @param IndexEventRequest $request
      *
@@ -143,21 +161,21 @@ class EventService extends BaseService
 
     /**
      * @param StoreEventRequest|UpdateEventRequest   $request
-     * @param Event $hotel
+     * @param Event $event
      */
-    private function handleMediaFiles($request, Event $hotel) : void
+    private function handleMediaFiles($request, Event $event) : void
     {
-        MediaHelper::handleMedia($hotel, 'image', $request->image);
-        MediaHelper::handleMedia($hotel, 'image_history', $request->image_history);
-        MediaHelper::handleMediaCollect($hotel, 'image_gallery', $request->image_gallery);
+        MediaHelper::handleMedia($event, 'image', $request->image);
+        MediaHelper::handleMedia($event, 'image_history', $request->image_history);
+        MediaHelper::handleMediaCollect($event, 'image_gallery', $request->image_gallery);
     }
 
     /**
-     * @param Event $hotel
+     * @param Event $event
      * @param StoreEventRequest|UpdateEventRequest $request
      */
-    private function handleRelationships(Event $hotel, $request) : void
+    private function handleRelationships(Event $event, $request) : void
     {
-        $hotel->dictionaries()->sync($request->dictionary_ids);
+        $event->dictionaries()->sync($request->dictionary_ids);
     }
 }

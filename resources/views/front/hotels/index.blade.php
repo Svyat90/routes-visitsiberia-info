@@ -78,7 +78,9 @@
                         </p>
                     </li>
                 </ul>
-                <div class="tab-content" id="pills-tabContent">
+
+                @if($hotels->count())
+                    <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                          aria-labelledby="pills-home-tab">
                         <div class="list__items show">
@@ -137,6 +139,13 @@
                         <div id="map"></div>
                     </div>
                 </div>
+                @else
+                    <div class="list__no-items">
+                        <p class="list__no-text exo">
+                            Нет мест
+                        </p>
+                    </div>
+                @endif
             </div>
         </div>
     </main>

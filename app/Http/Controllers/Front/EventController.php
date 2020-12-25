@@ -72,7 +72,15 @@ class EventController extends FrontController
      */
     public function show(Request $request, Event $event)
     {
-        return view('front.events.show', compact('event'));
+        [$hotels, $meals, $places, $nearGeoData] = $this->service->getNearData($event);
+
+        return view('front.events.show', compact(
+            'event',
+            'hotels',
+            'meals',
+            'places',
+            'nearGeoData'
+        ));
     }
 
 }
