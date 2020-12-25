@@ -13,6 +13,14 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\Eloquent\Model;
 use App\Helpers\CollectionHelper;
 use App\Http\Requests\Front\Routes\IndexRouteRequest;
+use App\Models\Place;
+use App\Services\PlaceService;
+use App\Services\EventService;
+use App\Models\Hotel;
+use App\Services\HotelService;
+use App\Services\MealService;
+use App\Models\Meal;
+use App\Models\Event;
 
 class RouteController extends FrontController
 {
@@ -63,20 +71,77 @@ class RouteController extends FrontController
     }
 
     /**
-     * @param Request $request
-     * @param Route   $route
+     * @param Route        $route
+     * @param PlaceService $placeService
+     * @param EventService $eventService
+     * @param HotelService $hotelService
+     * @param MealService  $mealService
      *
      * @return Application|Factory|View
      */
-    public function show(Request $request, Route $route)
-    {
+    public function show(
+        Route $route,
+        PlaceService $placeService,
+        EventService $eventService,
+        HotelService $hotelService,
+        MealService $mealService
+    ) {
         $routable = $this->service->repository->getRoutableEntities($route);
+
+        $eventsAll = $mealsAll = $placesAll = $hotelsAll = $nearGeoDataAll = collect();
+        $routable->map(function (Model $model) use ($placeService, $eventService, $hotelService, $mealService, &$eventsAll, &$mealsAll, &$placesAll, &$hotelsAll, &$nearGeoDataAll) {
+            switch (true) {
+                case $model instanceof Place:
+                    [$events, $meals, $hotels, $nearGeoData] = $placeService->getNearData($model);
+                    $eventsAll->push($events);
+                    $mealsAll->push($meals);
+                    $hotelsAll->push($hotels);
+                    $nearGeoDataAll->push($nearGeoData);
+                    break;
+                case $model instanceof Hotel:
+                    [$events, $meals, $places, $nearGeoData] = $hotelService->getNearData($model);
+                    $eventsAll->push($events);
+                    $mealsAll->push($meals);
+                    $placesAll->push($places);
+                    $nearGeoDataAll->push($nearGeoData);
+                    break;
+                case $model instanceof Meal:
+                    [$events, $hotels, $places, $nearGeoData] = $mealService->getNearData($model);
+                    $eventsAll->push($events);
+                    $hotelsAll->push($hotels);
+                    $placesAll->push($places);
+                    $nearGeoDataAll->push($nearGeoData);
+                    break;
+                case $model instanceof Event:
+                    [$hotels, $meals, $places, $nearGeoData] = $eventService->getNearData($model);
+                    $mealsAll->push($meals);
+                    $hotelsAll->push($hotels);
+                    $placesAll->push($places);
+                    $nearGeoDataAll->push($nearGeoData);
+            }
+
+            $model->nearObjects = $mealsAll
+                ->merge($hotelsAll)
+                ->merge($placesAll)
+                ->merge($eventsAll)
+                ->unique()
+                ->collapse();
+
+            return $model;
+        });
+
+        $nearGeoDataAll = $nearGeoDataAll->unique()->collapse();
 
         $geoData = $routable->map(function (Model $model) {
             return ['lat' => $model->lat, 'lng' => $model->lng];
         });
 
-        return view('front.routes.show', compact('route', 'routable', 'geoData'));
+        return view('front.routes.show', compact(
+            'route',
+            'routable',
+            'geoData',
+            'nearGeoDataAll'
+        ));
     }
 
 }

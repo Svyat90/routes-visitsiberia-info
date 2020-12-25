@@ -610,23 +610,55 @@
             let geoData = '{{ $geoData->toJson() }}';
             let route = JSON.parse(geoData.replace(/&quot;/g,'"'));
 
-            var myMap = new ymaps.Map('map', {
+            let nearItems = JSON.parse('{{ $nearGeoDataAll->toJson() }}'.replace(/&quot;/g,'"'));
+
+            let routeMap = new ymaps.Map('map', {
                 center: [route[0].lat, route[0].lng],
                 zoom: 10
             }, {
                 searchControlProvider: 'yandex#search'
             })
 
-            var multiRoute = new ymaps.multiRouter.MultiRoute({
+            routeMap.geoObjects.add(new ymaps.multiRouter.MultiRoute({
                 referencePoints: route.map(el => {
                     return [el.lat, el.lng]
                 }),
                 params: {
                     results: 1
                 }
-            });
+            }));
 
-            myMap.geoObjects.add(multiRoute);
+            var MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
+                '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+            )
+
+            for (let k = 0; k < nearItems.length; k++) {
+                let item = nearItems[k]
+
+                let image = '';
+                if (item.imagePath) {
+                    image = '<span><img src="{{ config('app.url') }}/storage/' + item.imagePath + '" style="max-width: 100px" /></span>';
+                }
+
+                let name = '';
+                if (item.name) {
+                    name = item.name;
+                }
+
+                routeMap.geoObjects.add(new ymaps.Placemark([item.lat, item.lng], {
+                        hintContent: name,
+                        balloonContent: image
+                    }, {
+                        // options
+                        iconLayout: 'default#imageWithContent',
+                        iconImageHref: '{{ asset('front/img/Ygeo.svg') }}',
+                        iconImageSize: [48, 48],
+                        iconImageOffset: [-24, -24],
+                        iconContentOffset: [15, 15],
+                        iconContentLayout: MyIconContentLayout
+                    })
+                )
+            }
         }
     </script>
 @endsection

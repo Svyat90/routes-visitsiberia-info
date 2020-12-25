@@ -106,8 +106,6 @@ class PlaceService extends BaseService
      */
     public function getNearData(Place $place)
     {
-        return [collect(), collect(), collect(), collect()];
-
         $events = $this->getNearObjects('events', $place->lat, $place->lng);
         $meals = $this->getNearObjects('meals', $place->lat, $place->lng);
         $hotels = $this->getNearObjects('hotels', $place->lat, $place->lng);
