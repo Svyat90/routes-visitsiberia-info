@@ -35,6 +35,7 @@ Route::get('/', [\App\Http\Controllers\Front\HomeController::class, 'redirectToH
 
 Route::namespace('Front')->as('front.')->group(function () {
     Route::get('home', 'HomeController@index')->name('home');
+    Route::get('favourites', 'FavouriteController@index')->name('favourites');
     Route::resource('places', 'PlaceController')->only('index', 'show');
     Route::resource('hotels', 'HotelController')->only('index', 'show');
     Route::resource('meals', 'MealController')->only('index', 'show');

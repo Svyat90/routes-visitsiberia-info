@@ -70,8 +70,8 @@
                         <div class="page__route-img-wr">
                             {{ $entity->image ? $entity->image->img()->lazy() : '' }}
                         </div>
-                        <a href="{{ route('front.' . strtolower(\Illuminate\Support\Str::plural(class_basename($entity))) . '.show', $entity->id) }}" class="page__route-name exo">{{ $entity->name }}</a>
-                        <a href="{{ route('front.' . strtolower(\Illuminate\Support\Str::plural(class_basename($entity))) . '.show', $entity->id) }}" class="page__route-city">
+                        <a href="{{ RouteHelper::show($entity) }}" class="page__route-name exo">{{ $entity->name }}</a>
+                        <a href="{{ RouteHelper::show($entity) }}" class="page__route-city">
                             <span class="material-icons">room</span>
                             {{ $entity->location }}
                         </a>

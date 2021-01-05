@@ -3,12 +3,24 @@
 namespace App\Repositories;
 
 use App\Models\Hotel;
+use App\Models\Place;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use App\Helpers\SlugHelper;
 
 class HotelRepository extends Model
 {
+
+    /**
+     * @param array $ids
+     * @return Collection
+     */
+    public function getListByIds(array $ids = []) : Collection
+    {
+        return Hotel::query()
+            ->whereIn('id', $ids)
+            ->get();
+    }
 
     /**
      * @return Collection

@@ -230,6 +230,7 @@ return [
         'LabelHelper' => App\Helpers\LabelHelper::class,
         'DateHelper' => App\Helpers\DateHelper::class,
         'ImageHelper' => App\Helpers\ImageHelper::class,
+        'RouteHelper' => App\Helpers\RouteHelper::class,
     ],
 
 ];

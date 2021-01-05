@@ -11,6 +11,17 @@ class PlaceRepository extends Model
 {
 
     /**
+     * @param array $ids
+     * @return Collection
+     */
+    public function getListByIds(array $ids = []) : Collection
+    {
+        return Place::query()
+            ->whereIn('id', $ids)
+            ->get();
+    }
+
+    /**
      * @return Collection
      */
     public function getListForHome() : Collection

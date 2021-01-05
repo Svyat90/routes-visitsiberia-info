@@ -96,7 +96,7 @@
                                                 <div class="list__slide-img-wr">
                                                     {{ $entity->image ? $entity->image->img()->lazy() : '' }}
                                                 </div>
-                                                <a href="{{ route('front.' . strtolower(\Illuminate\Support\Str::plural(class_basename($entity))) . '.show', $entity->id) }}" class="list__slide-name exo">
+                                                <a href="{{ RouteHelper::show($entity) }}" class="list__slide-name exo">
                                                     {{ $entity->name }}
                                                 </a>
                                                 <p class="list__slide-city">

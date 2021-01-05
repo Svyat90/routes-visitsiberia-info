@@ -29,7 +29,7 @@
                         <a class="nav-link" href="{{ route('front.meals.index') }}">Еда</a>
                     </li>
                     <li class="nav-item nav-item-last">
-                        <a class="nav-link" href="favorites.html">Избранное</a>
+                        <a class="nav-link" href="{{ route('front.favourites') }}">Избранное</a>
                     </li>
                     <li class="nav-item header__mobile">
                         <a class="nav-link active" style="margin-right: 10px" href="#">Ру</a>
