@@ -45,14 +45,7 @@
 
 <script src="{{ asset('front/js/jquery.plugin.js') }}"></script>
 <script src="{{ asset('front/js/jquery.datepick.js') }}"></script>
-
-<script>
-    $('a[href^="#"]').click(function(e) {
-        e.preventDefault()
-        var target = $(this).attr('href');
-        $('html').animate({scrollTop: $(target).offset().top - 130 }, 900);
-    })
-</script>
+<script src="{{ asset('front/js/main.js') }}"></script>
 
 @yield('scripts')
 
