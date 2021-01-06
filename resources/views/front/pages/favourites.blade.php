@@ -15,7 +15,7 @@
                         <a href="{{ route('front.favourites') }}" class="nav-link {{ ! request()->has('type') ? 'active' : '' }}" id="pills-home-tab" >Все</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('front.favourites', ['type' => 'places']) }}" class="nav-link {{ request()->has('type') && request()->type == 'places' ? 'active' : '' }}" id="pills-profile-tab" >Объекты</a>
+                        <a href="{{ route('front.favourites', ['type' => 'places']) }}" class="nav-link {{ request()->has('type') && request()->type == 'places' ? 'active' : '' }}" id="pills-profile-tab" >Достопримечательности</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('front.favourites', ['type' => 'events']) }}" class="nav-link {{ request()->has('type') && request()->type == 'events' ? 'active' : '' }}" id="pills-profile-tab" >События</a>
@@ -66,7 +66,7 @@
                                                 </svg>
                                             </button>
                                         </div>
-                                        <a href="#" class="list__button list__button-link route-item-go d-none">
+                                        <a href="{{ route('front.choose') }}" class="list__button list__button-link route-item-go d-none">
                                             Перейти к маршруту
                                         </a>
                                     </div>

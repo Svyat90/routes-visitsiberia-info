@@ -119,7 +119,7 @@
                                             </svg>
                                         </button>
                                     </div>
-                                    <a href="#" class="list__button list__button-link route-item-go d-none">
+                                    <a href="{{ route('front.choose') }}" class="list__button list__button-link route-item-go d-none">
                                         Перейти к маршруту
                                     </a>
                                 </div>

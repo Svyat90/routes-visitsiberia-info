@@ -1,41 +1,38 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Browser;
 
-use App\Helpers\CookieHelper;
-use App\Http\Requests\Front\Pages\IndexFavouritesRequest;
 use App\Models\Event;
 use App\Models\Hotel;
 use App\Models\Meal;
+use App\Models\Place;
 use App\Repositories\EventRepository;
 use App\Repositories\HotelRepository;
 use App\Repositories\MealRepository;
 use App\Repositories\PlaceRepository;
 use Illuminate\Support\Collection;
-use App\Models\Place;
-use Illuminate\Support\Str;
 
-class FavouriteService
+abstract class BrowserService
 {
     /**
      * @var MealRepository
      */
-    private MealRepository $mealRepository;
+    protected MealRepository $mealRepository;
 
     /**
      * @var HotelRepository
      */
-    private HotelRepository $hotelRepository;
+    protected HotelRepository $hotelRepository;
 
     /**
      * @var PlaceRepository
      */
-    private PlaceRepository $placeRepository;
+    protected PlaceRepository $placeRepository;
 
     /**
      * @var EventRepository
      */
-    private EventRepository $eventRepository;
+    protected EventRepository $eventRepository;
 
     /**
      * DictionaryService constructor.
@@ -58,27 +55,17 @@ class FavouriteService
     }
 
     /**
-     * @param IndexFavouritesRequest $request
+     * @param array $data
      * @return Collection
      */
-    public function getFavouritesData(IndexFavouritesRequest $request) : Collection
+    protected function generateData(array $data) : Collection
     {
-        if ($request->has('type')) {
-            $favouriteTypeData = CookieHelper::getFavourites($request->type);
-            $nameRepository = Str::singular($request->type) . 'Repository';
+        $places = $this->placeRepository->getListByIds($data['places']);
+        $hotels = $this->hotelRepository->getListByIds($data['hotels']);
+        $meals = $this->mealRepository->getListByIds($data['meals']);
+        $events = $this->eventRepository->getListByIds($data['events']);
 
-            return $this->$nameRepository->getListByIds($favouriteTypeData);
-
-        } else {
-            $favouriteData = CookieHelper::getFavourites();
-
-            $places = $this->placeRepository->getListByIds($favouriteData['places']);
-            $hotels = $this->hotelRepository->getListByIds($favouriteData['hotels']);
-            $meals = $this->mealRepository->getListByIds($favouriteData['meals']);
-            $events = $this->eventRepository->getListByIds($favouriteData['events']);
-
-            return $this->mergeAll($places, $hotels, $meals, $events);
-        }
+        return $this->mergeAll($places, $hotels, $meals, $events);
     }
 
     /**

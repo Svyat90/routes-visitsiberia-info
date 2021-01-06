@@ -6,7 +6,6 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\ChangePasswordController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\LanguageController;
-use \App\Http\Controllers\Front\RouteController;
 use \App\Http\Controllers\Admin\PlaceController as AdminPlaceController;
 use \App\Http\Controllers\Admin\HotelController as AdminHotelController;
 use \App\Http\Controllers\Admin\MealController as AdminMealController;
@@ -36,6 +35,8 @@ Route::get('/', [\App\Http\Controllers\Front\HomeController::class, 'redirectToH
 Route::namespace('Front')->as('front.')->group(function () {
     Route::get('home', 'HomeController@index')->name('home');
     Route::get('favourites', 'FavouriteController@index')->name('favourites');
+    Route::get('choose', 'ConstructorController@choose')->name('choose');
+    Route::get('constructor', 'ConstructorController@constructor')->name('constructor');
     Route::resource('places', 'PlaceController')->only('index', 'show');
     Route::resource('hotels', 'HotelController')->only('index', 'show');
     Route::resource('meals', 'MealController')->only('index', 'show');

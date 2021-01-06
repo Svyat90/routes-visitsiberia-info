@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Helpers\CollectionHelper;
 use App\Http\Requests\Front\Pages\IndexFavouritesRequest;
 use App\Http\Controllers\FrontController;
-use App\Services\FavouriteService;
+use App\Services\Browser\FavouriteService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;

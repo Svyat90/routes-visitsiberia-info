@@ -28,4 +28,13 @@ class RouteHelper
         return strtolower(Str::plural(class_basename($model)));
     }
 
+    /**
+     * @param Model $model
+     * @return string
+     */
+    public static function model(Model $model) : string
+    {
+        return strtolower(class_basename($model));
+    }
+
 }
