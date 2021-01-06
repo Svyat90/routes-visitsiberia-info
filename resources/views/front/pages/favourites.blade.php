@@ -33,6 +33,10 @@
                         <div class="tab-pane fade show active" id="pills-all" role="tabpanel">
                             <div class="list__items show">
                                 @foreach($data as $entity)
+                                    @php
+                                        $namespace = RouteHelper::namespace($entity);
+                                    @endphp
+
                                     <div class="list__item d-flex flex-column">
                                         <a href="{{ RouteHelper::show($entity) }}" class="d-flex flex-column nop">
                                             <div class="list__img">
@@ -47,10 +51,13 @@
                                             </p>
                                         </a>
                                         <div class="list__buttons d-flex flex-row align-items-center">
-                                            <button class="list__button list__button-add">
+                                            <button class="list__button list__button-add route-item-add" data-id="{{ $entity->id }}" data-type="route-{{ $namespace }}">
                                                 Добавить
                                             </button>
-                                            <button class="list__button list__button-star material-icons favourite-item" data-id="{{ $entity->id }}" data-type="{{ RouteHelper::namespace($entity) }}">
+                                            <button class="list__button list__button-add list__button--green route-item-added d-none" data-id="{{ $entity->id }}" data-type="route-{{ $namespace }}">
+                                                Добавлено<span class="material-icons">&nbsp;done</span>
+                                            </button>
+                                            <button class="list__button list__button-star material-icons favourite-item" data-id="{{ $entity->id }}" data-type="favourite-{{ $namespace }}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="black" width="30px" height="30px">
                                                     <g>
                                                         <rect fill="none" height="24" width="24"/>
@@ -59,6 +66,9 @@
                                                 </svg>
                                             </button>
                                         </div>
+                                        <a href="#" class="list__button list__button-link route-item-go d-none">
+                                            Перейти к маршруту
+                                        </a>
                                     </div>
                                 @endforeach
 

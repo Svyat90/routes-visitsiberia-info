@@ -46,6 +46,8 @@
 <script src="{{ asset('front/js/jquery.plugin.js') }}"></script>
 <script src="{{ asset('front/js/jquery.datepick.js') }}"></script>
 <script src="{{ asset('front/js/main.js') }}"></script>
+<script src="{{ asset('front/js/favourites.js') }}"></script>
+<script src="{{ asset('front/js/routes.js') }}"></script>
 
 @yield('scripts')
 

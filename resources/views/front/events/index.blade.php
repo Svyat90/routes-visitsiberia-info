@@ -92,10 +92,13 @@
                                             </p>
                                         </a>
                                         <div class="list__buttons d-flex flex-row align-items-center">
-                                            <button class="list__button list__button-add">
+                                            <button class="list__button list__button-add route-item-add" data-id="{{ $event->id }}" data-type="route-events">
                                                 {{ $vars['base_add'] }}
                                             </button>
-                                            <button class="list__button list__button-star material-icons favourite-item" data-id="{{ $event->id }}" data-type="events">
+                                            <button class="list__button list__button-add list__button--green route-item-added d-none" data-id="{{ $event->id }}" data-type="route-events">
+                                                Добавлено<span class="material-icons">&nbsp;done</span>
+                                            </button>
+                                            <button class="list__button list__button-star material-icons favourite-item" data-id="{{ $event->id }}" data-type="favourite-events">
                                                 <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"
                                                      viewBox="0 0 24 24"
                                                      fill="black" width="30px" height="30px">
@@ -107,6 +110,9 @@
                                                 </svg>
                                             </button>
                                         </div>
+                                        <a href="#" class="list__button list__button-link route-item-go d-none">
+                                            Перейти к маршруту
+                                        </a>
                                     </div>
                                 @endforeach
 
