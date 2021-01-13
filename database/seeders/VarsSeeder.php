@@ -120,6 +120,30 @@ class VarsSeeder extends Seeder
             'ru' => 'Еда',
             'en' => 'Food'
         ],
+        '404_home' => [
+            'ru' => 'Перейти на главную',
+            'en' => 'Go to home'
+        ],
+        '404_title' => [
+            'ru' => 'Страница не найдена',
+            'en' => 'Page not found'
+        ],
+        '404_info' => [
+            'ru' => 'К сожалению, запрашиваемый вами адрес неверный или страница не существует',
+            'en' => 'Sorry, the address you requested is incorrect or the page does not exist'
+        ],
+        '500_reset' => [
+            'ru' => 'Перезагрузить',
+            'en' => 'Reboot'
+        ],
+        '500_title' => [
+            'ru' => 'Ошибка связи с сервером',
+            'en' => 'Server communication error'
+        ],
+        '500_info' => [
+            'ru' => 'Перезагрузите страницу или попробуйте подключиться позже',
+            'en' => 'Reload the page or try to try later'
+        ],
     ];
 
     /**

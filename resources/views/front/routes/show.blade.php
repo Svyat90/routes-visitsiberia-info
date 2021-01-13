@@ -1,7 +1,6 @@
 @extends('layouts.front')
 
-@section('styles')
-@endsection
+@section('title', config('app.name'))
 
 @section('content')
     <main class="main" id="route-item">

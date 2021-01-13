@@ -3,10 +3,10 @@
 @section('content')
     <main class="main" id="route-constructor">
         <div class="constructor list d-flex flex-column">
-            <div class="constructor__input-wr">
-                <input type="text" class="constructor__input" placeholder="Назовите ваш маршрут">
-            </div>
             @if($entities->count())
+                <div class="constructor__input-wr">
+                    <input type="text" class="constructor__input" placeholder="Назовите ваш маршрут">
+                </div>
                 <div class="constructor__results">
                     <div class="constructor__result-group">
                         <div class="constructor__result-items d-flex flex-column" id="sortable">
