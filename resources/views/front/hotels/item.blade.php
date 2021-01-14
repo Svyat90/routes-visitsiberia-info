@@ -1,11 +1,11 @@
 <div class="swiper-slide">
     <div class="list__item d-flex flex-column">
-        <a href="#" class="d-flex flex-column nop">
+        <a href="{{ route('front.hotels.show', $hotel->id) }}" class="d-flex flex-column nop">
             <div class="list__img">
                 @if(isset($hotel->imagePath))
                     {!! ImageHelper::image($hotel->imagePath) !!}
                 @else
-                    @if(isset($meal->image))
+                    @if(isset($hotel->image))
                         {{ MediaHelper::getImage($hotel) }}
                     @endif
                 @endif

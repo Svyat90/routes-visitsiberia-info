@@ -71,9 +71,25 @@ abstract class BaseService
             $item->location = json_decode($item->location)->$locale;
             $item->distance = round($item->distance, 2);
             $item->type = $table;
-            $item->imagePath = $item->file_name ? $item->media_id . '/' . $item->file_name : '';
+            $item->imagePath = $this->urlForImage($item,'near');
             return $item;
         });
+    }
+
+    /**
+     * @param $item
+     * @param string $conversion
+     * @return string
+     */
+    private function urlForImage($item, string $conversion) : string
+    {
+        if (! $item->file_name) {
+            return "";
+        }
+
+        [$name, $exp] = explode(".", $item->file_name);
+
+        return sprintf("%s/conversions/%s-%s.%s", $item->media_id, $name, $conversion, $exp);
     }
 
     /**

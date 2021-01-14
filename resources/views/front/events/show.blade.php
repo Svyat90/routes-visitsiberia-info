@@ -53,7 +53,7 @@
 
             <section class="article__info">
                 <div class="article__img-wr wow fadeInUp">
-                    {{ $event->image ? $event->image->img()->lazy() : '' }}
+                    {{ $event->image ? $event->image->img('main')->lazy() : '' }}
                 </div>
                 <div class="article__text article__block-info wow fadeInUp">
 
@@ -101,7 +101,7 @@
                         @foreach($event->image_gallery as $image)
                             <div class="swiper-slide d-flex flex-column align-items-center">
                                 <div class="article__slider-img-wr">
-                                    {{ $image->img()->lazy() }}
+                                    {{ $image->img('gallery')->lazy() }}
                                 </div>
                                 <p class="article__slider-description exo">
                                     {{ $image->getCustomProperty('title') }}
@@ -139,7 +139,7 @@
                     </div>
                     @if($event->image_history)
                         <div class="article__img-wr wow fadeInRight">
-                            {{ $event->image_history->img()->attributes(['class' => 'article__map'])->lazy() }}
+                            {{ $event->image_history->img('history')->attributes(['class' => 'article__map'])->lazy() }}
                         </div>
                     @endif
                 </section>

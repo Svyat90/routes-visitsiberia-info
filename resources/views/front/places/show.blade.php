@@ -65,7 +65,7 @@
 
             <section class="article__info">
                 <div class="article__img-wr wow fadeInUp">
-                    {{ $place->image ? $place->image->img()->lazy() : '' }}
+                    {{ $place->image ? $place->image->img('main')->lazy() : '' }}
                 </div>
                 <div class="article__text article__block-info wow fadeInUp">
                     <p class="article__contact-title" id="info">
@@ -106,7 +106,7 @@
                         @foreach($place->image_gallery as $image)
                             <div class="swiper-slide d-flex flex-column align-items-center">
                                 <div class="article__slider-img-wr">
-                                    {{ $image->img()->lazy() }}
+                                    {{ $image->img('gallery')->lazy() }}
                                 </div>
                                 <p class="article__slider-description exo">
                                     {{ $image->getCustomProperty('title') }}
@@ -144,7 +144,7 @@
                     </div>
                     @if($place->image_history)
                         <div class="article__img-wr wow fadeInRight">
-                            {{ $place->image_history->img()->attributes(['class' => 'article__map'])->lazy() }}
+                            {{ $place->image_history->img('history')->attributes(['class' => 'article__map'])->lazy() }}
                         </div>
                     @endif
                 </section>

@@ -1,6 +1,6 @@
 <div class="swiper-slide">
     <div class="list__item d-flex flex-column">
-        <a href="#" class="d-flex flex-column nop">
+        <a href="{{ route('front.places.show', $place->id) }}" class="d-flex flex-column nop">
             <div class="list__img">
                 @if(isset($place->imagePath))
                     {!! ImageHelper::image($place->imagePath) !!}

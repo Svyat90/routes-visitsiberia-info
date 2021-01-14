@@ -100,7 +100,7 @@
                             @if($loop->odd)
                                 <div class="index__ways-place d-flex index__ways-place--left">
                                     <div class="index__ways-img wow slideInLeft">
-                                        {{ $route->image ? $route->image->img()->lazy() : '' }}
+                                        {{ $route->image ? $route->image->img('main')->lazy() : '' }}
                                     </div>
                                     <div class="index__ways-info index__ways-info--left wow fadeInUp d-flex flex-column justify-content-center">
                                         <span class="index__ways-place-year">{{ DateHelper::year($route) }}</span>
@@ -116,7 +116,7 @@
                             @else
                                 <div class="index__ways-place d-flex index__ways-place--right">
                                     <div class="index__ways-img wow slideInRight">
-                                        {{ $route->image ? $route->image->img()->lazy() : '' }}
+                                        {{ $route->image ? $route->image->img('main')->lazy() : '' }}
                                     </div>
                                     <div class="index__ways-info index__ways-info--right wow fadeInUp d-flex flex-column justify-content-center">
                                         <span class="index__ways-place-year">{{ DateHelper::year($route) }}</span>
@@ -149,7 +149,7 @@
                             @forelse($events as $event)
                                 <div class="swiper-slide index__events-slide">
                                     <a href="{{ route('front.events.show', $event->id) }}" class="index__events-img nop">
-                                        {{ $event->image ? $event->image->img()->lazy() : '' }}
+                                        {{ $event->image ? $event->image->img('near')->lazy() : '' }}
                                     </a>
                                     <div class="index__events-info d-flex flex-column">
                                         <span class="index__ways-place-year">{{ DateHelper::year($event) }}</span>

@@ -80,7 +80,7 @@
                                     <a href="{{ route('front.meals.show', $meal->id) }}" class="d-flex flex-column nop position-relative">
                                         <img src="{{ asset('front/img/item-top.svg') }}" class="list__item-sign" alt="">
                                         <div class="list__img">
-                                            {{ $meal->image ? $meal->image->img()->lazy() : '' }}
+                                            {{ $meal->image ? $meal->image->img('list')->lazy() : '' }}
                                         </div>
                                         <p class="list__name exo">
                                             {{ $meal->name }}

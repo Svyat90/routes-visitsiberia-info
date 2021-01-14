@@ -67,7 +67,7 @@
                 @foreach($routable as $entity)
                     <div class="page__route-item">
                         <div class="page__route-img-wr">
-                            {{ $entity->image ? $entity->image->img()->lazy() : '' }}
+                            {{ $entity->image ? $entity->image->img('route')->lazy() : '' }}
                         </div>
                         <a href="{{ RouteHelper::show($entity) }}" class="page__route-name exo">{{ $entity->name }}</a>
                         <a href="{{ RouteHelper::show($entity) }}" class="page__route-city">
@@ -80,7 +80,7 @@
 
             <section class="article__info">
                 <div class="article__img-wr wow fadeInUp">
-                    {{ $route->image ? $route->image->img()->lazy() : '' }}
+                    {{ $route->image ? $route->image->img('main')->lazy() : '' }}
                 </div>
                 <div class="article__text article__block-info wow fadeInUp">
                     {!! $route->page_desc !!}
@@ -122,7 +122,7 @@
                     </div>
                     @if($route->image_history)
                         <div class="article__img-wr wow fadeInRight">
-                            {{ $route->image_history->img()->attributes(['class' => 'article__map'])->lazy() }}
+                            {{ $route->image_history->img('history')->attributes(['class' => 'article__map'])->lazy() }}
                         </div>
                     @endif
                 </section>

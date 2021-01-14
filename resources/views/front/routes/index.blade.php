@@ -93,7 +93,7 @@
                                             <div class="swiper-slide list__slide-wr">
                                             <div class="list__slide">
                                                 <div class="list__slide-img-wr">
-                                                    {{ $entity->image ? $entity->image->img()->lazy() : '' }}
+                                                    {{ $entity->image ? $entity->image->img('route')->lazy() : '' }}
                                                 </div>
                                                 <a href="{{ RouteHelper::show($entity) }}" class="list__slide-name exo">
                                                     {{ $entity->name }}

@@ -88,7 +88,7 @@
                                     <a href="{{ route('front.hotels.show', $hotel->id) }}"
                                        class="d-flex flex-column nop">
                                         <div class="list__img">
-                                            {{ $hotel->image ? $hotel->image->img()->lazy() : '' }}
+                                            {{ $hotel->image ? $hotel->image->img('list')->lazy() : '' }}
                                         </div>
                                         <div class="list__subinfo d-flex justify-content-between align-items-center">
                                             <p class="list__subprice mb-0">
