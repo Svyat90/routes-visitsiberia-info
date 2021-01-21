@@ -6,65 +6,63 @@
     <main class="main" id="route">
         <div class="route d-flex flex-column" id="route">
             <div class="route__heading heading heading--pink" id="heading">
-                <h1 class="heading__title">Маршруты</h1>
-                <div class="heading__selects heading__selects--route">
-                    <form action="{{ route('front.routes.index') }}" name="filters" style="display: flex;">
-                        <input name="date_from" type="hidden" value="{{ request()->get('date_from') ?? '' }}" />
-                        <input name="date_to" type="hidden" value="{{ request()->get('date_to') ?? '' }}" />
+                <h1 class="heading__title">{{ $vars['routes_title'] }}</h1>
+                <form action="{{ route('front.routes.index') }}" name="filters" class="heading__selects heading__selects--route">
+                    <input name="date_from" type="hidden" value="{{ request()->get('date_from') ?? '' }}" />
+                    <input name="date_to" type="hidden" value="{{ request()->get('date_to') ?? '' }}" />
 
-                        <div class="heading__select">
-                            @php $dateRange = request()->get('date_range') ?? ''; @endphp
-                            <input name="date_range" id="first" value="{{ $dateRange }}" autocomplete="off" placeholder="Сроки" readonly="readonly">
-                        </div>
+                    <div class="heading__select">
+                        @php $dateRange = request()->get('date_range') ?? ''; @endphp
+                        <input name="date_range" id="first" value="{{ $dateRange }}" autocomplete="off" placeholder="{{ $vars['filter_time_range'] }}" readonly="readonly">
+                    </div>
 
-                        <select name="transport_id"  id="transport_id">
-                            @php $transportId = request()->get('transport_id') ?? null; @endphp
-                            <option disabled="disabled" selected="selected">Транспорт</option>
-                            @foreach($transportList as $transport)
-                                <option
-                                    value="{{ $transport->id }}"
-                                    {{ $transportId && $transportId == $transport->id ? 'selected' : '' }} >
-                                    {{ $transport->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                    <select name="transport_id"  id="transport_id">
+                        @php $transportId = request()->get('transport_id') ?? null; @endphp
+                        <option disabled="disabled" selected="selected">{{ $vars['filter_transport'] }}</option>
+                        @foreach($transportList as $transport)
+                            <option
+                                value="{{ $transport->id }}"
+                                {{ $transportId && $transportId == $transport->id ? 'selected' : '' }} >
+                                {{ $transport->name }}
+                            </option>
+                        @endforeach
+                    </select>
 
-                        <select name="whom_id"  id="whom_id">
-                            @php $whomId = request()->get('whom_id') ?? null; @endphp
-                            <option disabled="disabled" selected="selected">{{ $vars['places_whom'] }}</option>
-                            @foreach($whomList as $whom)
-                                <option
-                                    value="{{ $whom->id }}"
-                                    {{ $whomId && $whomId == $whom->id ? 'selected' : '' }} >
-                                    {{ $whom->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                    <select name="whom_id"  id="whom_id">
+                        @php $whomId = request()->get('whom_id') ?? null; @endphp
+                        <option disabled="disabled" selected="selected">{{ $vars['filter_whom'] }}</option>
+                        @foreach($whomList as $whom)
+                            <option
+                                value="{{ $whom->id }}"
+                                {{ $whomId && $whomId == $whom->id ? 'selected' : '' }} >
+                                {{ $whom->name }}
+                            </option>
+                        @endforeach
+                    </select>
 
-                        <select name="type_id" id="type_id">
-                            @php $typeId = request()->get('type_id') ?? null; @endphp
-                            <option value="" disabled="disabled" selected="selected">{{ $vars['places_type_rest'] }}</option>
-                            @foreach($typeList as $type)
-                                <option
-                                    value="{{ $type->id }}"
-                                    {{ $typeId && $typeId == $type->id ? 'selected' : '' }} >
-                                    {{ $type->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </form>
-                </div>
+                    <select name="type_id" id="type_id">
+                        @php $typeId = request()->get('type_id') ?? null; @endphp
+                        <option value="" disabled="disabled" selected="selected">{{ $vars['filter_type_rest'] }}</option>
+                        @foreach($typeList as $type)
+                            <option
+                                value="{{ $type->id }}"
+                                {{ $typeId && $typeId == $type->id ? 'selected' : '' }} >
+                                {{ $type->name }}
+                            </option>
+                        @endforeach
+                    </select>
+            </form>
             </div>
 
             <div class="route__items list">
                 <ul class="nav nav-pills list__tabs wow fadeInUp" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-                           aria-controls="pills-home" aria-selected="true">Список</a>
+                           aria-controls="pills-home" aria-selected="true">{{ $vars['base_list'] }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-                           aria-controls="pills-profile" aria-selected="false">На карте</a>
+                           aria-controls="pills-profile" aria-selected="false">{{ $vars['base_on_map'] }}</a>
                     </li>
                     <li class="nav-item ml-auto">
                         <p class="list__size">
@@ -124,7 +122,7 @@
                 @else
                     <div class="list__no-items">
                         <p class="list__no-text exo">
-                            Нет маршрутов
+                            {{ $vars['routes_no'] }}
                         </p>
                     </div>
                 @endif

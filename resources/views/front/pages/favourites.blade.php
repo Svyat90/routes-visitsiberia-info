@@ -6,24 +6,24 @@
     <main class="main" id="fav">
         <div class="fav d-flex flex-column" id="favorite-vue">
             <h1 class="fav__heading exo">
-                Избранное
+                {{ $vars['favourites_title'] }}
             </h1>
             <div class="meal__items list">
                 <ul class="nav nav-pills list__tabs fav__tabs justify-content-center" id="pills-tab" role="tablist">
                     <li class="nav-item">
-                        <a href="{{ route('front.favourites') }}" class="nav-link {{ ! request()->has('type') ? 'active' : '' }}" id="pills-home-tab" >Все</a>
+                        <a href="{{ route('front.favourites') }}" class="nav-link {{ ! request()->has('type') ? 'active' : '' }}" id="pills-home-tab" >{{ $vars['favourites_all'] }}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('front.favourites', ['type' => 'places']) }}" class="nav-link {{ request()->has('type') && request()->type == 'places' ? 'active' : '' }}" id="pills-profile-tab" >Достопримечательности</a>
+                        <a href="{{ route('front.favourites', ['type' => 'places']) }}" class="nav-link {{ request()->has('type') && request()->type == 'places' ? 'active' : '' }}" id="pills-profile-tab" >{{ $vars['favourites_places'] }}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('front.favourites', ['type' => 'events']) }}" class="nav-link {{ request()->has('type') && request()->type == 'events' ? 'active' : '' }}" id="pills-profile-tab" >События</a>
+                        <a href="{{ route('front.favourites', ['type' => 'events']) }}" class="nav-link {{ request()->has('type') && request()->type == 'events' ? 'active' : '' }}" id="pills-profile-tab" >{{ $vars['favourites_events'] }}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('front.favourites', ['type' => 'hotels']) }}" class="nav-link {{ request()->has('type') && request()->type == 'hotels' ? 'active' : '' }}" id="pills-profile-tab" >Проживание</a>
+                        <a href="{{ route('front.favourites', ['type' => 'hotels']) }}" class="nav-link {{ request()->has('type') && request()->type == 'hotels' ? 'active' : '' }}" id="pills-profile-tab" >{{ $vars['favourites_meals'] }}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('front.favourites', ['type' => 'meals']) }}" class="nav-link {{ request()->has('type') && request()->type == 'meals' ? 'active' : '' }}" id="pills-profile-tab" >Еда</a>
+                        <a href="{{ route('front.favourites', ['type' => 'meals']) }}" class="nav-link {{ request()->has('type') && request()->type == 'meals' ? 'active' : '' }}" id="pills-profile-tab" >{{ $vars['favourites_hotels'] }}</a>
                     </li>
                 </ul>
 
@@ -51,10 +51,10 @@
                                         </a>
                                         <div class="list__buttons d-flex flex-row align-items-center">
                                             <button class="list__button list__button-add route-item-add" data-id="{{ $entity->id }}" data-type="route-{{ $namespace }}">
-                                                Добавить
+                                                {{ $vars['base_add'] }}
                                             </button>
                                             <button class="list__button list__button-add list__button--green route-item-added d-none" data-id="{{ $entity->id }}" data-type="route-{{ $namespace }}">
-                                                Добавлено<span class="material-icons">&nbsp;done</span>
+                                                {{ $vars['base_added'] }}<span class="material-icons">&nbsp;done</span>
                                             </button>
                                             <button class="list__button list__button-star material-icons favourite-item" data-id="{{ $entity->id }}" data-type="favourite-{{ $namespace }}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="black" width="30px" height="30px">
@@ -66,7 +66,7 @@
                                             </button>
                                         </div>
                                         <a href="{{ route('front.choose') }}" class="list__button list__button-link route-item-go d-none">
-                                            Перейти к маршруту
+                                            {{ $vars['base_go_to_route'] }}
                                         </a>
                                     </div>
                                 @endforeach
@@ -82,19 +82,19 @@
                         <p class="list__no-text exo">
                             @switch(true)
                                 @case(request()->type == 'places')
-                                    Нет достопримечательностей
+                                    {{ $vars['places_no'] }}
                                     @break
                                 @case(request()->type == 'events')
-                                    Нет событий
+                                    {{ $vars['events_no'] }}
                                     @break
                                 @case(request()->type == 'hotels')
-                                    Нет мест
+                                    {{ $vars['hotels_no'] }}
                                     @break
                                 @case(request()->type == 'meals')
-                                    Нет заведений
+                                    {{ $vars['meals_no'] }}
                                     @break
                                 @default
-                                    Нет избранних
+                                    {{ $vars['favourites_no'] }}
                             @endswitch
                         </p>
                     </div>

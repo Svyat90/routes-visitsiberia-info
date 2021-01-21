@@ -67,8 +67,11 @@ abstract class BaseService
         $locale = app()->getLocale();
 
         return collect($rawData)->map(function (\stdClass $item) use ($locale, $table) {
-            $item->name = json_decode($item->name)->$locale;
-            $item->location = json_decode($item->location)->$locale;
+            $defaultLocale = 'ru';
+            $names = json_decode($item->name);
+            $locales = json_decode($item->location);
+            $item->name = $names->$locale ?? $names->$defaultLocale;
+            $item->location = $locales->$locale ?? $locales->$defaultLocale;
             $item->distance = round($item->distance, 2);
             $item->type = $table;
             $item->imagePath = $this->urlForImage($item,'near');

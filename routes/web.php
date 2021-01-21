@@ -14,6 +14,7 @@ use \App\Http\Controllers\Admin\RouteController as AdminRouteController;
 use \App\Http\Controllers\Admin\MediaController;
 use \App\Http\Controllers\Admin\DictionaryController;
 use \App\Http\Controllers\Admin\Csv\ExportController;
+use \App\Http\Middleware\LocaleMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +32,9 @@ Auth::routes([
 ]);
 
 Route::get('/', [\App\Http\Controllers\Front\HomeController::class, 'redirectToHome']);
+Route::get('set-locale/{lang}', 'Front\LocaleController@setLocale')->name('set_locate');
 
-Route::namespace('Front')->as('front.')->group(function () {
+Route::prefix(LocaleMiddleware::getLocale())->namespace('Front')->as('front.')->group(function () {
     Route::get('home', 'HomeController@index')->name('home');
     Route::get('favourites', 'FavouriteController@index')->name('favourites');
     Route::get('choose', 'ConstructorController@choose')->name('choose');

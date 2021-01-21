@@ -6,21 +6,20 @@
     <main class="main" id="events">
         <div class="events d-flex flex-column" id="events">
             <div class="events__heading heading heading--blue" id="heading">
-                <h1 class="heading__title">События</h1>
-                <div class="heading__selects heading__selects--events">
-                    <form action="{{ route('front.events.index') }}" name="filters" style="display: flex;">
+                <h1 class="heading__title">{{ $vars['events_title'] }}</h1>
+                <form action="{{ route('front.events.index') }}" name="filters" class="heading__selects heading__selects--events">
                         <input name="date_from" type="hidden" value="{{ request()->get('date_from') ?? '' }}" />
                         <input name="date_to" type="hidden" value="{{ request()->get('date_to') ?? '' }}" />
 
                         <div class="heading__select" id="heading-first">
                             @php $dateRange = request()->get('date_range') ?? ''; @endphp
-                            <input name="date_range" id="first" value="{{ $dateRange }}" autocomplete="off" placeholder="Сроки" readonly="readonly">
+                            <input name="date_range" id="first" value="{{ $dateRange }}" autocomplete="off" placeholder="{{ $vars['filter_time_range'] }}" readonly="readonly">
                         </div>
 
                         <div class="heading__select" id="heading-type_id">
                             <select name="city_id" id="city_id">
                                 @php $cityId = request()->get('city_id') ?? null; @endphp
-                                <option value="" disabled="disabled" selected="selected">Город</option>
+                                <option value="" disabled="disabled" selected="selected">{{ $vars['filter_city'] }}</option>
                                 @foreach($cityList as $city)
                                     <option
                                         value="{{ $city->id }}"
@@ -34,7 +33,7 @@
                         <div class="heading__select" id="heading-fourth">
                             <select name="whom_id"  id="whom_id">
                                 @php $whomId = request()->get('whom_id') ?? null; @endphp
-                                <option disabled="disabled" selected="selected">{{ $vars['places_whom'] }}</option>
+                                <option disabled="disabled" selected="selected">{{ $vars['filter_whom'] }}</option>
                                 @foreach($whomList as $whom)
                                     <option
                                         value="{{ $whom->id }}"
@@ -44,8 +43,7 @@
                                 @endforeach
                             </select>
                         </div>
-                    </form>
-                </div>
+                </form>
             </div>
             <div class="events__items list">
                 <ul class="nav nav-pills list__tabs" id="pills-tab" role="tablist">
@@ -95,7 +93,7 @@
                                                 {{ $vars['base_add'] }}
                                             </button>
                                             <button class="list__button list__button-add list__button--green route-item-added d-none" data-id="{{ $event->id }}" data-type="route-events">
-                                                Добавлено<span class="material-icons">&nbsp;done</span>
+                                                {{ $vars['base_added'] }}<span class="material-icons">&nbsp;done</span>
                                             </button>
                                             <button class="list__button list__button-star material-icons favourite-item" data-id="{{ $event->id }}" data-type="favourite-events">
                                                 <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"
@@ -110,7 +108,7 @@
                                             </button>
                                         </div>
                                         <a href="{{ route('front.choose') }}" class="list__button list__button-link route-item-go d-none">
-                                            Перейти к маршруту
+                                            {{ $vars['base_go_to_route'] }}
                                         </a>
                                     </div>
                                 @endforeach
@@ -127,7 +125,7 @@
                 @else
                     <div class="list__no-items">
                         <p class="list__no-text exo">
-                            Нет событий
+                            {{ $vars['events_no'] }}
                         </p>
                     </div>
                 @endif

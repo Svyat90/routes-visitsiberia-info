@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Admin\Dictionaries;
 
-use App\Services\PlaceService;
+use App\Services\DictionaryService;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class UpdateDictionaryRequest
- * @property string $type
+ * @property string $parent_type
  */
 class UpdateDictionaryRequest extends FormRequest
 {
@@ -27,7 +27,7 @@ class UpdateDictionaryRequest extends FormRequest
             'hidden' => 'required|bool',
             'dictionary_id' => 'sometimes|int',
             'date_range' => [
-                $this->type === PlaceService::TYPE_SEASON ? 'required' : 'sometimes',
+                $this->parent_type === DictionaryService::TYPE_SEASON ? 'required' : 'sometimes',
                 'string'
             ],
         ];

@@ -6,19 +6,19 @@
             <a href="{{ route('front.home') }}" class="ctr__container d-flex flex-column align-items-center">
                 <img class="ctr__img" src="{{ asset('front/img/ctr_1.svg') }}" alt="">
                 <p class="ctr__title exo">
-                    Констркутор маршрутов
+                    {{ $vars['choose_constructor_title'] }}
                 </p>
                 <p class="ctr__description">
-                    Выберите нужные параметры, а мы построим для вас наилучший маршрут
+                    {{ $vars['choose_constructor_desc'] }}
                 </p>
             </a>
             <a href="{{ route('front.constructor') }}" class="ctr__container d-flex flex-column align-items-center">
                 <img class="ctr__img" src="{{ asset('front/img/ctr_2.svg') }}" alt="">
                 <p class="ctr__title exo">
-                    Хочу составить маршрут самостоятельно
+                    {{ $vars['choose_make_route_title'] }}
                 </p>
                 <p class="ctr__description">
-                    Выбирайте объекты, которые хотите посетить, выставляйте порядок и в путь!
+                    {{ $vars['choose_make_route_desc'] }}
                 </p>
             </a>
         </div>

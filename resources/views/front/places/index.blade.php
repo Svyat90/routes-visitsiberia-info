@@ -7,65 +7,63 @@
         <div class="places d-flex flex-column" id="places">
             <div class="places__heading heading heading--yellow" id="heading">
                 <h1 class="heading__title heading__title--big">{{ $vars['places_title'] }}</h1>
-                <div class="heading__selects heading__selects--places wow fadeInUp">
-                    <form action="{{ route('front.places.index') }}" name="filters" style="display: flex;">
-                        <div class="heading__select" id="heading-type_id">
-                            <select name="type_id" id="type_id">
-                                @php $typeId = request()->get('type_id') ?? null; @endphp
-                                <option value="" disabled="disabled" selected="selected">{{ $vars['places_type_rest'] }}</option>
-                                    @foreach($typeList as $type)
-                                        <option
-                                            value="{{ $type->id }}"
-                                            {{ $typeId && $typeId == $type->id ? 'selected' : '' }} >
-                                            {{ $type->name }}
-                                        </option>
-                                    @endforeach
-                            </select>
-                        </div>
+                <form action="{{ route('front.places.index') }}" name="filters" class="heading__selects heading__selects--places wow fadeInUp" >
+                    <div class="heading__select" id="heading-type_id">
+                        <select name="type_id" id="type_id">
+                            @php $typeId = request()->get('type_id') ?? null; @endphp
+                            <option value="" disabled="disabled" selected="selected">{{ $vars['filter_type_rest'] }}</option>
+                                @foreach($typeList as $type)
+                                    <option
+                                        value="{{ $type->id }}"
+                                        {{ $typeId && $typeId == $type->id ? 'selected' : '' }} >
+                                        {{ $type->name }}
+                                    </option>
+                                @endforeach
+                        </select>
+                    </div>
 
-                        <div class="heading__select" id="heading-second">
-                            <select name="season_id" id="season_id">
-                                @php $seasonId = request()->get('season_id') ?? null; @endphp
-                                <option value="" disabled="disabled" selected="selected">{{ $vars['places_season'] }}</option>
-                                    @foreach($seasonList as $season)
-                                        <option
-                                            value="{{ $season->id }}"
-                                            {{ $seasonId && $seasonId == $season->id ? 'selected' : '' }} >
-                                            {{ $season->name }}
-                                        </option>
-                                    @endforeach
-                            </select>
-                        </div>
+                    <div class="heading__select" id="heading-second">
+                        <select name="season_id" id="season_id">
+                            @php $seasonId = request()->get('season_id') ?? null; @endphp
+                            <option value="" disabled="disabled" selected="selected">{{ $vars['filter_season'] }}</option>
+                                @foreach($seasonList as $season)
+                                    <option
+                                        value="{{ $season->id }}"
+                                        {{ $seasonId && $seasonId == $season->id ? 'selected' : '' }} >
+                                        {{ $season->name }}
+                                    </option>
+                                @endforeach
+                        </select>
+                    </div>
 
-                        <div class="heading__select" id="heading-third">
-                            <select name="category_id" id="category_id">
-                                @php $categoryId = request()->get('category_id') ?? null; @endphp
-                                <option value="" disabled="disabled" selected="selected">{{ $vars['places_category'] }}</option>
-                                    @foreach($categoryList as $category)
-                                        <option
-                                            value="{{ $category->id }}"
-                                            {{ $categoryId && $categoryId == $category->id ? 'selected' : '' }} >
-                                            {{ $category->name }}
-                                        </option>
-                                    @endforeach
-                            </select>
-                        </div>
+                    <div class="heading__select" id="heading-third">
+                        <select name="category_id" id="category_id">
+                            @php $categoryId = request()->get('category_id') ?? null; @endphp
+                            <option value="" disabled="disabled" selected="selected">{{ $vars['filter_place_category'] }}</option>
+                                @foreach($categoryList as $category)
+                                    <option
+                                        value="{{ $category->id }}"
+                                        {{ $categoryId && $categoryId == $category->id ? 'selected' : '' }} >
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                        </select>
+                    </div>
 
-                        <div class="heading__select" id="heading-fourth">
-                            <select name="whom_id"  id="whom_id">
-                                @php $whomId = request()->get('whom_id') ?? null; @endphp
-                                <option disabled="disabled" selected="selected">{{ $vars['places_whom'] }}</option>
-                                    @foreach($whomList as $whom)
-                                        <option
-                                            value="{{ $whom->id }}"
-                                            {{ $whomId && $whomId == $whom->id ? 'selected' : '' }} >
-                                            {{ $whom->name }}
-                                        </option>
-                                    @endforeach
-                            </select>
-                        </div>
-                    </form>
-                </div>
+                    <div class="heading__select" id="heading-fourth">
+                        <select name="whom_id"  id="whom_id">
+                            @php $whomId = request()->get('whom_id') ?? null; @endphp
+                            <option disabled="disabled" selected="selected">{{ $vars['filter_whom'] }}</option>
+                                @foreach($whomList as $whom)
+                                    <option
+                                        value="{{ $whom->id }}"
+                                        {{ $whomId && $whomId == $whom->id ? 'selected' : '' }} >
+                                        {{ $whom->name }}
+                                    </option>
+                                @endforeach
+                        </select>
+                    </div>
+            </form>
             </div>
             <div class="places__items list">
                 <ul class="nav nav-pills list__tabs wow fadeInUp" id="pills-tab" role="tablist">
@@ -107,7 +105,7 @@
                                             {{ $vars['base_add'] }}
                                         </button>
                                         <button class="list__button list__button-add list__button--green route-item-added d-none" data-id="{{ $place->id }}" data-type="route-places">
-                                            Добавлено<span class="material-icons">&nbsp;done</span>
+                                            {{ $vars['base_added'] }}<span class="material-icons">&nbsp;done</span>
                                         </button>
                                         <button class="list__button list__button-star material-icons favourite-item" data-id="{{ $place->id }}" data-type="favourite-places">
                                             <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="black" width="30px" height="30px">
@@ -119,7 +117,7 @@
                                         </button>
                                     </div>
                                     <a href="{{ route('front.choose') }}" class="list__button list__button-link route-item-go d-none">
-                                        Перейти к маршруту
+                                        {{ $vars['base_go_to_route'] }}
                                     </a>
                                 </div>
                             @endforeach
@@ -135,7 +133,7 @@
                 @else
                     <div class="list__no-items">
                         <p class="list__no-text exo">
-                            Нет достопримечательностей
+                            {{ $vars['places_no'] }}
                         </p>
                     </div>
                 @endif

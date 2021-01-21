@@ -3,42 +3,42 @@
         <div class="footer__nav">
             <div class="footer__col">
                 <p class="footer__col-name">
-                    Туристский <br> информационный центр
+                    {!! $vars['footer_title'] !!}
                 </p>
                 <ul class="footer__col-list pl-0">
                     <li class="footer__item">
                         <a href="#" class="footer__link">
                             <span class="material-icons">room&nbsp;</span>
-                            Красноярск, ул. Ленина, 120
+                            {{ $vars['footer_address'] }}
                         </a>
                     </li>
                     <li class="footer__item">
                         <a href="#" class="footer__link">
                             <span class="material-icons">call&nbsp;</span>
-                            +7 (391) 215 00 02
+                            {{ $vars['footer_phone'] }}
                         </a>
                     </li>
                     <li class="footer__item">
                         <a href="#" class="footer__link">
                             <span class="material-icons">mail&nbsp;</span>
-                            itc.krsk@gmail.com
+                            {{ $vars['footer_mail'] }}
                         </a>
                     </li>
                 </ul>
                 <div class="footer__socials footer__mobile">
-                    <a href="#" class="footer__social">
+                    <a href="{{ $vars['social_facebook'] }}" class="footer__social">
                         <img src="{{ asset('front/img/facebook-c.svg') }}" alt="facebook">
                     </a>
-                    <a href="#" class="footer__social">
+                    <a href="{{ $vars['social_vkontakte'] }}" class="footer__social">
                         <img src="{{ asset('front/img/vk-c.svg') }}" alt="vkontakte">
                     </a>
-                    <a href="#" class="footer__social">
+                    <a href="{{ $vars['social_youtube'] }}" class="footer__social">
                         <img src="{{ asset('front/img/youtube-c.svg') }}" alt="youtube">
                     </a>
-                    <a href="#" class="footer__social">
+                    <a href="{{ $vars['social_instagram'] }}" class="footer__social">
                         <img src="{{ asset('front/img/instagram-c.svg') }}" alt="instagram">
                     </a>
-                    <a href="#" class="footer__social">
+                    <a href="{{ $vars['social_odnoklassniki'] }}" class="footer__social">
                         <img src="{{ asset('front/img/ok-c.svg') }}" alt="odnoklassniki">
                     </a>
                 </div>
@@ -46,34 +46,34 @@
         </div>
         <div class="footer__col footer__mob-first">
             <p class="footer__col-text">
-                Получайте актуальные новости
+                {{ $vars['footer_news_title'] }}
             </p>
             <form class="form-inline footer__form">
                 <div class="form-group">
-                    <input type="email" class="form-control footer__input" placeholder="e-mail">
+                    <input type="email" class="form-control footer__input" placeholder="{{ $vars['footer_news_placeholder'] }}">
                 </div>
-                <button type="submit" class="btn footer__btn">Ок</button>
+                <button type="submit" class="btn footer__btn">{{ $vars['footer_news_ok_button'] }}</button>
             </form>
             <div class="footer__socials footer__desktop">
-                <a href="#" class="footer__social">
+                <a href="{{ $vars['social_facebook'] }}" class="footer__social">
                     <img src="{{ asset('front/img/facebook-c.svg') }}" alt="facebook">
                 </a>
-                <a href="#" class="footer__social">
+                <a href="{{ $vars['social_vkontakte'] }}" class="footer__social">
                     <img src="{{ asset('front/img/vk-c.svg') }}" alt="vkontakte">
                 </a>
-                <a href="#" class="footer__social">
+                <a href="{{ $vars['social_youtube'] }}" class="footer__social">
                     <img src="{{ asset('front/img/youtube-c.svg') }}" alt="youtube">
                 </a>
-                <a href="#" class="footer__social">
+                <a href="{{ $vars['social_instagram'] }}" class="footer__social">
                     <img src="{{ asset('front/img/instagram-c.svg') }}" alt="instagram">
                 </a>
-                <a href="#" class="footer__social">
+                <a href="{{ $vars['social_odnoklassniki'] }}" class="footer__social">
                     <img src="{{ asset('front/img/ok-c.svg') }}" alt="odnoklassniki">
                 </a>
             </div>
         </div>
         <p class="footer__copy">
-            &copy; 2020. Туристский портал Красноярского края
+            &copy; {{ date('Y') }}. {{ $vars['footer_copyright'] }}
         </p>
     </div>
 </footer>

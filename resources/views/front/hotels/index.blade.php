@@ -6,21 +6,20 @@
     <main class="main" id="rooms">
         <div class="rooms d-flex flex-column" id="rooms">
             <div class="rooms__heading heading heading--blue" id="heading">
-                <h1 class="heading__title">Проживание</h1>
-                <div class="heading__selects heading__selects--rooms">
-                    <form action="{{ route('front.hotels.index') }}" name="filters" style="display: flex;">
+                <h1 class="heading__title">{{ $vars['hotels_title'] }}</h1>
+                <form action="{{ route('front.hotels.index') }}" name="filters" class="heading__selects heading__selects--rooms" >
                         <input name="date_from" type="hidden" value="{{ request()->get('date_from') ?? '' }}" />
                         <input name="date_to" type="hidden" value="{{ request()->get('date_to') ?? '' }}" />
 
                         <div class="heading__select" id="heading-first">
                             @php $dateRange = request()->get('date_range') ?? ''; @endphp
-                            <input name="date_range" id="first" value="{{ $dateRange }}" autocomplete="off" placeholder="Сроки" readonly="readonly">
+                            <input name="date_range" id="first" value="{{ $dateRange }}" autocomplete="off" placeholder="{{ $vars['filter_time_range'] }}" readonly="readonly">
                         </div>
 
                         <div class="heading__select" id="heading-type_id">
                             <select name="city_id" id="city_id">
                                 @php $cityId = request()->get('city_id') ?? null; @endphp
-                                <option value="" disabled="disabled" selected="selected">Город</option>
+                                <option value="" disabled="disabled" selected="selected">{{ $vars['filter_city'] }}</option>
                                 @foreach($cityList as $city)
                                     <option
                                         value="{{ $city->id }}"
@@ -34,8 +33,8 @@
                         <div class="heading__select" id="heading-second">
                             <select name="distance_id" id="distance_id">
                                 @php $distanceId = request()->get('distance_id') ?? null; @endphp
-                                <option value="" disabled="disabled" selected="selected">Расстояние</option>
                                 @foreach($distanceList as $distance)
+                                    <option value="" disabled="disabled" selected="selected">{{ $vars['filter_distance'] }}</option>
                                     <option
                                         value="{{ $distance->id }}"
                                         {{ $distanceId && $distanceId == $distance->id ? 'selected' : '' }} >
@@ -48,7 +47,7 @@
                         <div class="heading__select" id="heading-third">
                             <select name="placement_id" id="placement_id">
                                 @php $placementId = request()->get('placement_id') ?? null; @endphp
-                                <option value="" disabled="disabled" selected="selected">Тип размещения</option>
+                                <option value="" disabled="disabled" selected="selected">{{ $vars['filter_type_allocation'] }}</option>
                                 @foreach($placementList as $placement)
                                     <option
                                         value="{{ $placement->id }}"
@@ -58,8 +57,7 @@
                                 @endforeach
                             </select>
                         </div>
-                    </form>
-                </div>
+                </form>
             </div>
             <div class="rooms__items list">
                 <ul class="nav nav-pills list__tabs" id="pills-tab" role="tablist">
@@ -115,7 +113,7 @@
                                             {{ $vars['base_add'] }}
                                         </button>
                                         <button class="list__button list__button-add list__button--green route-item-added d-none" data-id="{{ $hotel->id }}" data-type="route-hotels">
-                                            Добавлено<span class="material-icons">&nbsp;done</span>
+                                            {{ $vars['base_added'] }}<span class="material-icons">&nbsp;done</span>
                                         </button>
                                         <button class="list__button list__button-star material-icons favourite-item" data-id="{{ $hotel->id }}" data-type="favourite-hotels">
                                             <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"
@@ -130,7 +128,7 @@
                                         </button>
                                     </div>
                                     <a href="{{ route('front.choose') }}" class="list__button list__button-link route-item-go d-none">
-                                        Перейти к маршруту
+                                        {{ $vars['base_go_to_route'] }}
                                     </a>
                                 </div>
 
@@ -147,7 +145,7 @@
                 @else
                     <div class="list__no-items">
                         <p class="list__no-text exo">
-                            Нет мест
+                            {{ $vars['hotels_no'] }}
                         </p>
                     </div>
                 @endif

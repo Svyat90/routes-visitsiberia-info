@@ -8,6 +8,7 @@
         <div class="card-body">
             <form method="POST" action="{{ route("admin.dictionaries.update", [$dictionary->id]) }}">
                 <input name="type" type="hidden" value="{{ $dictionary->type }}"/>
+                <input name="parent_type" type="hidden" value="{{ $dictionary->parent ? $dictionary->parent->type : '' }}">
                 @method('PUT')
                 @csrf
 

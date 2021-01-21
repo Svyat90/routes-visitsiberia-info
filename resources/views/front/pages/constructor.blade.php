@@ -5,7 +5,7 @@
         <div class="constructor list d-flex flex-column">
             @if($entities->count())
                 <div class="constructor__input-wr">
-                    <input type="text" class="constructor__input" placeholder="Назовите ваш маршрут">
+                    <input type="text" class="constructor__input" placeholder="{{ $vars['constructor_routes_set_name'] }}">
                 </div>
                 <div class="constructor__results">
                     <div class="constructor__result-group">
@@ -60,7 +60,7 @@
             @else
                 <div class="list__no-items">
                     <p class="list__no-text exo">
-                        Нет данних
+                        {{ $vars['constructor_routes_no_data'] }}
                     </p>
                 </div>
             @endif

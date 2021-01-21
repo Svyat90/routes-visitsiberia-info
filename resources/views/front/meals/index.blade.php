@@ -7,53 +7,50 @@
         <div class="meals d-flex flex-column" id="meals">
             <div class="meals__heading heading heading--yellow" id="heading">
                 <h1 class="heading__title heading__title--big">{{ $vars['meals_title'] }}</h1>
-                <div class="heading__selects heading__selects--meal">
-                    <form action="{{ route('front.meals.index') }}" name="filters" style="display: flex;">
+                <form action="{{ route('front.meals.index') }}" name="filters" class="heading__selects heading__selects--meal" >
+                    <div class="heading__select" id="heading-third">
+                        <select name="category_id" id="category_id">
+                            @php $categoryId = request()->get('category_id') ?? null; @endphp
+                            <option value="" disabled="disabled" selected="selected">{{ $vars['filter_food_category'] }}</option>
+                            @foreach($categoryList as $category)
+                                <option
+                                    value="{{ $category->id }}"
+                                    {{ $categoryId && $categoryId == $category->id ? 'selected' : '' }} >
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <div class="heading__select" id="heading-third">
-                            <select name="category_id" id="category_id">
-                                @php $categoryId = request()->get('category_id') ?? null; @endphp
-                                <option value="" disabled="disabled" selected="selected">Категория</option>
-                                @foreach($categoryList as $category)
-                                    <option
-                                        value="{{ $category->id }}"
-                                        {{ $categoryId && $categoryId == $category->id ? 'selected' : '' }} >
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <div class="heading__select" id="heading-second">
+                        <select name="season_id" id="season_id">
+                            @php $seasonId = request()->get('season_id') ?? null; @endphp
+                            <option value="" disabled="disabled" selected="selected">{{ $vars['filter_season'] }}</option>
+                            @foreach($seasonList as $season)
+                                <option
+                                    value="{{ $season->id }}"
+                                    {{ $seasonId && $seasonId == $season->id ? 'selected' : '' }} >
+                                    {{ $season->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <div class="heading__select" id="heading-second">
-                            <select name="season_id" id="season_id">
-                                @php $seasonId = request()->get('season_id') ?? null; @endphp
-                                <option value="" disabled="disabled" selected="selected">Сезон</option>
-                                @foreach($seasonList as $season)
-                                    <option
-                                        value="{{ $season->id }}"
-                                        {{ $seasonId && $seasonId == $season->id ? 'selected' : '' }} >
-                                        {{ $season->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <div class="heading__select" id="heading-fourth">
+                        <select name="delivery_id"  id="delivery_id">
+                            @php $deliveryId = request()->get('delivery_id') ?? null; @endphp
+                            <option disabled="disabled" selected="selected">{{ $vars['filter_delivery'] }}</option>
+                            @foreach($deliveryList as $delivery)
+                                <option
+                                    value="{{ $delivery->id }}"
+                                    {{ $deliveryId && $deliveryId == $delivery->id ? 'selected' : '' }} >
+                                    {{ $delivery->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <div class="heading__select" id="heading-fourth">
-                            <select name="delivery_id"  id="delivery_id">
-                                @php $deliveryId = request()->get('delivery_id') ?? null; @endphp
-                                <option disabled="disabled" selected="selected">Доставка</option>
-                                @foreach($deliveryList as $delivery)
-                                    <option
-                                        value="{{ $delivery->id }}"
-                                        {{ $deliveryId && $deliveryId == $delivery->id ? 'selected' : '' }} >
-                                        {{ $delivery->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                    </form>
-                </div>
+            </form>
             </div>
             <div class="meals__items list">
                 <ul class="nav nav-pills list__tabs wow fadeInUp" id="pills-tab" role="tablist">
@@ -95,7 +92,7 @@
                                             {{ $vars['base_add'] }}
                                         </button>
                                         <button class="list__button list__button-add list__button--green route-item-added d-none" data-id="{{ $meal->id }}" data-type="route-meals">
-                                            Добавлено<span class="material-icons">&nbsp;done</span>
+                                            {{ $vars['base_added'] }}<span class="material-icons">&nbsp;done</span>
                                         </button>
                                         <button class="list__button list__button-star material-icons favourite-item" data-id="{{ $meal->id }}" data-type="favourite-meals">
                                             <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="black" width="30px" height="30px">
@@ -107,7 +104,7 @@
                                         </button>
                                     </div>
                                     <a href="{{ route('front.choose') }}" class="list__button list__button-link route-item-go d-none">
-                                        Перейти к маршруту
+                                        {{ $vars['base_go_to_route'] }}
                                     </a>
                                 </div>
                             @endforeach
@@ -123,7 +120,7 @@
                 @else
                     <div class="list__no-items">
                         <p class="list__no-text exo">
-                            Нет заведений
+                            {{ $vars['meals_no'] }}
                         </p>
                     </div>
                 @endif

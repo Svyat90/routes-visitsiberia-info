@@ -7,84 +7,82 @@
         <div class="index d-flex flex-column" id="index-vue">
             <div class="index__header d-flex flex-column align-items-center justify-content-center">
                 <h1 class="index__tagline">
-                    Постройте маршрут и отправляйтесь в путешествие!
+                    {{ $vars['home_title'] }}
                 </h1>
                 <div class="index__constructor-wr">
                     <div class="index__constructor">
-                        <div class="heading__selects heading__selects--index">
-                            <form action="{{ route('front.routes.index') }}" name="filters" style="display: flex;">
-                                <input name="date_from" type="hidden" />
-                                <input name="date_to" type="hidden" />
-                                <div class="heading__select">
-                                    <input name="date_range" id="first" autocomplete="off" placeholder="Сроки" readonly="readonly">
-                                </div>
+                        <form action="{{ route('front.routes.index') }}" name="filters" class="heading__selects heading__selects--index" >
+                            <input name="date_from" type="hidden" />
+                            <input name="date_to" type="hidden" />
 
-                                <select name="transport_id"  id="transport_id">
-                                    @php $transportId = request()->get('transport_id') ?? null; @endphp
-                                    <option disabled="disabled" selected="selected">Транспорт</option>
-                                    @foreach($transportList as $transport)
-                                        <option
-                                            value="{{ $transport->id }}"
-                                            {{ $transportId && $transportId == $transport->id ? 'selected' : '' }} >
-                                            {{ $transport->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                            <div class="heading__select">
+                                <input name="date_range" id="first" autocomplete="off" placeholder="{{ $vars['filter_time_range'] }}" readonly="readonly">
+                            </div>
 
-                                <select name="whom_id"  id="whom_id">
-                                    @php $whomId = request()->get('whom_id') ?? null; @endphp
-                                    <option disabled="disabled" selected="selected">{{ $vars['places_whom'] }}</option>
-                                    @foreach($whomList as $whom)
-                                        <option
-                                            value="{{ $whom->id }}"
-                                            {{ $whomId && $whomId == $whom->id ? 'selected' : '' }} >
-                                            {{ $whom->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                            <select name="transport_id"  id="transport_id">
+                                @php $transportId = request()->get('transport_id') ?? null; @endphp
+                                <option disabled="disabled" selected="selected">{{ $vars['filter_transport'] }}</option>
+                                @foreach($transportList as $transport)
+                                    <option
+                                        value="{{ $transport->id }}"
+                                        {{ $transportId && $transportId == $transport->id ? 'selected' : '' }} >
+                                        {{ $transport->name }}
+                                    </option>
+                                @endforeach
+                            </select>
 
-                                <select name="type_id" id="type_id">
-                                    @php $typeId = request()->get('type_id') ?? null; @endphp
-                                    <option value="" disabled="disabled" selected="selected">{{ $vars['places_type_rest'] }}</option>
-                                    @foreach($typeList as $type)
-                                        <option
-                                            value="{{ $type->id }}"
-                                            {{ $typeId && $typeId == $type->id ? 'selected' : '' }} >
-                                            {{ $type->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                            <select name="whom_id"  id="whom_id">
+                                @php $whomId = request()->get('whom_id') ?? null; @endphp
+                                <option disabled="disabled" selected="selected">{{ $vars['filter_whom'] }}</option>
+                                @foreach($whomList as $whom)
+                                    <option
+                                        value="{{ $whom->id }}"
+                                        {{ $whomId && $whomId == $whom->id ? 'selected' : '' }} >
+                                        {{ $whom->name }}
+                                    </option>
+                                @endforeach
+                            </select>
 
-                                <button id="index__submit">
-                                    <img src="{{ asset('front/img/index-arrow.svg') }}" alt="">
-                                </button>
-                            </form>
-                        </div>
+                            <select name="type_id" id="type_id">
+                                @php $typeId = request()->get('type_id') ?? null; @endphp
+                                <option value="" disabled="disabled" selected="selected">{{ $vars['filter_type_rest'] }}</option>
+                                @foreach($typeList as $type)
+                                    <option
+                                        value="{{ $type->id }}"
+                                        {{ $typeId && $typeId == $type->id ? 'selected' : '' }} >
+                                        {{ $type->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            <button id="index__submit">
+                                <img src="{{ asset('front/img/index-arrow.svg') }}" alt="">
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
             <div class="index__plans-wr">
                 <div class="index__plans d-flex flex-column">
                     <h2 class="index__title exo wow slideInUp">
-                        Планируйте с <br> лёгкостью
+                        {!! $vars['home_plan_easy_title'] !!}
                     </h2>
                     <div class="index__plans-info d-flex justify-content-between">
                         <div class="index__plans-text wow slideInLeft">
-                            Благодаря своему географическому положению регион может похвастаться разнообразием
-                            природных зон: от дикой и непроходимой тайги до больших степей и тундры.
+                            {{ $vars['home_plan_easy_desc'] }}
                         </div>
                         <div class="index__plans-pluses exo d-flex flex-column wow slideInRight">
                             <div class="index__plans-plus d-flex wow slideInRight">
                                 <span class="index__number">1</span>
-                                <p class="index__plus">Множество готовых <br> маршрутов</p>
+                                <p class="index__plus">{!! $vars['home_plan_easy_desc_first'] !!}</p>
                             </div>
                             <div class="index__plans-plus d-flex wow slideInRight">
                                 <span class="index__number">2</span>
-                                <span class="index__plus">Конструктор <br> маршрутов</span>
+                                <span class="index__plus">{!! $vars['home_plan_easy_desc_second'] !!}</span>
                             </div>
                             <div class="index__plans-plus d-flex wow slideInRight">
                                 <span class="index__number">3</span>
-                                <span class="index__plus">Добавляйте объекты и <br> редактируйте</span>
+                                <span class="index__plus">{!! $vars['home_plan_easy_desc_third'] !!}</span>
                             </div>
                         </div>
                     </div>
@@ -93,7 +91,7 @@
             <div class="index__ways-wr">
                 <div class="index__ways d-flex flex-column">
                     <h2 class="index__title exo wow slideInUp">
-                        Готовые маршруты по <br> Красноярскому краю
+                        {!! $vars['home_ready_routes_title'] !!}
                     </h2>
                     <div class="index__ways-places d-flex flex-column">
                         @foreach($routes as $route)
@@ -133,7 +131,7 @@
                         @endforeach
 
                         <div class="index__ways-place d-flex justify-content-center">
-                            <a href="{{ route('front.routes.index') }}" class="index__ways-link exo">Все маршруты</a>
+                            <a href="{{ route('front.routes.index') }}" class="index__ways-link exo">{{ $vars['routes_all'] }}</a>
                         </div>
                     </div>
                 </div>
@@ -141,7 +139,7 @@
             <div class="index__events-wr wow slideInUp">
                 <div class="index__events">
                     <div class="index__title exo wow slideInUp">
-                        Ближайшие события <br> края
+                        {!! $vars['home_near_events'] !!}
                     </div>
                     <div class="index__events-slider swiper-container">
                         <div class="swiper-wrapper">
@@ -164,7 +162,7 @@
                                 </div>
                             @empty
                                 <div class="swiper-slide index__events-slide">
-                                    Нет событий
+                                    {{ $vars['events_no'] }}
                                 </div>
                             @endforelse
 
@@ -182,7 +180,7 @@
                         })
                     </script>
                     <div class="d-flex justify-content-center">
-                        <a href="{{ route('front.events.index') }}" class="index__events-link exo">Все события</a>
+                        <a href="{{ route('front.events.index') }}" class="index__events-link exo">{{ $vars['events_all'] }}</a>
                     </div>
                 </div>
             </div>
