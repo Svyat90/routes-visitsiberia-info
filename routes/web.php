@@ -39,6 +39,8 @@ Route::prefix(LocaleMiddleware::getLocale())->namespace('Front')->as('front.')->
     Route::get('favourites', 'FavouriteController@index')->name('favourites');
     Route::get('choose', 'ConstructorController@choose')->name('choose');
     Route::get('constructor', 'ConstructorController@constructor')->name('constructor');
+    Route::get('search', 'SearchController@index')->name('search.index');
+    Route::post('search', 'SearchController@search')->name('search');
     Route::resource('places', 'PlaceController')->only('index', 'show');
     Route::resource('hotels', 'HotelController')->only('index', 'show');
     Route::resource('meals', 'MealController')->only('index', 'show');

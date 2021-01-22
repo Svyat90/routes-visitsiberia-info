@@ -8,7 +8,7 @@ $(function () {
         let type = element.attr("data-type");
 
         if (isAdded(id, type)) {
-            showData(element)
+            showData(element, 'route-item-added')
         }
     });
 
@@ -20,7 +20,7 @@ $(function () {
         let type = element.attr("data-type");
 
         addToList(id, type);
-        showData(element)
+        showData(element, 'route-item-added')
     });
 
     routeAddedItems.click(function(e) {
@@ -31,29 +31,51 @@ $(function () {
         let type = element.attr("data-type");
 
         deleteFromList(id, type);
-        hideData(element);
+        hideData(element, 'route-item-add');
+    });
+
+    $(document).on('click', '.route-item-add-ajax', function() {
+        let element = $(this);
+        let id = element.attr("data-id");
+        let type = element.attr("data-type");
+
+        addToList(id, type);
+        showData(element, 'route-item-added-ajax')
+    });
+
+    $(document).on('click', '.route-item-added-ajax', function() {
+        let element = $(this);
+        let id = element.attr("data-id");
+        let type = element.attr("data-type");
+
+        deleteFromList(id, type);
+        hideData(element, 'route-item-add-ajax');
     });
 })
 
 /**
  * @param element
+ * @param classAdded
  */
-function showData(element)
+function showData(element, classAdded)
 {
     element.hide();
-    element.parent().find('button.route-item-added').removeClass('d-none');
-    element.parent().parent().find('a.route-item-go').removeClass('d-none');
+    element.parent().find('.' + classAdded).removeClass('d-none');
+    element.parent().parent().find('.route-item-go').removeClass('d-none');
     // element.parent().parent().find('button.favourite-item').hide();
 }
 
 /**
+ *
  * @param element
+ * @param classAdd
  */
-function hideData(element)
+function hideData(element, classAdd)
 {
     element.addClass('d-none');
-    element.parent().parent().find('a.route-item-go').addClass('d-none');
-    element.parent().find('button.route-item-add').show();
+    element.parent().parent().find('.route-item-go').addClass('d-none');
+    element.parent().find('.' + classAdd).show();
+    element.parent().find('.' + classAdd).removeClass('d-none');
     // element.parent().parent().find('button.favourite-item').show();
 }
 

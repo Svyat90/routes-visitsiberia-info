@@ -20,10 +20,10 @@
                         <a href="{{ route('front.favourites', ['type' => 'events']) }}" class="nav-link {{ request()->has('type') && request()->type == 'events' ? 'active' : '' }}" id="pills-profile-tab" >{{ $vars['favourites_events'] }}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('front.favourites', ['type' => 'hotels']) }}" class="nav-link {{ request()->has('type') && request()->type == 'hotels' ? 'active' : '' }}" id="pills-profile-tab" >{{ $vars['favourites_meals'] }}</a>
+                        <a href="{{ route('front.favourites', ['type' => 'hotels']) }}" class="nav-link {{ request()->has('type') && request()->type == 'hotels' ? 'active' : '' }}" id="pills-profile-tab" >{{ $vars['favourites_hotels'] }}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('front.favourites', ['type' => 'meals']) }}" class="nav-link {{ request()->has('type') && request()->type == 'meals' ? 'active' : '' }}" id="pills-profile-tab" >{{ $vars['favourites_hotels'] }}</a>
+                        <a href="{{ route('front.favourites', ['type' => 'meals']) }}" class="nav-link {{ request()->has('type') && request()->type == 'meals' ? 'active' : '' }}" id="pills-profile-tab" >{{ $vars['favourites_meals'] }}</a>
                     </li>
                 </ul>
 

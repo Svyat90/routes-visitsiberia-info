@@ -21,6 +21,17 @@ $(function () {
             $(this).removeClass('active');
         }
     });
+
+    $(document).on('click', '.favourite-item-ajax', function(){
+        let id = $(this).attr("data-id");
+        let type = $(this).attr("data-type");
+
+        if (toggleFavourite(id, type)) {
+            $(this).addClass('active');
+        } else {
+            $(this).removeClass('active');
+        }
+    });
 })
 
 /**

@@ -336,6 +336,34 @@ class VarsSeeder extends Seeder
             'ru' => 'Проживание',
             'en' => 'Hotels'
         ],
+        'search_meals_title' => [
+            'ru' => 'Еда',
+            'en' => 'Food'
+        ],
+        'search_routes_title' => [
+            'ru' => 'Маршруты',
+            'en' => 'Routes'
+        ],
+        'search_events_title' => [
+            'ru' => 'События',
+            'en' => 'Events'
+        ],
+        'search_hotels_title' => [
+            'ru' => 'Проживание',
+            'en' => 'Hotels'
+        ],
+        'search_places_title' => [
+            'ru' => 'Достопримечательности',
+            'en' => 'Places'
+        ],
+        'search_hotels' => [
+            'ru' => 'Проживание',
+            'en' => 'Hotels'
+        ],
+        'search_text_input' => [
+            'ru' => 'Текст поиска',
+            'en' => 'Search text'
+        ],
         'favourites_title' => [
             'ru' => 'Избранное',
             'en' => 'Favourites'
@@ -383,6 +411,10 @@ class VarsSeeder extends Seeder
         'constructor_routes_no_data' => [
             'ru' => 'Нет данних',
             'en' => 'No data'
+        ],
+        'search_not_found' => [
+            'ru' => 'Результатов не найдено',
+            'en' => 'No results found'
         ],
     ];
 

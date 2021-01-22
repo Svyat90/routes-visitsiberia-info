@@ -29,7 +29,7 @@
                         <a class="nav-link" href="{{ route('front.meals.index') }}">{{ $vars['header_meals'] }}</a>
                     </li>
 
-                    @if($routeCount > 0)
+                    @if($routeCount && $routeCount > 0)
                         <li class="nav-item">
                             <a href="{{ route('front.constructor') }}" class="nav-link nav-link--blue">
                                 <span class="nav-counter">{{ $routeCount }}</span>
@@ -50,7 +50,7 @@
         </div>
         <ul class="navbar-nav flex-row header__helpers">
             <li class="nav-item">
-                <a class="nav-link material-icons" href="search.html">search</a>
+                <a class="nav-link material-icons" href="{{ route('front.search.index') }}">search</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ app()->getLocale() === 'ru' ? 'active' : '' }}" href="{{ route('set_locate', 'ru') }}">Ру</a>
