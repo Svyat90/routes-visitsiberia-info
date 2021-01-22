@@ -29,7 +29,7 @@
                         <a class="nav-link" href="{{ route('front.meals.index') }}">{{ $vars['header_meals'] }}</a>
                     </li>
 
-                    @if($routeCount && $routeCount > 0)
+                    @if(isset($routeCount) && $routeCount > 0)
                         <li class="nav-item">
                             <a href="{{ route('front.constructor') }}" class="nav-link nav-link--blue">
                                 <span class="nav-counter">{{ $routeCount }}</span>
