@@ -44,7 +44,7 @@
                     @foreach($entities as $entity)
                         <div class="page__route-item" id="r{{ $loop->iteration }}" data-id="{{ $entity->id }}" data-type="{{ RouteHelper::model($entity) }}">
                             <div class="page__route-img-wr">
-                                {{ $entity->image ? $entity->image->img()->lazy() : '' }}
+                                {{ $entity->image ? $entity->image->img('route')->lazy() : '' }}
                             </div>
                             <a href="{{ RouteHelper::show($entity) }}" class="page__route-name exo">
                                 {{ $entity->name }}
