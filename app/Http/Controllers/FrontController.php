@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\RouteTrait;
 use App\Traits\VarTrait;
 
 class FrontController extends Controller
 {
-    use VarTrait;
+    use VarTrait, RouteTrait;
 
     /**
      * Controller constructor.
@@ -14,6 +15,7 @@ class FrontController extends Controller
     public function __construct()
     {
         $this->shareVars();
+        $this->shareRouteCount();
     }
 
 }

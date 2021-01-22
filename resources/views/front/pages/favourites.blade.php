@@ -39,7 +39,7 @@
                                     <div class="list__item d-flex flex-column">
                                         <a href="{{ RouteHelper::show($entity) }}" class="d-flex flex-column nop">
                                             <div class="list__img">
-                                                {{ $entity->image ? $entity->image->img()->lazy() : '' }}
+                                                {{ $entity->image ? $entity->image->img('list')->lazy() : '' }}
                                             </div>
                                             <p href="{{ RouteHelper::show($entity) }}" class="list__name exo">
                                                 {{ $entity->name }}

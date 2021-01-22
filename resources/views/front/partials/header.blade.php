@@ -28,12 +28,16 @@
                     <li class="nav-item mr-auto">
                         <a class="nav-link" href="{{ route('front.meals.index') }}">{{ $vars['header_meals'] }}</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link nav-link--blue">
-                            <span class="nav-counter">3</span>
-                            {{ $vars['header_create_route'] }}
-                        </a>
-                    </li>
+
+                    @if($routeCount > 0)
+                        <li class="nav-item">
+                            <a href="{{ route('front.constructor') }}" class="nav-link nav-link--blue">
+                                <span class="nav-counter">{{ $routeCount }}</span>
+                                {{ $vars['header_create_route'] }}
+                            </a>
+                        </li>
+                    @endif
+
                     <li class="nav-item nav-item-last">
                         <a class="nav-link" href="{{ route('front.favourites') }}">{{ $vars['header_favourites'] }}</a>
                     </li>
