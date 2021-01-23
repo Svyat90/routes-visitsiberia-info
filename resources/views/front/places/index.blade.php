@@ -86,7 +86,7 @@
 
                         <div class="list__items show">
                             @foreach($places as $place)
-                                <div class="list__item d-flex flex-column active">
+                                <div class="list__item d-flex flex-column {{ $place->recommended ? 'active' : '' }}">
                                     <a href="{{ route('front.places.show', $place->id) }}" class="d-flex flex-column nop position-relative">
                                         <img src="{{ asset('front/img/item-top.svg') }}" class="list__item-sign" alt="">
                                         <div class="list__img">

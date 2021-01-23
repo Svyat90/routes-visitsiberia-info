@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Models\Event;
 use Illuminate\Database\Eloquent\Model;
 
 class DateHelper
@@ -27,7 +28,7 @@ class DateHelper
      */
     public static function month(Model $model, string $field = self::DEFAULT_FIELD) : string
     {
-        return $model->$field ? $model->$field->format('F') ?? '' : '';
+        return $model->$field ? $model->$field->format('M') ?? '' : '';
     }
 
     /**
@@ -61,6 +62,24 @@ class DateHelper
     public static function year(Model $model, string $field = self::DEFAULT_FIELD) : string
     {
         return $model->$field ? $model->$field->format('Y') ?? '' : '';
+    }
+
+    /**
+     * @param Event $event
+     * @return string
+     */
+    public static function eventRangeTime(Event $event) : string
+    {
+        if (! $event->date_from || ! $event->date_to) {
+            return "";
+        }
+
+        return sprintf("%s-%s %s. %s",
+            self::day($event, 'date_from'),
+            self::day($event, 'date_to'),
+            self::month($event, 'date_to'),
+            self::year($event, 'date_to'),
+        );
     }
 
 }

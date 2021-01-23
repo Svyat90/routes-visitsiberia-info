@@ -43,6 +43,7 @@ class StoreMealRequest extends FormRequest
             'site_link' => 'sometimes|nullable|string',
             'social_links' => 'sometimes|nullable|string',
             'phones' => 'sometimes|nullable|string',
+            'cost' => 'sometimes|nullable|string',
             'lat' => 'required|string',
             'lng' => 'required|string',
             'location' => 'sometimes|array',

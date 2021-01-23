@@ -73,11 +73,24 @@
 
                         <div class="list__items show">
                             @foreach($meals as $meal)
-                                <div class="list__item d-flex flex-column active">
+                                <div class="list__item d-flex flex-column {{ $meal->recommended ? 'active' : '' }}">
                                     <a href="{{ route('front.meals.show', $meal->id) }}" class="d-flex flex-column nop position-relative">
                                         <img src="{{ asset('front/img/item-top.svg') }}" class="list__item-sign" alt="">
+
                                         <div class="list__img">
                                             {{ $meal->image ? $meal->image->img('list')->lazy() : '' }}
+                                        </div>
+                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
+                                            <p class="list__subprice mb-0">
+                                                {{ $meal->cost }}
+                                            </p>
+                                            <p class="list__subrating d-flex mb-0" data-rating="3">
+                                                <span class="material-icons">star</span>
+                                                <span class="material-icons">star</span>
+                                                <span class="material-icons">star</span>
+                                                <span class="material-icons">star</span>
+                                                <span class="material-icons">star</span>
+                                            </p>
                                         </div>
                                         <p class="list__name exo">
                                             {{ $meal->name }}

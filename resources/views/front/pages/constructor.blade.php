@@ -57,6 +57,18 @@
                     @endforeach
 
                 </section>
+
+                <p class="article__text mb-128">
+                    {{ $vars['constructor_text_1'] }}
+                    <br>
+                    <br>
+                    {{ $vars['constructor_text_2'] }}
+                </p>
+
+                <button type="button" class="article__get-feedback mb-364">
+                    {{ $vars['review_give_feedback'] }}
+                </button>
+
             @else
                 <div class="list__no-items">
                     <p class="list__no-text exo">

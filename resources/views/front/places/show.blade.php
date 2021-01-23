@@ -20,13 +20,15 @@
                             <p class="article__recommendation-text" id="desc">{{ $vars['base_tic_recommended'] }}</p>
                         </div>
                     @endif
+
                     <div class="article__sign wow fadeInLeft">
                         @foreach($place->dictionaries as $dictionary)
                             <p class="article__sign-bold">
                                 {{ $dictionary->parent->name }}: <span href="#" class="article__link">{{ $dictionary->name }}</span>
                             </p>
                         @endforeach
-                        <p class="article__information">
+
+                        <p class="article__information" id="desc">
                             {!! $place->page_desc !!}
                         </p>
                     </div>
@@ -34,15 +36,15 @@
 
                 <sidebar class="article__page-nav page-nav wow fadeInRight">
                     <ul class="page-nav__list">
-                        <li>{{ $vars['base_desc'] }}</li>
-                        <li class="page-nav__item">{{ $vars['base_help_info'] }}</li>
-                        <li class="page-nav__item">{{ $vars['base_photo'] }}</li>
-                        <li class="page-nav__item">{{ $vars['base_history'] }}</li>
-                        <li class="page-nav__item">{{ $vars['base_how_to_get'] }}</li>
-                        <li class="page-nav__item">{{ $vars['base_reviews'] }}</li>
-                        <li class="page-nav__item">{{ $vars['base_events_early'] }}</li>
-                        <li class="page-nav__item">{{ $vars['base_where_to_stay'] }}</li>
-                        <li class="page-nav__item">{{ $vars['base_where_to_eat'] }}</li>
+                        <li class="page-nav__item"><a href="#desc">{{ $vars['base_desc'] }}</a></li>
+                        <li class="page-nav__item"><a href="#info">{{ $vars['base_help_info'] }}</a></li>
+                        <li class="page-nav__item"><a href="#photo">{{ $vars['base_photo'] }}</a></li>
+                        <li class="page-nav__item"><a href="#story">{{ $vars['base_history'] }}</a></li>
+                        <li class="page-nav__item"><a href="#way">{{ $vars['base_how_to_get'] }}</a></li>
+                        <li class="page-nav__item"><a href="#reviews">{{ $vars['base_reviews'] }}</a></li>
+                        <li class="page-nav__item"><a href="#events">{{ $vars['base_events_early'] }}</a></li>
+                        <li class="page-nav__item"><a href="#places">{{ $vars['base_where_to_stay'] }}</a></li>
+                        <li class="page-nav__item"><a href="#meals">{{ $vars['base_where_to_eat'] }}</a></li>
                     </ul>
                     <div class="page-nav__button">
                         <button class="page-nav__off">

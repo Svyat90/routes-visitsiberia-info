@@ -20,7 +20,7 @@
                             <p class="article__recommendation-text" id="desc">{{ $vars['base_tic_recommended'] }}</p>
                         </div>
                     @endif
-                    <div class="article__sign wow fadeInLeft">
+                    <div class="article__sign wow fadeInLeft" id="desc">
                         @foreach($meal->dictionaries as $dictionary)
                             <p class="article__sign-bold">
                                 {{ $dictionary->parent->name }}: <span href="#" class="article__link">{{ $dictionary->name }}</span>

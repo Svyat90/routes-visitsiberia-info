@@ -39,8 +39,10 @@ abstract class BaseService
      *
      * @return Collection
      */
-    protected function getNearObjects(string $table, float $lat, float $lng, int $radius = 20, int $limit = 10)
+    protected function getNearObjects(string $table, float $lat, float $lng, int $radius = 20, int $limit = 10) : Collection
     {
+        $additionalFields = $this->generateAdditionalFields($table);
+
         $rawData = DB::select("
             SELECT
                 {$table}.id,
@@ -55,6 +57,7 @@ abstract class BaseService
                     sin(radians({$lat})) *
                     sin(radians(lat))
                 )) AS distance,
+                {$additionalFields}
                 media.file_name,
                 media.id as media_id
             FROM {$table}
@@ -77,6 +80,25 @@ abstract class BaseService
             $item->imagePath = $this->urlForImage($item,'near');
             return $item;
         });
+    }
+
+    /**
+     * @param string $table
+     * @return string
+     */
+    private function generateAdditionalFields(string $table) : string
+    {
+        switch (true) {
+            case $table === 'hotels':
+                return "{$table}.price,";
+            case $table === 'meals':
+                return "{$table}.cost,";
+            case $table === 'events':
+                return "{$table}.date_from," .
+                       "{$table}.date_to,";
+            default:
+                return "";
+        }
     }
 
     /**

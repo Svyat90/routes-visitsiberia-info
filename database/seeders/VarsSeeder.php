@@ -184,6 +184,14 @@ class VarsSeeder extends Seeder
             'ru' => 'Перейти к маршруту',
             'en' => 'Go to route'
         ],
+        'base_price_from' => [
+            'ru' => 'от',
+            'en' => 'from'
+        ],
+        'base_price_currency' => [
+            'ru' => 'руб',
+            'en' => 'rub'
+        ],
         'places_title' => [
             'ru' => 'Достопримечательности',
             'en' => 'Places'
@@ -415,6 +423,18 @@ class VarsSeeder extends Seeder
         'search_not_found' => [
             'ru' => 'Результатов не найдено',
             'en' => 'No results found'
+        ],
+        'constructor_text_1' => [
+            'ru' => 'Значимость этих проблем настолько очевидна, что сложившаяся структура организации позволяет выполнять важные задания по разработке систем массового участия. Не следует, однако забывать, что реализация намеченных плановых заданий требуют от нас анализа систем массового участия. Повседневная практика показывает, что реализация намеченных плановых заданий влечет за собой процесс внедрения и модернизации существенных финансовых и административных условий.',
+            'en' => 'The importance of these problems is so obvious that the existing structure of the organization allows performing important tasks in the development of systems of mass participation. It should not be forgotten, however, that the implementation of the planned targets requires us to analyze the systems of mass participation. Everyday practice shows that the implementation of the planned targets entails the process of introducing and modernizing significant financial and administrative conditions.'
+        ],
+        'constructor_text_2' => [
+            'ru' => 'Таким образом постоянное информационно-пропагандистское обеспечение нашей деятельности влечет за собой процесс внедрения и модернизации модели развития. Задача организации, в особенности же новая модель организационной деятельности влечет за собой процесс внедрения и модернизации систем массового участия. Не следует, однако забывать, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации направлений прогрессивного развития. Идейные соображения высшего порядка, а также постоянное информационно-пропагандистское обеспечение нашей деятельности играет важную роль в формировании модели развития. Равным образом сложившаяся структура организации влечет за собой процесс внедрения и модернизации соответствующий условий активизации. С другой стороны рамки и место обучения кадров влечет за собой процесс внедрения и модернизации новых предложений.',
+            'en' => 'Thus, the constant information and propaganda support of our activities entails the process of introducing and modernizing the development model. The task of the organization, in particular the new model of organizational activity, entails the process of introducing and modernizing systems of mass participation. It should not be forgotten, however, that the framework and place of personnel training entails the process of introducing and modernizing the directions of progressive development. Ideological considerations of the highest order, as well as constant information and propaganda support of our activities, play an important role in shaping the development model. Equally, the existing structure of the organization entails the process of implementation and modernization corresponding to the conditions of activation. On the other hand, the framework and place of staff training entails the process of introducing and modernizing new proposals.'
+        ],
+        'review_give_feedback' => [
+            'ru' => 'Оставить отзыв',
+            'en' => 'Give feedback'
         ],
     ];
 

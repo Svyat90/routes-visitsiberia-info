@@ -138,7 +138,7 @@ return [
             'name'              => 'Name',
             'name_helper'       => '',
             'price'              => 'Price',
-            'price_helper'       => '',
+            'price_helper'       => 'Minimum price',
             'have_breakfasts'              => 'Have breakfasts',
             'have_breakfasts_helper'       => '',
             'have_business_lunch'              => 'Have business lunch',
@@ -241,6 +241,8 @@ return [
             'working_hours_helper'       => '',
             'phones'              => 'Phones',
             'phones_helper'       => 'Example: +3806800000000,+3806800000001',
+            'cost'              => 'Cost Indicator',
+            'cost_helper'       => '',
         ],
     ],
     'events'                     => [

@@ -12,7 +12,7 @@
             </div>
             <div class="list__subinfo d-flex justify-content-between align-items-center">
                 <p class="list__subprice mb-0">
-                    $$$
+                    {{ $meal->cost }}
                 </p>
                 <p class="list__subrating d-flex mb-0" data-rating="3">
                     <span class="material-icons">star</span>

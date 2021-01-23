@@ -82,15 +82,16 @@
                          aria-labelledby="pills-home-tab">
                         <div class="list__items show">
                             @foreach($hotels as $hotel)
-                                <div class="list__item d-flex flex-column">
-                                    <a href="{{ route('front.hotels.show', $hotel->id) }}"
-                                       class="d-flex flex-column nop">
+                                <div class="list__item d-flex flex-column {{ $hotel->recommended ? 'active' : '' }}">
+                                    <a href="{{ route('front.hotels.show', $hotel->id) }}" class="d-flex flex-column nop">
+                                        <img src="{{ asset('front/img/item-top.svg') }}" class="list__item-sign" alt="">
+
                                         <div class="list__img">
                                             {{ $hotel->image ? $hotel->image->img('list')->lazy() : '' }}
                                         </div>
                                         <div class="list__subinfo d-flex justify-content-between align-items-center">
                                             <p class="list__subprice mb-0">
-                                                {{ $hotel->price }}
+                                                {{ $vars['base_price_from'] }} {{ $hotel->price }} {{ $vars['base_price_currency'] }}
                                             </p>
                                             <p class="list__subrating d-flex mb-0" data-rating="3">
                                                 <span class="material-icons">star</span>

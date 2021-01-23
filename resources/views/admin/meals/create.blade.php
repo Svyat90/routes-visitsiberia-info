@@ -129,6 +129,19 @@
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                        <label class="required" for="{{ $name = 'cost' }}">{{ __("cruds.meals.fields.$name") }}</label>
+                        <select name="{{ $name }}" id="{{ $name }}" class="form-control">
+                            <option value="$" {{ old($name, '') == "$" ? 'selected' : '' }}>$</option>
+                            <option value="$$" {{ old($name, '') == "$$" ? 'selected' : '' }}>$$</option>
+                            <option value="$$$" {{ old($name, '') == "$$$" ? 'selected' : '' }}>$$$</option>
+                        </select>
+                        @if($errors->has($name))
+                            <span class="text-danger">{{ $errors->first($name) }}</span>
+                        @endif
+                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
+                    </div>
+
+                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
                         <label class="required" for="{{ $name = 'lat' }}">{{ __("cruds.meals.fields.$name") }}</label>
                         <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
                                type="text"

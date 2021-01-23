@@ -70,14 +70,13 @@
 
                                 @foreach($events as $event)
                                     <div class="list__item d-flex flex-column">
-                                        <a href="{{ route('front.events.show', $event->id) }}"
-                                           class="d-flex flex-column nop">
+                                        <a href="{{ route('front.events.show', $event->id) }}" class="d-flex flex-column nop">
                                             <div class="list__img">
                                                 {{ $event->image ? $event->image->img()->lazy('list') : '' }}
                                             </div>
                                             <div class="list__subinfo d-flex justify-content-between align-items-center">
                                                 <p class="list__subprice mb-0">
-                                                    {{ $event->date_from->format('d') . '-' . $event->date_to->format('d') . ' ' . $event->date_to->format('F') . ' ' .  $event->date_to->format('Y') }}
+                                                    {{ DateHelper::eventRangeTime($event) }}
                                                 </p>
                                             </div>
                                             <p class="list__name exo">

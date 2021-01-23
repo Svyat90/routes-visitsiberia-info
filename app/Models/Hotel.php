@@ -44,7 +44,7 @@ class Hotel extends BaseModel
         'name', 'meta_title', 'meta_description', 'description',
         'conditions_accommodation', 'conditions_payment',
         'room_desc', 'additional_services','food_desc',
-        'contact_desc', 'location', 'price'
+        'contact_desc', 'location'
     ];
 
     /**

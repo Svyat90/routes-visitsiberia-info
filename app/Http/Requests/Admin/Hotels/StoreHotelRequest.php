@@ -20,6 +20,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $social_links
  * @property string $aggregator_links
  * @property string $phones
+ * @property integer $price
  * @property string $location
  * @property string $lat
  * @property string $lng
@@ -73,6 +74,7 @@ class StoreHotelRequest extends FormRequest
             'social_links' => 'sometimes|nullable|string',
             'aggregator_links' => 'sometimes|nullable|string',
             'phones' => 'sometimes|nullable|string',
+            'price' => 'sometimes|nullable|integer',
             'location' => 'sometimes|array',
             'location.*' => 'string|nullable',
             'image' => 'required|string',

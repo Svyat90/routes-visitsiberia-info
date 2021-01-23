@@ -93,35 +93,13 @@
                     </div>
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'have_breakfasts' }}">{{ __("cruds.hotels.fields.$name") }}</label>
-                        <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="0" {{ old($name, null) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
-                            <option value="1" {{ old($name, null) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
-                        </select>
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
-                    </div>
-
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'have_business_lunch' }}">{{ __("cruds.hotels.fields.$name") }}</label>
-                        <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="0" {{ old($name, null) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
-                            <option value="1" {{ old($name, null) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
-                        </select>
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
-                    </div>
-
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'delivery_available' }}">{{ __("cruds.hotels.fields.$name") }}</label>
-                        <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="0" {{ old($name, null) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
-                            <option value="1" {{ old($name, null) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
-                        </select>
+                        <label class="required" for="{{ $name = 'price' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
+                               type="number"
+                               min="0"
+                               name="{{ $name }}"
+                               id="{{ $name }}"
+                               value="{{ old($name, '') }}" />
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif

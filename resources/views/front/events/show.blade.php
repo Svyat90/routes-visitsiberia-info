@@ -14,7 +14,7 @@
                                 {{ $dictionary->parent->name }}: <span href="#" class="article__link">{{ $dictionary->name }}</span>
                             </p>
                         @endforeach
-                        <p class="article__information">
+                        <p class="article__information" id="desc">
                             {!! $event->page_desc !!}
                         </p>
                     </div>

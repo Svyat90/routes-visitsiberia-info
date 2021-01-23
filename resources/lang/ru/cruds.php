@@ -138,7 +138,7 @@ return [
             'name'              => 'Название',
             'name_helper'       => '',
             'price'              => 'Цена',
-            'price_helper'       => '',
+            'price_helper'       => 'Минимальная цена',
             'have_breakfasts'              => 'Есть завтраки',
             'have_breakfasts_helper'       => '',
             'have_business_lunch'              => 'Бизнес-ланч',
@@ -241,6 +241,8 @@ return [
             'working_hours_helper'       => '',
             'phones'              => 'Телефоны',
             'phones_helper'       => 'Пример: + 3806800000000, + 3806800000001',
+            'cost'              => 'Показатель стоимости',
+            'cost_helper'       => '',
         ],
     ],
     'events'                     => [
