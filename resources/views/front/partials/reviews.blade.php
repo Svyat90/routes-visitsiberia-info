@@ -1,6 +1,10 @@
+@php
+    $reviews = $entity->reviews()->where('approved', true)->get();
+@endphp
+
 <section class="article__feedback article__block" id="reviews">
     <h2 class="article__name wow fadeInUp">{{ $vars['base_reviews'] }}</h2>
-    <div class="no-comments {{ count($entity->reviews) > 0 ? 'dn' : '' }}" id="no-comments">
+    <div class="no-comments {{ count($reviews) > 0 ? 'dn' : '' }}" id="no-comments">
         <p class="article__slider-description exo">{{ $vars['review_empty_text'] }}</p>
     </div>
     <div id="form" class="{{ $errors->any() || session()->has('error-review') ? '' : 'dn' }}">
@@ -50,7 +54,7 @@
     <div id="comment-container" class="{{ $errors->any() || session()->has('error-review') ? 'dn' : '' }}">
         <div class="article__feedback-slider swiper-container wow fadeInUp">
             <div class="article__feedback-wr swiper-wrapper">
-                @foreach($entity->reviews as $review)
+                @foreach($reviews as $review)
                     <div class="feedback swiper-slide">
                         <p class="feedback__name">{{ $review->name }}</p>
                         <p class="feedback__data">{{ DateHelper::reviewDate($review) }}</p>

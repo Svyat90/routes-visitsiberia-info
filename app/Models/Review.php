@@ -47,6 +47,8 @@ class Review extends Model
     public function createRating(Model $reviewrateable, array $insertData) : Review
     {
         $review = new static();
+
+        $insertData['approved'] = false;
         $review->fill($insertData);
 
         $reviewrateable->reviews()->save($review);
