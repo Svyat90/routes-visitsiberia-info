@@ -11,3 +11,9 @@
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
 </form>
+
+@if($entityName === 'reviews')
+    <a class="btn btn-xs btn-info" href="{{ route('admin.replies.create', $row->id) }}">
+        {{ trans('global.reply') }}
+    </a>
+@endif

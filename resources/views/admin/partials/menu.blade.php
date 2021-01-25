@@ -75,6 +75,16 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="{{ route("admin.reviews.index") }}" class="nav-link {{ request()->is("admin/reviews") ? 'active' : '' }}" >
+                        <i class="fa-fw nav-icon fas fa-book">
+                        </i>
+                        <p>
+                            {{ __('cruds.reviews.title') }}
+                        </p>
+                    </a>
+                </li>
+
                 <li class="nav-item has-treeview {{ request()->is('admin/routes*') ? 'menu-open' : '' }}">
                     <a class="nav-link nav-dropdown-toggle" href="#">
                         <i class="fa-fw nav-icon fas fa-file-alt"></i>

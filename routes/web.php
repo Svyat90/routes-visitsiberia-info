@@ -10,6 +10,7 @@ use \App\Http\Controllers\Admin\PlaceController as AdminPlaceController;
 use \App\Http\Controllers\Admin\HotelController as AdminHotelController;
 use \App\Http\Controllers\Admin\MealController as AdminMealController;
 use \App\Http\Controllers\Admin\EventController as AdminEventController;
+use \App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use \App\Http\Controllers\Admin\RouteController as AdminRouteController;
 use \App\Http\Controllers\Admin\MediaController;
 use \App\Http\Controllers\Admin\DictionaryController;
@@ -79,6 +80,13 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     // Events
     Route::delete('events/multi-destroy', [AdminEventController::class, 'massDestroy'])->name('events.multi_destroy');
     Route::resource('events', 'Admin\EventController');
+
+    // Reviews
+    Route::delete('reviews/multi-destroy', [AdminReviewController::class, 'massDestroy'])->name('reviews.multi_destroy');
+    Route::resource('reviews', 'Admin\ReviewController');
+
+    // Replies
+    Route::resource('replies', 'Admin\ReplyController')->only('create', 'store', 'destroy');
 
     // Routes
     Route::delete('routes/multi-destroy', [AdminRouteController::class, 'massDestroy'])->name('routes.multi_destroy');

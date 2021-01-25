@@ -16,6 +16,11 @@ class Review extends Model
     ];
 
     /**
+     * @var string[]
+     */
+    protected $fillable = ['approved'];
+
+    /**
      * @return MorphTo
      */
     public function reviewrateable() : MorphTo

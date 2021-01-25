@@ -15,6 +15,11 @@ class Reply extends Model
     ];
 
     /**
+     * @var string[]
+     */
+    protected $fillable = ['name', 'approved', 'body', 'is_admin'];
+
+    /**
      * @return BelongsTo
      */
     public function review() : BelongsTo

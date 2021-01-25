@@ -64,4 +64,5 @@ return [
     "hotels" => "Hotels",
     "route_list" => "Route List",
     "route" => "Route",
+    "reply" => "Reply",
 ];
