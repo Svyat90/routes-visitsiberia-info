@@ -18,7 +18,10 @@ class Review extends Model
     /**
      * @var string[]
      */
-    protected $fillable = ['approved'];
+    protected $fillable = [
+        'approved', 'rating', 'name', 'phone',
+        'email', 'body', 'allow_comments'
+    ];
 
     /**
      * @return MorphTo
