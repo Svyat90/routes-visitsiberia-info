@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\ReviewRateableTrait;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -17,7 +18,9 @@ use Spatie\Image\Manipulations;
  */
 abstract class BaseModel extends Model implements HasMedia
 {
-    use HasTranslations, InteractsWithMedia;
+    use HasTranslations,
+        InteractsWithMedia,
+        ReviewRateableTrait;
 
     /**
      * @var array|string[]

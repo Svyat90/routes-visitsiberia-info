@@ -75,6 +75,8 @@ class HotelController extends FrontController
      */
     public function show(Request $request, Hotel $hotel)
     {
+        $hotel->load('reviews', 'reviews.replies');
+
         [$events, $meals, $places, $nearGeoData] = $this->service->getNearData($hotel);
 
         return view('front.hotels.show', compact(

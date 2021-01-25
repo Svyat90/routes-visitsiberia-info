@@ -37,6 +37,17 @@ class DateHelper
      *
      * @return string
      */
+    public static function fullMonth(Model $model, string $field = self::DEFAULT_FIELD) : string
+    {
+        return $model->$field ? $model->$field->format('F') ?? '' : '';
+    }
+
+    /**
+     * @param Model  $model
+     * @param string $field
+     *
+     * @return string
+     */
     public static function dayWeek(Model $model, string $field = self::DEFAULT_FIELD) : string
     {
         return $model->$field ? $model->$field->format('l') ?? '' : '';
@@ -82,4 +93,37 @@ class DateHelper
         );
     }
 
+    /**
+     * @param \stdClass $event
+     * @return string
+     */
+    public static function eventRangeTimeStd(\stdClass $event) : string
+    {
+        $dateFrom = strtotime($event->date_from);
+        $dateTo = strtotime($event->date_to);
+
+        if (! $dateFrom || ! $dateTo) {
+            return "";
+        }
+
+        return sprintf("%s-%s %s. %s",
+            date('d', $dateFrom),
+            date('d', $dateTo),
+            date('M', $dateTo),
+            date('Y', $dateTo)
+        );
+    }
+
+    /**
+     * @param Model $model
+     * @return string
+     */
+    public static function reviewDate(Model $model) : string
+    {
+        return sprintf("%s %s %s",
+            self::day($model),
+            self::fullMonth($model),
+            self::year($model),
+        );
+    }
 }

@@ -14,7 +14,7 @@
                 <p class="list__subprice mb-0">
                     {{ $meal->cost }}
                 </p>
-                <p class="list__subrating d-flex mb-0" data-rating="3">
+                <p class="list__subrating d-flex mb-0" data-rating="{{ $meal->averageRating }}">
                     <span class="material-icons">star</span>
                     <span class="material-icons">star</span>
                     <span class="material-icons">star</span>

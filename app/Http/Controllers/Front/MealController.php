@@ -73,6 +73,8 @@ class MealController extends FrontController
      */
     public function show(Request $request, Meal $meal)
     {
+        $meal->load('reviews', 'reviews.replies');
+
         [$events, $hotels, $places, $nearGeoData] = $this->service->getNearData($meal);
 
         return view('front.meals.show', compact(

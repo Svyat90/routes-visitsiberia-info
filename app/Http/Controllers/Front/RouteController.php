@@ -86,6 +86,8 @@ class RouteController extends FrontController
         HotelService $hotelService,
         MealService $mealService
     ) {
+        $route->load('reviews', 'reviews.replies');
+
         $routable = $this->service->repository->getRoutableEntities($route);
 
         $eventsAll = $mealsAll = $placesAll = $hotelsAll = $nearGeoDataAll = collect();

@@ -1,3 +1,17 @@
 .text-color-imp {
     color: #011b2b !important;
 }
+
+.error-msg {
+    color: #970C13;
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+}
+
+.success-msg {
+    color: #026402;
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+}

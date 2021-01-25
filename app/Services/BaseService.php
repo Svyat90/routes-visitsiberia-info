@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use \App\Models\Meal;
+use \App\Models\Hotel;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -78,8 +80,27 @@ abstract class BaseService
             $item->distance = round($item->distance, 2);
             $item->type = $table;
             $item->imagePath = $this->urlForImage($item,'near');
+            $item->averageRating = $this->getAverageRating($item->id, $table);
             return $item;
         });
+    }
+
+    /**
+     * @param int $id
+     * @param string $table
+     * @return int
+     */
+    private function getAverageRating(int $id, string $table) : int
+    {
+        if (! in_array($table, ['hotels', 'meals'])) {
+            return 0;
+        }
+
+        $nameModel = ucfirst(Str::singular($table));
+        $class = 'App\\Models\\' . $nameModel;
+        $model = $class::find($id);
+
+        return $model->averageRating() ?? 0;
     }
 
     /**

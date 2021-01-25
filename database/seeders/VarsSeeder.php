@@ -436,6 +436,46 @@ class VarsSeeder extends Seeder
             'ru' => 'Оставить отзыв',
             'en' => 'Give feedback'
         ],
+        'review_empty_text' => [
+            'ru' => 'Еще нет отзывов, вы можете оставить первый отзыв о событии',
+            'en' => 'There are no reviews yet, you can leave the first review of the event'
+        ],
+        'review_name' => [
+            'ru' => 'Введите имя',
+            'en' => 'Enter your name'
+        ],
+        'review_phone' => [
+            'ru' => 'Номер телефона',
+            'en' => 'Phone number'
+        ],
+        'review_email' => [
+            'ru' => 'Электронная почта @mail',
+            'en' => 'Email @mail'
+        ],
+        'review_body' => [
+            'ru' => 'Текст вашего отзыва',
+            'en' => 'Your review text'
+        ],
+        'review_rating_stars' => [
+            'ru' => 'Оценка от 1 до 5 баллов',
+            'en' => 'Score from 1 to 5 points'
+        ],
+        'review_send' => [
+            'ru' => 'Отправить',
+            'en' => 'Send'
+        ],
+        'review_admin_response' => [
+            'ru' => 'Ответ администратора',
+            'en' => 'Administrator response'
+        ],
+        'review_wrong' => [
+            'ru' => 'Что то пошло не так',
+            'en' => 'Something went wrong'
+        ],
+        'review_success_created' => [
+            'ru' => 'Отзыв успешно создан',
+            'en' => 'Review successfully created'
+        ],
     ];
 
     /**

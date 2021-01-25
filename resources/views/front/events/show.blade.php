@@ -160,57 +160,7 @@
                 </div>
             </section>
 
-            <section class="article__feedback article__block" id="reviews">
-                <h2 class="article__name wow fadeInUp">{{ $vars['base_reviews'] }}:</h2>
-                <div class="article__feedback-slider wow fadeInUp">
-                    <div class="feedback">
-                        <div class="feedback__img-wr">
-                            <img src="{{  asset('front/img/feedback.png')  }}" alt="Image feedback"
-                                 class="feedback__img">
-                        </div>
-                        <p class="feedback__name">Королёв В.</p>
-                        <p class="feedback__data">3 октября 2020</p>
-                        <div class="list__subrating d-flex mb-0 feedback__stars" data-rating="3">
-                            <span class="material-icons feedback__star">star</span>
-                            <span class="material-icons feedback__star">star</span>
-                            <span class="material-icons feedback__star">star</span>
-                            <span class="material-icons feedback__star">star</span>
-                            <span class="material-icons feedback__star">star</span>
-                        </div>
-                        <p class="feedback__text">“Все очень понравилось! Это как раз тот случай, когда можно
-                            спланировать поездку
-                            от начала до конца”</p>
-
-                        <div class="feedback__admin">
-                            <div class="feedback__admin-title">
-                                <div class="feedback__reply">
-                                  <span class="material-icons feedback__icon">
-                                    reply
-                                  </span>
-                                    <p class="feedback__reply-name">Ответ администратора</p>
-                                </div>
-                                <div class="feedback__reply-data">
-                                    3 октября 2020
-                                </div>
-                                <div class="feedback__text">
-                                    Спасибо за комментарий!
-                                </div>
-                            </div>
-                        </div>
-                        <div class="feedback__button">
-                            <p class="feedback__button-name">
-                                Ответить
-                            </p>
-                            <span class="material-icons feedback__button-icon">
-                reply
-              </span>
-                        </div>
-                    </div>
-                </div>
-                <button type="button" class="article__get-feedback">
-                    Оставить отзыв
-                </button>
-            </section>
+            @include('front.partials.reviews', ['entity' => $event, 'namespace' => 'events'])
 
             @if($hotels->count() > 0)
                 <section class="article__place-for-sleep article__block" id="places">

@@ -12,7 +12,7 @@
             </div>
             <div class="list__subinfo d-flex justify-content-between align-items-center">
                 <p class="list__subprice mb-0">
-                    {{ DateHelper::eventRangeTime($event) }}
+                    {{ DateHelper::eventRangeTimeStd($event) }}
                 </p>
             </div>
             <p class="list__name exo">

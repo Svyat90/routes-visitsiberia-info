@@ -77,6 +77,8 @@ class PlaceController extends FrontController
      */
     public function show(Request $request, Place $place)
     {
+        $place->load('reviews', 'reviews.replies');
+
         [$events, $meals, $hotels, $nearGeoData] = $this->service->getNearData($place);
 
         return view('front.places.show', compact(
