@@ -61,12 +61,18 @@ class RouteController extends FrontController
                 'whom_id' => $request->whom_id
             ]);
 
+        $routeType = $request->has('transport_id') && $request->transport_id
+            ? $dictionaryService->repository->getDictionary($request->transport_id)->type
+            : null;
+
         return view('front.routes.index', compact(
             'routes',
             'geoData',
             'transportList',
             'whomList',
-            'typeList'
+            'typeList',
+            'routes',
+            'routeType'
         ));
     }
 
@@ -76,6 +82,7 @@ class RouteController extends FrontController
      * @param EventService $eventService
      * @param HotelService $hotelService
      * @param MealService  $mealService
+     * @param DictionaryService $dictionaryService
      *
      * @return Application|Factory|View
      */
@@ -84,7 +91,8 @@ class RouteController extends FrontController
         PlaceService $placeService,
         EventService $eventService,
         HotelService $hotelService,
-        MealService $mealService
+        MealService $mealService,
+        DictionaryService $dictionaryService
     ) {
         $route->load('reviews', 'reviews.replies');
 
@@ -138,11 +146,14 @@ class RouteController extends FrontController
             return ['lat' => $model->lat, 'lng' => $model->lng];
         });
 
+        $routeType = $dictionaryService->getRouteTransportType($route);
+
         return view('front.routes.show', compact(
             'route',
             'routable',
             'geoData',
-            'nearGeoDataAll'
+            'nearGeoDataAll',
+            'routeType'
         ));
     }
 

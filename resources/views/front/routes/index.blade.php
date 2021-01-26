@@ -263,7 +263,8 @@
                 var multiRoute = new ymaps.multiRouter.MultiRoute({
                     referencePoints: points,
                     params: {
-                        results: 1
+                        results: 1,
+                        routingMode: '{{ $routeType }}',
                     }
                 });
 

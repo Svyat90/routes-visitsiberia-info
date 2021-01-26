@@ -7,13 +7,17 @@ use App\Helpers\LabelHelper;
 use App\Http\Requests\Admin\Dictionaries\StoreDictionaryRequest;
 use App\Http\Requests\Admin\Dictionaries\UpdateDictionaryRequest;
 use App\Models\Dictionary;
+use App\Models\Route;
 use App\Repositories\DictionaryRepository;
+use App\Traits\FilterConstantsTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Yajra\DataTables\Facades\DataTables;
 
 class DictionaryService
 {
+    use FilterConstantsTrait;
+
     public const TYPE_SEASON = 'season';
     public const TYPE_REST = 'rest';
     public const TYPE_WHOM = 'whom';
@@ -22,16 +26,19 @@ class DictionaryService
     public const TYPE_WAY_TRAVEL = 'way_travel';
     public const TYPE_PLACEMENT = 'placement';
     public const TYPE_TRANSPORT = 'transport';
-    public const TYPE_TAG = 'tag';
     public const TYPE_BREAK_PEOPLE = 'break_people';
     public const TYPE_DELIVERY_FOOD = 'delivery_food';
     public const TYPE_CITY = 'city';
     public const TYPE_DISTANCE = 'distance';
 
+    public const SUB_TYPE_TRANSPORT_CAR = 'auto';
+    public const SUB_TYPE_TRANSPORT_BUS = 'masstransit';
+    public const SUB_TYPE_TRANSPORT_PEDESTRIAN = 'pedestrian';
+
     /**
      * @var DictionaryRepository
      */
-    private DictionaryRepository $repository;
+    public DictionaryRepository $repository;
 
     /**
      * DictionaryService constructor.
@@ -129,6 +136,31 @@ class DictionaryService
     public function getPlacementList() : Collection
     {
         return $this->repository->getChildrenByType(self::TYPE_PLACEMENT);
+    }
+
+    /**
+     * @return array
+     */
+    public function getTransportTypesList() : array
+    {
+        return self::filterConstants('SUB_TYPE_TRANSPORT');
+    }
+
+    /**
+     * @param Route $route
+     * @return string|null
+     */
+    public function getRouteTransportType(Route $route)
+    {
+        $route = $route->dictionaries
+            ->whereIn('type', self::getTransportTypesList())
+            ->first();
+
+        if (! $route) {
+            return null;
+        }
+
+        return $route->type;
     }
 
     /**

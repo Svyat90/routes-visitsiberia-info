@@ -575,7 +575,8 @@
                     return [el.lat, el.lng]
                 }),
                 params: {
-                    results: 1
+                    results: 1,
+                    routingMode: '{{ $routeType }}',
                 }
             }));
 

@@ -95,14 +95,6 @@ class DictionarySeeder extends Seeder
                 'гостиницы для животных'
             ]
         ],
-        'Теги' => [
-            'type' => DictionaryService::TYPE_TAG,
-            'values' => [
-                'на машыне',
-                'пешком',
-                'общественный транспорт'
-            ]
-        ],
         'Доступность для людей с дополнительными потребностями' => [
             'type' => DictionaryService::TYPE_BREAK_PEOPLE,
             'values' => [
