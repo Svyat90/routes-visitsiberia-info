@@ -143,11 +143,7 @@ class DictionaryService
         return Datatables::of($collection)
             ->addColumn('placeholder', '&nbsp;')
             ->editColumn('id', fn ($row) => $row->id)
-            ->editColumn('name', function ($row) {
-                return $row->children->count()
-                    ? "<a href='" . route("admin.dictionaries.index.child", $row->id) ."'>{$row->name}</a>"
-                    : $row->name;
-            })
+            ->editColumn('name', fn ($row) => LabelHelper::dictionaryLabel($row))
             ->editColumn('hidden', fn ($row) => LabelHelper::boolLabel($row->hidden))
             ->editColumn('created_at', fn ($row) => $row->created_at)
             ->addColumn('actions', fn ($row) => DatatablesHelper::renderActionsRow($row, 'dictionaries'))

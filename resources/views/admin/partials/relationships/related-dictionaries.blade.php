@@ -1,7 +1,7 @@
 <div class="m-3">
     <div class="card">
         <div class="card-header">
-            {{ __('cruds.replies.title_singular') }} {{ __('global.list') }}
+            {{ __('cruds.dictionaries.title') }} {{ __('global.list') }}
         </div>
 
         <div class="card-body">
@@ -16,13 +16,13 @@
                             {{ __('cruds.base.fields.id') }}
                         </th>
                         <th>
-                            {{ __('cruds.replies.fields.name') }}
+                            {{ __('cruds.dictionaries.fields.name') }}
                         </th>
                         <th>
-                            {{ __('cruds.replies.fields.is_admin') }}
+                            {{ __('cruds.dictionaries.fields.type') }}
                         </th>
                         <th>
-                            {{ __('cruds.replies.fields.body') }}
+                            {{ __('cruds.dictionaries.fields.hidden') }}
                         </th>
                         <th>
                             {{ __('cruds.base.fields.created_at') }}
@@ -33,34 +33,34 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($replies as $key => $reply)
-                        <tr data-entry-id="{{ $reply->id }}">
+                    @foreach($dictionaries as $dictionary)
+                        <tr data-entry-id="{{ $dictionary->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $reply->id }}
+                                {{ $dictionary->id }}
                             </td>
                             <td>
-                                {{ $reply->name }}
+                                {!! LabelHelper::dictionaryLabel($dictionary) !!}
                             </td>
                             <td>
-                                {!! LabelHelper::boolLabel($reply->is_admin) !!}
+                                {{ $dictionary->type }}
                             </td>
                             <td>
-                                {!! $reply->body !!}
-                            </td>
-
-                            <td>
-                                {{ $reply->created_at }}
+                                {!! LabelHelper::boolLabel($dictionary->hidden) !!}
                             </td>
                             <td>
-                                <form action="{{ route('admin.replies.destroy', $reply->id) }}"
+                                {{ $dictionary->created_at }}
+                            </td>
+                            <td>
+                                <form action="{{ route('admin.dictionaries.detach', ['entity' => $namespace, 'entity_id' => $entity_id, 'dictionary_id' => $dictionary->id]) }}"
                                       method="POST" onsubmit="return confirm('{{ __('global.areYouSure') }}');"
                                       style="display: inline-block;">
+                                    @csrf
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ __('global.delete') }}">
+                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ __('global.disconnect') }}">
                                 </form>
                             </td>
                         </tr>

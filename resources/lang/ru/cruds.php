@@ -3,7 +3,7 @@
 return [
     'base' => [
         'fields'         => [
-            'id'                => 'Идендификатор',
+            'id'                => 'ID',
             'image'             => 'Изображение',
             'slug'             => 'Слаг',
             'created_at'        => 'Создано в',
@@ -362,8 +362,8 @@ return [
         ],
     ],
     'reviews'                     => [
-        'title'          => 'Reviews',
-        'title_singular' => 'Review',
+        'title'          => 'Отзывы',
+        'title_singular' => 'Отзыв',
         'fields'         => [
             'name'              => 'Имя',
             'name_helper'       => '',

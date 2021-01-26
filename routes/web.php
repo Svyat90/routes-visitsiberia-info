@@ -63,6 +63,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     // Dictionaries
     Route::delete('dictionaries/multi-destroy', [DictionaryController::class, 'massDestroy'])->name('dictionaries.multi_destroy');
     Route::get('dictionaries/child/{dictionary_id}', [DictionaryController::class, 'indexChild'])->name('dictionaries.index.child');
+    Route::delete('dictionaries/detach', [DictionaryController::class, 'detach'])->name('dictionaries.detach');
     Route::resource('dictionaries', 'Admin\DictionaryController');
 
     // Places

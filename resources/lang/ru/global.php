@@ -65,4 +65,6 @@ return [
     "route_list" => "Готовые маршруты",
     "route" => "Маршрут",
     "reply" => "Ответить",
+    "disconnect" => "Отсоединить",
+    "success_delete_dictionary" => "Словарь успешно отсоединен",
 ];

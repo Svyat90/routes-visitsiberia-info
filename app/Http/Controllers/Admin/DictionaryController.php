@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\ModelHelper;
 use App\Http\Controllers\AdminController;
+use App\Http\Requests\Admin\Dictionaries\DetachDictionaryRequest;
 use App\Http\Requests\Admin\Dictionaries\MassDestroyDictionaryRequest;
 use App\Http\Requests\Admin\Dictionaries\StoreDictionaryRequest;
 use App\Http\Requests\Admin\Dictionaries\UpdateDictionaryRequest;
@@ -147,4 +149,19 @@ class DictionaryController extends AdminController
         return response()->noContent();
     }
 
+    /**
+     * @param DetachDictionaryRequest $request
+     * @return RedirectResponse
+     */
+    public function detach(DetachDictionaryRequest $request) : RedirectResponse
+    {
+        $model = ModelHelper::findModel($request->entity, $request->entity_id);
+
+        if ($model) {
+            $model->dictionaries()->detach($request->dictionary_id);
+            session()->flash('message', __('global.success_delete_dictionary'));
+        }
+
+        return redirect()->back();
+    }
 }

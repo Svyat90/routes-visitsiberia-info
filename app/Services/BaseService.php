@@ -2,8 +2,7 @@
 
 namespace App\Services;
 
-use \App\Models\Meal;
-use \App\Models\Hotel;
+use App\Helpers\ModelHelper;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -96,9 +95,7 @@ abstract class BaseService
             return 0;
         }
 
-        $nameModel = ucfirst(Str::singular($table));
-        $class = 'App\\Models\\' . $nameModel;
-        $model = $class::find($id);
+        $model = ModelHelper::findModel($table, $id);
 
         return $model->averageRating() ?? 0;
     }

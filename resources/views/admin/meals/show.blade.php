@@ -73,7 +73,7 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane" role="tabpanel" id="related-dictionaries">
-{{--                @includeIf('admin.partials.relationships.related-categories', ['categories' => $meal->categories])--}}
+                @includeIf('admin.partials.relationships.related-dictionaries', ['namespace' => 'meals', 'entity_id' => $meal->id, 'dictionaries' => $meal->dictionaries])
             </div>
         </div>
     </div>

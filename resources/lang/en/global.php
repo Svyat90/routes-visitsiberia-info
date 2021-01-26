@@ -65,4 +65,6 @@ return [
     "route_list" => "Route List",
     "route" => "Route",
     "reply" => "Reply",
+    "disconnect" => "Disconnect",
+    "success_delete_dictionary" => "Dictionary disconnected successfully",
 ];
