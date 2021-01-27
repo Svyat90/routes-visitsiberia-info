@@ -42,11 +42,9 @@ class SearchService
 
         return $model::query()
             ->whereRaw("json_unquote(json_extract(`name`, '$.\"{$locale}\"')) LIKE '%" . $query . "%';")
-            ->get(['id', 'name', 'location'])
-            ->map(function (Model $model) {
-                $model->location = LabelHelper::locationLabel($model->location, 16);
-                return $model;
-            });
+            ->get([
+                'id', 'name', 'city'
+            ]);
     }
 
 }

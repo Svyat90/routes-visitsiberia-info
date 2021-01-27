@@ -145,10 +145,10 @@
                 for (let index = 0; index < Object.keys(response.routes).length; index++) {
                     let id = response.routes[index].id;
                     let name = response.routes[index].name[locale];
-                    let location = response.routes[index].location[locale];
+                    let city = response.routes[index].city[locale];
                     let route = '{{ route('front.routes.index') }}';
 
-                    insertItem(id, name, location, route, divRoutes, 'routes')
+                    insertItem(id, name, city, route, divRoutes, 'routes')
                 }
             }
 
@@ -166,10 +166,10 @@
                 for (let index = 0; index < Object.keys(response.hotels).length; index++) {
                     let id = response.hotels[index].id;
                     let name = response.hotels[index].name[locale];
-                    let location = response.hotels[index].location[locale];
+                    let city = response.hotels[index].city[locale];
                     let route = '{{ route('front.hotels.index') }}';
 
-                    insertRatingItem(id, name, location, route, divHotels, 'hotels')
+                    insertRatingItem(id, name, city, route, divHotels, 'hotels')
                 }
             }
 
@@ -187,10 +187,10 @@
                 for (let index = 0; index < Object.keys(response.meals).length; index++) {
                     let id = response.meals[index].id;
                     let name = response.meals[index].name[locale];
-                    let location = response.meals[index].location[locale];
+                    let city = response.meals[index].city[locale];
                     let route = '{{ route('front.meals.index') }}';
 
-                    insertItem(id, name, location, route, divMeals, 'meals')
+                    insertItem(id, name, city, route, divMeals, 'meals')
                 }
             }
 
@@ -208,10 +208,10 @@
                 for (let index = 0; index < Object.keys(response.events).length; index++) {
                     let id = response.events[index].id;
                     let name = response.events[index].name[locale];
-                    let location = response.events[index].location[locale];
+                    let city = response.events[index].city[locale];
                     let route = '{{ route('front.events.index') }}';
 
-                    insertItem(id, name, location, route, divEvents, 'events')
+                    insertItem(id, name, city, route, divEvents, 'events')
                 }
             }
 
@@ -229,14 +229,14 @@
                 for (let index = 0; index < count; index++) {
                     let id = response.places[index].id;
                     let name = response.places[index].name[locale];
-                    let location = response.places[index].location[locale];
+                    let city = response.places[index].city[locale];
                     let route = '{{ route('front.places.index') }}';
 
-                    insertRatingItem(id, name, location, route, divPlaces, 'places')
+                    insertRatingItem(id, name, city, route, divPlaces, 'places')
                 }
             }
 
-            function insertItem(id, name, location, route, container, namespace)
+            function insertItem(id, name, city, route, container, namespace)
             {
                 let activeFavourite = generateActiveFavouriteClass(id, namespace);
 
@@ -247,7 +247,7 @@
                 let insertItem = '<div class="search__result-item d-flex flex-row align-items-center">'
                     + '<a class="search__result-name mb-0 list__name exo " href="' + route + '/' + id + '">' + name + '</a>'
                     + '<p class="list__city search__result-geo">'
-                        + '<span class="material-icons">room </span> ' + location
+                        + '<span class="material-icons">room </span> ' + city
                     + '</p>'
                     + '<div class="search__result-buttons d-flex flex-row">'
                     + '<div class="list__button search__result-button material-icons page-nav__icon-add route-item-add-ajax ' + addClass + '" data-id="' + id + '" data-type="route-' + namespace + '">add</div>'
@@ -260,7 +260,7 @@
                 container.append(insertItem)
             }
 
-            function insertRatingItem(id, name, location, route, container, namespace, rating = 2)
+            function insertRatingItem(id, name, city, route, container, namespace, rating = 2)
             {
                 let activeFavourite = generateActiveFavouriteClass(id, namespace);
 
@@ -268,9 +268,9 @@
                 let addClass = isAdded === true ? "d-none" : "";
                 let addedClass = isAdded === true ? "" : "d-none";
 
-                let locationContainer = '';
-                if (location) {
-                    locationContainer = '<span class="material-icons">room </span>' + location
+                let cityContainer = '';
+                if (city) {
+                    cityContainer = '<span class="material-icons">room </span>' + city
                 }
 
                 let insertItem = '<div class="search__result-item d-flex flex-row align-items-center">'
@@ -283,7 +283,7 @@
                         + '<span class="material-icons">star</span>'
                     + '</a>'
                     + '<p class="list__city search__result-geo">'
-                        + locationContainer
+                        + cityContainer
                     + '</p>'
                     + '<div class="search__result-buttons d-flex flex-row">'
                         + '<div class="list__button search__result-button material-icons page-nav__icon-add route-item-add-ajax ' + addClass + '" data-id="' + id + '" data-type="route-' + namespace + '">add</div>'
