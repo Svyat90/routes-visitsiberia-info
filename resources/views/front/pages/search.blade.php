@@ -268,6 +268,11 @@
                 let addClass = isAdded === true ? "d-none" : "";
                 let addedClass = isAdded === true ? "" : "d-none";
 
+                let locationContainer = '';
+                if (location) {
+                    locationContainer = '<span class="material-icons">room </span>' + location
+                }
+
                 let insertItem = '<div class="search__result-item d-flex flex-row align-items-center">'
                     + '<a class="search__result-name mb-0 list__name exo list__subrating d-flex" data-rating="' + rating +'" href="' + route + '/' + id + '">'
                         + '<p class="toe">' + name + '</p>'
@@ -278,7 +283,7 @@
                         + '<span class="material-icons">star</span>'
                     + '</a>'
                     + '<p class="list__city search__result-geo">'
-                        + '<span class="material-icons">room </span>' + location
+                        + locationContainer
                     + '</p>'
                     + '<div class="search__result-buttons d-flex flex-row">'
                         + '<div class="list__button search__result-button material-icons page-nav__icon-add route-item-add-ajax ' + addClass + '" data-id="' + id + '" data-type="route-' + namespace + '">add</div>'

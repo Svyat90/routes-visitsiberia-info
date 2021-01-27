@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\LabelHelper;
 use App\Models\Event;
 use App\Models\Hotel;
 use App\Models\Meal;
@@ -41,7 +42,11 @@ class SearchService
 
         return $model::query()
             ->whereRaw("json_unquote(json_extract(`name`, '$.\"{$locale}\"')) LIKE '%" . $query . "%';")
-            ->get(['id', 'name', 'location']);
+            ->get(['id', 'name', 'location'])
+            ->map(function (Model $model) {
+                $model->location = LabelHelper::locationLabel($model->location, 16);
+                return $model;
+            });
     }
 
 }

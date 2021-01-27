@@ -95,10 +95,12 @@
                                         <p class="list__name exo">
                                             {{ $meal->name }}
                                         </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            {{ $meal->location }}
-                                        </p>
+                                        @if($meal->location)
+                                            <p class="list__city">
+                                                <span class="material-icons">room&nbsp;</span>
+                                                {{ LabelHelper::locationLabel($meal->location) }}
+                                            </p>
+                                        @endif
                                     </a>
                                     <div class="list__buttons d-flex flex-row align-items-center">
                                         <button class="list__button list__button-add route-item-add" data-id="{{ $meal->id }}" data-type="route-meals">

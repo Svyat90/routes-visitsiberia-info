@@ -97,8 +97,12 @@
                         @endforeach
                     @endif
 
-                    <a href="#" class="material-icons article__contact article__link"><span class="material-icons">room</span>
-                        {{ $place->location }}</a>
+                    @if($place->location)
+                        <a href="#" class="material-icons article__contact article__link">
+                            <span class="material-icons">room</span>
+                            {{ $place->location }}
+                        </a>
+                    @endif
                 </div>
             </section>
 

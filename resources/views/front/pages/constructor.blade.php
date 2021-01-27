@@ -19,10 +19,12 @@
                                     <a href="{{ RouteHelper::show($entity) }}" class="constructor__result-name mb-0 list__name exo">
                                         {{ $entity->name }}
                                     </a>
-                                    <p class="list__city constructor__result-geo">
-                                        <span class="material-icons">room </span>
-                                        {{ $entity->location }}
-                                    </p>
+                                    @if($entity->location)
+                                        <p class="list__city constructor__result-geo">
+                                            <span class="material-icons">room </span>
+                                            {{ LabelHelper::locationLabel($entity->location) }}
+                                        </p>
+                                    @endif
                                     <div class="constructor__result-dragger">
                                     <span class="material-icons">
                                       menu
@@ -49,10 +51,12 @@
                             <a href="{{ RouteHelper::show($entity) }}" class="page__route-name exo">
                                 {{ $entity->name }}
                             </a>
-                            <a href="{{ RouteHelper::show($entity) }}" class="page__route-city">
-                                <span class="material-icons">room</span>
-                                {{ $entity->location }}
-                            </a>
+                            @if($entity->location)
+                                <a href="{{ RouteHelper::show($entity) }}" class="page__route-city">
+                                    <span class="material-icons">room</span>
+                                    {{ LabelHelper::locationLabel($entity->location) }}
+                                </a>
+                            @endif
                         </div>
                     @endforeach
 
@@ -66,7 +70,7 @@
                 </p>
 
                 <button type="button" class="article__get-feedback mb-364">
-                    {{ $vars['review_give_feedback'] }}
+                    {{ $vars['constructor_save_route'] }}
                 </button>
 
             @else

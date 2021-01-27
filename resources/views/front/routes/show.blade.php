@@ -70,10 +70,12 @@
                             {{ $entity->image ? $entity->image->img('route')->lazy() : '' }}
                         </div>
                         <a href="{{ RouteHelper::show($entity) }}" class="page__route-name exo">{{ $entity->name }}</a>
-                        <a href="{{ RouteHelper::show($entity) }}" class="page__route-city">
-                            <span class="material-icons">room</span>
-                            {{ $entity->location }}
-                        </a>
+                        @if($entity->location)
+                            <a href="{{ RouteHelper::show($entity) }}" class="page__route-city">
+                                <span class="material-icons">room</span>
+                                {{ LabelHelper::locationLabel($entity->location) }}
+                            </a>
+                        @endif
                     </div>
                 @endforeach
             </section>
@@ -105,8 +107,12 @@
                         <a href="{{ $route->email }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $route->email }}</a>
                     @endif
 
-                    <a href="#" class="material-icons article__contact article__link"><span class="material-icons">room</span>
-                        {{ $route->location }}</a>
+                    @if($route->location)
+                        <a href="#" class="material-icons article__contact article__link">
+                            <span class="material-icons">room</span>
+                        {{ $route->location }}
+                        </a>
+                    @endif
                 </div>
             </section>
 

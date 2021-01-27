@@ -18,10 +18,12 @@
             <p class="list__name exo">
                 {{ $event->name }}
             </p>
-            <p class="list__city">
-                <span class="material-icons">room&nbsp;</span>
-                {{ $event->location }}
-            </p>
+            @if($event->location)
+                <p class="list__city">
+                    <span class="material-icons">room&nbsp;</span>
+                    {{ LabelHelper::locationLabel($event->location, 43) }}
+                </p>
+            @endif
         </a>
     </div>
 </div>

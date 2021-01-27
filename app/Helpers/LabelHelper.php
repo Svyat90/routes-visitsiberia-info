@@ -29,4 +29,22 @@ class LabelHelper
             : $dictionary->name;
     }
 
+    /**
+     * @param string|null $text
+     * @param int $length
+     * @return string
+     */
+    public static function locationLabel(? string $text, int $length = 28) : string
+    {
+        if (! $text) {
+            return "";
+        }
+
+        if (mb_strlen($text) > $length) {
+            return mb_substr($text, 0, $length) . "...";
+        }
+
+        return $text;
+    }
+
 }

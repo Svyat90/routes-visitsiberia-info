@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 
 abstract class BaseService
 {
+    private const DELIMITER = ':_:';
 
     /**
      * @var Collection
@@ -59,10 +60,12 @@ abstract class BaseService
                     sin(radians(lat))
                 )) AS distance,
                 {$additionalFields}
-                media.file_name,
-                media.id as media_id
+                (SELECT CONCAT(id, '" . self::DELIMITER. "', file_name)
+                    FROM media
+                    WHERE media.model_id = {$table}.id
+                    AND media.model_type='App\\\\Models\\\\" . ucfirst(Str::singular($table)) . "'
+                    LIMIT 1) as media_data
             FROM {$table}
-            LEFT JOIN media ON media.model_id = {$table}.id AND media.model_type='App\\\\Models\\\\" . ucfirst(Str::singular($table)) . "'
             HAVING distance < {$radius}
             ORDER BY distance
             LIMIT 0 , {$limit};"
@@ -70,18 +73,20 @@ abstract class BaseService
 
         $locale = app()->getLocale();
 
-        return collect($rawData)->map(function (\stdClass $item) use ($locale, $table) {
-            $defaultLocale = 'ru';
-            $names = json_decode($item->name);
-            $locales = json_decode($item->location);
-            $item->name = $names->$locale ?? $names->$defaultLocale;
-            $item->location = $locales->$locale ?? $locales->$defaultLocale;
-            $item->distance = round($item->distance, 2);
-            $item->type = $table;
-            $item->imagePath = $this->urlForImage($item,'near');
-            $item->averageRating = $this->getAverageRating($item->id, $table);
-            return $item;
-        });
+        return collect($rawData)
+            ->unique()
+            ->map(function (\stdClass $item) use ($locale, $table) {
+                $defaultLocale = 'ru';
+                $names = json_decode($item->name);
+                $locales = json_decode($item->location);
+                $item->name = $names->$locale ?? $names->$defaultLocale ?? '';
+                $item->location = $locales->$locale ?? $locales->$defaultLocale ?? '';
+                $item->distance = round($item->distance, 2);
+                $item->type = $table;
+                $item->imagePath = $this->urlForImage($item,'near');
+                $item->averageRating = $this->getAverageRating($item->id, $table);
+                return $item;
+            });
     }
 
     /**
@@ -126,24 +131,25 @@ abstract class BaseService
      */
     private function urlForImage($item, string $conversion) : string
     {
-        if (! $item->file_name) {
+        if (! $item->media_data) {
             return "";
         }
 
-        $arr = explode(".", $item->file_name);
+        [$id, $fileName] = explode(self::DELIMITER, $item->media_data);
+        $arr = explode(".", $fileName);
         if (count($arr) === 2) {
             $name = $arr[0];
             $exp = $arr[1];
 
         } else {
-            preg_match('/(.?)*\./', $item->file_name, $matches);
+            preg_match('/(.?)*\./', $fileName, $matches);
             $name = rtrim($matches[0], ".");
 
-            preg_match('/\.(.?){3,4}$/', $item->file_name, $matches);
+            preg_match('/\.(.?){3,4}$/', $fileName, $matches);
             $exp = trim($matches[0], ".");
         }
 
-        return sprintf("%s/conversions/%s-%s.%s", $item->media_id, $name, $conversion, $exp);
+        return sprintf("%s/conversions/%s-%s.%s", $id, $name, $conversion, $exp);
     }
 
     /**

@@ -25,10 +25,12 @@
             <p class="list__name exo">
                 {{ $hotel->name }}
             </p>
-            <p class="list__city">
-                <span class="material-icons">room&nbsp;</span>
-                {{ $hotel->location }}
-            </p>
+            @if($hotel->location)
+                <p class="list__city">
+                    <span class="material-icons">room&nbsp;</span>
+                    {{ LabelHelper::locationLabel($hotel->location, 43) }}
+                </p>
+            @endif
         </a>
     </div>
 </div>

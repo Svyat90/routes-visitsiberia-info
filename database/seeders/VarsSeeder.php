@@ -420,6 +420,10 @@ class VarsSeeder extends Seeder
             'ru' => 'Нет данних',
             'en' => 'No data'
         ],
+        'constructor_save_route' => [
+            'ru' => 'Сохранить маршрут',
+            'en' => 'Save route'
+        ],
         'search_not_found' => [
             'ru' => 'Результатов не найдено',
             'en' => 'No results found'

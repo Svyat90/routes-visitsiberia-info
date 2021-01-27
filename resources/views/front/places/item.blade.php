@@ -13,10 +13,12 @@
             <p class="list__name exo">
                 {{ $place->name }}
             </p>
-            <p class="list__city">
-                <span class="material-icons">room&nbsp;</span>
-                {{ $place->location }}
-            </p>
+            @if($place->location)
+                <p class="list__city">
+                    <span class="material-icons">room&nbsp;</span>
+                    {{ LabelHelper::locationLabel($place->location, 43) }}
+                </p>
+            @endif
         </a>
     </div>
 </div>
