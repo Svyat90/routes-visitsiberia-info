@@ -45,8 +45,8 @@ class VarsSeeder extends Seeder
             'en' => 'Make a route'
         ],
         'footer_title' => [
-            'ru' => 'Туристский <br> информационный центр',
-            'en' => 'Tourist <br> Information Center'
+            'ru' => 'Туристский <br> информационный центр <br> КРАСНОЯРСКОГО КРАЯ',
+            'en' => 'Tourist <br> Information Center <br> KRASNOYARSKY KRAI'
         ],
         'footer_address' => [
             'ru' => 'Красноярск, ул. Ленина, 120',
@@ -233,8 +233,8 @@ class VarsSeeder extends Seeder
             'en' => 'Whom'
         ],
         'filter_time_range' => [
-            'ru' => 'Сроки',
-            'en' => 'Timing'
+            'ru' => 'Даты',
+            'en' => 'Dates'
         ],
         'filter_transport' => [
             'ru' => 'Транспорт',

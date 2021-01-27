@@ -15,7 +15,7 @@ class MediaService
     public function createFile(MediaUploadRequest $request) : array
     {
         $file = $request->file('file');
-        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+        $name = uniqid() . '_' . $this->clearFileName($file);
         $tempPath = storage_path('tmp/uploads');
         FileSystemHelper::checkExistsFolder($tempPath);
         $file->move($tempPath, $name);
@@ -23,4 +23,16 @@ class MediaService
         return [$name, $file->getClientOriginalName()];
     }
 
+    /**
+     * @param $file
+     * @return string
+     */
+    private function clearFileName($file) : string
+    {
+        $name = str_replace($file->getClientOriginalExtension(), '', $file->getClientOriginalName());
+        $name = preg_replace('/\./', '-', $name);
+        $name = rtrim($name, '-');
+
+        return sprintf("%s.%s", $name, $file->getClientOriginalExtension());
+    }
 }

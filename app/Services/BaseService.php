@@ -130,7 +130,18 @@ abstract class BaseService
             return "";
         }
 
-        [$name, $exp] = explode(".", $item->file_name);
+        $arr = explode(".", $item->file_name);
+        if (count($arr) === 2) {
+            $name = $arr[0];
+            $exp = $arr[1];
+
+        } else {
+            preg_match('/(.?)*\./', $item->file_name, $matches);
+            $name = rtrim($matches[0], ".");
+
+            preg_match('/\.(.?){3,4}$/', $item->file_name, $matches);
+            $exp = trim($matches[0], ".");
+        }
 
         return sprintf("%s/conversions/%s-%s.%s", $item->media_id, $name, $conversion, $exp);
     }
