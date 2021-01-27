@@ -82,12 +82,12 @@
                                             <p class="list__name exo">
                                                 {{ $event->name }}
                                             </p>
-                                            @if($event->location)
-                                                <p class="list__city">
+                                            <p class="list__city">
+                                                @if($event->city)
                                                     <span class="material-icons">room&nbsp;</span>
-                                                    {{ LabelHelper::locationLabel($event->location) }}
-                                                </p>
-                                            @endif
+                                                    {{ $event->city }}
+                                                @endif
+                                            </p>
                                         </a>
                                         <div class="list__buttons d-flex flex-row align-items-center">
                                             <button class="list__button list__button-add route-item-add" data-id="{{ $event->id }}" data-type="route-events">

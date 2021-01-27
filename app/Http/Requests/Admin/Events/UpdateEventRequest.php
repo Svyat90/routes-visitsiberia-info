@@ -11,6 +11,8 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $meta_title
  * @property string $meta_description
  * @property array $name
+ * @property array $location
+ * @property array $city
  * @property array $page_desc
  * @property array $history_desc
  * @property array $contact_desc
@@ -59,6 +61,8 @@ class UpdateEventRequest extends FormRequest
             'lng' => 'required|string',
             'location' => 'sometimes|array',
             'location.*' => 'string|nullable',
+            'city' => 'sometimes|array',
+            'city.*' => 'string|nullable',
             'image' => 'required|string',
             'image_history' => 'sometimes|nullable|string',
             'image_gallery' => 'sometimes|nullable|array',

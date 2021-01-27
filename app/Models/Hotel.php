@@ -44,7 +44,7 @@ class Hotel extends BaseModel
         'name', 'meta_title', 'meta_description', 'description',
         'conditions_accommodation', 'conditions_payment',
         'room_desc', 'additional_services','food_desc',
-        'contact_desc', 'location'
+        'contact_desc', 'city', 'location'
     ];
 
     /**
@@ -54,7 +54,7 @@ class Hotel extends BaseModel
         'active', 'recommended', 'name', 'meta_title', 'meta_description',
         'conditions_accommodation', 'conditions_payment', 'room_desc', 'additional_services',
         'food_desc', 'contact_desc', 'site_link', 'social_links', 'aggregator_links',
-        'phones', 'location', 'lat', 'lng', 'description', 'price'
+        'phones', 'city', 'location', 'lat', 'lng', 'description', 'price',
     ];
 
     /**

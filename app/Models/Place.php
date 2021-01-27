@@ -39,8 +39,8 @@ class Place extends BaseModel
      * @var array|string[]
      */
     public array $translatable = [
-        'name', 'header_desc', 'page_desc', 'location', 'history_desc', 'contact_desc', 'life_hacks',
-        'meta_title', 'meta_description', 'contacts_representatives', 'additional_links',
+        'name', 'header_desc', 'page_desc', 'city', 'location', 'history_desc', 'contact_desc', 'life_hacks',
+        'meta_title', 'meta_description', 'contacts_representatives', 'additional_links'
     ];
 
     /**
@@ -48,7 +48,7 @@ class Place extends BaseModel
      */
     protected $fillable = [
         'name', 'header_desc', 'page_desc', 'recommended', 'active', 'life_hacks', 'history_desc',
-        'contact_desc', 'lat', 'lng', 'location', 'meta_title', 'meta_description', 'site_link',
+        'contact_desc', 'lat', 'lng', 'city', 'location', 'meta_title', 'meta_description', 'site_link',
         'social_links', 'contacts_representatives', 'additional_links',
     ];
 

@@ -87,7 +87,7 @@
                 <div class="article__text article__block-info wow fadeInUp">
                     {!! $route->page_desc !!}
                     <p class="article__contact-title" id="info">
-                        {{ $vars['base_help_info'] }}::
+                        {{ $vars['base_help_info'] }}:
                     </p>
 
                     <p>{!! $route->life_hacks !!}</p>

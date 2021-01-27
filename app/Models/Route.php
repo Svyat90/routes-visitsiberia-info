@@ -38,7 +38,7 @@ class Route extends BaseModel
      * @var array|string[]
      */
     public array $translatable = [
-        'name', 'header_desc', 'page_desc', 'location', 'history_desc', 'contact_desc', 'life_hacks',
+        'name', 'header_desc', 'page_desc', 'city', 'location', 'history_desc', 'contact_desc', 'life_hacks',
         'meta_title', 'meta_description', 'additional_links', 'features',
         'static_info', 'duration', 'list_points', 'what_take', 'addresses_representatives',
         'phones_representatives', 'more_info',
@@ -49,7 +49,7 @@ class Route extends BaseModel
      */
     protected $fillable = [
         'name', 'header_desc', 'page_desc', 'recommended', 'active', 'life_hacks', 'history_desc',
-        'contact_desc', 'lat', 'lng', 'location', 'meta_title', 'meta_description', 'site_link',
+        'contact_desc', 'lat', 'lng', 'city', 'location', 'meta_title', 'meta_description', 'site_link',
         'additional_links', 'features', 'email',
         'static_info', 'duration', 'list_points', 'what_take', 'addresses_representatives',
         'phones_representatives', 'more_info',

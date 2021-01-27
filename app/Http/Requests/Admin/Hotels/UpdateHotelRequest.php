@@ -22,7 +22,8 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $aggregator_links
  * @property string $phones
  * @property integer $price
- * @property string $location
+ * @property array $location
+ * @property array $city
  * @property string $lat
  * @property string $lng
  * @property boolean $active
@@ -79,6 +80,8 @@ class UpdateHotelRequest extends FormRequest
             'price' => 'sometimes|nullable|integer',
             'location' => 'sometimes|array',
             'location.*' => 'string|nullable',
+            'city' => 'sometimes|array',
+            'city.*' => 'string|nullable',
             'image' => 'required|string',
             'image_history' => 'sometimes|nullable|string',
             'image_gallery' => 'sometimes|nullable|array',

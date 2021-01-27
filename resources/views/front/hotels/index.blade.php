@@ -91,7 +91,9 @@
                                         </div>
                                         <div class="list__subinfo d-flex justify-content-between align-items-center">
                                             <p class="list__subprice mb-0">
-                                                {{ $vars['base_price_from'] }} {{ $hotel->price }} {{ $vars['base_price_currency'] }}
+                                                @if($hotel->price)
+                                                    {{ $vars['base_price_from'] }} {{ $hotel->price }} {{ $vars['base_price_currency'] }}
+                                                @endif
                                             </p>
                                             <p class="list__subrating d-flex mb-0" data-rating="{{ $hotel->averageRating() }}">
                                                 <span class="material-icons">star</span>
@@ -104,12 +106,12 @@
                                         <p class="list__name exo">
                                             {{ $hotel->name }}
                                         </p>
-                                        @if($hotel->location)
-                                            <p class="list__city">
+                                        <p class="list__city">
+                                            @if($hotel->city)
                                                 <span class="material-icons">room&nbsp;</span>
-                                                {{ LabelHelper::locationLabel($hotel->location) }}
-                                            </p>
-                                        @endif
+                                                {{ $hotel->city }}
+                                            @endif
+                                        </p>
                                     </a>
                                     <div class="list__buttons d-flex flex-row align-items-center">
                                         <button class="list__button list__button-add route-item-add" data-id="{{ $hotel->id }}" data-type="route-hotels">

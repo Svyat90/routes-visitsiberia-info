@@ -96,12 +96,12 @@
                                                 <a href="{{ RouteHelper::show($entity) }}" class="list__slide-name exo">
                                                     {{ $entity->name }}
                                                 </a>
-                                                @if($entity->location)
-                                                    <p class="list__slide-city">
+                                                <p class="list__slide-city">
+                                                    @if($entity->city)
                                                         <span class="material-icons">room&nbsp;</span>
-                                                        {{ LabelHelper::locationLabel($entity->location) }}
-                                                    </p>
-                                                @endif
+                                                        {{ $entity->city }}
+                                                    @endif
+                                                </p>
                                             </div>
                                         </div>
                                         @endforeach

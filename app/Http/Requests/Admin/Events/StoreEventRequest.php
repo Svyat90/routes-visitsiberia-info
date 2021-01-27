@@ -8,6 +8,8 @@ use Illuminate\Foundation\Http\FormRequest;
  * Class StorePlaceRequest
  *
  * @property array $name
+ * @property array $location
+ * @property array $city
  * @property string $meta_title
  * @property string $meta_description
  * @property array $page_desc
@@ -57,6 +59,8 @@ class StoreEventRequest extends FormRequest
             'lng' => 'required|string',
             'location' => 'sometimes|array',
             'location.*' => 'string|nullable',
+            'city' => 'sometimes|array',
+            'city.*' => 'string|nullable',
             'image' => 'required|string',
             'image_history' => 'sometimes|nullable|string',
             'image_gallery' => 'sometimes|nullable|array',

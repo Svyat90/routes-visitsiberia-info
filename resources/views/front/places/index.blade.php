@@ -95,12 +95,12 @@
                                         <p class="list__name exo">
                                             {{ $place->name }}
                                         </p>
-                                        @if($place->location)
-                                            <p class="list__city">
+                                        <p class="list__city">
+                                            @if($place->city)
                                                 <span class="material-icons">room&nbsp;</span>
-                                                {{ LabelHelper::locationLabel($place->location) }}
-                                            </p>
-                                        @endif
+                                                {{ $place->city }}
+                                            @endif
+                                        </p>
                                     </a>
                                     <div class="list__buttons d-flex flex-row align-items-center">
                                         <button class="list__button list__button-add route-item-add" data-id="{{ $place->id }}" data-type="route-places">

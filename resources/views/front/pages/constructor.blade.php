@@ -19,12 +19,12 @@
                                     <a href="{{ RouteHelper::show($entity) }}" class="constructor__result-name mb-0 list__name exo">
                                         {{ $entity->name }}
                                     </a>
-                                    @if($entity->location)
-                                        <p class="list__city constructor__result-geo">
+                                    <p class="list__city constructor__result-geo">
+                                        @if($entity->city)
                                             <span class="material-icons">room </span>
-                                            {{ LabelHelper::locationLabel($entity->location) }}
-                                        </p>
-                                    @endif
+                                            {{ $entity->city }}
+                                        @endif
+                                    </p>
                                     <div class="constructor__result-dragger">
                                     <span class="material-icons">
                                       menu
@@ -51,12 +51,12 @@
                             <a href="{{ RouteHelper::show($entity) }}" class="page__route-name exo">
                                 {{ $entity->name }}
                             </a>
-                            @if($entity->location)
-                                <a href="{{ RouteHelper::show($entity) }}" class="page__route-city">
+                            <a href="{{ RouteHelper::show($entity) }}" class="page__route-city">
+                                @if($entity->city)
                                     <span class="material-icons">room</span>
-                                    {{ LabelHelper::locationLabel($entity->location) }}
-                                </a>
-                            @endif
+                                    {{ $entity->city }}
+                                @endif
+                            </a>
                         </div>
                     @endforeach
 

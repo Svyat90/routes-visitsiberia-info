@@ -15,6 +15,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property array $history_desc
  * @property array $contact_desc
  * @property array $location
+ * @property array $city
  * @property array $features
  * @property array $static_info
  * @property array $duration
@@ -73,6 +74,8 @@ class StoreRouteRequest extends FormRequest
             'email' => 'sometimes|nullable|string',
             'location' => 'sometimes|array',
             'location.*' => 'string|nullable',
+            'city' => 'sometimes|array',
+            'city.*' => 'string|nullable',
             'features' => 'sometimes|array',
             'features.*' => 'string|nullable',
             'static_info' => 'sometimes|array',

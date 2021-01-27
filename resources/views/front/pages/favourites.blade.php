@@ -44,12 +44,12 @@
                                             <p href="{{ RouteHelper::show($entity) }}" class="list__name exo">
                                                 {{ $entity->name }}
                                             </p>
-                                            @if($entity->location)
-                                                <p href="{{ RouteHelper::show($entity) }}" class="list__city">
+                                            <p href="{{ RouteHelper::show($entity) }}" class="list__city">
+                                                @if($entity->city)
                                                     <span class="material-icons">room&nbsp;</span>
-                                                    {{ LabelHelper::locationLabel($entity->location) }}
-                                                </p>
-                                            @endif
+                                                    {{ $entity->city }}
+                                                @endif
+                                            </p>
                                         </a>
                                         <div class="list__buttons d-flex flex-row align-items-center">
                                             <button class="list__button list__button-add route-item-add" data-id="{{ $entity->id }}" data-type="route-{{ $namespace }}">

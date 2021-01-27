@@ -49,7 +49,7 @@ abstract class BaseService
             SELECT
                 {$table}.id,
                 {$table}.name,
-                {$table}.location,
+                {$table}.city,
                 {$table}.lat,
                 {$table}.lng,
                 (6371 * acos(
@@ -78,9 +78,9 @@ abstract class BaseService
             ->map(function (\stdClass $item) use ($locale, $table) {
                 $defaultLocale = 'ru';
                 $names = json_decode($item->name);
-                $locales = json_decode($item->location);
+                $cities = json_decode($item->city);
                 $item->name = $names->$locale ?? $names->$defaultLocale ?? '';
-                $item->location = $locales->$locale ?? $locales->$defaultLocale ?? '';
+                $item->city = $cities->$locale ?? $cities->$defaultLocale ?? '';
                 $item->distance = round($item->distance, 2);
                 $item->type = $table;
                 $item->imagePath = $this->urlForImage($item,'near');
