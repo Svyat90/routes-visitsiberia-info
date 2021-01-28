@@ -40,6 +40,7 @@ Route::prefix(LocaleMiddleware::getLocale())->namespace('Front')->as('front.')->
     Route::get('favourites', 'FavouriteController@index')->name('favourites');
     Route::get('choose', 'ConstructorController@choose')->name('choose');
     Route::get('constructor', 'ConstructorController@constructor')->name('constructor');
+    Route::get('save-route', 'ConstructorController@saveRoute')->name('save_route');
     Route::get('search', 'SearchController@index')->name('search.index');
     Route::post('search', 'SearchController@search')->name('search');
     Route::post('review', 'ReviewController@store')->name('review');

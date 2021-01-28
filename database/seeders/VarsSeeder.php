@@ -200,6 +200,10 @@ class VarsSeeder extends Seeder
             'ru' => 'Перейти к маршруту',
             'en' => 'Go to route'
         ],
+        'base_delete' => [
+            'ru' => 'Удалить',
+            'en' => 'Delete'
+        ],
         'base_price_from' => [
             'ru' => 'от',
             'en' => 'from'
@@ -263,6 +267,10 @@ class VarsSeeder extends Seeder
         'routes_no' => [
             'ru' => 'Нет маршрутов',
             'en' => 'No routes'
+        ],
+        'routes_my_route' => [
+            'ru' => 'Мой маршрут',
+            'en' => 'My route'
         ],
         'events_all' => [
             'ru' => 'Все события',

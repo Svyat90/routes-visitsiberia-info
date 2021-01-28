@@ -1,6 +1,7 @@
 $(function () {
     let routeAddItems = $('.route-item-add');
     let routeAddedItems = $('.route-item-added');
+    let routeDeleteItems = $('.route-delete-item');
 
     routeAddItems.each(function(i, d) {
         let element = $(this);
@@ -32,6 +33,18 @@ $(function () {
 
         deleteFromList(id, type);
         hideData(element, 'route-item-add');
+    });
+
+    routeDeleteItems.click(function(e) {
+        e.preventDefault();
+
+        let element = $(this);
+        let id = element.attr("data-id");
+        let type = element.attr("data-type");
+
+        deleteFromList(id, type);
+
+        window.location.href = document.URL;
     });
 
     $(document).on('click', '.route-item-add-ajax', function() {
