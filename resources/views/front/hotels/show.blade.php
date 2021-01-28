@@ -21,11 +21,17 @@
                         </div>
                     @endif
                     <div class="article__sign wow fadeInLeft">
-                        @foreach($hotel->dictionaries as $dictionary)
+                        @foreach(DictionaryHelper::group($hotel->dictionaries) as $parentName => $dictionaries)
                             <p class="article__sign-bold">
-                                {{ $dictionary->parent->name }}: <span href="#" class="article__link">{{ $dictionary->name }}</span>
+                                {{ $parentName }}:
+                                @foreach($dictionaries as $dictionary)
+                                    <span href="#" class="article__link">
+                                        {{ $dictionary->name . (! $loop->last ? ',' : '') }}
+                                    </span>
+                                @endforeach
                             </p>
                         @endforeach
+
                         <p class="article__information" id="desc">
                             {!! $hotel->description !!}
                         </p>

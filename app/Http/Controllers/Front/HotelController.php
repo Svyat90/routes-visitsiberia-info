@@ -53,9 +53,7 @@ class HotelController extends FrontController
             ->appends([
                 'city_id' => $request->city_id,
                 'distance_id' => $request->distance_id,
-                'placement_id' => $request->placement_id,
-                'date_from' => $request->date_from,
-                'date_to' => $request->date_to,
+                'placement_id' => $request->placement_id
             ]);
 
         return view('front.hotels.index', compact(

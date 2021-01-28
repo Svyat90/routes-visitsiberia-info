@@ -22,9 +22,14 @@
                     @endif
 
                     <div class="article__sign wow fadeInLeft">
-                        @foreach($place->dictionaries as $dictionary)
+                        @foreach(DictionaryHelper::group($place->dictionaries) as $parentName => $dictionaries)
                             <p class="article__sign-bold">
-                                {{ $dictionary->parent->name }}: <span href="#" class="article__link">{{ $dictionary->name }}</span>
+                                {{ $parentName }}:
+                                @foreach($dictionaries as $dictionary)
+                                    <span href="#" class="article__link">
+                                        {{ $dictionary->name . (! $loop->last ? ',' : '') }}
+                                    </span>
+                                @endforeach
                             </p>
                         @endforeach
 

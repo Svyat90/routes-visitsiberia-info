@@ -8,14 +8,6 @@
             <div class="rooms__heading heading heading--blue" id="heading">
                 <h1 class="heading__title">{{ $vars['hotels_title'] }}</h1>
                 <form action="{{ route('front.hotels.index') }}" name="filters" class="heading__selects heading__selects--rooms" >
-                        <input name="date_from" type="hidden" value="{{ request()->get('date_from') ?? '' }}" />
-                        <input name="date_to" type="hidden" value="{{ request()->get('date_to') ?? '' }}" />
-
-                        <div class="heading__select" id="heading-first">
-                            @php $dateRange = request()->get('date_range') ?? ''; @endphp
-                            <input name="date_range" id="first" value="{{ $dateRange }}" autocomplete="off" placeholder="{{ $vars['filter_time_range'] }}" readonly="readonly">
-                        </div>
-
                         <div class="heading__select" id="heading-type_id">
                             <select name="city_id" id="city_id">
                                 @php $cityId = request()->get('city_id') ?? null; @endphp

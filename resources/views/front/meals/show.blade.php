@@ -21,11 +21,17 @@
                         </div>
                     @endif
                     <div class="article__sign wow fadeInLeft" id="desc">
-                        @foreach($meal->dictionaries as $dictionary)
+                        @foreach(DictionaryHelper::group($meal->dictionaries) as $parentName => $dictionaries)
                             <p class="article__sign-bold">
-                                {{ $dictionary->parent->name }}: <span href="#" class="article__link">{{ $dictionary->name }}</span>
+                                {{ $parentName }}:
+                                @foreach($dictionaries as $dictionary)
+                                    <span href="#" class="article__link">
+                                        {{ $dictionary->name . (! $loop->last ? ',' : '') }}
+                                    </span>
+                                @endforeach
                             </p>
                         @endforeach
+
                         <p class="article__information">
                             {!! $meal->page_desc !!}
                         </p>

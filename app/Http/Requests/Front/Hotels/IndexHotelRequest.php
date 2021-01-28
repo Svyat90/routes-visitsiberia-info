@@ -7,8 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  * Class IndexHotelRequest
  *
- * @property string $date_from
- * @property string $date_to
  * @property string $city_id
  * @property string $distance_id
  * @property string $placement_id
@@ -30,8 +28,6 @@ class IndexHotelRequest extends FormRequest
     public function rules()
     {
         return [
-            'date_from' => 'sometimes|nullable|string',
-            'date_to' => 'sometimes|nullable|string',
             'city_id' => 'sometimes|nullable|exists:dictionaries,id',
             'distance_id' => 'sometimes|nullable|exists:dictionaries,id',
             'placement_id' => 'sometimes|nullable|exists:dictionaries,id',

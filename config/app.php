@@ -231,6 +231,7 @@ return [
         'DateHelper' => App\Helpers\DateHelper::class,
         'ImageHelper' => App\Helpers\ImageHelper::class,
         'RouteHelper' => App\Helpers\RouteHelper::class,
+        'DictionaryHelper' => App\Helpers\DictionaryHelper::class,
     ],
 
 ];
