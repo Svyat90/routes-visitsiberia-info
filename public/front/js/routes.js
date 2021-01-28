@@ -62,7 +62,20 @@ function showData(element, classAdded)
     element.hide();
     element.parent().find('.' + classAdded).removeClass('d-none');
     element.parent().parent().find('.route-item-go').removeClass('d-none');
-    // element.parent().parent().find('button.favourite-item').hide();
+
+    showEntityPageData(classAdded);
+}
+
+function showEntityPageData(classAdded)
+{
+    let addPageBtn = $("#add-btn");
+    let addedPageBtn = $("#added-btn");
+    let routeItemBtn = $("#route-item-go-show");
+
+    addPageBtn.hide();
+    addedPageBtn.find('.' + classAdded).removeClass('d-none');
+    addedPageBtn.removeClass('d-none');
+    routeItemBtn.removeClass('d-none');
 }
 
 /**
@@ -76,7 +89,20 @@ function hideData(element, classAdd)
     element.parent().parent().find('.route-item-go').addClass('d-none');
     element.parent().find('.' + classAdd).show();
     element.parent().find('.' + classAdd).removeClass('d-none');
-    // element.parent().parent().find('button.favourite-item').show();
+
+    hideEntityPageData(classAdd);
+}
+
+function hideEntityPageData(classAdd)
+{
+    let addPageBtn = $("#add-btn");
+    let addedPageBtn = $("#added-btn");
+    let routeItemBtn = $("#route-item-go-show");
+
+    addPageBtn.show();
+    addPageBtn.find('.' + classAdd).show();
+    addedPageBtn.addClass('d-none');
+    routeItemBtn.addClass('d-none')
 }
 
 /**

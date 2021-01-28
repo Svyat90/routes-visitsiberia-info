@@ -180,6 +180,22 @@ class VarsSeeder extends Seeder
             'ru' => 'Поделиться',
             'en' => 'Share'
         ],
+        'base_direct_link' => [
+            'ru' => 'Прямая ссылка',
+            'en' => 'Direct link'
+        ],
+        'base_social_networks' => [
+            'ru' => 'Социальные сети',
+            'en' => 'Social networks'
+        ],
+        'base_print' => [
+            'ru' => 'Распечатать',
+            'en' => 'Print'
+        ],
+        'base_printing' => [
+            'ru' => 'Печать',
+            'en' => 'Printing'
+        ],
         'base_go_to_route' => [
             'ru' => 'Перейти к маршруту',
             'en' => 'Go to route'

@@ -30,6 +30,7 @@
 <body>
 
 @include('front.partials.header')
+@include('front.partials.modal-share')
 
 @yield('content')
 
