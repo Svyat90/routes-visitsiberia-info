@@ -41,10 +41,12 @@ class SearchService
         $locale = app()->getLocale();
 
         return $model::query()
-            ->whereRaw("json_unquote(json_extract(`name`, '$.\"{$locale}\"')) LIKE '%" . $query . "%';")
-            ->get([
-                'id', 'name', 'city'
-            ]);
+            ->whereRaw("LOWER(json_extract(`name`, '$.\"{$locale}\"')) LIKE '%" . mb_strtolower($query) . "%';")
+            ->get(['id', 'name', 'city'])
+            ->map(function ($model) {
+                $model->averageRating = $model->averageRating() ?? 0;
+                return $model;
+            });
     }
 
 }

@@ -167,9 +167,10 @@
                     let id = response.hotels[index].id;
                     let name = response.hotels[index].name[locale];
                     let city = response.hotels[index].city[locale];
+                    let rating = response.hotels[index].averageRating + 1;
                     let route = '{{ route('front.hotels.index') }}';
 
-                    insertRatingItem(id, name, city, route, divHotels, 'hotels')
+                    insertRatingItem(id, name, city, route, divHotels, 'hotels', rating)
                 }
             }
 
@@ -230,9 +231,10 @@
                     let id = response.places[index].id;
                     let name = response.places[index].name[locale];
                     let city = response.places[index].city[locale];
+                    let rating = response.places[index].averageRating + 1;
                     let route = '{{ route('front.places.index') }}';
 
-                    insertRatingItem(id, name, city, route, divPlaces, 'places')
+                    insertRatingItem(id, name, city, route, divPlaces, 'places', rating)
                 }
             }
 
@@ -244,10 +246,15 @@
                 let addClass = isAdded === true ? "d-none" : "";
                 let addedClass = isAdded === true ? "" : "d-none";
 
+                let cityContainer = '';
+                if (city) {
+                    cityContainer = '<span class="material-icons">room </span>' + city
+                }
+
                 let insertItem = '<div class="search__result-item d-flex flex-row align-items-center">'
                     + '<a class="search__result-name mb-0 list__name exo " href="' + route + '/' + id + '">' + name + '</a>'
                     + '<p class="list__city search__result-geo">'
-                        + '<span class="material-icons">room </span> ' + city
+                        + cityContainer
                     + '</p>'
                     + '<div class="search__result-buttons d-flex flex-row">'
                     + '<div class="list__button search__result-button material-icons page-nav__icon-add route-item-add-ajax ' + addClass + '" data-id="' + id + '" data-type="route-' + namespace + '">add</div>'
@@ -260,8 +267,10 @@
                 container.append(insertItem)
             }
 
-            function insertRatingItem(id, name, city, route, container, namespace, rating = 2)
+            function insertRatingItem(id, name, city, route, container, namespace, rating = 1)
             {
+                console.log(id, name, city, route, container, namespace, rating);
+
                 let activeFavourite = generateActiveFavouriteClass(id, namespace);
 
                 let isAdded = checkOnAdded(id, namespace);
