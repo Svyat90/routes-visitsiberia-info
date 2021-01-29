@@ -108,6 +108,10 @@ class VarsSeeder extends Seeder
             'ru' => 'Добавить',
             'en' => 'Add'
         ],
+        'base_add_to_route' => [
+            'ru' => 'Добавить к маршруту',
+            'en' => 'Add to route'
+        ],
         'base_added' => [
             'ru' => 'Добавлено',
             'en' => 'Added'

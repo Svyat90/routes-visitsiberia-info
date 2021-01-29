@@ -30,7 +30,11 @@
                                       menu
                                     </span>
                                     </div>
-                                    <div class="constructor__result-delete">
+                                    <div
+                                        class="constructor__result-delete route-delete-item"
+                                        data-id="{{ $entity->id }}"
+                                        data-type="route-{{ RouteHelper::namespace($entity) }}"
+                                    >
                                         <a class="desctp route-delete-item"
                                            data-id="{{ $entity->id }}"
                                            data-type="route-{{ RouteHelper::namespace($entity) }}"

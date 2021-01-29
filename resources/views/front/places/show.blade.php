@@ -16,16 +16,25 @@
 
                     @if($place->recommended)
                         <div class="article__recommendation">
-                            <svg width="32" height="32" viewBox="0 0 56 56" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
+                            <svg class="article__icon-recommandation" width="32" height="32" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="8" y="5.6665" width="32" height="32" fill="white"/>
-                                <path
-                                    d="M7.02333 0L7 37.3333L28 51.3333L48.9767 37.3333L49 0H7.02333ZM23.3333 35L11.6667 23.3333L14.9567 20.02L23.3333 28.3967L41.0433 10.6867L44.3333 14L23.3333 35Z"
-                                    fill="#FFB906"/>
+                                <path d="M7.02333 0L7 37.3333L28 51.3333L48.9767 37.3333L49 0H7.02333ZM23.3333 35L11.6667 23.3333L14.9567 20.02L23.3333 28.3967L41.0433 10.6867L44.3333 14L23.3333 35Z" fill="#FFB906"/>
                             </svg>
                             <p class="article__recommendation-text" id="desc">{{ $vars['base_tic_recommended'] }}</p>
                         </div>
                     @endif
+
+                    <div class="article__add-to-pass route-item-add"
+                         data-id="{{ $place->id }}"
+                         data-type="route-places">
+                        {{ $vars['base_add_to_route'] }}
+                    </div>
+                    <div class="article__add-to-pass page-nav__off active d-none route-item-added"
+                         data-id="{{ $place->id }}"
+                         data-type="route-places">
+                        {{ $vars['base_added'] }}
+                        <span class="material-icons">&nbsp;done</span>
+                    </div>
 
                     <div class="article__sign wow fadeInLeft">
                         @foreach(DictionaryHelper::group($place->dictionaries) as $parentName => $dictionaries)
@@ -39,7 +48,7 @@
                             </p>
                         @endforeach
 
-                        <p class="article__information" id="desc">
+                        <p class="article__information article__text" id="desc">
                             {!! $place->page_desc !!}
                         </p>
                     </div>
