@@ -90,18 +90,18 @@
                                         @foreach($route['routable'] as $entity)
                                             <div class="swiper-slide list__slide-wr">
                                             <div class="list__slide">
-                                                <div class="list__slide-img-wr">
+                                                <a href="{{ RouteHelper::show($entity) }}" class="list__slide-img-wr">
                                                     {{ $entity->image ? $entity->image->img('route')->lazy() : '' }}
-                                                </div>
+                                                </a>
                                                 <a href="{{ RouteHelper::show($entity) }}" class="list__slide-name exo">
                                                     {{ $entity->name }}
                                                 </a>
-                                                <p class="list__slide-city">
+                                                <a href="{{ RouteHelper::show($entity) }}" class="list__slide-city">
                                                     @if($entity->city)
                                                         <span class="material-icons">room&nbsp;</span>
                                                         {{ $entity->city }}
                                                     @endif
-                                                </p>
+                                                </a>
                                             </div>
                                         </div>
                                         @endforeach

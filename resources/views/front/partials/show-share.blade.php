@@ -13,6 +13,7 @@
     @parent
     <script>
         const shareBtn = document.querySelector('.page-nav__share')
+        const shareBtnMob = document.querySelector('.article__share')
         const modalWrap = document.querySelector('.modal-wr')
         const closeBtns = Array.from(document.querySelectorAll('.modal__esc'))
         const copyBtn = document.querySelector('.modal__copy')
@@ -22,6 +23,13 @@
             e.preventDefault()
             modalWrap.style.display = 'flex'
         })
+
+        if (shareBtnMob) {
+            shareBtnMob.addEventListener('click', e => {
+                e.preventDefault()
+                modalWrap.style.display = 'flex'
+            })
+        }
 
         closeBtns.forEach(closeBtn => {
             closeBtn.addEventListener('click', (e) => {

@@ -346,7 +346,7 @@ button.datepick-cmd {
   border-radius: 30px;
 }
 .header .nav-link.active {
-  text-decoration: line-through;
+  text-decoration: underline;
 }
 .footer {
   margin: 15px;
@@ -1706,8 +1706,8 @@ button.datepick-cmd {
 .ui-state-active,
 .ui-widget-content .ui-state-active {
   margin: 0;
-  -webkit-text-decoration-line: line-through;
-  text-decoration-line: line-through;
+  -webkit-text-decoration-line: underline;
+  text-decoration-line: underline;
 }
 #index .ui-selectmenu-button.ui-button,
 #index input#first {
@@ -2229,6 +2229,7 @@ button.datepick-cmd {
   }
 }
 .list__slide-img-wr {
+  display: block;
   position: relative;
   width: 235px;
   margin-bottom: 5px;
@@ -2983,11 +2984,11 @@ font-size: 24px;
     margin-right: 0 !important;
   }
 }
-.page__route-item:nth-child(3) {
+.page__route-item:nth-child(3n) {
   margin-right: 10px;
 }
 @media screen and (max-width: 991px) {
-  .page__route-item:nth-child(3) {
+  .page__route-item:nth-child(3n) {
     margin-right: 43px;
   }
 }
@@ -3040,6 +3041,7 @@ font-size: 24px;
   }
 }
 .page__route-img-wr {
+  display: block;
   width: 235px;
   margin-bottom: 5px;
 }
@@ -3942,7 +3944,8 @@ width: calc(100% - 120px);
   }
 }
 .constructor__result-geo {
-  min-width: 160px;
+  min-width: 180px;
+  width: 100px;
   display: flex;
   align-items: center;
   margin-right: auto;
@@ -4223,7 +4226,8 @@ input#first.is-datepick {
 */
 .modal-wr {
   position: fixed;
-  z-index: 1029;
+  z-index: 1031;
+  top: 0;
   width: 100vw;
   height: 100vh;
   display: none;
@@ -4240,6 +4244,16 @@ input#first.is-datepick {
 
 .modal__row {
   margin-bottom: 30px;
+}
+
+@media screen and (max-width: 768px) {
+  .modal__row.justify-content-between {
+    flex-direction: column;
+  }
+
+  .modal__icons {
+    margin-bottom: 30px;
+  }
 }
 
 .modal__header {
@@ -4298,6 +4312,35 @@ margin-bottom: 0;
   border-radius: 15px;
   border: 1px solid #c4c4c4;
   cursor: pointer;
+}
+
+@media screen and (max-width: 575px) {
+  .modal__body, .modal__header {
+    padding: 10px;
+  }
+
+  .modal__title {
+    font-size: 25px;
+  }
+
+  .modal__text,
+  .modall .modal__link-wr.d-flex input {
+    font-size: 20px;
+    line-height: 25px;
+  }
+
+  .modall .modal__link-wr.d-flex input {
+    padding: 8px 12px;
+  }
+
+  .modal__icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .modal__icon img {
+    width: 24px;
+  }
 }
 
 svg {

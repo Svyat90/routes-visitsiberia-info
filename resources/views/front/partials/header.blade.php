@@ -5,7 +5,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon material-icons">menu</span>
                 </button>
-                <a class="nav-link material-icons" href="./search.html">search</a>
+                <a class="nav-link material-icons" href="{{ route('front.search.index') }}">search</a>
             </div>
 
             <div class="collapse navbar-collapse" id="navbarToggler">

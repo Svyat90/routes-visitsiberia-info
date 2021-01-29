@@ -19,12 +19,12 @@
                                     <a href="{{ RouteHelper::show($entity) }}" class="constructor__result-name mb-0 list__name exo">
                                         {{ $entity->name }}
                                     </a>
-                                    <p class="list__city constructor__result-geo">
+                                    <a class="list__city constructor__result-geo" href="{{ RouteHelper::show($entity) }}">
                                         @if($entity->city)
                                             <span class="material-icons">room </span>
                                             {{ $entity->city }}
                                         @endif
-                                    </p>
+                                    </a>
                                     <div class="constructor__result-dragger">
                                     <span class="material-icons">
                                       menu
@@ -56,9 +56,9 @@
                              data-name="{{ $entity->name }}"
                              data-img="{{ $entity->image->getFullUrl('list') }}"
                         >
-                            <div class="page__route-img-wr">
+                            <a href="{{ RouteHelper::show($entity) }}" class="page__route-img-wr">
                                 {{ $entity->image ? $entity->image->img('route')->lazy() : '' }}
-                            </div>
+                            </a>
                             <a href="{{ RouteHelper::show($entity) }}" class="page__route-name exo">
                                 {{ $entity->name }}
                             </a>
