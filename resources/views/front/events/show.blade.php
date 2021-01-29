@@ -106,7 +106,10 @@
                     @endif
 
                     @if($event->location)
-                        <a href="#" class="material-icons article__contact article__link">
+                        <a class="material-icons article__contact article__link"
+                            target="_blank"
+                            href="{{ YandexGeoHelper::yandexMapLink($event->lng, $event->lat) }}"
+                        >
                             <span class="material-icons">room</span>
                             {{ $event->location }}
                         </a>

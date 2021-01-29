@@ -25,12 +25,15 @@
             <p class="list__name exo">
                 {{ $meal->name }}
             </p>
-            <p class="list__city">
+            <a class="list__city"
+               target="_blank"
+               href="{{ YandexGeoHelper::yandexMapLink($meal->lng, $meal->lat) }}"
+            >
                 @if($meal->city)
                     <span class="material-icons">room&nbsp;</span>
                     {{ $meal->city }}
                 @endif
-            </p>
+            </a>
         </a>
     </div>
 </div>

@@ -232,6 +232,7 @@ return [
         'ImageHelper' => App\Helpers\ImageHelper::class,
         'RouteHelper' => App\Helpers\RouteHelper::class,
         'DictionaryHelper' => App\Helpers\DictionaryHelper::class,
+        'YandexGeoHelper' => App\Helpers\YandexGeoHelper::class,
     ],
 
 ];

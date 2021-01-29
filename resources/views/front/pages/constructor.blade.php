@@ -19,7 +19,10 @@
                                     <a href="{{ RouteHelper::show($entity) }}" class="constructor__result-name mb-0 list__name exo">
                                         {{ $entity->name }}
                                     </a>
-                                    <a class="list__city constructor__result-geo" href="{{ RouteHelper::show($entity) }}">
+                                    <a class="list__city constructor__result-geo"
+                                       target="_blank"
+                                       href="{{ YandexGeoHelper::yandexMapLink($entity->lng, $entity->lat) }}"
+                                    >
                                         @if($entity->city)
                                             <span class="material-icons">room </span>
                                             {{ $entity->city }}
@@ -66,7 +69,9 @@
                             <a href="{{ RouteHelper::show($entity) }}" class="page__route-name exo">
                                 {{ $entity->name }}
                             </a>
-                            <a href="{{ RouteHelper::show($entity) }}" class="page__route-city">
+                            <a class="page__route-city"target="_blank"
+                               href="{{ YandexGeoHelper::yandexMapLink($entity->lng, $entity->lat) }}"
+                            >
                                 @if($entity->city)
                                     <span class="material-icons">room</span>
                                     {{ $entity->city }}

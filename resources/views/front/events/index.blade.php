@@ -82,12 +82,15 @@
                                             <p class="list__name exo">
                                                 {{ $event->name }}
                                             </p>
-                                            <p class="list__city">
+                                            <a class="list__city"
+                                                target="_blank"
+                                                href="{{ YandexGeoHelper::yandexMapLink($event->lng, $event->lat) }}"
+                                            >
                                                 @if($event->city)
                                                     <span class="material-icons">room&nbsp;</span>
                                                     {{ $event->city }}
                                                 @endif
-                                            </p>
+                                            </a>
                                         </a>
                                         <div class="list__buttons d-flex flex-row align-items-center">
                                             <button class="list__button list__button-add route-item-add" data-id="{{ $event->id }}" data-type="route-events">

@@ -67,7 +67,10 @@
                             {{ $entity->image ? $entity->image->img('route')->lazy() : '' }}
                         </a>
                         <a href="{{ RouteHelper::show($entity) }}" class="page__route-name exo">{{ $entity->name }}</a>
-                        <a href="{{ RouteHelper::show($entity) }}" class="page__route-city">
+                        <a class="page__route-city"
+                           target="_blank"
+                           href="{{ YandexGeoHelper::yandexMapLink($entity->lng, $entity->lat) }}"
+                        >
                             @if($entity->city)
                                 <span class="material-icons">room</span>
                                 {{ $entity->city }}
@@ -105,9 +108,12 @@
                     @endif
 
                     @if($route->location)
-                        <a href="#" class="material-icons article__contact article__link">
+                        <a class="material-icons article__contact article__link"
+                           target="_blank"
+                           href="{{ YandexGeoHelper::yandexMapLink($route->lng, $route->lat) }}"
+                        >
                             <span class="material-icons">room</span>
-                        {{ $route->location }}
+                            {{ $route->location }}
                         </a>
                     @endif
                 </div>

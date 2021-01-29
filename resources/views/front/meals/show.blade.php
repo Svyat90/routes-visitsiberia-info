@@ -153,7 +153,10 @@
                     @endif
 
                     @if($meal->location)
-                        <a href="#" class="material-icons article__contact article__link">
+                        <a class="material-icons article__contact article__link"
+                           target="_blank"
+                           href="{{ YandexGeoHelper::yandexMapLink($meal->lng, $meal->lat) }}"
+                        >
                             <span class="material-icons">room</span>
                             {{ $meal->location }}
                         </a>

@@ -7,19 +7,22 @@
                 </p>
                 <ul class="footer__col-list pl-0">
                     <li class="footer__item">
-                        <a href="#" class="footer__link">
+                        <a class="footer__link"
+                           target="_blank"
+                           href="{{ YandexGeoHelper::yandexMapLink($vars['footer_address_lng'], $vars['footer_address_lat']) }}"
+                        >
                             <span class="material-icons">room&nbsp;</span>
                             {{ $vars['footer_address'] }}
                         </a>
                     </li>
                     <li class="footer__item">
-                        <a href="#" class="footer__link">
+                        <a href="tel:{{ $vars['footer_phone'] }}" class="footer__link">
                             <span class="material-icons">call&nbsp;</span>
                             {{ $vars['footer_phone'] }}
                         </a>
                     </li>
                     <li class="footer__item">
-                        <a href="#" class="footer__link">
+                        <a href="mailto:e-mail:{{ $vars['footer_mail'] }}" class="footer__link">
                             <span class="material-icons">mail&nbsp;</span>
                             {{ $vars['footer_mail'] }}
                         </a>

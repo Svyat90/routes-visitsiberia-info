@@ -129,7 +129,10 @@
                     @endif
 
                     @if($hotel->location)
-                        <a href="#" class="material-icons article__contact article__link">
+                        <a class="material-icons article__contact article__link"
+                           target="_blank"
+                           href="{{ YandexGeoHelper::yandexMapLink($hotel->lng, $hotel->lat) }}"
+                        >
                             <span class="material-icons">room</span>
                             {{ $hotel->location }}
                         </a>

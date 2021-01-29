@@ -18,12 +18,15 @@
             <p class="list__name exo">
                 {{ $event->name }}
             </p>
-            <p class="list__city">
+            <a class="list__city"
+               target="_blank"
+               href="{{ YandexGeoHelper::yandexMapLink($event->lng, $event->lat) }}"
+            >
                 @if($event->city)
                     <span class="material-icons">room&nbsp;</span>
                     {{ $event->city }}
                 @endif
-            </p>
+            </a>
         </a>
     </div>
 </div>
