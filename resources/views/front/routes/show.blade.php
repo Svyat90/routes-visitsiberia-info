@@ -148,401 +148,95 @@
 
             @include('front.partials.reviews', ['entity' => $route, 'namespace' => 'routes'])
 
-            <section class="article__events article__block" id="events">
-                <h2 class="article__name article__name-position wow fadeInUp">
-                    События поблизости
-                </h2>
-                <div class="article__cafe-slider wow fadeInUp">
-                    <div class="swiper-container e1 article__events-slider-cont">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="list__item d-flex flex-column">
-                                    <a href="#" class="d-flex flex-column nop">
-                                        <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
-                                        </div>
-                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
-                                            <p class="list__subprice mb-0">
-                                                10-15 окт. 2020
-                                            </p>
-                                        </div>
-                                        <p class="list__name exo">
-                                            Гостинница “Огни Енисея”
-                                        </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
-                                        </p>
-                                    </a>
-                                </div>
+            @if($route->events->count() > 0)
+                <section class="article__events article__block" id="events">
+                    <h2 class="article__name article__name-position wow fadeInUp">
+                        {{ $vars['base_events_early'] }}
+                    </h2>
+                    <div class="article__cafe-slider wow fadeInUp">
+                        <div class="swiper-container e1 article__events-slider-cont">
+                            <div class="swiper-wrapper">
+                                @each('front.events.item', $route->events, 'event')
                             </div>
-                            <div class="swiper-slide">
-                                <div class="list__item d-flex flex-column">
-                                    <a href="#" class="d-flex flex-column nop">
-                                        <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
-                                        </div>
-                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
-                                            <p class="list__subprice mb-0">
-                                                12 дек. 2020
-                                            </p>
-                                        </div>
-                                        <p class="list__name exo">
-                                            Река Енисей
-                                        </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="list__item d-flex flex-column">
-                                    <a href="#" class="d-flex flex-column nop">
-                                        <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
-                                        </div>
-                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
-                                            <p class="list__subprice mb-0">
-                                                1 янв. 2020
-                                            </p>
-                                        </div>
-                                        <p class="list__name exo">
-                                            Река Енисей
-                                        </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="list__item d-flex flex-column">
-                                    <a href="#" class="d-flex flex-column nop">
-                                        <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
-                                        </div>
-                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
-                                            <p class="list__subprice mb-0 exo">
-                                                21 окт. 2020
-                                            </p>
-                                        </div>
-                                        <p class="list__name exo">
-                                            Койское белогоръе - Топольские столбы
-                                        </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="list__item d-flex flex-column">
-                                    <a href="#" class="d-flex flex-column nop">
-                                        <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
-                                        </div>
-                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
-                                            <p class="list__subprice mb-0">
-                                                11-12 ноя. 2020
-                                            </p>
-                                        </div>
-                                        <p class="list__name exo">
-                                            Музей артефактов на вершине пика Грандиозный
-                                        </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
+                            <div class="swiper-button-next swiper-button "></div>
+                            <div class="swiper-button-prev  swiper-button"></div>
                         </div>
-                        <div class="swiper-button-next swiper-button "></div>
-                        <div class="swiper-button-prev  swiper-button"></div>
+                        <script>
+                            const swiper1 = new Swiper('.e1', {
+                                slidesPerView: 'auto',
+                                spaceBetween: 79,
+                                slidesOffsetBefore: 170,
+
+                                //width: 1107,
+                                navigation: {
+                                    nextEl: '.swiper-button-next',
+                                    prevEl: '.swiper-button-prev',
+                                },
+                            })
+                        </script>
                     </div>
-                    <script>
-                        const swiper1 = new Swiper('.e1', {
-                            slidesPerView: 'auto',
-                            spaceBetween: 79,
-                            slidesOffsetBefore: 170,
+                </section>
+            @endif
 
-                            //width: 1107,
-                            navigation: {
-                                nextEl: '.swiper-button-next',
-                                prevEl: '.swiper-button-prev',
-                            },
-                        })
-                    </script>
-                </div>
-            </section>
-
-            <section class="article__place-for-sleep article__block" id="places">
-                <h2 class="article__name article__name-position wow fadeInUp">
-                    Где остановиться в пути
-                </h2>
-                <div class="article__cafe-slider wow fadeInUp">
-                    <div class="swiper-container e2 article__events-slider-cont">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="list__item d-flex flex-column">
-                                    <a href="#" class="d-flex flex-column nop">
-                                        <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
-                                        </div>
-                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
-                                            <p class="list__subprice mb-0">
-                                                10-15 окт. 2020
-                                            </p>
-                                        </div>
-                                        <p class="list__name exo">
-                                            Гостинница “Огни Енисея”
-                                        </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
-                                        </p>
-                                    </a>
-                                </div>
+            @if($route->hotels->count() > 0)
+                <section class="article__place-for-sleep article__block" id="places">
+                    <h2 class="article__name article__name-position wow fadeInUp">
+                        {{ $vars['base_where_to_stay_on_way'] }}
+                    </h2>
+                    <div class="article__cafe-slider wow fadeInUp">
+                        <div class="swiper-container e2 article__events-slider-cont">
+                            <div class="swiper-wrapper">
+                                @each('front.hotels.item', $route->hotels, 'hotel')
                             </div>
-                            <div class="swiper-slide">
-                                <div class="list__item d-flex flex-column">
-                                    <a href="#" class="d-flex flex-column nop">
-                                        <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
-                                        </div>
-                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
-                                            <p class="list__subprice mb-0">
-                                                12 дек. 2020
-                                            </p>
-                                        </div>
-                                        <p class="list__name exo">
-                                            Река Енисей
-                                        </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="list__item d-flex flex-column">
-                                    <a href="#" class="d-flex flex-column nop">
-                                        <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
-                                        </div>
-                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
-                                            <p class="list__subprice mb-0">
-                                                1 янв. 2020
-                                            </p>
-                                        </div>
-                                        <p class="list__name exo">
-                                            Река Енисей
-                                        </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="list__item d-flex flex-column">
-                                    <a href="#" class="d-flex flex-column nop">
-                                        <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
-                                        </div>
-                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
-                                            <p class="list__subprice mb-0 exo">
-                                                21 окт. 2020
-                                            </p>
-                                        </div>
-                                        <p class="list__name exo">
-                                            Койское белогоръе - Топольские столбы
-                                        </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="list__item d-flex flex-column">
-                                    <a href="#" class="d-flex flex-column nop">
-                                        <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
-                                        </div>
-                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
-                                            <p class="list__subprice mb-0">
-                                                11-12 ноя. 2020
-                                            </p>
-                                        </div>
-                                        <p class="list__name exo">
-                                            Музей артефактов на вершине пика Грандиозный
-                                        </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
+                            <div class="swiper-button-next swiper-button "></div>
+                            <div class="swiper-button-prev  swiper-button"></div>
                         </div>
-                        <div class="swiper-button-next swiper-button "></div>
-                        <div class="swiper-button-prev  swiper-button"></div>
+                        <script>
+                            const swiper2 = new Swiper('.e2', {
+                                slidesPerView: 'auto',
+                                spaceBetween: 79,
+                                slidesOffsetBefore: 170,
+
+                                //width: 1107,
+                                navigation: {
+                                    nextEl: '.swiper-button-next',
+                                    prevEl: '.swiper-button-prev',
+                                },
+                            })
+                        </script>
                     </div>
-                    <script>
-                        const swiper2 = new Swiper('.e2', {
-                            slidesPerView: 'auto',
-                            spaceBetween: 79,
-                            slidesOffsetBefore: 170,
+                </section>
+            @endif
 
-                            //width: 1107,
-                            navigation: {
-                                nextEl: '.swiper-button-next',
-                                prevEl: '.swiper-button-prev',
-                            },
-                        })
-                    </script>
-                </div>
-            </section>
-
-            <section class="article__cafe article__block" id="meals">
-                <h2 class="article__name article__name-position wow fadeInUp">
-                    Самые вкусные места на маршруте
-                </h2>
-                <div class="article__cafe-slider wow fadeInUp">
-                    <div class="swiper-container e3 article__events-slider-cont">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="list__item d-flex flex-column">
-                                    <a href="#" class="d-flex flex-column nop">
-                                        <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
-                                        </div>
-                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
-                                            <p class="list__subprice mb-0">
-                                                10-15 окт. 2020
-                                            </p>
-                                        </div>
-                                        <p class="list__name exo">
-                                            Гостинница “Огни Енисея”
-                                        </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
-                                        </p>
-                                    </a>
-                                </div>
+            @if($route->meals->count() > 0)
+                <section class="article__cafe article__block" id="meals">
+                    <h2 class="article__name article__name-position wow fadeInUp">
+                        {{ $vars['base_where_to_eat_desc'] }}
+                    </h2>
+                    <div class="article__cafe-slider wow fadeInUp">
+                        <div class="swiper-container e3 article__events-slider-cont">
+                            <div class="swiper-wrapper">
+                                @each('front.meals.item', $route->meals, 'meal')
                             </div>
-                            <div class="swiper-slide">
-                                <div class="list__item d-flex flex-column">
-                                    <a href="#" class="d-flex flex-column nop">
-                                        <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
-                                        </div>
-                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
-                                            <p class="list__subprice mb-0">
-                                                12 дек. 2020
-                                            </p>
-                                        </div>
-                                        <p class="list__name exo">
-                                            Река Енисей
-                                        </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="list__item d-flex flex-column">
-                                    <a href="#" class="d-flex flex-column nop">
-                                        <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
-                                        </div>
-                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
-                                            <p class="list__subprice mb-0">
-                                                1 янв. 2020
-                                            </p>
-                                        </div>
-                                        <p class="list__name exo">
-                                            Река Енисей
-                                        </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="list__item d-flex flex-column">
-                                    <a href="#" class="d-flex flex-column nop">
-                                        <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
-                                        </div>
-                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
-                                            <p class="list__subprice mb-0 exo">
-                                                21 окт. 2020
-                                            </p>
-                                        </div>
-                                        <p class="list__name exo">
-                                            Койское белогоръе - Топольские столбы
-                                        </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="list__item d-flex flex-column">
-                                    <a href="#" class="d-flex flex-column nop">
-                                        <div class="list__img">
-                                            <img src="{{ asset('front/img/item-img.jpg') }}" alt="">
-                                        </div>
-                                        <div class="list__subinfo d-flex justify-content-between align-items-center">
-                                            <p class="list__subprice mb-0">
-                                                11-12 ноя. 2020
-                                            </p>
-                                        </div>
-                                        <p class="list__name exo">
-                                            Музей артефактов на вершине пика Грандиозный
-                                        </p>
-                                        <p class="list__city">
-                                            <span class="material-icons">room&nbsp;</span>
-                                            с. Парная
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
+                            <div class="swiper-button-next swiper-button "></div>
+                            <div class="swiper-button-prev  swiper-button"></div>
                         </div>
-                        <div class="swiper-button-next swiper-button "></div>
-                        <div class="swiper-button-prev  swiper-button"></div>
-                    </div>
-                    <script>
-                        const swiper3 = new Swiper('.e3', {
-                            slidesPerView: 'auto',
-                            spaceBetween: 79,
-                            slidesOffsetBefore: 170,
+                        <script>
+                            const swiper3 = new Swiper('.e3', {
+                                slidesPerView: 'auto',
+                                spaceBetween: 79,
+                                slidesOffsetBefore: 170,
 
-                            //width: 1107,
-                            navigation: {
-                                nextEl: '.swiper-button-next',
-                                prevEl: '.swiper-button-prev',
-                            },
-                        })
-                    </script>
-                </div>
-            </section>
+                                //width: 1107,
+                                navigation: {
+                                    nextEl: '.swiper-button-next',
+                                    prevEl: '.swiper-button-prev',
+                                },
+                            })
+                        </script>
+                    </div>
+                </section>
+            @endif
         </article>
     </main>
 @endsection

@@ -98,8 +98,12 @@ class RouteController extends FrontController
 
         $routable = $this->service->repository->getRoutableEntities($route);
 
+        $route->hotels = collect();
+        $route->meals = collect();
+        $route->events = collect();
+
         $eventsAll = $mealsAll = $placesAll = $hotelsAll = $nearGeoDataAll = collect();
-        $routable->map(function (Model $model) use ($placeService, $eventService, $hotelService, $mealService, &$eventsAll, &$mealsAll, &$placesAll, &$hotelsAll, &$nearGeoDataAll) {
+        $routable->map(function (Model $model) use ($route, $placeService, $eventService, $hotelService, $mealService, &$eventsAll, &$mealsAll, &$placesAll, &$hotelsAll, &$nearGeoDataAll) {
             switch (true) {
                 case $model instanceof Place:
                     [$events, $meals, $hotels, $nearGeoData] = $placeService->getNearData($model);
@@ -130,6 +134,16 @@ class RouteController extends FrontController
                     $nearGeoDataAll->push($nearGeoData);
             }
 
+            if ($hotels ?? null) {
+                $route->hotels->push($hotels);
+            }
+            if ($events ?? null) {
+                $route->events->push($events);
+            }
+            if ($meals ?? null) {
+                $route->meals->push($meals);
+            }
+
             $model->nearObjects = $mealsAll
                 ->merge($hotelsAll)
                 ->merge($placesAll)
@@ -139,6 +153,10 @@ class RouteController extends FrontController
 
             return $model;
         });
+
+        $route->hotels = $route->hotels->collapse()->unique();
+        $route->events = $route->events->collapse()->unique();
+        $route->meals = $route->meals->collapse()->unique();
 
         $nearGeoDataAll = $nearGeoDataAll->unique()->collapse();
 
