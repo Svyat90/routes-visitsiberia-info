@@ -9,12 +9,12 @@
             font-family: "DejaVu Sans";
             font-style: normal;
             font-weight: 400;
-            src: url("front/fonts/arialuni.ttf");
+            src: url("fonts/arialuni.ttf");
             /* IE9 Compat Modes */
             src:
                 local("DejaVu Sans"),
                 local("DejaVu Sans"),
-                url("front/fonts/arialuni.ttf") format("truetype");
+                url("fonts/arialuni.ttf") format("truetype");
         }
         body {
             font-family: "DejaVu Sans";
