@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\Event;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class DateHelper
@@ -28,7 +29,7 @@ class DateHelper
      */
     public static function month(Model $model, string $field = self::DEFAULT_FIELD) : string
     {
-        return $model->$field ? $model->$field->format('M') ?? '' : '';
+        return $model->$field ? $model->$field->shortMonthName ?? '' : '';
     }
 
     /**
@@ -109,7 +110,7 @@ class DateHelper
         return sprintf("%s-%s %s. %s",
             date('d', $dateFrom),
             date('d', $dateTo),
-            date('M', $dateTo),
+            Carbon::createFromTimestamp($dateTo)->shortMonthName,
             date('Y', $dateTo)
         );
     }
