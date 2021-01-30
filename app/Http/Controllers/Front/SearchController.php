@@ -19,7 +19,6 @@ class SearchController extends FrontController
         parent::__construct();
     }
 
-
     /**
      * @param Request $request
      * @return Application|Factory|View

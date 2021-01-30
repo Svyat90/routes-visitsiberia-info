@@ -51,12 +51,23 @@
             <p class="footer__col-text">
                 {{ $vars['footer_news_title'] }}
             </p>
-            <form class="form-inline footer__form">
+
+            <form action="{{ route('front.subscribe') }}" method="post" class="form-inline footer__form">
+                @csrf
+
                 <div class="form-group">
-                    <input type="email" class="form-control footer__input" placeholder="{{ $vars['footer_news_placeholder'] }}">
+                    <input name="email" type="email" class="form-control footer__input" placeholder="{{ $vars['footer_news_placeholder'] }}">
                 </div>
                 <button type="submit" class="btn footer__btn">{{ $vars['footer_news_ok_button'] }}</button>
+
             </form>
+
+            @if($errors->any())
+                {!! implode('', $errors->all('<p class="error-msg-subscribe">:message</p>')) !!}
+            @elseif(session()->has('subscribed'))
+                <p class="article__slider-description exo success-msg-subscribe">{{ $vars['success_add_subscriber'] }}</p>
+            @endif
+
             <div class="footer__socials footer__desktop">
                 <a href="{{ $vars['social_facebook'] }}" class="footer__social">
                     <img src="{{ asset('front/img/facebook-c.svg') }}" alt="facebook">

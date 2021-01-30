@@ -44,6 +44,7 @@ Route::prefix(LocaleMiddleware::getLocale())->namespace('Front')->as('front.')->
     Route::get('search', 'SearchController@index')->name('search.index');
     Route::post('search', 'SearchController@search')->name('search');
     Route::post('review', 'ReviewController@store')->name('review');
+    Route::post('subscribe', 'SubscribeController@subscribe')->name('subscribe');
     Route::resource('places', 'PlaceController')->only('index', 'show');
     Route::resource('hotels', 'HotelController')->only('index', 'show');
     Route::resource('meals', 'MealController')->only('index', 'show');

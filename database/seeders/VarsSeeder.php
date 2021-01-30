@@ -516,6 +516,10 @@ class VarsSeeder extends Seeder
             'ru' => 'Отзыв успешно создан',
             'en' => 'Review successfully created'
         ],
+        'success_add_subscriber' => [
+            'ru' => 'Подписка успешно добавлена',
+            'en' => 'Subscription added successfully'
+        ],
     ];
 
     /**
