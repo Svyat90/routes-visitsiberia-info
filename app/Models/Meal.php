@@ -4,38 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class Place
  *
- * @property int $id
- * @property string $slug
- * @property string $name
- * @property string $header_desc
- * @property string $page_desc
- * @property string $history_desc
- * @property string $contact_desc
- * @property string $life_hacks
- * @property string $lat
- * @property string $lng
- * @property string $location
- * @property string $phones
- * @property string $working_hours
- * @property string $site_link
- * @property string $social_links
- * @property string $contacts_representatives
- * @property string $additional_links
- * @property boolean $active
- * @property boolean $recommended
- * @property boolean $have_breakfasts
- * @property boolean $have_business_lunch
- * @property boolean $delivery_available
- * @property Media $image
- * @property Media $image_history
- * @property MediaCollection $image_gallery
- * @property Collection $dictionaries
+ * @mixin IdeHelperMeal
  */
 class Meal extends BaseModel
 {

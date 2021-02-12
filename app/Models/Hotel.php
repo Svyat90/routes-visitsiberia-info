@@ -4,36 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class Place
  *
- * @property int $id
- * @property string $slug
- * @property boolean $active
- * @property boolean $recommended
- * @property string $name
- * @property string $meta_title
- * @property string $meta_description
- * @property string $conditions_accommodation
- * @property string $conditions_payment
- * @property string $room_desc
- * @property string $additional_services
- * @property string $food_desc
- * @property string $contact_desc
- * @property string $site_link
- * @property string $social_links
- * @property string $aggregator_links
- * @property string $phones
- * @property string $location
- * @property string $lat
- * @property string $lng
- * @property Media $image
- * @property Media $image_history
- * @property MediaCollection $image_gallery
- * @property Collection $dictionaries
+ * @mixin IdeHelperHotel
  */
 class Hotel extends BaseModel
 {

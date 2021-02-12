@@ -13,8 +13,6 @@ use Spatie\Image\Manipulations;
 
 /**
  * Class BaseModel
- *
- * @property Media $image
  */
 abstract class BaseModel extends Model implements HasMedia
 {

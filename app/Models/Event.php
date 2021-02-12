@@ -4,35 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
 use Illuminate\Database\Eloquent\Collection;
-use Carbon\Carbon;
 
 /**
  * Class Place
  *
- * @property int $id
- * @property string $slug
- * @property string $name
- * @property string $page_desc
- * @property string $history_desc
- * @property string $contact_desc
- * @property string $life_hacks
- * @property string $lat
- * @property string $lng
- * @property string $location
- * @property string $site_link
- * @property string $additional_links
- * @property string $phones_representatives
- * @property string $addresses_representatives
- * @property boolean $active
- * @property boolean $recommended
- * @property Media $image
- * @property Media $image_history
- * @property MediaCollection $image_gallery
- * @property Collection $dictionaries
- * @property Carbon $date_from
- * @property Carbon $date_to
+ * @mixin IdeHelperEvent
  */
 class Event extends BaseModel
 {

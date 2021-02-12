@@ -7,12 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Page
  *
- * @property int $id
- * @property string $slug
- * @property string $name
- * @property string $title
- * @property string $meta_title
- * @property string $title_description
+ * @mixin IdeHelperPage
  */
 class Page extends BaseModel
 {
@@ -42,7 +37,7 @@ class Page extends BaseModel
      *
      * @return string
      */
-    public function getRouteKey()
+    public function getRouteKey() : string
     {
         return 'slug';
     }

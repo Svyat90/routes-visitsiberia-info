@@ -6,10 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Language
- * @property int $id
- * @property string $locale
- * @property bool $active
- * @method active
+ *
+ * @mixin IdeHelperLanguage
  */
 class Language extends Model
 {

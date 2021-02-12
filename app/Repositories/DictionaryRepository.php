@@ -23,7 +23,7 @@ class DictionaryRepository extends Dictionary
     /**
      * @return Builder
      */
-    public function getParentsBuilder()
+    public function getParentsBuilder() : Builder
     {
         return Dictionary::query()->whereNull('parent_id');
     }

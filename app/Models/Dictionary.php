@@ -10,12 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 /**
  * Class Dictionary
  *
- * @property int $id
- * @property string $name
- * @property string $type
- * @property bool $hidden
- * @property $children
- * @property $parent
+ * @mixin IdeHelperDictionary
  */
 class Dictionary extends BaseModel
 {

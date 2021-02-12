@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class VarModel
  *
- * @property int $id
- * @property string $val_ru
- * @property string $val_en
+ * @mixin IdeHelperVarModel
  */
 class VarModel extends Model
 {
