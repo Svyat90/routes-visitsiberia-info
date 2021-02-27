@@ -153,11 +153,22 @@
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                         <label class="" for="{{ $name = 'social_links' }}">{{ __("cruds.hotels.fields.$name") }}</label>
-                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                               type="text"
-                               name="{{ $name }}"
-                               id="{{ $name }}"
-                               value="{{ old($name, $hotel->$name) }}" />
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <button class="btn btn-primary dim" id="add_network" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{ __('global.add_link') }}</button>
+                            <div id="social-network-list">
+                                @foreach($socialLinks as $socialLink)
+                                    <div class="row" style="margin-top: 15px;">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <input name="social_links[url][{{ $socialLink->id }}]" value="{{ $socialLink->url }}" class="form-control" type="text" placeholder="Input url link" />
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <input name="social_links[title][{{ $socialLink->id }}]" value="{{ $socialLink->title }}" class="form-control" type="text" placeholder="{{ __('global.input_link') }}" />
+                                        </div>
+                                        <input type="hidden" name="social_links[type][{{ $socialLink->id }}]" value="{{ $socialLink->type }}">
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
@@ -166,11 +177,22 @@
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                         <label class="" for="{{ $name = 'aggregator_links' }}">{{ __("cruds.hotels.fields.$name") }}</label>
-                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                               type="text"
-                               name="{{ $name }}"
-                               id="{{ $name }}"
-                               value="{{ old($name, $hotel->$name) }}" />
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <button class="btn btn-primary dim" id="add_aggregator" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{ __('global.add_link') }}</button>
+                            <div id="{{ $name }}-list">
+                                @foreach($aggregatorLinks as $aggregatorLink)
+                                    <div class="row" style="margin-top: 15px;">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <input name="social_links[url][{{ $aggregatorLink->id }}]" value="{{ $aggregatorLink->url }}" class="form-control" type="text" placeholder="{{ __('global.input_link') }}" />
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <input name="social_links[title][{{ $aggregatorLink->id }}]" value="{{ $aggregatorLink->title }}" class="form-control" type="text" placeholder="{{ __('global.input_link') }}" />
+                                        </div>
+                                        <input type="hidden" name="social_links[type][{{ $aggregatorLink->id }}]" value="{{ $aggregatorLink->type }}">
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
@@ -179,36 +201,24 @@
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                         <label class="" for="{{ $name = 'phones' }}">{{ __("cruds.hotels.fields.$name") }}</label>
-                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                               type="text"
-                               name="{{ $name }}"
-                               id="{{ $name }}"
-                               value="{{ old($name, $hotel->$name) }}" />
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <button class="btn btn-primary dim" id="add_phone" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{ __('global.add_link') }}</button>
+                            <div id="{{ $name }}-list">
+                                @foreach($phones as $phone)
+                                    <div class="row" style="margin-top: 15px;">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <input name="phones[title][{{ $phone->id }}]" value="{{ $phone->title }}" class="form-control" type="text" placeholder="{{ __('global.input_phone') }}" />
+                                        </div>
+                                        <input type="hidden" name="phones[type][{{ $phone->id }}]" value="{{ $phone->type }}">
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
                         <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
                     </div>
-
-{{--                    <div class="form-group col-md-12 col-sm-12 col-xs-12">--}}
-{{--                        <label class="" for="{{ $name = 'dictionary_ids' }}">{{ __('global.dictionaries') }}</label>--}}
-{{--                        <div style="padding-bottom: 4px">--}}
-{{--                        <span class="btn btn-info btn-xs select-all"--}}
-{{--                              style="border-radius: 0">{{ __('global.select_all') }}</span>--}}
-{{--                            <span class="btn btn-info btn-xs deselect-all"--}}
-{{--                                  style="border-radius: 0">{{ __('global.deselect_all') }}</span>--}}
-{{--                        </div>--}}
-{{--                        <select class="form-control select2 {{ $errors->has($name) ? 'is-invalid' : '' }}"--}}
-{{--                                name="{{ $name }}[]"--}}
-{{--                                id="{{ $name }}" multiple >--}}
-{{--                            @foreach($dictionaryChildren as $id => $dictionary)--}}
-{{--                                <option value="{{ $id }}" {{ in_array($id, old($name, $dictionaryIds)) ? 'selected' : '' }}>{{ $dictionary }}</option>--}}
-{{--                            @endforeach--}}
-{{--                        </select>--}}
-{{--                        @if($errors->has($name))--}}
-{{--                            <span class="text-danger">{{ $errors->first($name) }}</span>--}}
-{{--                        @endif--}}
-{{--                    </div>--}}
 
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label class="" for="{{ $name = 'dictionary_ids' }}">{{ __('global.placement_dictionary') }}</label>
@@ -307,6 +317,24 @@
         $(function () {
             $('#datetimepicker').datetimepicker({
                 minDate: moment().startOf('minute').add(180, 'm'),
+            });
+
+            let add_network = $("#add_network");
+            let social_network_list = $("#social-network-list");
+            add_network.on("click", function (e) {
+                renderSmartLink('social_links', social_network_list);
+            });
+
+            let addAggregator = $("#add_aggregator");
+            let aggregatorsContainer = $("#aggregator_links-list");
+            addAggregator.on("click", function (e) {
+                renderSmartLink('aggregator_links', aggregatorsContainer);
+            });
+
+            let addPhone = $("#add_phone");
+            let phonesContainer = $("#phones-list");
+            addPhone.on("click", function (e) {
+                renderPhone('phones', phonesContainer);
             });
         });
 

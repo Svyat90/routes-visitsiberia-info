@@ -158,6 +158,67 @@ class HotelService extends BaseService
     private function handleRelationships(Hotel $hotel, $request) : void
     {
         $hotel->dictionaries()->sync($request->dictionary_ids);
+
+        if ($request instanceof UpdateHotelRequest) {
+            $hotel->socialFields()->delete();
+        }
+
+        $this->saveSocialLinks($hotel, $request);
+        $this->saveAggregatorLinks($hotel, $request);
+        $this->savePhones($hotel, $request);
+    }
+
+    /**
+     * @param Hotel $hotel
+     * @param $request
+     */
+    private function saveSocialLinks(Hotel $hotel, $request) : void
+    {
+        $urls = $request->social_links['url'];
+        $texts = $request->social_links['title'];
+        $types = $request->social_links['type'];
+
+        $insertSocialData = array_map(function ($url, $text, $type) {
+            if (! $url) return [];
+            return ['url' => $url, 'title' => $text, 'type' => $type, 'field' => 'social_links'];
+        }, $urls, $texts, $types);
+
+        $hotel->socialFields()->createMany(array_filter($insertSocialData));
+    }
+
+    /**
+     * @param Hotel $hotel
+     * @param $request
+     */
+    private function saveAggregatorLinks(Hotel $hotel, $request) : void
+    {
+        $urls = $request->aggregator_links['url'];
+        $texts = $request->aggregator_links['title'];
+        $types = $request->aggregator_links['type'];
+
+        $insertSocialData = array_map(function ($url, $text, $type) {
+            if (! $url) return [];
+            return ['url' => $url, 'title' => $text, 'type' => $type, 'field' => 'aggregator_links'];
+        }, $urls, $texts, $types);
+
+        $hotel->socialFields()->createMany(array_filter($insertSocialData));
+    }
+
+    /**
+     * @param Hotel $hotel
+     * @param $request
+     */
+    private function savePhones(Hotel $hotel, $request) : void
+    {
+        $texts = $request->phones['title'];
+        $types = $request->phones['type'];
+
+        $insertSocialData = array_map(function ($text, $type) {
+            if (! $text) return [];
+            return ['title' => $text, 'type' => $type, 'field' => 'phones'];
+        }, $texts, $types);
+
+        $hotel->socialFields()->createMany(array_filter($insertSocialData));
     }
 
     /**

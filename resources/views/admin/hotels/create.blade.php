@@ -146,11 +146,10 @@
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                         <label class="" for="{{ $name = 'social_links' }}">{{ __("cruds.hotels.fields.$name") }}</label>
-                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                               type="text"
-                               name="{{ $name }}"
-                               id="{{ $name }}"
-                               value="{{ old($name, '') }}" />
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <button class="btn btn-primary dim" id="add_network" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{ __('global.add_link') }}</button>
+                            <div id="social-network-list"></div>
+                        </div>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
@@ -159,11 +158,10 @@
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                         <label class="" for="{{ $name = 'aggregator_links' }}">{{ __("cruds.hotels.fields.$name") }}</label>
-                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                               type="text"
-                               name="{{ $name }}"
-                               id="{{ $name }}"
-                               value="{{ old($name, '') }}" />
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <button class="btn btn-primary dim" id="add_aggregator" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{ __('global.add_link') }}</button>
+                            <div id="{{ $name }}-list"></div>
+                        </div>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
@@ -172,11 +170,10 @@
 
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                         <label class="" for="{{ $name = 'phones' }}">{{ __("cruds.hotels.fields.$name") }}</label>
-                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                               type="text"
-                               name="{{ $name }}"
-                               id="{{ $name }}"
-                               value="{{ old($name, '') }}" />
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <button class="btn btn-primary dim" id="add_phone" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{ __('global.add_phone') }}</button>
+                            <div id="{{ $name }}-list"></div>
+                        </div>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
@@ -277,10 +274,29 @@
 @endsection
 
 @section('scripts')
+    @parent
     <script>
         $(function () {
             $('#datetimepicker').datetimepicker({
                 minDate: moment().startOf('minute').add(180, 'm'),
+            });
+
+            let add_network = $("#add_network");
+            let social_network_list = $("#social-network-list");
+            add_network.on("click", function (e) {
+                renderSmartLink('social_links', social_network_list);
+            })
+
+            let addAggregator = $("#add_aggregator");
+            let aggregatorsContainer = $("#aggregator_links-list");
+            addAggregator.on("click", function (e) {
+                renderSmartLink('aggregator_links', aggregatorsContainer);
+            });
+
+            let addPhone = $("#add_phone");
+            let phonesContainer = $("#phones-list");
+            addPhone.on("click", function (e) {
+                renderPhone('phones', phonesContainer);
             });
         });
 

@@ -46,6 +46,33 @@
                         @endif
                     @endforeach
 
+                    @foreach($socialLinks as $index => $social)
+                        <tr>
+                            <th>
+                                {{ __("cruds.hotels.fields.social_links") }} #{{ $index + 1 }}
+                            </th>
+                            <td><a href="{{ $social->url }}" target="_blank">{{ $social->title }}</a></td>
+                        </tr>
+                    @endforeach
+
+                    @foreach($aggregatorLinks as $index => $aggregator)
+                        <tr>
+                            <th>
+                                {{ __("cruds.hotels.fields.aggregator_links") }} #{{ $index + 1 }}
+                            </th>
+                            <td><a href="{{ $aggregator->url }}" target="_blank">{{ $aggregator->title }}</a></td>
+                        </tr>
+                    @endforeach
+
+                    @foreach($phones as $index => $phone)
+                        <tr>
+                            <th>
+                                {{ __("cruds.hotels.fields.phones") }} #{{ $index + 1 }}
+                            </th>
+                            <td>{{ $phone->title }}</td>
+                        </tr>
+                    @endforeach
+
                     @include('admin.partials.item-action-table-dates', ['model' => $hotel])
 
                     @include('admin.partials.show-media', ['name' => 'image', 'model' => $hotel, 'namespace' => 'hotels'])

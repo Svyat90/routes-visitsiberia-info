@@ -27,9 +27,9 @@ class Hotel extends BaseModel
      */
     protected $fillable = [
         'active', 'recommended', 'name',
-        'conditions_accommodation', 'conditions_payment', 'additional_services',
-        'contact_desc', 'site_link', 'social_links', 'aggregator_links',
-        'phones', 'location', 'lat', 'lng', 'description'
+        'conditions_accommodation', 'conditions_payment',
+        'contact_desc', 'site_link', 'additional_services',
+        'location', 'lat', 'lng', 'description'
     ];
 
     /**
@@ -60,6 +60,14 @@ class Hotel extends BaseModel
     public function routable() : MorphMany
     {
         return $this->morphMany(Routable::class, 'routable');
+    }
+
+    /**
+     * @return MorphMany
+     */
+    public function socialFields() : MorphMany
+    {
+        return $this->morphMany(SocialField::class, 'sociable');
     }
 
     /**

@@ -17,9 +17,9 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $food_desc
  * @property string $contact_desc
  * @property string $site_link
- * @property string $social_links
- * @property string $aggregator_links
- * @property string $phones
+ * @property array $social_links
+ * @property array $aggregator_links
+ * @property array $phones
  * @property integer $price
  * @property array $location
  * @property array $city
@@ -71,9 +71,9 @@ class StoreHotelRequest extends FormRequest
             'lat' => 'required|string',
             'lng' => 'required|string',
             'site_link' => 'sometimes|nullable|string',
-            'social_links' => 'sometimes|nullable|string',
-            'aggregator_links' => 'sometimes|nullable|string',
-            'phones' => 'sometimes|nullable|string',
+            'social_links' => 'sometimes|nullable|array',
+            'aggregator_links' => 'sometimes|nullable|array',
+            'phones' => 'sometimes|nullable|array',
             'price' => 'sometimes|nullable|integer',
             'location' => 'sometimes|array',
             'location.*' => 'string|nullable',

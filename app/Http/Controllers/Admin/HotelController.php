@@ -84,9 +84,13 @@ class HotelController extends AdminController
      */
     public function show(Hotel $hotel)
     {
-        $hotel->load('dictionaries');
+        $hotel->load('dictionaries', 'socialFields');
 
-        return view('admin.hotels.show', compact('hotel'));
+        $socialLinks = $this->service->repository->getSocialLinks($hotel);
+        $aggregatorLinks = $this->service->repository->getAggregatorLinks($hotel);
+        $phones = $this->service->repository->getPhones($hotel);
+
+        return view('admin.hotels.show', compact('hotel', 'socialLinks', 'aggregatorLinks', 'phones'));
     }
 
     /**
@@ -96,13 +100,22 @@ class HotelController extends AdminController
      */
     public function edit(Hotel $hotel, DictionaryService $dictionaryService)
     {
+        $hotel->load('socialFields');
+
+        $socialLinks = $this->service->repository->getSocialLinks($hotel);
+        $aggregatorLinks = $this->service->repository->getAggregatorLinks($hotel);
+        $phones = $this->service->repository->getPhones($hotel);
+
         return view('admin.hotels.edit', [
             'hotel' => $hotel,
             'dictionaryIds' => $this->service->repository->getRelatedDictionaryIds($hotel),
             'placementList' => $dictionaryService->getPlacementList(),
             'seasonList' => $dictionaryService->getSeasonList(),
             'whomList' => $dictionaryService->getWhomList(),
-            'conditionList' => $this->service::getConditionsTypes()
+            'conditionList' => $this->service::getConditionsTypes(),
+            'socialLinks' => $socialLinks,
+            'aggregatorLinks' => $aggregatorLinks,
+            'phones' => $phones
         ]);
     }
 

@@ -157,11 +157,11 @@ return [
 //            'slug_helper'       => '',
             'site_link'              => 'Контакты - Ссылка на оф. сайт',
             'site_link_helper'       => '',
-            'social_links'              => 'Контакты - Ссылки на оф. соц. cети', // ToDo change logic linkks
+            'social_links'              => 'Контакты - Ссылки на оф. соц. cети',
             'social_links_helper'       => '(если нет сайта)',
-            'aggregator_links'              => 'Контакты - Ссылки на агрегаторы', // ToDo change logic linkks
+            'aggregator_links'              => 'Контакты - Ссылки на агрегаторы',
             'aggregator_links_helper'       => '',
-            'phones'              => 'Контакты - Телефоны', // ToDo change logic phones
+            'phones'              => 'Контакты - Телефоны',
             'phones_helper'       => '',
             'lat'              => 'Как добраться - Коорд. ширины',
             'lat_helper'       => '',

@@ -224,6 +224,69 @@
         $.fn.dataTable.ext.classes.sPageButton = '';
     });
 
+    let index = 1;
+
+    /**
+     * @param name
+     * @param container
+     * @param type
+     */
+    function renderSmartLink(name, container, type = 'site') {
+        let str = '<div class="row" style="margin-top: 15px;">';
+        let classRows = 'col-md-6 col-sm-6 col-xs-6';
+        if (type === 'all') {
+            classRows = 'col-md-4 col-sm-4 col-xs-4'
+        }
+
+        str += '<div class="' + classRows +'">';
+        str += '<input name="' + name + '[url][' + index + ']" class="form-control" type="text" placeholder="{{ __('global.input_url') }}">';
+        str += '</div>';
+
+        str += '<div class="' + classRows +'">';
+        str += '<input name="' + name + '[title][' + index + ']" class="form-control" type="text" placeholder="{{ __('global.input_title') }}">';
+        str += '</div>';
+
+        if (type === 'all') {
+            let options = '';
+            @foreach(['site', 'phone', 'vk', 'viber', 'whatsapp', 'telegram', 'email'] as $name)
+                options += '<option value=' + '{{ $name }}' + '>' + '{{ $name }}' + '</option>';
+            @endforeach
+
+                str += '<div class="' + classRows +'">';
+            str += '<select name="' + name + '[type][' + index + ']" class="form-control">' + options + ' </select>';
+            str += '</div>';
+        } else {
+            str += '<input type="hidden" name="' + name + '[type][' + index + ']" value="' + type + '" />';
+        }
+
+        str += '</div>';
+
+        container.append(str);
+
+        index++;
+    }
+
+    /**
+     * @param name
+     * @param container
+     * @param type
+     */
+    function renderPhone(name, container, type = 'phone') {
+        let str = '<div class="row" style="margin-top: 15px;">';
+
+        str += '<div class="col-md-12 col-sm-12 col-xs-12">';
+        str += '<input name="' + name + '[title][' + index + ']" class="form-control" type="text" placeholder="{{ __('global.input_phone') }}">';
+        str += '</div>';
+
+        str += '<input type="hidden" name="' + name + '[type][' + index + ']" value="' + type + '" />';
+
+        str += '</div>';
+
+        container.append(str);
+
+        index++;
+    }
+
 </script>
 <script src="{{ asset('js/adminltev3.js') }}"></script>
 
