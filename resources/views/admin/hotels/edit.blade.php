@@ -202,7 +202,7 @@
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                         <label class="" for="{{ $name = 'phones' }}">{{ __("cruds.hotels.fields.$name") }}</label>
                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                            <button class="btn btn-primary dim" id="add_phone" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{ __('global.add_link') }}</button>
+                            <button class="btn btn-primary dim" id="add_phone" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{ __('global.add_phone') }}</button>
                             <div id="{{ $name }}-list">
                                 @foreach($phones as $phone)
                                     <div class="row" style="margin-top: 15px;">
