@@ -102,7 +102,7 @@ class HotelRepository extends Model
     public function saveHotel(array $data) : Hotel
     {
         $hotel = new Hotel($data);
-        $hotel->slug = SlugHelper::generate(new Hotel(), $data['name']);
+        $hotel->slug = SlugHelper::generate($hotel, $data['name']);
         $hotel->save();
 
         return $hotel->refresh();
@@ -116,7 +116,7 @@ class HotelRepository extends Model
      */
     public function updateData(array $data, Hotel $hotel) : Hotel
     {
-        $hotel->slug = SlugHelper::generate(new Hotel(), $data['name']);
+        $hotel->slug = SlugHelper::generate($hotel, $data['name']);
         $hotel->update($data);
 
         return $hotel->refresh();

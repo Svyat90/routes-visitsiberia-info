@@ -8,15 +8,20 @@ use App\Http\Requests\Admin\Hotels\StoreHotelRequest;
 use App\Http\Requests\Admin\Hotels\UpdateHotelRequest;
 use App\Models\Hotel;
 use App\Repositories\HotelRepository;
+use App\Traits\FilterConstantsTrait;
 use Yajra\DataTables\Facades\DataTables;
 use App\Helpers\MediaHelper;
 use App\Helpers\ImageHelper;
 use Illuminate\Support\Collection;
 use App\Http\Requests\Front\Hotels\IndexHotelRequest;
-use App\Models\Place;
 
 class HotelService extends BaseService
 {
+    use FilterConstantsTrait;
+
+    const CONDITIONS_PAYMENT_CASH = 'cash';
+    const CONDITIONS_PAYMENT_CART = 'card';
+
     /**
      * @var HotelRepository
      */
@@ -153,6 +158,14 @@ class HotelService extends BaseService
     private function handleRelationships(Hotel $hotel, $request) : void
     {
         $hotel->dictionaries()->sync($request->dictionary_ids);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getConditionsTypes() : array
+    {
+        return self::filterConstants('CONDITIONS_PAYMENT');
     }
 
 }

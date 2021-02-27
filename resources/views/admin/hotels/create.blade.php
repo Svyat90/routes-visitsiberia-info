@@ -32,7 +32,7 @@
 
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                    @if (in_array($field, ['page_desc', 'history_desc', 'food_desc', 'room_desc', 'additional_services', 'contact_desc', 'conditions_payment', 'conditions_accommodation', 'description']))
+                                                    @if (in_array($field, ['additional_services', 'rooms_fund', 'contact_desc', 'conditions_payment', 'conditions_accommodation', 'description']))
                                                         <div class="form-group">
                                                             <label for="{{ $name = $field . '[' . $language->locale . ']' }}">
                                                                 {{ __("cruds.hotels.fields.$field") }}
@@ -71,8 +71,21 @@
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                         <label class="required" for="{{ $name = 'active' }}">{{ __("cruds.hotels.fields.$name") }}</label>
                         <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="0" {{ old($name, null) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
-                            <option value="1" {{ old($name, null) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
+                            <option value="1" {{ old($name) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
+                            <option value="0" {{ old($name) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
+                        </select>
+                        @if($errors->has($name))
+                            <span class="text-danger">{{ $errors->first($name) }}</span>
+                        @endif
+                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
+                    </div>
+
+                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                        <label class="required" for="{{ $name = 'conditions_payment' }}">{{ __("cruds.hotels.fields.$name") }}</label>
+                        <select name="{{ $name }}" id="{{ $name }}" class="form-control">
+                            @foreach($conditionList as $type)
+                                <option value="{{ $type }}" {{ $type == old($name) ? 'selected' : '' }}>{{ __("global.$type") }}</option>
+                            @endforeach
                         </select>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
@@ -83,23 +96,9 @@
                     <div class="form-group col-md-6 col-sm-6 col-xs-6">
                         <label class="required" for="{{ $name = 'recommended' }}">{{ __("cruds.hotels.fields.$name") }}</label>
                         <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="0" {{ old($name, null) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
-                            <option value="1" {{ old($name, null) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
+                            <option value="0" {{ old($name) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
+                            <option value="1" {{ old($name) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
                         </select>
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
-                    </div>
-
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'price' }}">{{ __("cruds.hotels.fields.$name") }}</label>
-                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                               type="number"
-                               min="0"
-                               name="{{ $name }}"
-                               id="{{ $name }}"
-                               value="{{ old($name, '') }}" />
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>
                         @endif
@@ -185,7 +184,7 @@
                     </div>
 
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="" for="{{ $name = 'dictionary_ids' }}">{{ __('global.dictionaries') }}</label>
+                        <label class="" for="{{ $name = 'dictionary_ids' }}">{{ __('global.placement_dictionary') }}</label>
                         <div style="padding-bottom: 4px">
                         <span class="btn btn-info btn-xs select-all"
                               style="border-radius: 0">{{ __('global.select_all') }}</span>
@@ -195,8 +194,48 @@
                         <select class="form-control select2 {{ $errors->has($name) ? 'is-invalid' : '' }}"
                                 name="{{ $name }}[]"
                                 id="{{ $name }}" multiple >
-                            @foreach($dictionaryChildren as $id => $dictionary)
-                                <option value="{{ $id }}" {{ in_array($id, old($name, [])) ? 'selected' : '' }}>{{ $dictionary }}</option>
+                            @foreach($placementList as $dictionary)
+                                <option value="{{ $dictionary->id }}" {{ in_array($dictionary->id, old($name, [])) ? 'selected' : '' }}>{{ $dictionary->name }}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has($name))
+                            <span class="text-danger">{{ $errors->first($name) }}</span>
+                        @endif
+                    </div>
+
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label class="" for="{{ $name = 'dictionary_ids' }}">{{ __('global.season_dictionary') }}</label>
+                        <div style="padding-bottom: 4px">
+                        <span class="btn btn-info btn-xs select-all"
+                              style="border-radius: 0">{{ __('global.select_all') }}</span>
+                            <span class="btn btn-info btn-xs deselect-all"
+                                  style="border-radius: 0">{{ __('global.deselect_all') }}</span>
+                        </div>
+                        <select class="form-control select2 {{ $errors->has($name) ? 'is-invalid' : '' }}"
+                                name="{{ $name }}[]"
+                                id="{{ $name }}" multiple >
+                            @foreach($seasonList as $dictionary)
+                                <option value="{{ $dictionary->id }}" {{ in_array($dictionary->id, old($name, [])) ? 'selected' : '' }}>{{ $dictionary->name }}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has($name))
+                            <span class="text-danger">{{ $errors->first($name) }}</span>
+                        @endif
+                    </div>
+
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label class="" for="{{ $name = 'dictionary_ids' }}">{{ __('global.whom_dictionary') }}</label>
+                        <div style="padding-bottom: 4px">
+                        <span class="btn btn-info btn-xs select-all"
+                              style="border-radius: 0">{{ __('global.select_all') }}</span>
+                            <span class="btn btn-info btn-xs deselect-all"
+                                  style="border-radius: 0">{{ __('global.deselect_all') }}</span>
+                        </div>
+                        <select class="form-control select2 {{ $errors->has($name) ? 'is-invalid' : '' }}"
+                                name="{{ $name }}[]"
+                                id="{{ $name }}" multiple >
+                            @foreach($whomList as $dictionary)
+                                <option value="{{ $dictionary->id }}" {{ in_array($dictionary->id, old($name, [])) ? 'selected' : '' }}>{{ $dictionary->name }}</option>
                             @endforeach
                         </select>
                         @if($errors->has($name))
@@ -207,16 +246,6 @@
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label class="required" for="{{ $name = 'image' }}">{{ __("cruds.hotels.fields.$name") }}</label>
                         <div class="needsclick dropzone {{ $errors->has('file') ? 'is-invalid' : '' }}" id="{{ $name }}">
-                        </div>
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.hotels.fields.{$name}_helper") }}</span>
-                    </div>
-
-                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="" for="{{ $name = 'image_history' }}">{{ __("cruds.hotels.fields.$name") }}</label>
-                        <div class="needsclick dropzone {{ $errors->has($name) ? 'is-invalid' : '' }}" id="{{ $name }}">
                         </div>
                         @if($errors->has($name))
                             <span class="text-danger">{{ $errors->first($name) }}</span>

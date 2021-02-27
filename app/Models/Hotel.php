@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Illuminate\Database\Eloquent\Collection;
+use \Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * Class Place
@@ -17,20 +18,18 @@ class Hotel extends BaseModel
      * @var array|string[]
      */
     public array $translatable = [
-        'name', 'meta_title', 'meta_description', 'description',
-        'conditions_accommodation', 'conditions_payment',
-        'room_desc', 'additional_services','food_desc',
-        'contact_desc', 'city', 'location'
+        'name', 'description', 'rooms_fund', 'conditions_accommodation',
+        'additional_services', 'contact_desc', 'location'
     ];
 
     /**
      * @var string[]
      */
     protected $fillable = [
-        'active', 'recommended', 'name', 'meta_title', 'meta_description',
-        'conditions_accommodation', 'conditions_payment', 'room_desc', 'additional_services',
-        'food_desc', 'contact_desc', 'site_link', 'social_links', 'aggregator_links',
-        'phones', 'city', 'location', 'lat', 'lng', 'description', 'price',
+        'active', 'recommended', 'name',
+        'conditions_accommodation', 'conditions_payment', 'additional_services',
+        'contact_desc', 'site_link', 'social_links', 'aggregator_links',
+        'phones', 'location', 'lat', 'lng', 'description'
     ];
 
     /**
@@ -44,18 +43,21 @@ class Hotel extends BaseModel
      * @var string[]
      */
     protected $appends = [
-        'image', 'image_history', 'image_gallery'
+        'image', 'image_gallery'
     ];
 
     /**
      * @return BelongsToMany
      */
-    public function dictionaries()
+    public function dictionaries() : BelongsToMany
     {
         return $this->belongsToMany(Dictionary::class, 'hotel_dictionary', 'hotel_id', 'dictionary_id');
     }
 
-    public function routable()
+    /**
+     * @return MorphMany
+     */
+    public function routable() : MorphMany
     {
         return $this->morphMany(Routable::class, 'routable');
     }
@@ -66,18 +68,6 @@ class Hotel extends BaseModel
     public function getImageAttribute()
     {
         if (! $media = $this->getMedia('image')->last()) {
-            return null;
-        }
-
-        return $this->fillMedia($media);
-    }
-
-    /**
-     * @return Media|null
-     */
-    public function getImageHistoryAttribute()
-    {
-        if (! $media = $this->getMedia('image_history')->last()) {
             return null;
         }
 

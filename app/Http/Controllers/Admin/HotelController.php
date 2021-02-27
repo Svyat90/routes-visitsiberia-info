@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
 use App\Models\Hotel;
+use App\Services\DictionaryService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +15,6 @@ use App\Http\Requests\Admin\Hotels\StoreHotelRequest;
 use App\Http\Requests\Admin\Hotels\UpdateHotelRequest;
 use App\Http\Requests\Admin\Hotels\MassDestroyHotelRequest;
 use App\Services\HotelService;
-use App\Repositories\DictionaryRepository;
 
 class HotelController extends AdminController
 {
@@ -50,16 +50,19 @@ class HotelController extends AdminController
     }
 
     /**
-     * @param Hotel          $hotel
-     * @param DictionaryRepository $dictionaryRepository
-     *
+     * @param Hotel $hotel
+     * @param DictionaryService $dictionaryService
      * @return View
      */
-    public function create(Hotel $hotel, DictionaryRepository $dictionaryRepository) : View
+    public function create(Hotel $hotel, DictionaryService $dictionaryService) : View
     {
-        $dictionaryChildren = $dictionaryRepository->getChildrenForSelect();
-
-        return view('admin.hotels.create', compact('hotel', 'dictionaryChildren'));
+        return view('admin.hotels.create', [
+            'hotel' => $hotel,
+            'placementList' => $dictionaryService->getPlacementList(),
+            'seasonList' => $dictionaryService->getSeasonList(),
+            'whomList' => $dictionaryService->getWhomList(),
+            'conditionList' => $this->service::getConditionsTypes()
+        ]);
     }
 
     /**
@@ -87,17 +90,19 @@ class HotelController extends AdminController
     }
 
     /**
-     * @param Hotel                $hotel
-     * @param DictionaryRepository $dictionaryRepository
-     *
+     * @param Hotel $hotel
+     * @param DictionaryService $dictionaryService
      * @return Application|Factory|View
      */
-    public function edit(Hotel $hotel, DictionaryRepository $dictionaryRepository)
+    public function edit(Hotel $hotel, DictionaryService $dictionaryService)
     {
         return view('admin.hotels.edit', [
             'hotel' => $hotel,
-            'dictionaryChildren' => $dictionaryRepository->getChildrenForSelect(),
-            'dictionaryIds' => $this->service->repository->getRelatedDictionaryIds($hotel)
+            'dictionaryIds' => $this->service->repository->getRelatedDictionaryIds($hotel),
+            'placementList' => $dictionaryService->getPlacementList(),
+            'seasonList' => $dictionaryService->getSeasonList(),
+            'whomList' => $dictionaryService->getWhomList(),
+            'conditionList' => $this->service::getConditionsTypes()
         ]);
     }
 

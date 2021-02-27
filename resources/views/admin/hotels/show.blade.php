@@ -19,18 +19,21 @@
                         <th>{{ __("cruds.base.fields.id") }}</th>
                         <td>{{ $hotel->id }}</td>
                     </tr>
-                    <tr>
-                        <th>{{ __("cruds.base.fields.slug") }}</th>
-                        <td>{{ $hotel->slug }}</td>
-                    </tr>
 
                     @foreach($hotel->getFillable() as $field)
-                        @if(in_array($field, ['active', 'recommended', 'delivery_available', 'have_business_lunch', 'have_breakfasts']))
+                        @if(in_array($field, ['active', 'recommended']))
                             <tr>
                                 <th>
                                     {{ __("cruds.hotels.fields.{$field}") }}
                                 </th>
                                 <td>{!! LabelHelper::boolLabel($hotel->$field) !!}</td>
+                            </tr>
+                        @elseif($field === 'conditions_payment')
+                            <tr>
+                                <th>
+                                    {{ __("cruds.hotels.fields.{$field}") }}
+                                </th>
+                                <td>{{ __("global.{$hotel->$field}") }}</td>
                             </tr>
                         @else
                             <tr>
@@ -46,7 +49,6 @@
                     @include('admin.partials.item-action-table-dates', ['model' => $hotel])
 
                     @include('admin.partials.show-media', ['name' => 'image', 'model' => $hotel, 'namespace' => 'hotels'])
-                    @include('admin.partials.show-media', ['name' => 'image_history', 'model' => $hotel, 'namespace' => 'hotels'])
                     @include('admin.partials.show-media', ['name' => 'image_gallery', 'model' => $hotel, 'namespace' => 'hotels'])
 
                     </tbody>
