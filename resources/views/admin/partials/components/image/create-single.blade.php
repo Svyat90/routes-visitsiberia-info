@@ -42,17 +42,6 @@
                 }
             },
             init: function () {
-                @php
-                    $media = $model->getFirstMedia($name);
-                @endphp
-                @if($media)
-                var file = {!! json_encode($media) !!}
-                    this.options.addedfile.call(this, file)
-                this.options.thumbnail.call(this, file, '{{ $media->getUrl('thumb') }}')
-                file.previewElement.classList.add('dz-complete')
-                $('form').append('<input type="hidden" name="{{ $name }}" value="' + file.file_name + '">')
-                this.options.maxFiles = this.options.maxFiles - 1
-                @endif
             },
             error: function (file, response) {
                 if ($.type(response) === 'string') {

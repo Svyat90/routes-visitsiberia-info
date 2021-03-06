@@ -1,5 +1,5 @@
 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-    <label class="required" for="{{ $name }}">
+    <label class="" for="{{ $name }}">
         {{ __("cruds.$namespace.fields.$name") }}
     </label>
 
