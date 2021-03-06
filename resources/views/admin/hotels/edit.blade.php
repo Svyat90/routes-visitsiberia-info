@@ -13,7 +13,7 @@
 
                 <div class="row">
 
-                    @include('admin.partials.components.translable.input.create-text', ['field' => 'name', 'namespace' => 'hotels'])
+                    @include('admin.partials.components.translable.input.update-text', ['field' => 'name', 'namespace' => 'hotels'])
 
                     @include('admin.partials.components.multi-select.update', [
                         'label' => __('global.placement_dictionary'),
@@ -49,7 +49,7 @@
 
                     @include('admin.partials.components.select.bool.update', ['name' => 'have_food_point', 'namespace' => 'hotels', 'model' => $hotel])
 
-                    @include('admin.partials.components.select.list.create', [
+                    @include('admin.partials.components.select.list.update', [
                         'name' => 'conditions_payment',
                         'namespace' => 'hotels',
                         'values' => $conditionList,
