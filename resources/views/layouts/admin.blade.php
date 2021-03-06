@@ -104,8 +104,22 @@
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 <script>
+    var arrDropZones = [];
+
+    Dropzone.prototype.defaultOptions.dictDefaultMessage = "Перетащите сюда файлы для загрузки";
+    Dropzone.prototype.defaultOptions.dictFallbackMessage = "Ваш браузер не поддерживает загрузку файлов drag'n'drop.";
+    Dropzone.prototype.defaultOptions.dictFallbackText = "Пожалуйста, используйте резервную форму ниже, чтобы загружать свои файлы, как в былые времена.";
+    Dropzone.prototype.defaultOptions.dictFileTooBig = "Файл слишком большой (@{{filesize}} Мб). Максимальный размер файла: @{{maxFilesize}} Мб.";
+    Dropzone.prototype.defaultOptions.dictInvalidFileType = "Вы не можете загружать файлы этого типа.";
+    Dropzone.prototype.defaultOptions.dictResponseError = "Сервер ответил кодом @{{statusCode}}.";
+    Dropzone.prototype.defaultOptions.dictCancelUpload = "отменить загрузку";
+    Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = "Вы уверены, что хотите отменить это загрузки?";
+    Dropzone.prototype.defaultOptions.dictRemoveFile = "удалить файл";
+    Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "Вы не можете загружать несколько файлов.";
+
     $(function () {
         tinymce.init({
+            language: "ru",
             selector: '.tinymceTextarea',
             plugins: "code,link",
             themes: "modern",

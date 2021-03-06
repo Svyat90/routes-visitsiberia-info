@@ -29,7 +29,7 @@ class Hotel extends BaseModel
         'active', 'recommended', 'name',
         'conditions_accommodation', 'conditions_payment',
         'contact_desc', 'site_link', 'additional_services',
-        'location', 'lat', 'lng', 'description'
+        'location', 'lat', 'lng', 'description', 'have_food_point'
     ];
 
     /**

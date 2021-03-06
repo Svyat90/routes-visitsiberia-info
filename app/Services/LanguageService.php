@@ -72,7 +72,7 @@ class LanguageService
             })
             ->map(function ($path) {
                 return $this->fillLang($path);
-            });
+            })->reverse();
     }
 
     /**

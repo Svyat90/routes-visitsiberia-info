@@ -174,6 +174,10 @@ class HotelService extends BaseService
      */
     private function saveSocialLinks(Hotel $hotel, $request) : void
     {
+        if (! $request->social_links) {
+            return;
+        }
+
         $urls = $request->social_links['url'];
         $texts = $request->social_links['title'];
         $types = $request->social_links['type'];
@@ -182,7 +186,7 @@ class HotelService extends BaseService
             if (! $url) return [];
             return ['url' => $url, 'title' => $text, 'type' => $type, 'field' => 'social_links'];
         }, $urls, $texts, $types);
-
+//dd($insertSocialData);
         $hotel->socialFields()->createMany(array_filter($insertSocialData));
     }
 
@@ -192,6 +196,10 @@ class HotelService extends BaseService
      */
     private function saveAggregatorLinks(Hotel $hotel, $request) : void
     {
+        if (! $request->aggregator_links) {
+            return;
+        }
+
         $urls = $request->aggregator_links['url'];
         $texts = $request->aggregator_links['title'];
         $types = $request->aggregator_links['type'];
@@ -210,12 +218,16 @@ class HotelService extends BaseService
      */
     private function savePhones(Hotel $hotel, $request) : void
     {
+        if (! $request->phones) {
+            return;
+        }
+
         $texts = $request->phones['title'];
         $types = $request->phones['type'];
 
         $insertSocialData = array_map(function ($text, $type) {
             if (! $text) return [];
-            return ['title' => $text, 'type' => $type, 'field' => 'phones'];
+            return ['url' => '', 'title' => $text, 'type' => $type, 'field' => 'phones'];
         }, $texts, $types);
 
         $hotel->socialFields()->createMany(array_filter($insertSocialData));

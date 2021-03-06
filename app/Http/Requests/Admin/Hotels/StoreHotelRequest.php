@@ -10,12 +10,12 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $name
  * @property string $meta_title
  * @property string $meta_description
- * @property string $conditions_accommodation
+ * @property array $conditions_accommodation
  * @property string $conditions_payment
- * @property string $room_desc
- * @property string $additional_services
- * @property string $food_desc
- * @property string $contact_desc
+ * @property array $room_desc
+ * @property array $additional_services
+ * @property array $food_desc
+ * @property array $contact_desc
  * @property string $site_link
  * @property array $social_links
  * @property array $aggregator_links
@@ -26,6 +26,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $lat
  * @property string $lng
  * @property boolean $active
+ * @property boolean $have_food_point
  * @property boolean $recommended
  * @property string $image
  * @property string $image_history
@@ -57,9 +58,9 @@ class StoreHotelRequest extends FormRequest
             'meta_description.*' => 'string|nullable',
             'conditions_accommodation' => 'sometimes|array',
             'conditions_accommodation.*' => 'string|nullable',
-            'conditions_payment' => 'required|string',
             'room_desc' => 'sometimes|array',
             'room_desc.*' => 'string|nullable',
+            'conditions_payment' => 'required|string',
             'additional_services' => 'sometimes|array',
             'additional_services.*' => 'string|nullable',
             'contact_desc' => 'sometimes|array',
@@ -67,6 +68,7 @@ class StoreHotelRequest extends FormRequest
             'food_desc' => 'sometimes|array',
             'food_desc.*' => 'string|nullable',
             'active' => 'required|bool',
+            'have_food_point' => 'required|bool',
             'recommended' => 'required|bool',
             'lat' => 'required|string',
             'lng' => 'required|string',

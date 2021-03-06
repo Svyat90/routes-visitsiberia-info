@@ -21,7 +21,7 @@
                     </tr>
 
                     @foreach($hotel->getFillable() as $field)
-                        @if(in_array($field, ['active', 'recommended']))
+                        @if(in_array($field, ['active', 'recommended', 'have_food_point']))
                             <tr>
                                 <th>
                                     {{ __("cruds.hotels.fields.{$field}") }}
