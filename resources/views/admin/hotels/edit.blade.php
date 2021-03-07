@@ -13,7 +13,7 @@
 
                 <div class="row">
 
-                    @include('admin.partials.components.translable.input.update-text', ['field' => 'name', 'namespace' => 'hotels'])
+                    @include('admin.partials.components.translable.input.update-text', ['field' => 'name', 'namespace' => 'hotels', 'model' => $hotel])
 
                     @include('admin.partials.components.multi-select.update', [
                         'label' => __('global.placement_dictionary'),
@@ -87,7 +87,7 @@
                     @include('admin.partials.components.input.update-text', ['name' => 'lat', 'namespace' => 'hotels', 'model' => $hotel])
                     @include('admin.partials.components.input.update-text', ['name' => 'lng', 'namespace' => 'hotels', 'model' => $hotel])
 
-                    @include('admin.partials.components.translable.input.update-text', ['field' => 'location', 'namespace' => 'hotels'])
+                    @include('admin.partials.components.translable.input.update-text', ['field' => 'location', 'namespace' => 'hotels', 'model' => $hotel])
                 </div>
 
                 <div class="form-group">
