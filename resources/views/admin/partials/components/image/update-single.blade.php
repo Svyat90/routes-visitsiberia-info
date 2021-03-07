@@ -43,7 +43,7 @@
             },
             init: function () {
                 @php
-                    $media = $hotel->getFirstMedia($name);
+                    $media = $model->getFirstMedia($name);
                 @endphp
 
                 @if($media)

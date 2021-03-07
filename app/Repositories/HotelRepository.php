@@ -3,52 +3,11 @@
 namespace App\Repositories;
 
 use App\Models\Hotel;
-use App\Models\Place;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use App\Helpers\SlugHelper;
 
-class HotelRepository extends Model
+class HotelRepository extends BaseRepository
 {
-
-    /**
-     * @param Hotel $hotel
-     * @return Collection
-     */
-    public function getSocialLinks(Hotel $hotel) : Collection
-    {
-        return $hotel
-            ->socialFields()
-            ->where('field', 'social_links')
-            ->where('type', 'site')
-            ->get();
-    }
-
-    /**
-     * @param Hotel $hotel
-     * @return Collection
-     */
-    public function getAggregatorLinks(Hotel $hotel) : Collection
-    {
-        return $hotel
-            ->socialFields()
-            ->where('field', 'aggregator_links')
-            ->where('type', 'site')
-            ->get();
-    }
-
-    /**
-     * @param Hotel $hotel
-     * @return Collection
-     */
-    public function getPhones(Hotel $hotel) : Collection
-    {
-        return $hotel
-            ->socialFields()
-            ->where('field', 'phones')
-            ->where('type', 'phone')
-            ->get();
-    }
 
     /**
      * @param array $ids

@@ -10,264 +10,57 @@
             <form method="POST" action="{{ route("admin.meals.store") }}">
                 @csrf
                 <div class="row">
-                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
-                            @foreach($languages as $language)
-                                <li class="nav-item">
-                                    <a class="nav-link {{ $loop->index === 0 ? 'active' : '' }}"
-                                       href="#{{ $language->locale }}" role="tab" data-toggle="tab">
-                                        {{ $language->locale }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
 
-                        <div class="tab-content">
-                            @foreach($languages as $language)
-                                <div class="tab-pane {{ $loop->index === 0 ? 'show active' : '' }}" role="tabpanel"
-                                     id="{{ $language->locale }}">
-                                    <div class="m-3">
-                                        @foreach($meal->getTranslatable() as $field)
-                                            @php $oldLocale = old($field); @endphp
+                    @include('admin.partials.components.translable.input.create-text', ['field' => 'name', 'namespace' => 'meals'])
 
-                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                    @if (in_array($field, ['page_desc', 'helpful_info', 'history_desc', 'contact_desc']))
-                                                        <div class="form-group">
-                                                            <label for="{{ $name = $field . '[' . $language->locale . ']' }}">
-                                                                {{ __("cruds.meals.fields.$field") }}
-                                                            </label>
-                                                            <textarea class="form-control tinymceTextarea {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                                                                      name="{{ $name }}" id="{{ $name }}">{!! $oldLocale[$language->locale] ?? "" !!}</textarea>
-                                                            @if($errors->has($name))
-                                                                <span class="text-danger">{{ $errors->first($name) }}</span>
-                                                            @endif
-                                                            <span class="help-block">{{ __("cruds.meals.fields.{$field}_helper") }}</span>
-                                                        </div>
-                                                    @else
-                                                        <label class="" for="{{ $name = $field . '[' . $language->locale . ']' }}">
-                                                            {{ __('cruds.meals.fields.' . $field) }}
-                                                        </label>
-                                                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                                                               type="text"
-                                                               name="{{ $name }}"
-                                                               id="{{ $name }}"
-                                                               value="{{ $oldLocale[$language->locale] ?? "" }}" />
-                                                        @if($errors->has($name))
-                                                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                                                        @endif
-                                                        <span
-                                                            class="help-block">{{ __("cruds.meals.fields.{$field}_helper") }}</span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
+                    @include('admin.partials.components.multi-select.create', [
+                       'label' => __('global.category_food_dictionary'),
+                       'name' => 'dictionary_ids',
+                       'values' => $categoryList
+                   ])
 
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'active' }}">{{ __("cruds.meals.fields.$name") }}</label>
-                        <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="0" {{ old($name, null) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
-                            <option value="1" {{ old($name, null) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
-                        </select>
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
-                    </div>
+                    @include('admin.partials.components.multi-select.create', [
+                        'label' => __('global.season_dictionary'),
+                        'name' => 'dictionary_ids',
+                        'values' => $seasonList
+                    ])
 
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'recommended' }}">{{ __("cruds.meals.fields.$name") }}</label>
-                        <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="0" {{ old($name, null) == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
-                            <option value="1" {{ old($name, null) == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
-                        </select>
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
-                    </div>
+                    @include('admin.partials.components.select.bool.create', ['name' => 'have_breakfasts', 'namespace' => 'meals'])
+                    @include('admin.partials.components.select.bool.create', ['name' => 'have_business_lunch', 'namespace' => 'meals'])
+                    @include('admin.partials.components.select.bool.create', ['name' => 'delivery_available', 'namespace' => 'meals'])
+                    @include('admin.partials.components.select.bool.create', ['name' => 'recommended', 'namespace' => 'meals'])
+                    @include('admin.partials.components.select.bool.create', ['name' => 'active', 'namespace' => 'meals'])
 
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'have_breakfasts' }}">{{ __("cruds.meals.fields.$name") }}</label>
-                        <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="0" {{ old($name, '') == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
-                            <option value="1" {{ old($name, '') == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
-                        </select>
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
-                    </div>
+                    @include('admin.partials.components.image.create-single', ['name' => 'image', 'namespace' => 'meals'])
+                    @include('admin.partials.components.image.create-multiple', ['name' => 'image_gallery', 'namespace' => 'meals'])
 
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'have_business_lunch' }}">{{ __("cruds.meals.fields.$name") }}</label>
-                        <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="0" {{ old($name, '') == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
-                            <option value="1" {{ old($name, '') == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
-                        </select>
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
-                    </div>
+                    @include('admin.partials.components.translable.textarea.create', ['field' => 'description', 'namespace' => 'meals'])
+                    @include('admin.partials.components.translable.textarea.create', ['field' => 'working_hours', 'namespace' => 'meals'])
 
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'delivery_available' }}">{{ __("cruds.meals.fields.$name") }}</label>
-                        <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="0" {{ old($name, '') == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
-                            <option value="1" {{ old($name, '') == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
-                        </select>
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
-                    </div>
+                    @include('admin.partials.components.input.create-text', ['name' => 'site_link', 'namespace' => 'meals'])
 
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'cost' }}">{{ __("cruds.meals.fields.$name") }}</label>
-                        <select name="{{ $name }}" id="{{ $name }}" class="form-control">
-                            <option value="$" {{ old($name, '') == "$" ? 'selected' : '' }}>$</option>
-                            <option value="$$" {{ old($name, '') == "$$" ? 'selected' : '' }}>$$</option>
-                            <option value="$$$" {{ old($name, '') == "$$$" ? 'selected' : '' }}>$$$</option>
-                        </select>
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
-                    </div>
+                    @include('admin.partials.components.multi-fields.create', [
+                        'label' => __('global.add_link'),
+                        'name' => 'aggregator_links',
+                        'namespace' => 'meals'
+                    ])
 
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'lat' }}">{{ __("cruds.meals.fields.$name") }}</label>
-                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                               type="text"
-                               name="{{ $name }}"
-                               id="{{ $name }}"
-                               value="{{ old($name, '') }}" />
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
-                    </div>
+                    @include('admin.partials.components.multi-fields.create', [
+                        'label' => __('global.add_link'),
+                        'name' => 'social_links',
+                        'namespace' => 'meals'
+                    ])
 
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="required" for="{{ $name = 'lng' }}">{{ __("cruds.meals.fields.$name") }}</label>
-                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                               type="text"
-                               name="{{ $name }}"
-                               id="{{ $name }}"
-                               value="{{ old($name, '') }}" />
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
-                    </div>
+                    @include('admin.partials.components.multi-fields.create', [
+                        'label' => __('global.add_phone'),
+                        'name' => 'phones',
+                        'namespace' => 'meals'
+                    ])
 
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="" for="{{ $name = 'site_link' }}">{{ __("cruds.meals.fields.$name") }}</label>
-                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                               type="text"
-                               name="{{ $name }}"
-                               id="{{ $name }}"
-                               value="{{ old($name, '') }}" />
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
-                    </div>
+                    @include('admin.partials.components.input.create-text', ['name' => 'lat', 'namespace' => 'meals'])
+                    @include('admin.partials.components.input.create-text', ['name' => 'lng', 'namespace' => 'meals'])
 
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="" for="{{ $name = 'social_links' }}">{{ __("cruds.meals.fields.$name") }}</label>
-                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                               type="text"
-                               name="{{ $name }}"
-                               id="{{ $name }}"
-                               value="{{ old($name, '') }}" />
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
-                    </div>
-
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="" for="{{ $name = 'aggregator_links' }}">{{ __("cruds.meals.fields.$name") }}</label>
-                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                               type="text"
-                               name="{{ $name }}"
-                               id="{{ $name }}"
-                               value="{{ old($name, '') }}" />
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
-                    </div>
-
-                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                        <label class="" for="{{ $name = 'phones' }}">{{ __("cruds.meals.fields.$name") }}</label>
-                        <input class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                               type="text"
-                               name="{{ $name }}"
-                               id="{{ $name }}"
-                               value="{{ old($name, '') }}" />
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
-                    </div>
-
-                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="" for="{{ $name = 'dictionary_ids' }}">{{ __('global.dictionaries') }}</label>
-                        <div style="padding-bottom: 4px">
-                        <span class="btn btn-info btn-xs select-all"
-                              style="border-radius: 0">{{ __('global.select_all') }}</span>
-                            <span class="btn btn-info btn-xs deselect-all"
-                                  style="border-radius: 0">{{ __('global.deselect_all') }}</span>
-                        </div>
-                        <select class="form-control select2 {{ $errors->has($name) ? 'is-invalid' : '' }}"
-                                name="{{ $name }}[]"
-                                id="{{ $name }}" multiple >
-                            @foreach($dictionaryChildren as $id => $dictionary)
-                                <option value="{{ $id }}" {{ in_array($id, old($name, [])) ? 'selected' : '' }}>{{ $dictionary }}</option>
-                            @endforeach
-                        </select>
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                    </div>
-
-                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="required" for="{{ $name = 'image' }}">{{ __("cruds.meals.fields.$name") }}</label>
-                        <div class="needsclick dropzone {{ $errors->has('file') ? 'is-invalid' : '' }}" id="{{ $name }}">
-                        </div>
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
-                    </div>
-
-                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="" for="{{ $name = 'image_history' }}">{{ __("cruds.meals.fields.$name") }}</label>
-                        <div class="needsclick dropzone {{ $errors->has($name) ? 'is-invalid' : '' }}" id="{{ $name }}">
-                        </div>
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
-                    </div>
-
-                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="" for="{{ $name = 'image_gallery' }}">{{ __("cruds.meals.fields.$name") }}</label>
-                        <div class="needsclick dropzone {{ $errors->has($name) ? 'is-invalid' : '' }}" id="{{ $name }}">
-                        </div>
-                        @if($errors->has($name))
-                            <span class="text-danger">{{ $errors->first($name) }}</span>
-                        @endif
-                        <span class="help-block">{{ __("cruds.meals.fields.{$name}_helper") }}</span>
-                    </div>
+                    @include('admin.partials.components.translable.input.create-text', ['field' => 'location', 'namespace' => 'meals'])
 
                 </div>
 

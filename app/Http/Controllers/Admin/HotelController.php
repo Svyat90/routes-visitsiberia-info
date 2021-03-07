@@ -102,10 +102,6 @@ class HotelController extends AdminController
     {
         $hotel->load('socialFields');
 
-        $socialLinks = $this->service->repository->getSocialLinks($hotel);
-        $aggregatorLinks = $this->service->repository->getAggregatorLinks($hotel);
-        $phones = $this->service->repository->getPhones($hotel);
-
         return view('admin.hotels.edit', [
             'hotel' => $hotel,
             'dictionaryIds' => $this->service->repository->getRelatedDictionaryIds($hotel),
@@ -113,9 +109,9 @@ class HotelController extends AdminController
             'seasonList' => $dictionaryService->getSeasonList(),
             'whomList' => $dictionaryService->getWhomList(),
             'conditionList' => $this->service::getConditionsTypes(),
-            'socialLinks' => $socialLinks,
-            'aggregatorLinks' => $aggregatorLinks,
-            'phones' => $phones
+            'socialLinks' => $this->service->repository->getSocialLinks($hotel),
+            'aggregatorLinks' => $this->service->repository->getAggregatorLinks($hotel),
+            'phones' => $this->service->repository->getPhones($hotel)
         ]);
     }
 

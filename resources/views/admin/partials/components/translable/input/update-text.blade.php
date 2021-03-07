@@ -32,7 +32,7 @@
                                type="text"
                                name="{{ $name }}"
                                id="{{ $name }}"
-                               value="{{ $oldLocaleVal ?? $hotel->getTranslation($field, $language->locale) }}"
+                               value="{{ $oldLocaleVal ?? $model->getTranslation($field, $language->locale) }}"
                         />
 
                         @if($errors->has($name))

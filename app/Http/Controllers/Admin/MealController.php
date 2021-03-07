@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
 use App\Models\Meal;
+use App\Services\DictionaryService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +15,6 @@ use App\Http\Requests\Admin\Meals\StoreMealRequest;
 use App\Http\Requests\Admin\Meals\UpdateMealRequest;
 use App\Http\Requests\Admin\Meals\MassDestroyMealRequest;
 use App\Services\MealService;
-use App\Repositories\DictionaryRepository;
 
 class MealController extends AdminController
 {
@@ -50,16 +50,17 @@ class MealController extends AdminController
     }
 
     /**
-     * @param Meal          $meal
-     * @param DictionaryRepository $dictionaryRepository
-     *
+     * @param Meal $meal
+     * @param DictionaryService $dictionaryService
      * @return View
      */
-    public function create(Meal $meal, DictionaryRepository $dictionaryRepository) : View
+    public function create(Meal $meal, DictionaryService $dictionaryService) : View
     {
-        $dictionaryChildren = $dictionaryRepository->getChildrenForSelect();
-
-        return view('admin.meals.create', compact('meal', 'dictionaryChildren'));
+        return view('admin.meals.create', [
+            'categoryList' => $dictionaryService->getCategoryFoodList(),
+            'seasonList' => $dictionaryService->getSeasonList(),
+            'meal' => $meal,
+        ]);
     }
 
     /**
@@ -67,7 +68,7 @@ class MealController extends AdminController
      *
      * @return RedirectResponse
      */
-    public function store(StoreMealRequest $request)
+    public function store(StoreMealRequest $request) : RedirectResponse
     {
         $meal = $this->service->createMeal($request);
 
@@ -83,21 +84,28 @@ class MealController extends AdminController
     {
         $meal->load('dictionaries');
 
-        return view('admin.meals.show', compact('meal'));
+        $socialLinks = $this->service->repository->getSocialLinks($meal);
+        $aggregatorLinks = $this->service->repository->getAggregatorLinks($meal);
+        $phones = $this->service->repository->getPhones($meal);
+
+        return view('admin.meals.show', compact('meal','socialLinks', 'aggregatorLinks', 'phones'));
     }
 
     /**
-     * @param Meal                $meal
-     * @param DictionaryRepository $dictionaryRepository
-     *
+     * @param Meal $meal
+     * @param DictionaryService $dictionaryService
      * @return Application|Factory|View
      */
-    public function edit(Meal $meal, DictionaryRepository $dictionaryRepository)
+    public function edit(Meal $meal, DictionaryService $dictionaryService)
     {
         return view('admin.meals.edit', [
+            'dictionaryIds' => $this->service->repository->getRelatedDictionaryIds($meal),
+            'categoryList' => $dictionaryService->getCategoryFoodList(),
+            'seasonList' => $dictionaryService->getSeasonList(),
+            'socialLinks' => $this->service->repository->getSocialLinks($meal),
+            'aggregatorLinks' => $this->service->repository->getAggregatorLinks($meal),
+            'phones' => $this->service->repository->getPhones($meal),
             'meal' => $meal,
-            'dictionaryChildren' => $dictionaryRepository->getChildrenForSelect(),
-            'dictionaryIds' => $this->service->repository->getRelatedDictionaryIds($meal)
         ]);
     }
 
@@ -107,7 +115,7 @@ class MealController extends AdminController
      *
      * @return RedirectResponse
      */
-    public function update(UpdateMealRequest $request, Meal $meal)
+    public function update(UpdateMealRequest $request, Meal $meal) : RedirectResponse
     {
         $meal = $this->service->updateMeal($request, $meal);
 

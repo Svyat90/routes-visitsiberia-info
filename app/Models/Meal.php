@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * Class Place
+ * Class Meal
  *
  * @mixin IdeHelperMeal
  */
@@ -17,19 +18,16 @@ class Meal extends BaseModel
      * @var array|string[]
      */
     public array $translatable = [
-        'name', 'page_desc', 'city', 'location', 'history_desc', 'working_hours',
-        'contact_desc', 'meta_title', 'meta_description'
+        'name', 'description', 'location', 'working_hours'
     ];
 
     /**
      * @var string[]
      */
     protected $fillable = [
-        'name', 'page_desc', 'recommended', 'active', 'have_breakfasts',
-        'have_business_lunch', 'delivery_available', 'working_hours', 'cost',
-        'contact_desc', 'lat', 'lng', 'city', 'location', 'history_desc', 'phones',
-        'meta_title', 'meta_description', 'site_link', 'social_links',
-        'aggregator_links',
+        'name', 'description', 'recommended', 'active', 'have_breakfasts',
+        'have_business_lunch', 'delivery_available', 'working_hours',
+        'lat', 'lng', 'location', 'site_link'
     ];
 
     /**
@@ -43,20 +41,31 @@ class Meal extends BaseModel
      * @var string[]
      */
     protected $appends = [
-        'image', 'image_history', 'image_gallery'
+        'image', 'image_gallery'
     ];
 
     /**
      * @return BelongsToMany
      */
-    public function dictionaries()
+    public function dictionaries() : BelongsToMany
     {
         return $this->belongsToMany(Dictionary::class, 'place_dictionary', 'place_id', 'dictionary_id');
     }
 
-    public function routable()
+    /**
+     * @return MorphMany
+     */
+    public function routable() : MorphMany
     {
         return $this->morphMany(Routable::class, 'routable');
+    }
+
+    /**
+     * @return MorphMany
+     */
+    public function socialFields() : MorphMany
+    {
+        return $this->morphMany(SocialField::class, 'sociable');
     }
 
     /**
@@ -65,18 +74,6 @@ class Meal extends BaseModel
     public function getImageAttribute()
     {
         if (! $media = $this->getMedia('image')->last()) {
-            return null;
-        }
-
-        return $this->fillMedia($media);
-    }
-
-    /**
-     * @return Media|null
-     */
-    public function getImageHistoryAttribute()
-    {
-        if (! $media = $this->getMedia('image_history')->last()) {
             return null;
         }
 

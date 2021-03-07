@@ -73,6 +73,8 @@
                     @include('admin.partials.components.input.create-text', ['name' => 'lat', 'namespace' => 'hotels'])
                     @include('admin.partials.components.input.create-text', ['name' => 'lng', 'namespace' => 'hotels'])
 
+                    @include('admin.partials.components.translable.input.create-text', ['field' => 'location', 'namespace' => 'hotels'])
+
                     <div class="form-group">
                         <button class="btn btn-danger" type="submit">
                             {{ __('global.save') }}

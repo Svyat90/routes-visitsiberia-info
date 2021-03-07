@@ -3,11 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\Meal;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use App\Helpers\SlugHelper;
 
-class MealRepository extends Model
+class MealRepository extends BaseRepository
 {
 
     /**

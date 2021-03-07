@@ -87,6 +87,7 @@
                     @include('admin.partials.components.input.update-text', ['name' => 'lat', 'namespace' => 'hotels', 'model' => $hotel])
                     @include('admin.partials.components.input.update-text', ['name' => 'lng', 'namespace' => 'hotels', 'model' => $hotel])
 
+                    @include('admin.partials.components.translable.input.update-text', ['field' => 'location', 'namespace' => 'hotels'])
                 </div>
 
                 <div class="form-group">

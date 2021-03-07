@@ -68,6 +68,7 @@ return [
     "disconnect" => "Отсоединить",
     "success_delete_dictionary" => "Словарь успешно отсоединен",
     "placement_dictionary" => "Тип места размещения",
+    "category_food_dictionary" => "Категория места питания",
     "season_dictionary" => "Доступность в сезоны",
     "whom_dictionary" => "Для кого рассчитано",
     "cash" => "Наличный расчёт",

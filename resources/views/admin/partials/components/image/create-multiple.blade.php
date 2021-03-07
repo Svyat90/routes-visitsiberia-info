@@ -31,7 +31,6 @@
             },
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             success: function (file, response) {
-                $('form').find('input[name="{{ $name }}[]"]').remove()
                 $('form').append('<input type="hidden" name="{{ $name }}[]" value="' + response.name + '">')
             },
             removedfile: function (file) {
@@ -45,9 +44,9 @@
             },
             error: function (file, response) {
                 if ($.type(response) === 'string') {
-                    var message = response //dropzone sends it's own error messages in string
+                    let message = response // dropzone sends it's own error messages in string
                 } else {
-                    var message = response.errors.file
+                    let message = response.errors.file
                 }
                 file.previewElement.classList.add('dz-error')
                 _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')

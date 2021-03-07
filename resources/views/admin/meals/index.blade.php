@@ -30,9 +30,6 @@
                         {{ __('cruds.meals.fields.name') }} ({{ app()->getLocale() }})
                     </th>
                     <th>
-                        {{ __('cruds.meals.fields.slug') }}
-                    </th>
-                    <th>
                         {{ __('cruds.meals.fields.active') }}
                     </th>
                     <th>
@@ -98,7 +95,6 @@
                     {data: 'id', name: 'id'},
                     {data: 'image', name: 'image'},
                     {data: 'name', name: 'name'},
-                    {data: 'slug', name: 'slug'},
                     {data: 'active', name: 'active'},
                     {data: 'recommended', name: 'recommended'},
                     {data: 'created_at', name: 'created_at'},

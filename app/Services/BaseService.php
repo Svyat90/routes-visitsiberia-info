@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Helpers\ModelHelper;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -30,6 +31,71 @@ abstract class BaseService
     public function setDictionaryIds(Collection $dictionaryIds) : void
     {
         $this->dictionaryIds = $dictionaryIds;
+    }
+
+    /**
+     * @param Model $model
+     * @param $request
+     */
+    protected function saveSocialLinks(Model $model, $request) : void
+    {
+        if (! $request->social_links) {
+            return;
+        }
+
+        $urls = $request->social_links['url'];
+        $texts = $request->social_links['title'];
+        $types = $request->social_links['type'];
+
+        $insertSocialData = array_map(function ($url, $text, $type) {
+            if (! $url) return [];
+            return ['url' => $url, 'title' => $text, 'type' => $type, 'field' => 'social_links'];
+        }, $urls, $texts, $types);
+
+        $model->socialFields()->createMany(array_filter($insertSocialData));
+    }
+
+    /**
+     * @param Model $model
+     * @param $request
+     */
+    protected function saveAggregatorLinks(Model $model, $request) : void
+    {
+        if (! $request->aggregator_links) {
+            return;
+        }
+
+        $urls = $request->aggregator_links['url'];
+        $texts = $request->aggregator_links['title'];
+        $types = $request->aggregator_links['type'];
+
+        $insertSocialData = array_map(function ($url, $text, $type) {
+            if (! $url) return [];
+            return ['url' => $url, 'title' => $text, 'type' => $type, 'field' => 'aggregator_links'];
+        }, $urls, $texts, $types);
+
+        $model->socialFields()->createMany(array_filter($insertSocialData));
+    }
+
+    /**
+     * @param Model $model
+     * @param $request
+     */
+    protected function savePhones(Model $model, $request) : void
+    {
+        if (! $request->phones) {
+            return;
+        }
+
+        $texts = $request->phones['title'];
+        $types = $request->phones['type'];
+
+        $insertSocialData = array_map(function ($text, $type) {
+            if (! $text) return [];
+            return ['url' => '', 'title' => $text, 'type' => $type, 'field' => 'phones'];
+        }, $texts, $types);
+
+        $model->socialFields()->createMany(array_filter($insertSocialData));
     }
 
     /**

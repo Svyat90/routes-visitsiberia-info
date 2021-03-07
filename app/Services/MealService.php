@@ -44,7 +44,6 @@ class MealService extends BaseService
             ->addColumn('placeholder', '&nbsp;')
             ->editColumn('id', fn ($row) => $row->id)
             ->editColumn('name', fn ($row) => $row->name)
-            ->editColumn('slug', fn ($row) => $row->slug)
             ->editColumn('active', fn ($row) => LabelHelper::boolLabel($row->active))
             ->editColumn('recommended', fn ($row) => LabelHelper::boolLabel($row->recommended))
             ->editColumn('created_at', fn ($row) => $row->created_at)
@@ -61,26 +60,26 @@ class MealService extends BaseService
      */
     public function createMeal(StoreMealRequest $request) : Meal
     {
-        $place = $this->repository->saveMeal($request->all());
+        $meal = $this->repository->saveMeal($request->all());
 
-        $this->handleMediaFiles($request, $place);
-        $this->handleRelationships($place, $request);
+        $this->handleMediaFiles($request, $meal);
+        $this->handleRelationships($meal, $request);
 
-        return $place;
+        return $meal;
     }
 
     /**
      * @param UpdateMealRequest $request
-     * @param Meal              $place
+     * @param Meal              $meal
      *
      * @return Meal
      */
-    public function updateMeal(UpdateMealRequest $request, Meal $place) : Meal
+    public function updateMeal(UpdateMealRequest $request, Meal $meal) : Meal
     {
-        $this->handleMediaFiles($request, $place);
-        $this->handleRelationships($place, $request);
+        $this->handleMediaFiles($request, $meal);
+        $this->handleRelationships($meal, $request);
 
-        return $this->repository->updateData($request->all(), $place);
+        return $this->repository->updateData($request->all(), $meal);
     }
 
     /**
@@ -93,8 +92,8 @@ class MealService extends BaseService
         return Meal::query()
             ->active()
             ->get()
-            ->filter(function (Meal $place) use ($request) {
-                $dictionaryIds = $place->dictionaries->pluck('id');
+            ->filter(function (Meal $meal) use ($request) {
+                $dictionaryIds = $meal->dictionaries->pluck('id');
                 return $this->setFilters($dictionaryIds, $request);
             });
     }
@@ -123,7 +122,7 @@ class MealService extends BaseService
      *
      * @return bool
      */
-    private function setFilters(Collection $dictionaryIds, IndexMealRequest $request)
+    private function setFilters(Collection $dictionaryIds, IndexMealRequest $request) : bool
     {
         $this->setDictionaryIds($dictionaryIds);
 
@@ -136,22 +135,29 @@ class MealService extends BaseService
 
     /**
      * @param StoreMealRequest|UpdateMealRequest   $request
-     * @param Meal $place
+     * @param Meal $meal
      */
-    private function handleMediaFiles($request, Meal $place) : void
+    private function handleMediaFiles($request, Meal $meal) : void
     {
-        MediaHelper::handleMedia($place, 'image', $request->image);
-        MediaHelper::handleMedia($place, 'image_history', $request->image_history);
-        MediaHelper::handleMediaCollect($place, 'image_gallery', $request->image_gallery);
+        MediaHelper::handleMedia($meal, 'image', $request->image);
+        MediaHelper::handleMediaCollect($meal, 'image_gallery', $request->image_gallery);
     }
 
     /**
-     * @param Meal $place
+     * @param Meal $meal
      * @param StoreMealRequest|UpdateMealRequest $request
      */
-    private function handleRelationships(Meal $place, $request) : void
+    private function handleRelationships(Meal $meal, $request) : void
     {
-        $place->dictionaries()->sync($request->dictionary_ids);
+        $meal->dictionaries()->sync($request->dictionary_ids);
+
+        if ($request instanceof UpdateMealRequest) {
+            $meal->socialFields()->delete();
+        }
+
+        $this->saveSocialLinks($meal, $request);
+        $this->saveAggregatorLinks($meal, $request);
+        $this->savePhones($meal, $request);
     }
 
 }
