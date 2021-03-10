@@ -28,11 +28,16 @@
         $(function () {
             $("#" + 'add_{{ $name }}').on("click", function (e) {
                 let idList = '{{ $name }}' + '-list';
+                let idSelector = $("#" + idList);
 
                 if ('{{ $name }}' === 'phones') {
-                    renderPhone('{{ $name }}', $("#" + idList));
+                    renderPhone('{{ $name }}', idSelector);
+
+                } else if('{{ $name }}' === 'link_phones') {
+                    renderLinkPhone('{{ $name }}', idSelector);
+
                 } else {
-                    renderSmartLink('{{ $name }}', $("#" + idList));
+                    renderSmartLink('{{ $name }}', idSelector);
                 }
             })
         });

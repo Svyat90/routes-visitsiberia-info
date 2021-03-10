@@ -50,14 +50,12 @@ class HotelController extends AdminController
     }
 
     /**
-     * @param Hotel $hotel
      * @param DictionaryService $dictionaryService
      * @return View
      */
-    public function create(Hotel $hotel, DictionaryService $dictionaryService) : View
+    public function create(DictionaryService $dictionaryService) : View
     {
         return view('admin.hotels.create', [
-            'hotel' => $hotel,
             'placementList' => $dictionaryService->getPlacementList(),
             'seasonList' => $dictionaryService->getSeasonList(),
             'whomList' => $dictionaryService->getWhomList(),

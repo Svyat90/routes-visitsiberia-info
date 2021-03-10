@@ -50,16 +50,14 @@ class MealController extends AdminController
     }
 
     /**
-     * @param Meal $meal
      * @param DictionaryService $dictionaryService
      * @return View
      */
-    public function create(Meal $meal, DictionaryService $dictionaryService) : View
+    public function create(DictionaryService $dictionaryService) : View
     {
         return view('admin.meals.create', [
             'categoryList' => $dictionaryService->getCategoryFoodList(),
             'seasonList' => $dictionaryService->getSeasonList(),
-            'meal' => $meal,
         ]);
     }
 

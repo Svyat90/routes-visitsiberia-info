@@ -70,6 +70,8 @@ return [
     "placement_dictionary" => "Тип места размещения",
     "category_food_dictionary" => "Категория места питания",
     "season_dictionary" => "Доступность в сезоны",
+    "category_place_dictionary" => "Категория достопримечательности",
+    "type_rest_dictionary" => "Тип отдыха",
     "whom_dictionary" => "Для кого рассчитано",
     "cash" => "Наличный расчёт",
     "card" => "Безналичный расчёт",
@@ -78,4 +80,5 @@ return [
     "input_phone" => "Введите телефон",
     "input_title" => "Введите название ссылки",
     "input_url" => "Введите ссылку",
+    "input_name" => "Введите название",
 ];

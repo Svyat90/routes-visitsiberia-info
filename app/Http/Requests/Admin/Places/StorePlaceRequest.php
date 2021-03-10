@@ -9,17 +9,15 @@ use Illuminate\Foundation\Http\FormRequest;
  *
  * @property array $name
  * @property array $location
- * @property array $city
- * @property string $meta_title
- * @property string $meta_description
- * @property array $header_desc
  * @property array $page_desc
  * @property array $history_desc
  * @property array $contact_desc
  * @property boolean $active
- * @property boolean $recommended
+ * @property string $site_link
+ * @property array $social_links
+ * @property array $additional_links
+ * @property array $link_phones
  * @property string $image
- * @property string $image_history
  * @property array $image_gallery
  * @property array $dictionary_ids
  */
@@ -42,12 +40,6 @@ class StorePlaceRequest extends FormRequest
         return [
             'name' => 'sometimes|array',
             'name.*' => 'string|nullable',
-            'meta_title' => 'sometimes|array',
-            'meta_title.*' => 'string|nullable',
-            'meta_description' => 'sometimes|array',
-            'meta_description.*' => 'string|nullable',
-            'header_desc' => 'sometimes|array',
-            'header_desc.*' => 'string|nullable',
             'page_desc' => 'sometimes|array',
             'page_desc.*' => 'string|nullable',
             'history_desc' => 'sometimes|array',
@@ -57,15 +49,15 @@ class StorePlaceRequest extends FormRequest
             'life_hacks' => 'sometimes|array',
             'life_hacks.*' => 'string|nullable',
             'active' => 'required|bool',
-            'recommended' => 'required|bool',
             'lat' => 'required|string',
             'lng' => 'required|string',
             'location' => 'sometimes|array',
             'location.*' => 'string|nullable',
-            'city' => 'sometimes|array',
-            'city.*' => 'string|nullable',
+            'site_link' => 'sometimes|nullable|string',
+            'social_links' => 'sometimes|nullable|array',
+            'additional_links' => 'sometimes|nullable|array',
+            'link_phones' => 'sometimes|nullable|array',
             'image' => 'required|string',
-            'image_history' => 'sometimes|nullable|string',
             'image_gallery' => 'sometimes|nullable|array',
             'image_gallery.*' => 'required|string',
             'dictionary_ids'   => 'sometimes|array',

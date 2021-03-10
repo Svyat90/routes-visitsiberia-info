@@ -7,8 +7,34 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use App\Helpers\SlugHelper;
 
-class PlaceRepository extends Model
+class PlaceRepository extends BaseRepository
 {
+
+    /**
+     * @param Model $hotel
+     * @return Collection
+     */
+    public function getPhoneLinks(Model $hotel) : Collection
+    {
+        return $hotel
+            ->socialFields()
+            ->where('field', 'link_phones')
+            ->where('type', 'phone')
+            ->get();
+    }
+
+    /**
+     * @param Model $hotel
+     * @return Collection
+     */
+    public function getAdditionalLinks(Model $hotel) : Collection
+    {
+        return $hotel
+            ->socialFields()
+            ->where('field', 'additional_links')
+            ->where('type', 'site')
+            ->get();
+    }
 
     /**
      * @param array $ids
@@ -101,7 +127,7 @@ class PlaceRepository extends Model
     public function savePlace(array $data) : Place
     {
         $place = new Place($data);
-        $place->slug = SlugHelper::generate(new Place(), $data['name']);
+        $place->slug = SlugHelper::generate($place, $data['name']);
         $place->save();
 
         return $place->refresh();
@@ -115,7 +141,7 @@ class PlaceRepository extends Model
      */
     public function updateData(array $data, Place $place) : Place
     {
-        $place->slug = SlugHelper::generate(new Place(), $data['name']);
+        $place->slug = SlugHelper::generate($place, $data['name']);
         $place->update($data);
 
         return $place->refresh();

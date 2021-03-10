@@ -25,7 +25,7 @@
                     </tr>
 
                     @foreach($place->getFillable() as $field)
-                        @if($field === 'active' || $field === 'recommended')
+                        @if($field === 'active')
                             <tr>
                                 <th>
                                     {{ __("cruds.places.fields.{$field}") }}
@@ -43,10 +43,36 @@
                         @endif
                     @endforeach
 
+                    @foreach($socialLinks as $index => $social)
+                        <tr>
+                            <th>
+                                {{ __("cruds.places.fields.social_links") }} #{{ $index + 1 }}
+                            </th>
+                            <td><a href="{{ $social->url }}" target="_blank">{{ $social->title }}</a></td>
+                        </tr>
+                    @endforeach
+
+                    @foreach($additionalLinks as $index => $link)
+                        <tr>
+                            <th>
+                                {{ __("cruds.places.fields.additional_links") }} #{{ $index + 1 }}
+                            </th>
+                            <td><a href="{{ $link->url }}" target="_blank">{{ $link->title }}</a></td>
+                        </tr>
+                    @endforeach
+
+                    @foreach($phoneLinks as $index => $phone)
+                        <tr>
+                            <th>
+                                {{ __("cruds.places.fields.link_phones") }} #{{ $index + 1 }}
+                            </th>
+                            <td><a href="tel:{{ $phone->url }}" target="_blank">{{ $phone->title }}</a></td>
+                        </tr>
+                    @endforeach
+
                     @include('admin.partials.item-action-table-dates', ['model' => $place])
 
                     @include('admin.partials.show-media', ['name' => 'image', 'model' => $place, 'namespace' => 'places'])
-                    @include('admin.partials.show-media', ['name' => 'image_history', 'model' => $place, 'namespace' => 'places'])
                     @include('admin.partials.show-media', ['name' => 'image_gallery', 'model' => $place, 'namespace' => 'places'])
 
                     </tbody>

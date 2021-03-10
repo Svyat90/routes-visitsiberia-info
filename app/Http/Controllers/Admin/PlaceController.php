@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
 use App\Models\Place;
+use App\Services\DictionaryService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +15,6 @@ use App\Http\Requests\Admin\Places\StorePlaceRequest;
 use App\Http\Requests\Admin\Places\UpdatePlaceRequest;
 use App\Http\Requests\Admin\Places\MassDestroyPlaceRequest;
 use App\Services\PlaceService;
-use App\Repositories\DictionaryRepository;
 
 class PlaceController extends AdminController
 {
@@ -50,16 +50,17 @@ class PlaceController extends AdminController
     }
 
     /**
-     * @param Place          $place
-     * @param DictionaryRepository $dictionaryRepository
-     *
+     * @param DictionaryService $dictionaryService
      * @return View
      */
-    public function create(Place $place, DictionaryRepository $dictionaryRepository) : View
+    public function create(DictionaryService $dictionaryService) : View
     {
-        $dictionaryChildren = $dictionaryRepository->getChildrenForSelect();
-
-        return view('admin.places.create', compact('place', 'dictionaryChildren'));
+        return view('admin.places.create', [
+            'placeList' => $dictionaryService->getCategoryPlaceList(),
+            'seasonList' => $dictionaryService->getSeasonList(),
+            'typesList' => $dictionaryService->getTypesList(),
+            'whomList' => $dictionaryService->getWhomList(),
+        ]);
     }
 
     /**
@@ -81,23 +82,32 @@ class PlaceController extends AdminController
      */
     public function show(Place $place)
     {
-        $place->load('dictionaries');
+        $place->load('dictionaries', 'socialFields');
 
-        return view('admin.places.show', compact('place'));
+        $socialLinks = $this->service->repository->getSocialLinks($place);
+        $additionalLinks = $this->service->repository->getAdditionalLinks($place);
+        $phoneLinks = $this->service->repository->getPhoneLinks($place);
+
+        return view('admin.places.show', compact('place', 'socialLinks', 'additionalLinks', 'phoneLinks'));
     }
 
     /**
-     * @param Place                $place
-     * @param DictionaryRepository $dictionaryRepository
-     *
+     * @param Place $place
+     * @param DictionaryService $dictionaryService
      * @return Application|Factory|View
      */
-    public function edit(Place $place, DictionaryRepository $dictionaryRepository)
+    public function edit(Place $place, DictionaryService $dictionaryService)
     {
         return view('admin.places.edit', [
             'place' => $place,
-            'dictionaryChildren' => $dictionaryRepository->getChildrenForSelect(),
-            'dictionaryIds' => $this->service->repository->getRelatedDictionaryIds($place)
+            'dictionaryIds' => $this->service->repository->getRelatedDictionaryIds($place),
+            'placeList' => $dictionaryService->getCategoryPlaceList(),
+            'seasonList' => $dictionaryService->getSeasonList(),
+            'typesList' => $dictionaryService->getTypesList(),
+            'whomList' => $dictionaryService->getWhomList(),
+            'socialLinks' => $this->service->repository->getSocialLinks($place),
+            'additionalLinks' => $this->service->repository->getAdditionalLinks($place),
+            'linkPhones' => $this->service->repository->getPhoneLinks($place)
         ]);
     }
 

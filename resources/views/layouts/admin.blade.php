@@ -142,7 +142,8 @@
         let selectNoneButtonTrans = '{{ trans('global.deselect_all') }}'
 
         let languages = {
-            'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
+            'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json',
+            'ru': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/Russian.json',
         };
 
         $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, {className: 'btn'})
@@ -300,6 +301,32 @@
 
         index++;
     }
+
+    /**
+     * @param name
+     * @param container
+     * @param type
+     */
+    function renderLinkPhone(name, container, type = 'phone') {
+        let str = '<div class="row" style="margin-top: 15px;">';
+
+        str += '<div class="col-md-6 col-sm-6 col-xs-6">';
+        str += '<input name="' + name + '[url][' + index + ']" class="form-control" type="text" placeholder="{{ __('global.input_phone') }}">';
+        str += '</div>';
+
+        str += '<div class="col-md-6 col-sm-6 col-xs-6">';
+        str += '<input name="' + name + '[title][' + index + ']" class="form-control" type="text" placeholder="{{ __('global.input_name') }}">';
+        str += '</div>';
+
+        str += '<input type="hidden" name="' + name + '[type][' + index + ']" value="' + type + '" />';
+
+        str += '</div>';
+
+        container.append(str);
+
+        index++;
+    }
+
 
 </script>
 <script src="{{ asset('js/adminltev3.js') }}"></script>

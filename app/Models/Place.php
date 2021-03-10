@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -18,17 +19,16 @@ class Place extends BaseModel
      * @var array|string[]
      */
     public array $translatable = [
-        'name', 'header_desc', 'page_desc', 'city', 'location', 'history_desc', 'contact_desc', 'life_hacks',
-        'meta_title', 'meta_description', 'contacts_representatives', 'additional_links'
+        'name', 'page_desc', 'location', 'history_desc',
+        'life_hacks', 'contact_desc',
     ];
 
     /**
      * @var string[]
      */
     protected $fillable = [
-        'name', 'header_desc', 'page_desc', 'recommended', 'active', 'life_hacks', 'history_desc',
-        'contact_desc', 'lat', 'lng', 'city', 'location', 'meta_title', 'meta_description', 'site_link',
-        'social_links', 'contacts_representatives', 'additional_links',
+        'name', 'page_desc', 'recommended', 'active', 'life_hacks',
+        'contact_desc', 'lat', 'lng', 'location', 'history_desc',
     ];
 
     /**
@@ -39,19 +39,30 @@ class Place extends BaseModel
     /**
      * @var string[]
      */
-    protected $appends = ['image', 'image_history', 'image_gallery'];
+    protected $appends = ['image', 'image_gallery'];
 
     /**
      * @return BelongsToMany
      */
-    public function dictionaries()
+    public function dictionaries() : BelongsToMany
     {
         return $this->belongsToMany(Dictionary::class, 'place_dictionary', 'place_id', 'dictionary_id');
     }
 
-    public function routable()
+    /**
+     * @return MorphMany
+     */
+    public function routable() : MorphMany
     {
         return $this->morphMany(Routable::class, 'routable');
+    }
+
+    /**
+     * @return MorphMany
+     */
+    public function socialFields() : MorphMany
+    {
+        return $this->morphMany(SocialField::class, 'sociable');
     }
 
     /**
@@ -60,18 +71,6 @@ class Place extends BaseModel
     public function getImageAttribute()
     {
         if (! $media = $this->getMedia('image')->last()) {
-            return null;
-        }
-
-        return $this->fillMedia($media);
-    }
-
-    /**
-     * @return Media|null
-     */
-    public function getImageHistoryAttribute()
-    {
-        if (! $media = $this->getMedia('image_history')->last()) {
             return null;
         }
 
