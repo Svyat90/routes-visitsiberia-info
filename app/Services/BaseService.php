@@ -181,7 +181,8 @@ abstract class BaseService
             case $table === 'hotels':
                 return "{$table}.price,";
             case $table === 'meals':
-                return "{$table}.cost,";
+//                return "{$table}.cost,";
+                return "";
             case $table === 'events':
                 return "{$table}.date_from," .
                        "{$table}.date_to,";
