@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -17,20 +18,17 @@ class Event extends BaseModel
      * @var array|string[]
      */
     public array $translatable = [
-        'name', 'page_desc', 'city', 'location',
+        'name', 'page_desc', 'location',
         'history_desc', 'contact_desc', 'life_hacks',
-        'meta_title', 'meta_description', 'phones_representatives',
-        'addresses_representatives',
     ];
 
     /**
      * @var string[]
      */
     protected $fillable = [
-        'name', 'page_desc', 'recommended', 'active', 'life_hacks',
-        'history_desc', 'contact_desc', 'lat', 'lng', 'city', 'location', 'phones_representatives',
-        'meta_title', 'meta_description', 'site_link', 'additional_links',
-        'have_camping', 'addresses_representatives', 'date_from', 'date_to',
+        'name', 'page_desc', 'active', 'life_hacks',
+        'history_desc', 'contact_desc', 'lat', 'lng',
+        'site_link', 'have_camping', 'location',
     ];
 
     /**
@@ -44,14 +42,7 @@ class Event extends BaseModel
      * @var string[]
      */
     protected $appends = [
-        'image', 'image_history', 'image_gallery'
-    ];
-
-    /**
-     * @var string[]
-     */
-    protected $dates = [
-        'date_from', 'date_to'
+        'image', 'image_gallery'
     ];
 
     /**
@@ -68,23 +59,19 @@ class Event extends BaseModel
     }
 
     /**
-     * @return Media|null
+     * @return MorphMany
      */
-    public function getImageAttribute()
+    public function socialFields() : MorphMany
     {
-        if (! $media = $this->getMedia('image')->last()) {
-            return null;
-        }
-
-        return $this->fillMedia($media);
+        return $this->morphMany(SocialField::class, 'sociable');
     }
 
     /**
      * @return Media|null
      */
-    public function getImageHistoryAttribute()
+    public function getImageAttribute()
     {
-        if (! $media = $this->getMedia('image_history')->last()) {
+        if (! $media = $this->getMedia('image')->last()) {
             return null;
         }
 

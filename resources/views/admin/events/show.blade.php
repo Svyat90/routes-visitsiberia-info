@@ -43,10 +43,45 @@
                         @endif
                     @endforeach
 
+                    @foreach($socialLinks as $index => $social)
+                        <tr>
+                            <th>
+                                {{ __("cruds.events.fields.social_links") }} #{{ $index + 1 }}
+                            </th>
+                            <td><a href="{{ $social->url }}" target="_blank">{{ $social->title }}</a></td>
+                        </tr>
+                    @endforeach
+
+                    @foreach($additionalLinks as $index => $link)
+                        <tr>
+                            <th>
+                                {{ __("cruds.events.fields.additional_links") }} #{{ $index + 1 }}
+                            </th>
+                            <td><a href="{{ $link->url }}" target="_blank">{{ $link->title }}</a></td>
+                        </tr>
+                    @endforeach
+
+                    @foreach($phoneLinks as $index => $phone)
+                        <tr>
+                            <th>
+                                {{ __("cruds.events.fields.link_phones") }} #{{ $index + 1 }}
+                            </th>
+                            <td><a href="tel:{{ $phone->url }}" target="_blank">{{ $phone->title }}</a></td>
+                        </tr>
+                    @endforeach
+
+                    @foreach($addresses as $index => $address)
+                        <tr>
+                            <th>
+                                {{ __("cruds.events.fields.addresses") }} #{{ $index + 1 }}
+                            </th>
+                            <td>{{ $address->title }}</td>
+                        </tr>
+                    @endforeach
+
                     @include('admin.partials.item-action-table-dates', ['model' => $event])
 
                     @include('admin.partials.show-media', ['name' => 'image', 'model' => $event, 'namespace' => 'events'])
-                    @include('admin.partials.show-media', ['name' => 'image_history', 'model' => $event, 'namespace' => 'events'])
                     @include('admin.partials.show-media', ['name' => 'image_gallery', 'model' => $event, 'namespace' => 'events'])
 
                     </tbody>

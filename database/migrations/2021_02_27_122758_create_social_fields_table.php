@@ -18,7 +18,7 @@ class CreateSocialFieldsTable extends Migration
             $table->string('url', 1024)->nullable();
             $table->string('title', 255)->nullable();
             $table->string('field', 64);
-            $table->enum('type', ['site', 'phone', 'vk', 'viber', 'whatsapp', 'telegram', 'email']);
+            $table->enum('type', ['site', 'phone', 'vk', 'viber', 'whatsapp', 'telegram', 'email', 'text']);
             $table->morphs('sociable');
             $table->timestamps();
         });

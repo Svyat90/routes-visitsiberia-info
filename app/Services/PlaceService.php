@@ -163,48 +163,4 @@ class PlaceService extends BaseService
         $this->savePhoneLinks($place, $request);
     }
 
-    /**
-     * @param Model $model
-     * @param $request
-     */
-    private function saveAdditionalLinks(Model $model, $request) : void
-    {
-        if (! $request->additional_links) {
-            return;
-        }
-
-        $urls = $request->additional_links['url'];
-        $texts = $request->additional_links['title'];
-        $types = $request->additional_links['type'];
-
-        $insertData = array_map(function ($url, $text, $type) {
-            if (! $url) return [];
-            return ['url' => $url, 'title' => $text, 'type' => $type, 'field' => 'additional_links'];
-        }, $urls, $texts, $types);
-
-        $model->socialFields()->createMany(array_filter($insertData));
-    }
-
-    /**
-     * @param Model $model
-     * @param $request
-     */
-    private function savePhoneLinks(Model $model, $request) : void
-    {
-        if (! $request->link_phones) {
-            return;
-        }
-
-        $urls = $request->link_phones['url'];
-        $texts = $request->link_phones['title'];
-        $types = $request->link_phones['type'];
-
-        $insertData = array_map(function ($url, $text, $type) {
-            if (! $url) return [];
-            return ['url' => $url, 'title' => $text, 'type' => $type, 'field' => 'link_phones'];
-        }, $urls, $texts, $types);
-
-        $model->socialFields()->createMany(array_filter($insertData));
-    }
-
 }

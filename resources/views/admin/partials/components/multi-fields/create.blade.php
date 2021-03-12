@@ -36,6 +36,9 @@
                 } else if('{{ $name }}' === 'link_phones') {
                     renderLinkPhone('{{ $name }}', idSelector);
 
+                } else if('{{ $name }}' === 'addresses') {
+                    renderAddress('{{ $name }}', idSelector);
+
                 } else {
                     renderSmartLink('{{ $name }}', idSelector);
                 }

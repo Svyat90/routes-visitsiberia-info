@@ -99,6 +99,70 @@ abstract class BaseService
     }
 
     /**
+     * @param Model $model
+     * @param $request
+     */
+    protected function saveAdditionalLinks(Model $model, $request) : void
+    {
+        if (! $request->additional_links) {
+            return;
+        }
+
+        $urls = $request->additional_links['url'];
+        $texts = $request->additional_links['title'];
+        $types = $request->additional_links['type'];
+
+        $insertData = array_map(function ($url, $text, $type) {
+            if (! $url) return [];
+            return ['url' => $url, 'title' => $text, 'type' => $type, 'field' => 'additional_links'];
+        }, $urls, $texts, $types);
+
+        $model->socialFields()->createMany(array_filter($insertData));
+    }
+
+    /**
+     * @param Model $model
+     * @param $request
+     */
+    protected function savePhoneLinks(Model $model, $request) : void
+    {
+        if (! $request->link_phones) {
+            return;
+        }
+
+        $urls = $request->link_phones['url'];
+        $texts = $request->link_phones['title'];
+        $types = $request->link_phones['type'];
+
+        $insertData = array_map(function ($url, $text, $type) {
+            if (! $url) return [];
+            return ['url' => $url, 'title' => $text, 'type' => $type, 'field' => 'link_phones'];
+        }, $urls, $texts, $types);
+
+        $model->socialFields()->createMany(array_filter($insertData));
+    }
+
+    /**
+     * @param Model $model
+     * @param $request
+     */
+    protected function saveAddresses(Model $model, $request) : void
+    {
+        if (! $request->addresses) {
+            return;
+        }
+
+        $texts = $request->addresses['title'];
+        $types = $request->addresses['type'];
+
+        $insertData = array_map(function ($text, $type) {
+            return ['url' => '', 'title' => $text, 'type' => $type, 'field' => 'addresses'];
+        }, $texts, $types);
+
+        $model->socialFields()->createMany(array_filter($insertData));
+    }
+
+    /**
      * @param string $table
      * @param float  $lat
      * @param float  $lng

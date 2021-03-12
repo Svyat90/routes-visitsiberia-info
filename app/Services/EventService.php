@@ -97,27 +97,6 @@ class EventService extends BaseService
         /** @var Builder $queryBuilder */
         $queryBuilder =  Event::query()->active();
 
-//        if ($request->date_from && $request->date_to) {
-//            $queryBuilder->where(function (Builder $builder) use ($request) {
-//                $builder->where(function (Builder $builder) use ($request) {
-//                    $builder->whereDate('date_from', '>=', DB::raw($request->date_from));
-//                    $builder->whereDate('date_from', '<=', DB::raw($request->date_to));
-//                });
-//
-//                $builder->orWhere(function (Builder $builder) use ($request) {
-//                    $builder->whereDate('date_to', '<=', DB::raw($request->date_to));
-//                    $builder->whereDate('date_to', '>=', DB::raw($request->date_from));
-//                });
-//            });
-//        }
-//        dd(
-//            date('d-m-Y', $request->date_from), $request->date_from,
-//            date('d-m-Y', $request->date_to), $request->date_to,
-//            Event::query()->first()->date_from->format('d-m-Y'),
-//            Event::query()->first()->date_to->format('d-m-Y'),
-//            SqlHelper::getSql($queryBuilder),
-//        );
-
         return $queryBuilder->get()
             ->filter(function (Event $place) use ($request) {
                 $dictionaryIds = $place->dictionaries->pluck('id');
@@ -166,7 +145,6 @@ class EventService extends BaseService
     private function handleMediaFiles($request, Event $event) : void
     {
         MediaHelper::handleMedia($event, 'image', $request->image);
-        MediaHelper::handleMedia($event, 'image_history', $request->image_history);
         MediaHelper::handleMediaCollect($event, 'image_gallery', $request->image_gallery);
     }
 
@@ -177,5 +155,14 @@ class EventService extends BaseService
     private function handleRelationships(Event $event, $request) : void
     {
         $event->dictionaries()->sync($request->dictionary_ids);
+
+        if ($request instanceof UpdateEventRequest) {
+            $event->socialFields()->delete();
+        }
+
+        $this->saveSocialLinks($event, $request);
+        $this->saveAdditionalLinks($event, $request);
+        $this->savePhoneLinks($event, $request);
+        $this->saveAddresses($event, $request);
     }
 }

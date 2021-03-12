@@ -327,6 +327,26 @@
         index++;
     }
 
+    /**
+     * @param name
+     * @param container
+     * @param type
+     */
+    function renderAddress(name, container, type = 'site') { // ToDo change type for text
+        let str = '<div class="row" style="margin-top: 15px;">';
+
+        str += '<div class="col-md-12 col-sm-12 col-xs-12">';
+        str += '<input name="' + name + '[title][' + index + ']" class="form-control" type="text" placeholder="{{ __('global.input_address') }}">';
+        str += '</div>';
+
+        str += '<input type="hidden" name="' + name + '[type][' + index + ']" value="' + type + '" />';
+
+        str += '</div>';
+
+        container.append(str);
+
+        index++;
+    }
 
 </script>
 <script src="{{ asset('js/adminltev3.js') }}"></script>

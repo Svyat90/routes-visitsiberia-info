@@ -3,11 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\Event;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use App\Helpers\SlugHelper;
 
-class EventRepository extends Model
+class EventRepository extends BaseRepository
 {
 
     /**

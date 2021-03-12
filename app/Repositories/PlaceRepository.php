@@ -3,38 +3,11 @@
 namespace App\Repositories;
 
 use App\Models\Place;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use App\Helpers\SlugHelper;
 
 class PlaceRepository extends BaseRepository
 {
-
-    /**
-     * @param Model $hotel
-     * @return Collection
-     */
-    public function getPhoneLinks(Model $hotel) : Collection
-    {
-        return $hotel
-            ->socialFields()
-            ->where('field', 'link_phones')
-            ->where('type', 'phone')
-            ->get();
-    }
-
-    /**
-     * @param Model $hotel
-     * @return Collection
-     */
-    public function getAdditionalLinks(Model $hotel) : Collection
-    {
-        return $hotel
-            ->socialFields()
-            ->where('field', 'additional_links')
-            ->where('type', 'site')
-            ->get();
-    }
 
     /**
      * @param array $ids
@@ -50,25 +23,9 @@ class PlaceRepository extends BaseRepository
     /**
      * @return Collection
      */
-    public function getListForHome() : Collection
-    {
-        return Place::query()
-            ->oldest()
-            ->limit(6)
-            ->get();
-    }
-
-    /**
-     * @return Collection
-     */
     public function getListForSelect() : Collection
     {
-        return Place::query()
-            ->get()
-            ->groupBy('id', true)
-            ->map(function (Collection $items) {
-                return $items->shift()->name;
-            });
+        return Place::query()->get(['id', 'name']);
     }
 
     /**

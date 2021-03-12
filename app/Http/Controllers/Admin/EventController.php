@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
 use App\Models\Event;
+use App\Repositories\PlaceRepository;
+use App\Services\DictionaryService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +16,6 @@ use App\Http\Requests\Admin\Events\StoreEventRequest;
 use App\Http\Requests\Admin\Events\UpdateEventRequest;
 use App\Http\Requests\Admin\Events\MassDestroyEventRequest;
 use App\Services\EventService;
-use App\Repositories\DictionaryRepository;
 
 class EventController extends AdminController
 {
@@ -50,16 +51,18 @@ class EventController extends AdminController
     }
 
     /**
-     * @param Event          $event
-     * @param DictionaryRepository $dictionaryRepository
-     *
+     * @param Event $event
+     * @param DictionaryService $dictionaryService
+     * @param PlaceRepository $placeRepository
      * @return View
      */
-    public function create(Event $event, DictionaryRepository $dictionaryRepository) : View
+    public function create(Event $event, DictionaryService $dictionaryService, PlaceRepository  $placeRepository) : View
     {
-        $dictionaryChildren = $dictionaryRepository->getChildrenForSelect();
-
-        return view('admin.events.create', compact('event', 'dictionaryChildren'));
+        return view('admin.events.create', [
+            'placeIds' => $placeRepository->getListForSelect(),
+            'seasonList' => $dictionaryService->getSeasonList(),
+            'event' => $event
+        ]);
     }
 
     /**
@@ -83,21 +86,31 @@ class EventController extends AdminController
     {
         $event->load('dictionaries');
 
-        return view('admin.events.show', compact('event'));
+        $socialLinks = $this->service->repository->getSocialLinks($event);
+        $additionalLinks = $this->service->repository->getAdditionalLinks($event);
+        $phoneLinks = $this->service->repository->getPhoneLinks($event);
+        $addresses = $this->service->repository->getAddresses($event);
+
+        return view('admin.events.show', compact('event', 'socialLinks', 'additionalLinks', 'phoneLinks', 'addresses'));
     }
 
     /**
-     * @param Event                $event
-     * @param DictionaryRepository $dictionaryRepository
-     *
+     * @param Event $event
+     * @param DictionaryService $dictionaryService
+     * @param PlaceRepository $placeRepository
      * @return Application|Factory|View
      */
-    public function edit(Event $event, DictionaryRepository $dictionaryRepository)
+    public function edit(Event $event, DictionaryService $dictionaryService, PlaceRepository  $placeRepository)
     {
         return view('admin.events.edit', [
             'event' => $event,
-            'dictionaryChildren' => $dictionaryRepository->getChildrenForSelect(),
-            'dictionaryIds' => $this->service->repository->getRelatedDictionaryIds($event)
+            'dictionaryIds' => $this->service->repository->getRelatedDictionaryIds($event),
+//            'placeIds' => $placeRepository->getListForSelect(),
+            'seasonList' => $dictionaryService->getSeasonList(),
+            'socialLinks' => $this->service->repository->getSocialLinks($event),
+            'additionalLinks' => $this->service->repository->getAdditionalLinks($event),
+            'linkPhones' => $this->service->repository->getPhoneLinks($event),
+            'addresses' => $this->service->repository->getAddresses($event),
         ]);
     }
 
