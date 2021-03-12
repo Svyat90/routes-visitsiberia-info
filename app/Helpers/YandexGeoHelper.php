@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 class YandexGeoHelper
 {
+    const API_KEY = '';
 
     /**
      * @param $lng
@@ -22,6 +23,16 @@ class YandexGeoHelper
             $lat,
             $zoom
         );
+    }
+
+    /**
+     * @param $lat
+     * @param $lng
+     */
+    public static function getCity($lat, $lng)
+    {
+        $key = self::API_KEY;
+        $link = "https://geocode-maps.yandex.ru/1.x/?apikey={$key}&geocode=$lat,$lng";
     }
 
 }

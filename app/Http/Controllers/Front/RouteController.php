@@ -45,6 +45,7 @@ class RouteController extends FrontController
         $transportList = $dictionaryService->getTransportList();
         $whomList = $dictionaryService->getWhomList();
         $typeList = $dictionaryService->getTypesList();
+        $seasonList = $dictionaryService->getSeasonList();
 
         $geoData = collect();
         $data = $this->service->getFilteredRoutes($request)
@@ -56,9 +57,7 @@ class RouteController extends FrontController
             ->appends([
                 'type_id' => $request->type_id,
                 'transport_id' => $request->transport_id,
-                'date_from' => $request->date_from,
-                'date_to' => $request->date_to,
-                'whom_id' => $request->whom_id
+                'season_id' => $request->season_id
             ]);
 
         $routeType = $request->has('transport_id') && $request->transport_id
@@ -71,6 +70,7 @@ class RouteController extends FrontController
             'transportList',
             'whomList',
             'typeList',
+            'seasonList',
             'routes',
             'routeType'
         ));

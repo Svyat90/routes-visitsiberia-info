@@ -9,8 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
  *
  * @property string $city_id
  * @property string $whom_id
- * @property string $date_from
- * @property string $date_to
+ * @property string $season_id
  */
 class IndexEventRequest extends FormRequest
 {
@@ -31,8 +30,7 @@ class IndexEventRequest extends FormRequest
         return [
             'city_id' => 'sometimes|nullable|exists:dictionaries,id',
             'whom_id' => 'sometimes|nullable|exists:dictionaries,id',
-            'date_from' => 'sometimes|nullable|string',
-            'date_to' => 'sometimes|nullable|string',
+            'season_id' => 'sometimes|nullable|exists:dictionaries,id',
         ];
     }
 

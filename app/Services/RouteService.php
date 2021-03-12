@@ -113,7 +113,7 @@ class RouteService
      *
      * @return bool
      */
-    private function setFilters($dictionaryIds, IndexRouteRequest $request)
+    private function setFilters($dictionaryIds, IndexRouteRequest $request) : bool
     {
         $type = true;
         if (! empty($request->type_id) && $request->type_id) {
@@ -130,7 +130,12 @@ class RouteService
             $whom = $dictionaryIds->contains($request->whom_id);
         }
 
-        return $type && $transport && $whom;
+        $season = true;
+        if (! empty($request->season_id) && $request->season_id) {
+            $season = $dictionaryIds->contains($request->season_id);
+        }
+
+        return $type && $transport && $whom && $season;
     }
 
     /**

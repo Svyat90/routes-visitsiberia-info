@@ -9,7 +9,8 @@
                     <li class="footer__item">
                         <a class="footer__link"
                            target="_blank"
-                           href="{{ YandexGeoHelper::yandexMapLink($vars['footer_address_lng'], $vars['footer_address_lat']) }}"
+{{--                           href="{{ YandexGeoHelper::yandexMapLink($vars['footer_address_lng'], $vars['footer_address_lat']) }}"--}}
+                           href="https://www.google.com/maps/place/%D1%83%D0%BB.+%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B0,+120,+%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D0%BE%D1%8F%D1%80%D1%81%D0%BA,+%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D0%BE%D1%8F%D1%80%D1%81%D0%BA%D0%B8%D0%B9+%D0%BA%D1%80%D0%B0%D0%B9,+%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F,+660017/@56.012708,92.846999,17z/data=!3m1!4b1!4m5!3m4!1s0x5cd7ae0d6401bce9:0x2dae867fee673b4e!8m2!3d56.012705!4d92.849193"
                         >
                             <span class="material-icons">room&nbsp;</span>
                             {{ $vars['footer_address'] }}
@@ -22,7 +23,7 @@
                         </a>
                     </li>
                     <li class="footer__item">
-                        <a href="mailto:e-mail:{{ $vars['footer_mail'] }}" class="footer__link">
+                        <a href="mailto:{{ $vars['footer_mail'] }}" class="footer__link">
                             <span class="material-icons">mail&nbsp;</span>
                             {{ $vars['footer_mail'] }}
                         </a>

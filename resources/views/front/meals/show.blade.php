@@ -196,24 +196,6 @@
                 </script>
             </section>
 
-            @if($meal->history_desc)
-                <section class="article__history article__block" id="story">
-                    <div class="article__history-block wow fadeInLeft">
-                        <h2 class="article__name exo">{{ $vars['base_history'] }}</h2>
-                        <div class="article__history-text">
-                            <p class="article__text">
-                                {!! $meal->history_desc !!}
-                            </p>
-                        </div>
-                    </div>
-                    @if($meal->image_history)
-                        <div class="article__img-wr wow fadeInRight">
-                            {{ $meal->image_history->img('history')->attributes(['class' => 'article__map'])->lazy() }}
-                        </div>
-                    @endif
-                </section>
-            @endif
-
             <section class="article__block article__pass" id="way">
                 <div class="article__pass-text">
                     <h2 class="article__name wow fadeInUp">

@@ -13,15 +13,15 @@
             <p class="list__name exo">
                 {{ $place->name }}
             </p>
-            <a class="list__city"
-               target="_blank"
-               href="{{ YandexGeoHelper::yandexMapLink($place->lng, $place->lat) }}"
-            >
-                @if($place->city)
-                    <span class="material-icons">room&nbsp;</span>
-                    {{ $place->city }}
-                @endif
-            </a>
+{{--            <a class="list__city"--}}
+{{--               target="_blank"--}}
+{{--               href="{{ YandexGeoHelper::yandexMapLink($place->lng, $place->lat) }}"--}}
+{{--            >--}}
+{{--                @if($place->city)--}}
+{{--                    <span class="material-icons">room&nbsp;</span>--}}
+{{--                    {{ $place->city }}--}}
+{{--                @endif--}}
+{{--            </a>--}}
         </a>
     </div>
 </div>

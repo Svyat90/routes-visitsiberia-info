@@ -41,6 +41,7 @@ class EventController extends FrontController
     {
         $cityList = $dictionaryService->getCityList();
         $whomList = $dictionaryService->getWhomList();
+        $seasonList = $dictionaryService->getSeasonList();
 
         $data = $this->service->getFilteredEvents($request);
 
@@ -52,14 +53,14 @@ class EventController extends FrontController
             ->appends([
                 'city_id' => $request->city_id,
                 'whom_id' => $request->whom_id,
-                'date_from' => $request->date_from,
-                'date_to' => $request->date_to,
+                'season_id' => $request->season_id
             ]);
 
         return view('front.events.index', compact(
             'events',
             'cityList',
             'whomList',
+            'seasonList',
             'geoData'
         ));
     }

@@ -8,41 +8,46 @@
             <div class="events__heading heading heading--blue" id="heading">
                 <h1 class="heading__title">{{ $vars['events_title'] }}</h1>
                 <form action="{{ route('front.events.index') }}" name="filters" class="heading__selects heading__selects--events">
-                        <input name="date_from" type="hidden" value="{{ request()->get('date_from') ?? '' }}" />
-                        <input name="date_to" type="hidden" value="{{ request()->get('date_to') ?? '' }}" />
 
-                        <div class="heading__select" id="heading-first">
-                            @php $dateRange = request()->get('date_range') ?? ''; @endphp
-                            <input name="date_range" id="first" value="{{ $dateRange }}" autocomplete="off" placeholder="{{ $vars['filter_time_range'] }}" readonly="readonly">
-                        </div>
+                    <select name="season_id" id="season_id">
+                        @php $seasonId = request()->get('season_id') ?? null; @endphp
+                        <option value="" disabled="disabled" selected="selected">{{ $vars['filter_season'] }}</option>
+                        @foreach($seasonList as $season)
+                            <option
+                                value="{{ $season->id }}"
+                                {{ $seasonId && $seasonId == $season->id ? 'selected' : '' }} >
+                                {{ $season->name }}
+                            </option>
+                        @endforeach
+                    </select>
 
-                        <div class="heading__select" id="heading-type_id">
-                            <select name="city_id" id="city_id">
-                                @php $cityId = request()->get('city_id') ?? null; @endphp
-                                <option value="" disabled="disabled" selected="selected">{{ $vars['filter_city'] }}</option>
-                                @foreach($cityList as $city)
-                                    <option
-                                        value="{{ $city->id }}"
-                                        {{ $cityId && $cityId == $city->id ? 'selected' : '' }} >
-                                        {{ $city->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <div class="heading__select" id="heading-type_id">
+                        <select name="city_id" id="city_id">
+                            @php $cityId = request()->get('city_id') ?? null; @endphp
+                            <option value="" disabled="disabled" selected="selected">{{ $vars['filter_city'] }}</option>
+                            @foreach($cityList as $city)
+                                <option
+                                    value="{{ $city->id }}"
+                                    {{ $cityId && $cityId == $city->id ? 'selected' : '' }} >
+                                    {{ $city->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <div class="heading__select" id="heading-fourth">
-                            <select name="whom_id"  id="whom_id">
-                                @php $whomId = request()->get('whom_id') ?? null; @endphp
-                                <option disabled="disabled" selected="selected">{{ $vars['filter_whom'] }}</option>
-                                @foreach($whomList as $whom)
-                                    <option
-                                        value="{{ $whom->id }}"
-                                        {{ $whomId && $whomId == $whom->id ? 'selected' : '' }} >
-                                        {{ $whom->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <div class="heading__select" id="heading-fourth">
+                        <select name="whom_id"  id="whom_id">
+                            @php $whomId = request()->get('whom_id') ?? null; @endphp
+                            <option disabled="disabled" selected="selected">{{ $vars['filter_whom'] }}</option>
+                            @foreach($whomList as $whom)
+                                <option
+                                    value="{{ $whom->id }}"
+                                    {{ $whomId && $whomId == $whom->id ? 'selected' : '' }} >
+                                    {{ $whom->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                 </form>
             </div>
             <div class="events__items list">
@@ -76,21 +81,21 @@
                                             </div>
                                             <div class="list__subinfo d-flex justify-content-between align-items-center">
                                                 <p class="list__subprice mb-0">
-                                                    {{ DateHelper::eventRangeTime($event) }}
+{{--                                                    {{ DateHelper::eventRangeTime($event) }}--}}
                                                 </p>
                                             </div>
                                             <p class="list__name exo">
                                                 {{ $event->name }}
                                             </p>
-                                            <a class="list__city"
-                                                target="_blank"
-                                                href="{{ YandexGeoHelper::yandexMapLink($event->lng, $event->lat) }}"
-                                            >
-                                                @if($event->city)
-                                                    <span class="material-icons">room&nbsp;</span>
-                                                    {{ $event->city }}
-                                                @endif
-                                            </a>
+{{--                                            <a class="list__city"--}}
+{{--                                                target="_blank"--}}
+{{--                                                href="{{ YandexGeoHelper::yandexMapLink($event->lng, $event->lat) }}"--}}
+{{--                                            >--}}
+{{--                                                @if($event->city)--}}
+{{--                                                    <span class="material-icons">room&nbsp;</span>--}}
+{{--                                                    {{ $event->city }}--}}
+{{--                                                @endif--}}
+{{--                                            </a>--}}
                                         </a>
                                         <div class="list__buttons d-flex flex-row align-items-center">
                                             <button class="list__button list__button-add route-item-add" data-id="{{ $event->id }}" data-type="route-events">
@@ -142,15 +147,14 @@
     @parent
     <script>
         $(function () {
-            let dateRange = $('#first');
+            let season = $('#season_id');
             let city = $('#city_id');
             let whom = $('#whom_id');
             let filterForm = $('form[name="filters"]');
-            let dateFrom = $('input[name="date_from"]');
-            let dateTo = $('input[name="date_to"]');
 
             city.selectmenu();
             whom.selectmenu();
+            season.selectmenu();
 
             city.on('selectmenuchange', e => {
                 e.preventDefault();
@@ -162,34 +166,10 @@
                 filterForm.submit();
             })
 
-            dateRange.datepick({
-                onSelect: function (dates) {
-                    console.log(dates);
-                    dates.map((date, index) => {
-                        if (index === 0) {
-                            dateFrom.val((new Date(date)).getTime() / 1000)
-                        } else {
-                            dateTo.val((new Date(date)).getTime() / 1000)
-                        }
-                    });
-
-                    if (dates.length === 2) {
-                        filterForm.submit();
-                    }
-                },
-                yearRange: 'c-0:c+2',
-                firstDay: 1,
-                multiSelect: 2,
-                multiSeparator: ' — ',
-                dateFormat: 'd M yyyyy',
-                dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-                monthNamesShort: ['янв', 'фев', 'мар', 'апр', 'май', 'июн',
-                    'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'
-                ],
-                monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-                    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-                ],
-            });
+            season.on('selectmenuchange', e => {
+                e.preventDefault();
+                filterForm.submit();
+            })
         });
     </script>
 

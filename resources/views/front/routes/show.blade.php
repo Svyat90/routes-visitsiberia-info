@@ -67,15 +67,15 @@
                             {{ $entity->image ? $entity->image->img('route')->lazy() : '' }}
                         </a>
                         <a href="{{ RouteHelper::show($entity) }}" class="page__route-name exo">{{ $entity->name }}</a>
-                        <a class="page__route-city"
-                           target="_blank"
-                           href="{{ YandexGeoHelper::yandexMapLink($entity->lng, $entity->lat) }}"
-                        >
-                            @if($entity->city)
-                                <span class="material-icons">room</span>
-                                {{ $entity->city }}
-                            @endif
-                        </a>
+{{--                        <a class="page__route-city"--}}
+{{--                           target="_blank"--}}
+{{--                           href="{{ YandexGeoHelper::yandexMapLink($entity->lng, $entity->lat) }}"--}}
+{{--                        >--}}
+{{--                            @if($entity->city)--}}
+{{--                                <span class="material-icons">room</span>--}}
+{{--                                {{ $entity->city }}--}}
+{{--                            @endif--}}
+{{--                        </a>--}}
                     </div>
                 @endforeach
             </section>
@@ -118,24 +118,6 @@
                     @endif
                 </div>
             </section>
-
-            @if($route->history_desc)
-                <section class="article__history article__block" id="story">
-                    <div class="article__history-block wow fadeInLeft">
-                        <h2 class="article__name exo">{{ $vars['base_history'] }}</h2>
-                        <div class="article__history-text">
-                            <p class="article__text">
-                                {!! $route->history_desc !!}
-                            </p>
-                        </div>
-                    </div>
-                    @if($route->image_history)
-                        <div class="article__img-wr wow fadeInRight">
-                            {{ $route->image_history->img('history')->attributes(['class' => 'article__map'])->lazy() }}
-                        </div>
-                    @endif
-                </section>
-            @endif
 
             <section class="article__block article__pass" id="way">
                 <div class="article__pass-text">

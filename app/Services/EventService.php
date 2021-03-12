@@ -98,8 +98,8 @@ class EventService extends BaseService
         $queryBuilder =  Event::query()->active();
 
         return $queryBuilder->get()
-            ->filter(function (Event $place) use ($request) {
-                $dictionaryIds = $place->dictionaries->pluck('id');
+            ->filter(function (Event $event) use ($request) {
+                $dictionaryIds = $event->dictionaries->pluck('id');
                 return $this->setFilters($dictionaryIds, $request);
             });
     }
@@ -135,6 +135,7 @@ class EventService extends BaseService
         return $this->filterDictionaries(
             $request->city_id,
             $request->whom_id,
+            $request->season_id
         );
     }
 

@@ -145,15 +145,15 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="{{ route("admin.export.index") }}" class="nav-link {{ request()->is("admin/export") || request()->is("admin/export/*") ? 'active' : '' }}" >
-                        <i class="fa-fw nav-icon fas fa-book">
-                        </i>
-                        <p>
-                            {{ __('global.export') }}
-                        </p>
-                    </a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a href="{{ route("admin.export.index") }}" class="nav-link {{ request()->is("admin/export") || request()->is("admin/export/*") ? 'active' : '' }}" >--}}
+{{--                        <i class="fa-fw nav-icon fas fa-book">--}}
+{{--                        </i>--}}
+{{--                        <p>--}}
+{{--                            {{ __('global.export') }}--}}
+{{--                        </p>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
 
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('admin/password') || request()->is('admin/password/*') ? 'active' : '' }}" href="{{ route('admin.password.edit') }}">

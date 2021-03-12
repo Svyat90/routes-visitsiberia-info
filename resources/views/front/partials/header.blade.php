@@ -5,7 +5,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon material-icons">menu</span>
                 </button>
-                <a class="nav-link material-icons" href="{{ route('front.search.index') }}">search</a>
+                <a class="nav-link d-flex align-items-center" href="{{ route('front.search.index') }}"><span>{{ __('global.search') }}</span><span class="material-icons">search</span></a>
             </div>
 
             <div class="collapse navbar-collapse" id="navbarToggler">
@@ -50,7 +50,7 @@
         </div>
         <ul class="navbar-nav flex-row header__helpers">
             <li class="nav-item">
-                <a class="nav-link material-icons" href="{{ route('front.search.index') }}">search</a>
+                <a class="nav-link d-flex align-items-center" href="{{ route('front.search.index') }}"><span>{{ __('global.search') }}</span><span class="material-icons">search</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ app()->getLocale() === 'ru' ? 'active' : '' }}" href="{{ route('set_locate', 'ru') }}">Ру</a>

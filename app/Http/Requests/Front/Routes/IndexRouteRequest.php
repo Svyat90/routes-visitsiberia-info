@@ -7,8 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  * Class IndexRouteRequest
  *
- * @property string $date_from
- * @property string $date_to
+ * @property string $season_id
  * @property string $type_id
  * @property string $transport_id
  * @property string $whom_id
@@ -30,8 +29,7 @@ class IndexRouteRequest extends FormRequest
     public function rules()
     {
         return [
-            'date_from' => 'sometimes|nullable|string',
-            'date_to' => 'sometimes|nullable|string',
+            'season_id' => 'sometimes|nullable|exists:dictionaries,id',
             'type_id' => 'sometimes|nullable|exists:dictionaries,id',
             'transport_id' => 'sometimes|nullable|exists:dictionaries,id',
             'whom_id' => 'sometimes|nullable|exists:dictionaries,id',

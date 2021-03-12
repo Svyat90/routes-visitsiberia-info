@@ -63,9 +63,6 @@ abstract class BaseModel extends Model implements HasMedia
         $this->addMediaConversion('gallery')
             ->fit(Manipulations::FIT_CROP, 1107, 672);
 
-        $this->addMediaConversion('history')
-            ->fit(Manipulations::FIT_CROP, 676, 1007);
-
         $this->addMediaConversion('list')
             ->fit(Manipulations::FIT_CROP, 404, 315);
 

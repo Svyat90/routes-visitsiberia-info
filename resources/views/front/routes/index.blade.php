@@ -8,13 +8,18 @@
             <div class="route__heading heading heading--pink" id="heading">
                 <h1 class="heading__title">{{ $vars['routes_title'] }}</h1>
                 <form action="{{ route('front.routes.index') }}" name="filters" class="heading__selects heading__selects--route">
-                    <input name="date_from" type="hidden" value="{{ request()->get('date_from') ?? '' }}" />
-                    <input name="date_to" type="hidden" value="{{ request()->get('date_to') ?? '' }}" />
 
-                    <div class="heading__select">
-                        @php $dateRange = request()->get('date_range') ?? ''; @endphp
-                        <input name="date_range" id="first" value="{{ $dateRange }}" autocomplete="off" placeholder="{{ $vars['filter_time_range'] }}" readonly="readonly">
-                    </div>
+                    <select name="season_id" id="season_id">
+                        @php $seasonId = request()->get('season_id') ?? null; @endphp
+                        <option value="" disabled="disabled" selected="selected">{{ $vars['filter_season'] }}</option>
+                        @foreach($seasonList as $season)
+                            <option
+                                value="{{ $season->id }}"
+                                {{ $seasonId && $seasonId == $season->id ? 'selected' : '' }} >
+                                {{ $season->name }}
+                            </option>
+                        @endforeach
+                    </select>
 
                     <select name="transport_id"  id="transport_id">
                         @php $transportId = request()->get('transport_id') ?? null; @endphp
@@ -96,15 +101,15 @@
                                                 <a href="{{ RouteHelper::show($entity) }}" class="list__slide-name exo">
                                                     {{ $entity->name }}
                                                 </a>
-                                                <a class="list__slide-city"
-                                                   target="_blank"
-                                                   href="{{ YandexGeoHelper::yandexMapLink($entity->lng, $entity->lat) }}"
-                                                >
-                                                    @if($entity->city)
-                                                        <span class="material-icons">room&nbsp;</span>
-                                                        {{ $entity->city }}
-                                                    @endif
-                                                </a>
+{{--                                                <a class="list__slide-city"--}}
+{{--                                                   target="_blank"--}}
+{{--                                                   href="{{ YandexGeoHelper::yandexMapLink($entity->lng, $entity->lat) }}"--}}
+{{--                                                >--}}
+{{--                                                    @if($entity->city)--}}
+{{--                                                        <span class="material-icons">room&nbsp;</span>--}}
+{{--                                                        {{ $entity->city }}--}}
+{{--                                                    @endif--}}
+{{--                                                </a>--}}
                                             </div>
                                         </div>
                                         @endforeach
@@ -139,60 +144,38 @@
 @section('scripts')
     @parent
     <script>
-        let dateRange = $('#first');
-        let type = $('#type_id');
-        let transport = $('#transport_id');
-        let whom = $('#whom_id');
-        let filterForm = $('form[name="filters"]');
-        let dateFrom = $('input[name="date_from"]');
-        let dateTo = $('input[name="date_to"]');
+        $(function () {
+            let season = $('#season_id');
+            let type = $('#type_id');
+            let transport = $('#transport_id');
+            let whom = $('#whom_id');
+            let filterForm = $('form[name="filters"]');
 
-        type.selectmenu();
-        transport.selectmenu()
-        whom.selectmenu();
+            type.selectmenu();
+            transport.selectmenu()
+            whom.selectmenu();
+            season.selectmenu();
 
-        dateRange.datepick({
-            onSelect: function (dates) {
-                dates.map((date, index) => {
-                    if (index === 0) {
-                        dateFrom.val((new Date(date)).getTime() / 1000)
-                    } else {
-                        dateTo.val((new Date(date)).getTime() / 1000)
-                    }
-                });
+            type.on('selectmenuchange', e => {
+                e.preventDefault();
+                filterForm.submit();
+            })
 
-                if (dates.length === 2) {
-                    // filterForm.submit();
-                }
-            },
-            yearRange: 'c-0:c+2',
-            firstDay: 1,
-            multiSelect: 2,
-            multiSeparator: ' — ',
-            dateFormat: 'd M yyyyy',
-            dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-            monthNamesShort: ['янв', 'фев', 'мар', 'апр', 'май', 'июн',
-                'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'
-            ],
-            monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-            ],
+            transport.on('selectmenuchange', e => {
+                e.preventDefault();
+                filterForm.submit();
+            })
+
+            whom.on('selectmenuchange', e => {
+                e.preventDefault();
+                filterForm.submit();
+            })
+
+            season.on('selectmenuchange', e => {
+                e.preventDefault();
+                filterForm.submit();
+            })
         });
-
-        type.on('selectmenuchange', e => {
-            e.preventDefault();
-            filterForm.submit();
-        })
-
-        transport.on('selectmenuchange', e => {
-            e.preventDefault();
-            filterForm.submit();
-        })
-
-        whom.on('selectmenuchange', e => {
-            e.preventDefault();
-            filterForm.submit();
-        })
     </script>
 
     <script>
