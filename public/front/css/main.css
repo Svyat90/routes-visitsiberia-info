@@ -191,6 +191,14 @@
   padding-left: 40px;
 }
 
+.ch-mb-0 {
+  min-width: 50%;
+}
+
+.ch-mb-0 > * {
+  margin-top: 0 !important;
+}
+
 @media screen and (max-width: 1024px) {
   .article__border-light {
     padding-left: 15px;
@@ -772,11 +780,15 @@ button.datepick-cmd {
 }
 .index__header {
   position: relative;
-  min-height: 500px;
-  height: 500px;
-  background-image: url(../img/main-top-bg.jpg);
-  background-size: cover;
+  min-height: 700px;
+  overflow: hidden;
 }
+.index__video {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+}
+
 @media screen and (max-width: 1220px) {
   .index__header {
     padding-top: 40px;
@@ -1348,7 +1360,7 @@ button.datepick-cmd {
   justify-content: center;
   align-items: center;
   margin-bottom: 90px;
-  height: 350px;
+  height: 544px;
   padding: 0 55px;
   color: #00314d;
 }
@@ -1357,9 +1369,19 @@ button.datepick-cmd {
     height: 500px;
   }
 }
+@media screen and (max-width: 1320px) {
+  .heading {
+    margin-left: -23px;
+    margin-right: -23px;
+    background-size: auto !important;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-top: 0 !important;
+  }
+}
 @media screen and (max-width: 575px) {
   .heading {
-    height: 350px;
+    height: 400px;
   }
 }
 .heading__title {
@@ -1367,6 +1389,7 @@ button.datepick-cmd {
   font-weight: 200;
   font-size: 120px;
   line-height: 144px;
+  color: #fff;
 }
 @media screen and (max-width: 992px) {
   .heading__title {
@@ -1391,17 +1414,17 @@ button.datepick-cmd {
 }
 @media screen and (max-width: 992px) {
   .heading__title--big {
-    font-size: 60px;
+    font-size: 54px;
   }
 }
 @media screen and (max-width: 667px) {
   .heading__title--big {
-    font-size: 36px;
+    font-size: 32px;
   }
 }
 @media screen and (max-width: 425px) {
   .heading__title--big {
-    font-size: 28px;
+    font-size: 24px;
   }
 }
 @media screen and (max-width: 1220px) {
@@ -1413,15 +1436,27 @@ button.datepick-cmd {
   display: flex;
   justify-content: center;
   min-width: 942px;
-  height: 59px;
   margin-bottom: 50px;
+  background-color: #fff;
+  border-radius: 50px;
+  padding: 15px 30px;
 }
-@media screen and (max-width: 1220px) {
+@media screen and (max-width: 1320px) {
   .heading__selects {
     flex-direction: column;
     align-items: center;
     height: unset;
     min-width: unset;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .heading {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .heading__selects {
+    width: 100%;
   }
 }
 .heading__selects--places #second-button {
@@ -1707,48 +1742,63 @@ button.datepick-cmd {
   color: #00314d;
 }
 .heading--yellow {
-  background: radial-gradient(
+/*  background: radial-gradient(
     44.83% 47.04% at 50% 52.96%,
     rgba(248, 253, 16, 0.6) 0,
     rgba(255, 255, 255, 0.6) 100%
-  );
-  background-size: 100%;
+  );*/
+  background-image: url('../img/route-bg.jpg');
+  background-size: contain;
+  background-position: center;
+  margin-top: 35px;
   background-repeat: no-repeat;
 }
 .heading--blue {
-  background: radial-gradient(
+/*  background: radial-gradient(
     44.83% 47.04% at 50% 52.96%,
     rgba(89, 156, 193, 0.6) 0,
     rgba(255, 255, 255, 0.6) 100%
-  );
-  background-size: 100%;
+  );*/
+  background-image: url('../img/route-bg.jpg');
+  background-size: contain;
+  background-position: center;
+  margin-top: 35px;
   background-repeat: no-repeat;
 }
 .heading--green {
-  background: radial-gradient(
+/*  background: radial-gradient(
     44.83% 47.04% at 50% 52.96%,
     rgba(120, 253, 16, 0.6) 0,
     rgba(255, 255, 255, 0.6) 100%
-  );
-  background-size: 100%;
+  );*/
+  background-image: url('../img/route-bg.jpg');
+  background-size: contain;
+  background-position: center;
+  margin-top: 35px;
   background-repeat: no-repeat;
 }
 .heading--cyan {
-  background: radial-gradient(
+/*  background: radial-gradient(
     44.83% 47.04% at 50% 52.96%,
     rgba(16, 253, 225, 0.5) 0,
     rgba(255, 255, 255, 0.5) 100%
-  );
-  background-size: 100%;
+  );*/
+  background-image: url('../img/route-bg.jpg');
+  background-size: contain;
+  background-position: center;
+  margin-top: 35px;
   background-repeat: no-repeat;
 }
 .heading--pink {
-  background: radial-gradient(
+ /*/* background: radial-gradient(
     44.83% 47.04% at 50% 52.96%,
     rgba(253, 16, 187, 0.4) 0,
     rgba(255, 255, 255, 0.4) 100%
-  );
-  background-size: 100%;
+  );**/
+  background-image: url('../img/route-bg.jpg');
+  background-size: contain;
+  background-position: center;
+  margin-top: 35px;
   background-repeat: no-repeat;
 }
 @media screen and (max-width: 1350px) {
@@ -2880,6 +2930,7 @@ button.datepick-cmd {
   max-width: 1585px;
   margin-top: 305px;
   margin-left: auto;
+  margin-right: auto;
 }
 @media screen and (max-width: 1930px) {
   .article__history {
@@ -3896,19 +3947,32 @@ ul {
 }
 @media screen and (max-width: 768px) {
   .search__input {
-    font-size: 50px;
+    font-size: 45px;
     line-height: 67px;
   }
 }
 .search__result-group {
   margin-top: 125px;
 }
+
+@media screen and (max-width: 768px) {
+  .search__result-group {
+    margin-top: 40px;
+  }
+}
+
 .search__result-title {
   margin-bottom: 58px;
   font-weight: 400;
   font-size: 36px;
   line-height: 45px;
   color: #00314d;
+}
+
+@media screen and (max-width: 768px) {
+  .search__result-title {
+    margin-bottom: 20px;
+  }
 }
 .search__result-item {
   width: calc(100% - 210px);
@@ -4073,7 +4137,7 @@ width: calc(100% - 120px);
   }
 }
 
-
+  
 
 .constructor__input-wr {
   display: flex;
@@ -4531,7 +4595,7 @@ margin-bottom: 0;
   font-size: 24px;
   line-height: 30px;
   color: #00314d !important;
-}
+} 
 
 .modal__icon {
   width: 60px;
