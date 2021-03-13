@@ -191,9 +191,9 @@
                     <h2 class="article__name wow fadeInUp">
                         {{ $vars['base_how_to_get'] }}
                     </h2>
-                    <p class="article__text wow fadeInUp">
+                    <div class="article__text wow fadeInUp">
                         {!! \App\Helpers\HtmlHelper::clearHtml($event->contact_desc) !!}
-                    </p>
+                    </div>
                 </div>
 
                 <div class="article__map-wrap">
