@@ -6,11 +6,15 @@ class HtmlHelper
 {
 
     /**
-     * @param string $data
+     * @param string|null $data
      * @return string|null
      */
-    public static function clearHtml(string $data) : ? string
+    public static function clearHtml(? string $data) : ? string
     {
+        if (! $data) {
+            return "";
+        }
+
         return preg_replace('/class=".*?"/', '', $data);
     }
 

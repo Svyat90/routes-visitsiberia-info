@@ -73,11 +73,10 @@
 
             <section class="article__info">
                 <div class="article__text article__block-info wow fadeInUp">
-                    {!! \App\Helpers\HtmlHelper::clearHtml($hotel->page_desc) !!}
-
                     <p class="article__contact-title" id="info">
                         {{ $vars['base_contacts'] }}:
                     </p>
+
                     @if($hotel->site_link)
                         <a href="{{ $hotel->site_link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $hotel->name }}</a>
                     @endif
