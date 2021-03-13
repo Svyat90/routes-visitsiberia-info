@@ -37,19 +37,12 @@
                     </div>
 
                     <div class="article__sign wow fadeInLeft" id="desc">
-                        @foreach(DictionaryHelper::group($meal->dictionaries) as $parentName => $dictionaries)
-                            <p class="article__sign-bold">
-                                {{ $parentName }}:
-                                @foreach($dictionaries as $dictionary)
-                                    <span href="#" class="article__link">
-                                        {{ $dictionary->name . (! $loop->last ? ',' : '') }}
-                                    </span>
-                                @endforeach
-                            </p>
-                        @endforeach
+
+                        @include('front.partials.dictionary', ['model' => $meal, 'parentType' => \App\Services\DictionaryService::TYPE_CATEGORY_FOOD])
+                        @include('front.partials.dictionary', ['model' => $meal, 'parentType' => \App\Services\DictionaryService::TYPE_SEASON, 'base' => true])
 
                         <p class="article__information article__text" id="desc">
-                            {!! $meal->page_desc !!}
+                            {!! $meal->description !!}
                         </p>
                     </div>
                 </div>
@@ -59,7 +52,7 @@
                         <li class="page-nav__item"><a href="#desc">{{ $vars['base_desc'] }}</a></li>
                         <li class="page-nav__item"><a href="#info">{{ $vars['base_help_info'] }}</a></li>
                         <li class="page-nav__item"><a href="#photo">{{ $vars['base_photo'] }}</a></li>
-                        <li class="page-nav__item"><a href="#story">{{ $vars['base_history'] }}</a></li>
+                        <li class="page-nav__item"><a href="#story">{{ __('global.conditions') }}</a></li>
                         <li class="page-nav__item"><a href="#way">{{ $vars['base_how_to_get'] }}</a></li>
                         <li class="page-nav__item"><a href="#reviews">{{ $vars['base_reviews'] }}</a></li>
                         <li class="page-nav__item"><a href="#events">{{ $vars['base_events_early'] }}</a></li>
@@ -77,46 +70,7 @@
             </div>
 
             <section class="article__info">
-                <div class="article__img-wr wow fadeInUp">
-                    {{ $meal->image ? $meal->image->img('main')->lazy() : '' }}
-                </div>
                 <div class="article__text article__block-info wow fadeInUp">
-                    {!! $meal->page_desc !!}
-                    <p class="article__contact-title" id="info">
-                        {{ $vars['base_help_info'] }}:
-                    </p>
-
-                    {!! $meal->helpful_info !!}
-
-                    @if($meal->working_hours)
-                        Рабочий график:
-                        {!! $meal->working_hours !!}
-                    @endif
-
-                    <p>Есть завтрак:
-                    @if($meal->working_hours)
-                        Да
-                    @else
-                        Нет
-                    @endif
-                    </p>
-
-                    <p>Есть бизнес ланч:
-                    @if($meal->have_business_lunch)
-                        Да
-                    @else
-                        Нет
-                    @endif
-                    </p>
-
-                    <p>Есть доставка:
-                    @if($meal->delivery_available)
-                        Да
-                    @else
-                        Нет
-                    @endif
-                    </p>
-
                     <p class="article__contact-title" id="info">
                         {{ $vars['base_contacts'] }}:
                     </p>
@@ -125,29 +79,26 @@
                         <a href="{{ $meal->site_link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $meal->name }}</a>
                     @endif
 
-                    @if($meal->aggregator_links)
-                        @php $links =  explode("," , $meal->aggregator_links) @endphp
-                        @foreach($links as $link)
-                            @if($link)
-                                <a href="{{ $link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link }}</a>
+                    @if($aggregatorLinks)
+                        @foreach($aggregatorLinks as $link)
+                            @if($link->url && $link->title)
+                                <a href="{{ $link->url }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link->title }}</a>
                             @endif
                         @endforeach
                     @endif
 
-                    @if($meal->social_links)
-                        @php $links =  explode("," , $meal->social_links) @endphp
-                        @foreach($links as $link)
-                            @if($link)
-                                <a href="{{ $link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link }}</a>
+                    @if($socialLinks)
+                        @foreach($socialLinks as $link)
+                            @if($link->url && $link->title)
+                                <a href="{{ $link->url }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link->title }}</a>
                             @endif
                         @endforeach
                     @endif
 
-                    @if($meal->phones)
-                        @php $phones =  explode("," , $meal->phones) @endphp
+                    @if($phones)
                         @foreach($phones as $phone)
-                            @if($phone)
-                                <a href="{{ $phone }}" class="material-icons article__contact article__link"><span class="material-icons">call</span>{{ $phone }}</a>
+                            @if($phone->title)
+                                <a href="tel:{{ $phone->title }}" class="material-icons article__contact article__link"><span class="material-icons">call</span>{{ $phone->title }}</a>
                             @endif
                         @endforeach
                     @endif
@@ -164,36 +115,70 @@
                 </div>
             </section>
 
-            <section class="article__slider article__block wow fadeInUp" id="photo">
-                <div class="swiper-container article__slider-container">
-                    <div class="swiper-wrapper">
-                        @foreach($meal->image_gallery as $image)
-                            <div class="swiper-slide d-flex flex-column align-items-center">
-                                <div class="article__slider-img-wr">
-                                    {{ $image->img('gallery')->lazy() }}
+            @if($meal->image_gallery->count())
+                <section class="article__slider article__block wow fadeInUp" id="photo">
+                    <div class="swiper-container article__slider-container">
+                        <div class="swiper-wrapper">
+                            @foreach($meal->image_gallery as $image)
+                                <div class="swiper-slide d-flex flex-column align-items-center">
+                                    <div class="article__slider-img-wr">
+                                        {{ $image->img('gallery')->lazy() }}
+                                    </div>
+                                    <p class="article__slider-description exo">
+                                        {{ $image->getCustomProperty('title') }}
+                                    </p>
+                                    <p class="article__slider-author">
+                                        {{ $image->getCustomProperty('desc') }}
+                                    </p>
                                 </div>
-                                <p class="article__slider-description exo">
-                                    {{ $image->getCustomProperty('title') }}
-                                </p>
-                                <p class="article__slider-author">
-                                    {{ $image->getCustomProperty('desc') }}
-                                </p>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="swiper-button-next swiper-button"></div>
+                    <div class="swiper-button-prev swiper-button"></div>
+                    <script>
+                        const gallerySwiper = new Swiper('.article__slider-container', {
+                            slidesPerView: 1,
+
+                            navigation: {
+                                nextEl: '.swiper-button-next',
+                                prevEl: '.swiper-button-prev',
+                            },
+                        })
+                    </script>
+                </section>
+            @endif
+
+            <section class="article__history article__block" id="story">
+                <div class="article__history-block wow fadeInLeft">
+                    <h2 class="article__name exo">{{ __('global.conditions') }}</h2>
+                    <div class="article__history-text">
+                        <div class="article__text article__text-bold" style="margin-bottom: 0px;">
+                            - {{ __('global.working_hours') }}
+                        </div>
+                        <div class="article__text">
+                            {!! \App\Helpers\HtmlHelper::clearHtml($meal->working_hours) !!}
+                        </div>
+                        <p class="article__text article__text-bold">
+                            - {{ __('global.have_breakfasts') }}
+                        </p>
+                        <p class="article__text">
+                            {{ $meal->have_breakfasts ? __('global.yes') : __('global.no') }}
+                        </p>
+                        <p class="article__text article__text-bold">
+                            - {{ __('global.have_business_lunch') }}
+                        </p>
+                        <p class="article__text">
+                            {{ $meal->have_business_lunch ? __('global.yes') : __('global.no') }}
+                        </p>
+                        <p class="article__text article__text-bold">
+                            - {{ __('global.delivery_available') }}
+                        </p>
+                        <p class="article__text">
+                            {{ $meal->delivery_available ? __('global.yes') : __('global.no') }}
+                        </p>
                     </div>
                 </div>
-                <div class="swiper-button-next swiper-button"></div>
-                <div class="swiper-button-prev swiper-button"></div>
-                <script>
-                    const gallerySwiper = new Swiper('.article__slider-container', {
-                        slidesPerView: 1,
-
-                        navigation: {
-                            nextEl: '.swiper-button-next',
-                            prevEl: '.swiper-button-prev',
-                        },
-                    })
-                </script>
             </section>
 
             <section class="article__block article__pass" id="way">
@@ -202,7 +187,7 @@
                         {{ $vars['base_how_to_get'] }}
                     </h2>
                     <p class="article__text wow fadeInUp">
-                        {!! $meal->contact_desc !!}
+                        {!! $meal->location !!}
                     </p>
                 </div>
 
@@ -214,7 +199,7 @@
             @include('front.partials.reviews', ['entity' => $meal, 'namespace' => 'meals'])
 
             @if($events->count() > 0)
-                <section class="article__events article__block" id="events">
+                <section class="article__events article__block" id="meals">
                     <h2 class="article__name article__name-position wow fadeInUp">
                         {{ $vars['base_events_early'] }}
                     </h2>

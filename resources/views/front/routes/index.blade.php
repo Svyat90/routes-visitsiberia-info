@@ -89,7 +89,7 @@
                                 </p>
                                 <div class="swiper-container list__slider-container">
                                     <div class="list__slider-story exo">
-                                        {!! $route['model']->page_desc !!}
+                                        {!! \App\Helpers\HtmlHelper::clearHtml( $route['model']->page_desc ) !!}
                                     </div>
                                     <div class="swiper-wrapper list__slider-wr">
                                         @foreach($route['routable'] as $entity)

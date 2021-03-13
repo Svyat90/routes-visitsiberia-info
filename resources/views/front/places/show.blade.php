@@ -37,19 +37,12 @@
                     </div>
 
                     <div class="article__sign wow fadeInLeft">
-                        @foreach(DictionaryHelper::group($place->dictionaries) as $parentName => $dictionaries)
-                            <p class="article__sign-bold">
-                                {{ $parentName }}:
-                                @foreach($dictionaries as $dictionary)
-                                    <span href="#" class="article__link">
-                                        {{ $dictionary->name . (! $loop->last ? ',' : '') }}
-                                    </span>
-                                @endforeach
-                            </p>
-                        @endforeach
+
+                        @include('front.partials.dictionary', ['model' => $place, 'parentType' => \App\Services\DictionaryService::TYPE_CATEGORY_PLACE])
+                        @include('front.partials.dictionary', ['model' => $place, 'parentType' => \App\Services\DictionaryService::TYPE_SEASON, 'base' => true])
 
                         <p class="article__information article__text" id="desc">
-                            {!! $place->page_desc !!}
+                            {!! \App\Helpers\HtmlHelper::clearHtml($place->page_desc) !!}
                         </p>
                     </div>
                 </div>
@@ -76,51 +69,7 @@
                 </sidebar>
             </div>
 
-            <section class="article__info">
-                <div class="article__img-wr wow fadeInUp">
-                    {{ $place->image ? $place->image->img('main')->lazy() : '' }}
-                </div>
-                <div class="article__text article__block-info wow fadeInUp">
-                    <p class="article__contact-title" id="info">
-                        {{ $vars['base_help_info'] }}:
-                    </p>
-                    {!! $place->helpful_info !!}
-
-                    {!! $place->life_hacks !!}
-                    {!! $place->contacts_representatives !!}
-                    {!! $place->additional_links !!}
-                    {!! $place->contacts_delivery !!}
-
-                    <p class="article__contact-title" id="info">
-                        {{ $vars['base_contacts'] }}:
-                    </p>
-
-                    @if($place->site_link)
-                        <a href="{{ $place->site_link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $place->name }}</a>
-                    @endif
-
-                    @if($place->social_links)
-                        @php $links =  explode("," , $place->social_links) @endphp
-                        @foreach($links as $link)
-                            @if($link)
-                                <a href="{{ $link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link }}</a>
-                            @endif
-                        @endforeach
-                    @endif
-
-                    @if($place->location)
-                        <a class="material-icons article__contact article__link"
-                           target="_blank"
-                           href="{{ YandexGeoHelper::yandexMapLink($place->lng, $place->lat) }}"
-                        >
-                            <span class="material-icons">room</span>
-                            {{ $place->location }}
-                        </a>
-                    @endif
-                </div>
-            </section>
-
-            <section class="article__slider article__block wow fadeInUp" id="photo">
+            <section class="article__slider article__block wow fadeInUp" id="photo" style="margin-bottom: 0px;">
                 <div class="swiper-container article__slider-container">
                     <div class="swiper-wrapper">
                         @foreach($place->image_gallery as $image)
@@ -152,20 +101,108 @@
                 </script>
             </section>
 
-            <section class="article__block article__pass" id="way">
-                <div class="article__pass-text">
-                    <h2 class="article__name wow fadeInUp">
-                        {{ $vars['base_how_to_get'] }}
-                    </h2>
-                    <p class="article__text wow fadeInUp">
-                        {!! $place->contact_desc !!}
+            <section class="article__info">
+                <div class="article__text article__block-info wow fadeInUp">
+                    <p class="article__contact-title" id="info">
+                        {{ $vars['base_help_info'] }}:
                     </p>
-                </div>
 
-                <div class="article__map-wrap">
-                    <div id="map"></div>
+                    @if($place->site_link)
+                        <a href="{{ $place->site_link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $place->name }}</a>
+                    @endif
+
+                    @if($socialLinks)
+                        @foreach($socialLinks as $link)
+                            @if($link->url && $link->title)
+                                <a href="{{ $link->url }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link->title }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    @if($additionalLinks)
+                        @foreach($additionalLinks as $link)
+                            @if($link->url && $link->title)
+                                <a href="{{ $link->url }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link->title }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    @if($phoneLinks)
+                        @foreach($phoneLinks as $phone)
+                            @if($phone->title)
+                                <a href="tel:{{ $phone->url }}" class="material-icons article__contact article__link"><span class="material-icons">call</span>{{ $phone->title }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    @if($place->location)
+                        <a class="material-icons article__contact article__link"
+                           target="_blank"
+                           href="{{ YandexGeoHelper::yandexMapLink($place->lng, $place->lat) }}"
+                        >
+                            <span class="material-icons">room</span>
+                            {{ $place->location }}
+                        </a>
+                    @endif
                 </div>
             </section>
+
+            @if($place->history_desc)
+                <section class="article__history article__block" id="story">
+                    <div class="article__history-block wow fadeInLeft">
+                        <h2 class="article__name exo">{{ __('global.history_desc') }}</h2>
+                        <div class="article__history-text">
+                            <div class="article__text">
+                                {!! \App\Helpers\HtmlHelper::clearHtml($place->history_desc) !!}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
+
+            @if($place->life_hacks)
+                <section class="article__history article__block" id="story">
+                    <div class="article__history-block wow fadeInLeft">
+                        <h2 class="article__name exo">{{ __('global.life_hacks') }}</h2>
+                        <div class="article__history-text">
+                            <div class="article__text">
+                                {!! \App\Helpers\HtmlHelper::clearHtml($place->life_hacks) !!}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
+
+            <section class="article__history article__block" id="story">
+                <div class="article__history-block wow fadeInLeft">
+                    <h2 class="article__name exo">{{ __('global.conditions') }}</h2>
+                    <div class="article__history-text">
+                        <p class="article__text article__text-bold">
+                            - {{ __('global.with_children') }}
+                        </p>
+                        <p class="article__text">
+                            {{ $place->with_children ? __('global.yes') : __('global.no') }}
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            @if($place->contact_desc)
+                <section class="article__block article__pass" id="way">
+                    <div class="article__pass-text">
+                        <h2 class="article__name wow fadeInUp">
+                            {{ $vars['base_how_to_get'] }}
+                        </h2>
+                        <div class="article__text wow fadeInUp">
+                            {!! \App\Helpers\HtmlHelper::clearHtml($place->contact_desc) !!}
+                        </div>
+                    </div>
+
+                    <div class="article__map-wrap">
+                        <div id="map"></div>
+                    </div>
+                </section>
+            @endif
 
             @include('front.partials.reviews', ['entity' => $place, 'namespace' => 'places'])
 

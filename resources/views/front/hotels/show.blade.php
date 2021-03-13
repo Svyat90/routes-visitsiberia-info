@@ -52,7 +52,7 @@
                         <li class="page-nav__item"><a href="#desc">{{ $vars['base_desc'] }}</a></li>
                         <li class="page-nav__item"><a href="#info">{{ $vars['base_help_info'] }}</a></li>
                         <li class="page-nav__item"><a href="#photo">{{ $vars['base_photo'] }}</a></li>
-                        <li class="page-nav__item"><a href="#story">{{ $vars['base_history'] }}</a></li>
+                        <li class="page-nav__item"><a href="#story">{{ __('global.conditions') }}</a></li>
                         <li class="page-nav__item"><a href="#way">{{ $vars['base_how_to_get'] }}</a></li>
                         <li class="page-nav__item"><a href="#reviews">{{ $vars['base_reviews'] }}</a></li>
                         <li class="page-nav__item"><a href="#events">{{ $vars['base_events_early'] }}</a></li>
@@ -72,11 +72,8 @@
             </div>
 
             <section class="article__info">
-                <div class="article__img-wr wow fadeInUp">
-                    {{ $hotel->image ? $hotel->image->img('main')->lazy() : '' }}
-                </div>
                 <div class="article__text article__block-info wow fadeInUp">
-                    {!! $hotel->page_desc !!}
+                    {!! \App\Helpers\HtmlHelper::clearHtml($hotel->page_desc) !!}
 
                     <p class="article__contact-title" id="info">
                         {{ $vars['base_contacts'] }}:
@@ -121,37 +118,39 @@
                 </div>
             </section>
 
-            <section class="article__slider article__block wow fadeInUp" id="photo">
-                <div class="swiper-container article__slider-container">
-                    <div class="swiper-wrapper">
-                        @foreach($hotel->image_gallery as $image)
-                            <div class="swiper-slide d-flex flex-column align-items-center">
-                                <div class="article__slider-img-wr">
-                                    {{ $image->img('gallery')->lazy() }}
+            @if($hotel->image_gallery->count())
+                <section class="article__slider article__block wow fadeInUp" id="photo">
+                    <div class="swiper-container article__slider-container">
+                        <div class="swiper-wrapper">
+                            @foreach($hotel->image_gallery as $image)
+                                <div class="swiper-slide d-flex flex-column align-items-center">
+                                    <div class="article__slider-img-wr">
+                                        {{ $image->img('gallery')->lazy() }}
+                                    </div>
+                                    <p class="article__slider-description exo">
+                                        {{ $image->getCustomProperty('title') }}
+                                    </p>
+                                    <p class="article__slider-author">
+                                        {{ $image->getCustomProperty('desc') }}
+                                    </p>
                                 </div>
-                                <p class="article__slider-description exo">
-                                    {{ $image->getCustomProperty('title') }}
-                                </p>
-                                <p class="article__slider-author">
-                                    {{ $image->getCustomProperty('desc') }}
-                                </p>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-                <div class="swiper-button-next swiper-button"></div>
-                <div class="swiper-button-prev swiper-button"></div>
-                <script>
-                    const gallerySwiper = new Swiper('.article__slider-container', {
-                        slidesPerView: 1,
+                    <div class="swiper-button-next swiper-button"></div>
+                    <div class="swiper-button-prev swiper-button"></div>
+                    <script>
+                        const gallerySwiper = new Swiper('.article__slider-container', {
+                            slidesPerView: 1,
 
-                        navigation: {
-                            nextEl: '.swiper-button-next',
-                            prevEl: '.swiper-button-prev',
-                        },
-                    })
-                </script>
-            </section>
+                            navigation: {
+                                nextEl: '.swiper-button-next',
+                                prevEl: '.swiper-button-prev',
+                            },
+                        })
+                    </script>
+                </section>
+            @endif
 
             <section class="article__history article__block" id="story">
                 <div class="article__history-block wow fadeInLeft">

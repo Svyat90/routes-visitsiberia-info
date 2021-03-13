@@ -27,19 +27,11 @@
                     </div>
 
                     <div class="article__sign wow fadeInLeft">
-                        @foreach(DictionaryHelper::group($event->dictionaries) as $parentName => $dictionaries)
-                            <p class="article__sign-bold">
-                                {{ $parentName }}:
-                                @foreach($dictionaries as $dictionary)
-                                    <span href="#" class="article__link">
-                                        {{ $dictionary->name . (! $loop->last ? ',' : '') }}
-                                    </span>
-                                @endforeach
-                            </p>
-                        @endforeach
+
+                        @include('front.partials.dictionary', ['model' => $event, 'parentType' => \App\Services\DictionaryService::TYPE_SEASON, 'base' => true])
 
                         <p class="article__information article__text" id="desc">
-                            {!! $event->page_desc !!}
+                            {!! \App\Helpers\HtmlHelper::clearHtml($event->page_desc) !!}
                         </p>
                     </div>
                 </div>
@@ -49,7 +41,7 @@
                         <li class="page-nav__item"><a href="#desc">{{ $vars['base_desc'] }}</a></li>
                         <li class="page-nav__item"><a href="#info">{{ $vars['base_help_info'] }}</a></li>
                         <li class="page-nav__item"><a href="#photo">{{ $vars['base_photo'] }}</a></li>
-                        <li class="page-nav__item"><a href="#story">{{ $vars['base_history'] }}</a></li>
+                        <li class="page-nav__item"><a href="#story">{{ __('global.amenities') }}</a></li>
                         <li class="page-nav__item"><a href="#way">{{ $vars['base_how_to_get'] }}</a></li>
                         <li class="page-nav__item"><a href="#reviews">{{ $vars['base_reviews'] }}</a></li>
                         <li class="page-nav__item"><a href="#events">{{ $vars['base_events_early'] }}</a></li>
@@ -67,40 +59,35 @@
             </div>
 
             <section class="article__info">
-                <div class="article__img-wr wow fadeInUp">
-                    {{ $event->image ? $event->image->img('main')->lazy() : '' }}
-                </div>
                 <div class="article__text article__block-info wow fadeInUp">
-
                     <p class="article__contact-title" id="info">
                         {{ $vars['base_help_info'] }}:
-                    </p>
-
-                    <p>Есть кемпинг:
-                        @if($event->have_camping)
-                            Да
-                        @else
-                            Нет
-                        @endif
-                    </p>
-
-                    {!! $event->life_hacks !!}
-                    {!! $event->addresses_representatives !!}
-                    {!! $event->phones_representatives !!}
-
-                    <p class="article__contact-title" id="info">
-                        {{ $vars['base_contacts'] }}:
                     </p>
 
                     @if($event->site_link)
                         <a href="{{ $event->site_link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $event->name }}</a>
                     @endif
 
-                    @if($event->additional_links)
-                        @php $links =  explode("," , $event->additional_links) @endphp
-                        @foreach($links as $link)
-                            @if($link)
-                                <a href="{{ $link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link }}</a>
+                    @if($socialLinks)
+                        @foreach($socialLinks as $link)
+                            @if($link->url && $link->title)
+                                <a href="{{ $link->url }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link->title }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    @if($additionalLinks)
+                        @foreach($additionalLinks as $link)
+                            @if($link->url && $link->title)
+                                <a href="{{ $link->url }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link->title }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    @if($phoneLinks)
+                        @foreach($phoneLinks as $phone)
+                            @if($phone->title)
+                                <a href="tel:{{ $phone->url }}" class="material-icons article__contact article__link"><span class="material-icons">call</span>{{ $phone->title }}</a>
                             @endif
                         @endforeach
                     @endif
@@ -114,39 +101,89 @@
                             {{ $event->location }}
                         </a>
                     @endif
+
+                    @if($addresses)
+                        @foreach($addresses as $address)
+                            @if($address->title)
+                                <a class="material-icons article__contact article__link"
+                                   href="#"
+                                >
+                                    <span class="material-icons">room</span>
+                                    {{ $address->title }}
+                                </a>
+                            @endif
+                        @endforeach
+                    @endif
                 </div>
             </section>
 
-            <section class="article__slider article__block wow fadeInUp" id="photo">
-                <div class="swiper-container article__slider-container">
-                    <div class="swiper-wrapper">
-                        @foreach($event->image_gallery as $image)
-                            <div class="swiper-slide d-flex flex-column align-items-center">
-                                <div class="article__slider-img-wr">
-                                    {{ $image->img('gallery')->lazy() }}
-                                </div>
-                                <p class="article__slider-description exo">
-                                    {{ $image->getCustomProperty('title') }}
-                                </p>
-                                <p class="article__slider-author">
-                                    {{ $image->getCustomProperty('desc') }}
-                                </p>
+            @if($event->image_gallery->count())
+                <section class="article__slider article__block wow fadeInUp" id="photo">
+                        <div class="swiper-container article__slider-container">
+                            <div class="swiper-wrapper">
+                                @foreach($event->image_gallery as $image)
+                                    <div class="swiper-slide d-flex flex-column align-items-center">
+                                        <div class="article__slider-img-wr">
+                                            {{ $image->img('gallery')->lazy() }}
+                                        </div>
+                                        <p class="article__slider-description exo">
+                                            {{ $image->getCustomProperty('title') }}
+                                        </p>
+                                        <p class="article__slider-author">
+                                            {{ $image->getCustomProperty('desc') }}
+                                        </p>
+                                    </div>
+                                @endforeach
                             </div>
-                        @endforeach
+                        </div>
+                        <div class="swiper-button-next swiper-button"></div>
+                        <div class="swiper-button-prev swiper-button"></div>
+                        <script>
+                            const gallerySwiper = new Swiper('.article__slider-container', {
+                                slidesPerView: 1,
+
+                                navigation: {
+                                    nextEl: '.swiper-button-next',
+                                    prevEl: '.swiper-button-prev',
+                                },
+                            })
+                        </script>
+                    </section>
+            @endif
+
+            @if($event->life_hacks)
+                <section class="article__history article__block" id="">
+                    <div class="article__history-block wow fadeInLeft">
+                        <h2 class="article__name exo">{{ __('global.life_hacks') }}</h2>
+                        <div class="article__history-text">
+                            <div class="article__text">
+                                {!! \App\Helpers\HtmlHelper::clearHtml($event->life_hacks) !!}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
+
+            <section class="article__history article__block" id="story">
+                <div class="article__history-block wow fadeInLeft">
+                    <h2 class="article__name exo">{{ __('global.amenities') }}</h2>
+                    <div class="article__history-text">
+                        @if($event->history_desc)
+                            <p class="article__text article__text-bold" style="margin-bottom: 0px;">
+                                - {{ __('global.time_range') }}
+                            </p>
+                            <div class="article__text">
+                                {!! \App\Helpers\HtmlHelper::clearHtml($event->history_desc) !!}
+                            </div>
+                        @endif
+                        <p class="article__text article__text-bold">
+                            - {{ __('global.have_camping') }}
+                        </p>
+                        <p class="article__text">
+                            {{ $event->have_camping ? __('global.yes') : __('global.no') }}
+                        </p>
                     </div>
                 </div>
-                <div class="swiper-button-next swiper-button"></div>
-                <div class="swiper-button-prev swiper-button"></div>
-                <script>
-                    const gallerySwiper = new Swiper('.article__slider-container', {
-                        slidesPerView: 1,
-
-                        navigation: {
-                            nextEl: '.swiper-button-next',
-                            prevEl: '.swiper-button-prev',
-                        },
-                    })
-                </script>
             </section>
 
             <section class="article__block article__pass" id="way">
@@ -155,7 +192,7 @@
                         {{ $vars['base_how_to_get'] }}
                     </h2>
                     <p class="article__text wow fadeInUp">
-                        {!! $event->contact_desc !!}
+                        {!! \App\Helpers\HtmlHelper::clearHtml($event->contact_desc) !!}
                     </p>
                 </div>
 

@@ -55,7 +55,7 @@
                     'placeholderSecond' => __('global.input_phone'),
                     'name' => 'link_phones',
                     'namespace' => 'events',
-                    'values' => $socialLinks
+                    'values' => $linkPhones
                 ])
 
                 @include('admin.partials.components.multi-fields.update', [

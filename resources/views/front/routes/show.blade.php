@@ -25,19 +25,12 @@
                     @endif
 
                     <div class="article__sign wow fadeInLeft">
-                        @foreach(DictionaryHelper::group($route->dictionaries) as $parentName => $dictionaries)
-                            <p class="article__sign-bold">
-                                {{ $parentName }}:
-                                @foreach($dictionaries as $dictionary)
-                                    <span href="#" class="article__link">
-                                        {{ $dictionary->name . (! $loop->last ? ',' : '') }}
-                                    </span>
-                                @endforeach
-                            </p>
-                        @endforeach
+
+                        @include('front.partials.dictionary', ['model' => $route, 'parentType' => \App\Services\DictionaryService::TYPE_REST])
+                        @include('front.partials.dictionary', ['model' => $route, 'parentType' => \App\Services\DictionaryService::TYPE_SEASON, 'base' => true])
 
                         <p class="article__information article__text" id="desc">
-                            {!! $route->page_desc !!}
+                            {!! \App\Helpers\HtmlHelper::clearHtml($route->page_desc) !!}
                         </p>
                     </div>
                 </div>
@@ -85,7 +78,8 @@
                     {{ $route->image ? $route->image->img('main')->lazy() : '' }}
                 </div>
                 <div class="article__text article__block-info wow fadeInUp">
-                    {!! $route->page_desc !!}
+                    {!! \App\Helpers\HtmlHelper::clearHtml($route->page_desc) !!}
+
                     <p class="article__contact-title" id="info">
                         {{ $vars['base_help_info'] }}:
                     </p>
@@ -125,7 +119,7 @@
                         {{ $vars['base_how_to_get'] }}
                     </h2>
                     <p class="article__text wow fadeInUp">
-                        {!! $route->contact_desc !!}
+                        {!! \App\Helpers\HtmlHelper::clearHtml($route->contact_desc) !!}
                     </p>
                 </div>
 

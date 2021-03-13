@@ -81,12 +81,19 @@ class PlaceController extends FrontController
 
         [$events, $meals, $hotels, $nearGeoData] = $this->service->getNearData($place);
 
+        $socialLinks = $this->service->repository->getSocialLinks($place);
+        $additionalLinks = $this->service->repository->getAdditionalLinks($place);
+        $phoneLinks = $this->service->repository->getPhoneLinks($place);
+
         return view('front.places.show', compact(
             'place',
             'events',
             'meals',
             'hotels',
-            'nearGeoData'
+            'nearGeoData',
+            'socialLinks',
+            'additionalLinks',
+            'phoneLinks'
         ));
     }
 

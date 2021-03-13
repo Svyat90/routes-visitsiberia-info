@@ -77,12 +77,21 @@ class EventController extends FrontController
 
         [$hotels, $meals, $places, $nearGeoData] = $this->service->getNearData($event);
 
+        $socialLinks = $this->service->repository->getSocialLinks($event);
+        $additionalLinks = $this->service->repository->getAdditionalLinks($event);
+        $phoneLinks = $this->service->repository->getPhoneLinks($event);
+        $addresses = $this->service->repository->getAddresses($event);
+
         return view('front.events.show', compact(
             'event',
             'hotels',
             'meals',
             'places',
-            'nearGeoData'
+            'nearGeoData',
+            'socialLinks',
+            'additionalLinks',
+            'phoneLinks',
+            'addresses'
         ));
     }
 
