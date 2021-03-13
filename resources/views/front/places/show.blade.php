@@ -101,7 +101,7 @@
                 </script>
             </section>
 
-            <section class="article__info">
+            <section class="article__info" style="margin-top: 0px;">
                 <div class="article__text article__block-info wow fadeInUp">
                     <p class="article__contact-title" id="info">
                         {{ $vars['base_help_info'] }}:

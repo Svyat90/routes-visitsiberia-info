@@ -73,10 +73,7 @@
                 @endforeach
             </section>
 
-            <section class="article__info">
-                <div class="article__img-wr wow fadeInUp">
-                    {{ $route->image ? $route->image->img('main')->lazy() : '' }}
-                </div>
+            <section class="article__info" style="margin-top: 0px;">
                 <div class="article__text article__block-info wow fadeInUp">
                     {!! \App\Helpers\HtmlHelper::clearHtml($route->page_desc) !!}
 
