@@ -77,9 +77,6 @@
                 </div>
                 <div class="article__text article__block-info wow fadeInUp">
                     {!! $hotel->page_desc !!}
-                    <p class="article__contact-title" id="info">
-                        {{ $vars['base_help_info'] }}:
-                    </p>
 
                     <p class="article__contact-title" id="info">
                         {{ $vars['base_contacts'] }}:
@@ -160,9 +157,9 @@
                 <div class="article__history-block wow fadeInLeft">
                     <h2 class="article__name exo">{{ __('global.conditions') }}</h2>
                     <div class="article__history-text">
-                        <p class="article__text">
-                            {!! $hotel->conditions_accommodation !!}
-                        </p>
+                        <div class="article__text">
+                            {!! \App\Helpers\HtmlHelper::clearHtml($hotel->conditions_accommodation) !!}
+                        </div>
                         <p class="article__text article__text-bold">
                             - {{ __('global.have_food_point') }}
                         </p>
@@ -184,9 +181,9 @@
                     <div class="article__history-block wow fadeInLeft">
                         <h2 class="article__name exo">{{ __('global.rooms_fund') }}</h2>
                         <div class="article__history-text">
-                            <p class="article__text">
-                                {!! $hotel->rooms_fund !!}
-                            </p>
+                            <div class="article__text">
+                                {!! \App\Helpers\HtmlHelper::clearHtml($hotel->rooms_fund) !!}
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -197,9 +194,9 @@
                     <div class="article__history-block wow fadeInLeft">
                         <h2 class="article__name exo">{{ __('global.additional_services') }}</h2>
                         <div class="article__history-text">
-                            <p class="article__text">
-                                {!! $hotel->additional_services !!}
-                            </p>
+                            <div class="article__text">
+                                {!! \App\Helpers\HtmlHelper::clearHtml($hotel->additional_services) !!}
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -211,9 +208,9 @@
                         <h2 class="article__name wow fadeInUp">
                             {{ $vars['base_how_to_get'] }}
                         </h2>
-                        <p class="article__text wow fadeInUp">
-                            {!! $hotel->contact_desc !!}
-                        </p>
+                        <div class="article__text wow fadeInUp">
+                            {!! \App\Helpers\HtmlHelper::clearHtml($hotel->contact_desc) !!}
+                        </div>
                     </div>
 
                     <div class="article__map-wrap">
