@@ -217,7 +217,7 @@
                             <div class="swiper-button-prev  swiper-button"></div>
                         </div>
                         <script>
-                            const swiper2 = new Swiper('.e2', {
+                            const swiper1 = new Swiper('.e2', {
                                 slidesPerView: 'auto',
                                 spaceBetween: 79,
                                 slidesOffsetBefore: 170,
