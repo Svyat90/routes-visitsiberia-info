@@ -77,12 +77,19 @@ class HotelController extends FrontController
 
         [$events, $meals, $places, $nearGeoData] = $this->service->getNearData($hotel);
 
+        $socialLinks = $this->service->repository->getSocialLinks($hotel);
+        $aggregatorLinks = $this->service->repository->getAggregatorLinks($hotel);
+        $phones = $this->service->repository->getPhones($hotel);
+
         return view('front.hotels.show', compact(
             'hotel',
             'events',
             'meals',
             'places',
-            'nearGeoData'
+            'nearGeoData',
+            'socialLinks',
+            'aggregatorLinks',
+            'phones'
         ));
     }
 }

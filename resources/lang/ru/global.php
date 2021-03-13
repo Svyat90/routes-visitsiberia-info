@@ -85,4 +85,10 @@ return [
     "input_name" => "Введите название",
     "event_near_places_dictionary" => "Достопримечательности, рядом с которыми происходит",
     "search" => "Поиск",
+    "category" => "Категория",
+    "conditions" => "Условия",
+    "have_food_point" => "Наличие собственной точки питания",
+    "term_payment" => "Условия оплаты",
+    "rooms_fund" => "Номерной фонд",
+    "additional_services" => "Дополнительные услуги",
 ];

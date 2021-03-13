@@ -37,16 +37,9 @@
                     </div>
 
                     <div class="article__sign wow fadeInLeft">
-                        @foreach(DictionaryHelper::group($hotel->dictionaries) as $parentName => $dictionaries)
-                            <p class="article__sign-bold">
-                                {{ $parentName }}:
-                                @foreach($dictionaries as $dictionary)
-                                    <span href="#" class="article__link">
-                                        {{ $dictionary->name . (! $loop->last ? ',' : '') }}
-                                    </span>
-                                @endforeach
-                            </p>
-                        @endforeach
+
+                        @include('front.partials.dictionary', ['model' => $hotel, 'parentType' => \App\Services\DictionaryService::TYPE_PLACEMENT])
+                        @include('front.partials.dictionary', ['model' => $hotel, 'parentType' => \App\Services\DictionaryService::TYPE_SEASON, 'base' => true])
 
                         <p class="article__information article__text" id="desc">
                             {!! $hotel->description !!}
@@ -67,8 +60,10 @@
                         <li class="page-nav__item"><a href="#meals">{{ $vars['base_where_to_eat'] }}</a></li>
                     </ul>
                     <div class="page-nav__button">
+
                         @include('front.partials.show-routes', ['entity' => $hotel, 'namespace' => 'hotels'])
                         @include('front.partials.show-share')
+
                     </div>
                     <a href="{{ route('front.choose') }}" class="page-nav__link-map route-item-go d-none" id="route-item-go-show">
                         {{ $vars['base_go_to_route'] }}
@@ -86,14 +81,6 @@
                         {{ $vars['base_help_info'] }}:
                     </p>
 
-                    {!! $hotel->helpful_info !!}
-
-                    {!! $hotel->food_desc !!}
-                    {!! $hotel->room_desc !!}
-                    {!! $hotel->additional_services !!}
-                    {!! $hotel->conditions_payment !!}
-                    {!! $hotel->conditions_accommodation !!}
-
                     <p class="article__contact-title" id="info">
                         {{ $vars['base_contacts'] }}:
                     </p>
@@ -101,29 +88,26 @@
                         <a href="{{ $hotel->site_link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $hotel->name }}</a>
                     @endif
 
-                    @if($hotel->aggregator_links)
-                        @php $links =  explode("," , $hotel->aggregator_links) @endphp
-                        @foreach($links as $link)
-                            @if($link)
-                                <a href="{{ $link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link }}</a>
+                    @if($aggregatorLinks)
+                        @foreach($aggregatorLinks as $link)
+                            @if($link->url && $link->title)
+                                <a href="{{ $link->url }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link->title }}</a>
                             @endif
                         @endforeach
                     @endif
 
-                    @if($hotel->social_links)
-                        @php $links =  explode("," , $hotel->social_links) @endphp
-                        @foreach($links as $link)
-                            @if($link)
-                                <a href="{{ $link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link }}</a>
+                    @if($socialLinks)
+                        @foreach($socialLinks as $link)
+                            @if($link->url && $link->title)
+                                <a href="{{ $link->url }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link->title }}</a>
                             @endif
                         @endforeach
                     @endif
 
-                    @if($hotel->phones)
-                        @php $phones =  explode("," , $hotel->phones) @endphp
+                    @if($phones)
                         @foreach($phones as $phone)
-                            @if($phone)
-                                <a href="{{ $phone }}" class="material-icons article__contact article__link"><span class="material-icons">call</span>{{ $phone }}</a>
+                            @if($phone->title)
+                                <a href="tel:{{ $phone->title }}" class="material-icons article__contact article__link"><span class="material-icons">call</span>{{ $phone->title }}</a>
                             @endif
                         @endforeach
                     @endif
@@ -172,20 +156,71 @@
                 </script>
             </section>
 
-            <section class="article__block article__pass" id="way">
-                <div class="article__pass-text">
-                    <h2 class="article__name wow fadeInUp">
-                        {{ $vars['base_how_to_get'] }}
-                    </h2>
-                    <p class="article__text wow fadeInUp">
-                        {!! $hotel->contact_desc !!}
-                    </p>
-                </div>
-
-                <div class="article__map-wrap">
-                    <div id="map"></div>
+            <section class="article__history article__block" id="story">
+                <div class="article__history-block wow fadeInLeft">
+                    <h2 class="article__name exo">{{ __('global.conditions') }}</h2>
+                    <div class="article__history-text">
+                        <p class="article__text">
+                            {!! $hotel->conditions_accommodation !!}
+                        </p>
+                        <p class="article__text article__text-bold">
+                            - {{ __('global.have_food_point') }}
+                        </p>
+                        <p class="article__text">
+                            {{ $hotel->have_food_point ? __('global.yes') : __('global.no') }}
+                        </p>
+                        <p class="article__text article__text-bold">
+                            - {{ __('global.term_payment') }}
+                        </p>
+                        <p class="article__text">
+                            {{ __('global.' . $hotel->conditions_payment) }}
+                        </p>
+                    </div>
                 </div>
             </section>
+
+            @if($hotel->rooms_fund)
+                <section class="article__history article__block" id="story">
+                    <div class="article__history-block wow fadeInLeft">
+                        <h2 class="article__name exo">{{ __('global.rooms_fund') }}</h2>
+                        <div class="article__history-text">
+                            <p class="article__text">
+                                {!! $hotel->rooms_fund !!}
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            @endif
+
+            @if($hotel->additional_services)
+                <section class="article__history article__block" id="story">
+                    <div class="article__history-block wow fadeInLeft">
+                        <h2 class="article__name exo">{{ __('global.additional_services') }}</h2>
+                        <div class="article__history-text">
+                            <p class="article__text">
+                                {!! $hotel->additional_services !!}
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            @endif
+
+            @if($hotel->contact_desc)
+                <section class="article__block article__pass" id="way">
+                    <div class="article__pass-text">
+                        <h2 class="article__name wow fadeInUp">
+                            {{ $vars['base_how_to_get'] }}
+                        </h2>
+                        <p class="article__text wow fadeInUp">
+                            {!! $hotel->contact_desc !!}
+                        </p>
+                    </div>
+
+                    <div class="article__map-wrap">
+                        <div id="map"></div>
+                    </div>
+                </section>
+            @endif
 
             @include('front.partials.reviews', ['entity' => $hotel, 'namespace' => 'hotels'])
 
