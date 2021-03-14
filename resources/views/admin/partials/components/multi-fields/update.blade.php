@@ -14,7 +14,14 @@
 
         <div id="{{ $name }}-list">
             @foreach($values as $value)
-                @if(in_array($name, ['phones', 'addresses']))
+                @if(in_array($name, ['phones']))
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input name="{{ $name }}[url][{{ $value->id }}]" value="{{ $value->url }}" class="form-control" type="text" placeholder="{{ $placeholderFirst ?? '' }}" />
+                        </div>
+                        <input type="hidden" name="{{ $name }}[type][{{ $value->id }}]" value="{{ $value->type }}">
+                    </div>
+                @elseif(in_array($name, ['addresses']))
                     <div class="row" style="margin-top: 15px;">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <input name="{{ $name }}[title][{{ $value->id }}]" value="{{ $value->title }}" class="form-control" type="text" placeholder="{{ $placeholderFirst ?? '' }}" />

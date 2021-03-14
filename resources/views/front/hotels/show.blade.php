@@ -322,6 +322,11 @@
                 lat: '{{ $hotel->lat }}',
                 lng: '{{ $hotel->lng }}',
                 name: '{{ $hotel->name }}',
+                label: '{{ __("global.types.hotels") }}',
+                location: '{{ $hotel->location }}',
+                site_link: '{{ $hotel->site_link }}',
+                link: '{{ route('front.hotels.show', $hotel->id) }}',
+                phone: '{{ $phones->first() ? $phones->first()->url : '' }}',
             }
 
             let popup = renderPopup(item.name, item.label, item.phone, '', item.location, item.lat, item.lng, item.site_link, item.link);

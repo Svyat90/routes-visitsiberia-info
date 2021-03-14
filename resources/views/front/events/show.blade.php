@@ -320,6 +320,11 @@
                 lat: '{{ $event->lat }}',
                 lng: '{{ $event->lng }}',
                 name: '{{ $event->name }}',
+                label: '{{ __("global.types.events") }}',
+                location: '{{ $event->location }}',
+                site_link: '{{ $event->site_link }}',
+                link: '{{ route('front.events.show', $event->id) }}',
+                phone: '{{ $phoneLinks->first() ? $phoneLinks->first()->url : ''}}',
             }
 
             let popup = renderPopup(item.name, item.label, item.phone, '', item.location, item.lat, item.lng, item.site_link, item.link);

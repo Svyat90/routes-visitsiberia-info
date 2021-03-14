@@ -302,6 +302,11 @@
                 lat: '{{ $meal->lat }}',
                 lng: '{{ $meal->lng }}',
                 name: '{{ $meal->name }}',
+                label: '{{ __("global.types.meals") }}',
+                location: '{{ $meal->location }}',
+                site_link: '{{ $meal->site_link }}',
+                link: '{{ route('front.meals.show', $meal->id) }}',
+                phone: '{{ $phones->first() ? $phones->first()->url : ''}}',
             }
 
             let popup = renderPopup(item.name, item.label, item.phone, '', item.location, item.lat, item.lng, item.site_link, item.link);

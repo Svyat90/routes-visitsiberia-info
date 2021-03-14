@@ -290,7 +290,7 @@
         let str = '<div class="row" style="margin-top: 15px;">';
 
         str += '<div class="col-md-12 col-sm-12 col-xs-12">';
-        str += '<input name="' + name + '[title][' + index + ']" class="form-control" type="text" placeholder="{{ __('global.input_phone') }}">';
+        str += '<input name="' + name + '[url][' + index + ']" class="form-control" type="text" placeholder="{{ __('global.input_phone') }}">';
         str += '</div>';
 
         str += '<input type="hidden" name="' + name + '[type][' + index + ']" value="' + type + '" />';

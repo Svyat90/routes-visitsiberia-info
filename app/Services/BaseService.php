@@ -87,13 +87,13 @@ abstract class BaseService
             return;
         }
 
-        $texts = $request->phones['title'];
+        $urls = $request->phones['url'];
         $types = $request->phones['type'];
 
-        $insertSocialData = array_map(function ($text, $type) {
-            if (! $text) return [];
-            return ['url' => '', 'title' => $text, 'type' => $type, 'field' => 'phones'];
-        }, $texts, $types);
+        $insertSocialData = array_map(function ($url, $type) {
+            if (! $url) return [];
+            return ['url' => $url, 'title' => '', 'type' => $type, 'field' => 'phones'];
+        }, $urls, $types);
 
         $model->socialFields()->createMany(array_filter($insertSocialData));
     }
@@ -197,7 +197,7 @@ abstract class BaseService
                     WHERE media.model_id = {$table}.id
                     AND media.model_type='App\\\\Models\\\\" . ucfirst(Str::singular($table)) . "'
                     LIMIT 1) as media_data,
-                (SELECT title
+                (SELECT url
                     FROM social_fields
                     WHERE social_fields.sociable_id = {$table}.id
                     AND social_fields.type='phone'

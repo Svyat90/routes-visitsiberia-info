@@ -310,6 +310,11 @@
                 lat: '{{ $place->lat }}',
                 lng: '{{ $place->lng }}',
                 name: '{{ $place->name }}',
+                label: '{{ __("global.types.places") }}',
+                location: '{{ $place->location }}',
+                site_link: '{{ $place->site_link }}',
+                link: '{{ route('front.places.show', $place->id) }}',
+                phone: '{{ $phoneLinks->first() ? $phoneLinks->first()->url : ''}}',
             }
 
             let popup = renderPopup(item.name, item.label, item.phone, '', item.location, item.lat, item.lng, item.site_link, item.link);
