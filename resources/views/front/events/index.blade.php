@@ -192,9 +192,12 @@
                 )
 
                 for (let i = 0; i < data.length; i++) {
+                    let item = data[i];
+                    let popup = renderPopup(item.name, item.label, item.phone, '', item.location, item.lat, item.lng, item.site_link, item.link);
+
                     myPlacemark = new ymaps.Placemark([data[i].lat, data[i].lng], {
                         hintContent: data[i].name,
-                        balloonContent: data[i].name
+                        balloonContent: popup
                     }, {
                         // options
                         iconLayout: 'default#imageWithContent',

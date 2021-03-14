@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\FrontController;
+use App\Services\BaseService;
 use App\Services\MealService;
 use Illuminate\Http\Request;
 use App\Services\DictionaryService;
@@ -45,9 +46,11 @@ class MealController extends FrontController
 
         $data = $this->service->getFilteredMeals($request);
 
-        $geoData = $data->map(function (Meal $meal) {
-            return ['lat' => $meal->lat, 'lng' => $meal->lng, 'name' => $meal->name];
-        });
+        $ids = array_map(function ($model) {
+            return $model['id'];
+        }, $data->toArray());
+
+        $geoData = BaseService::getListGeoData(Meal::make(), $ids);
 
         $meals = CollectionHelper::paginate($data, $this->pageLimit)
             ->appends([

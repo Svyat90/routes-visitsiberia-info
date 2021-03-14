@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\FrontController;
 use App\Models\Hotel;
+use App\Services\BaseService;
 use App\Services\DictionaryService;
 use App\Services\HotelService;
 use App\Helpers\CollectionHelper;
@@ -45,9 +46,11 @@ class HotelController extends FrontController
 
         $data = $this->service->getFilteredHotels($request);
 
-        $geoData = $data->map(function (Hotel $hotel) {
-            return ['lat' => $hotel->lat, 'lng' => $hotel->lng, 'name' => $hotel->name];
-        });
+        $ids = array_map(function ($model) {
+            return $model['id'];
+        }, $data->toArray());
+
+        $geoData = BaseService::getListGeoData(Hotel::make(), $ids);
 
         $hotels = CollectionHelper::paginate($data, $this->pageLimit)
             ->appends([

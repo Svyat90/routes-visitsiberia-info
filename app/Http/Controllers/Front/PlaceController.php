@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Services\BaseService;
 use App\Services\PlaceService;
 use App\Services\DictionaryService;
 use App\Helpers\CollectionHelper;
@@ -47,9 +48,11 @@ class PlaceController extends FrontController
 
         $data = $this->service->getFilteredPlaces($request);
 
-        $geoData = $data->map(function (Place $hotel) {
-            return ['lat' => $hotel->lat, 'lng' => $hotel->lng, 'name' => $hotel->name];
-        });
+        $ids = array_map(function ($model) {
+            return $model['id'];
+        }, $data->toArray());
+
+        $geoData = BaseService::getListGeoData(Place::make(), $ids);
 
         $places = CollectionHelper::paginate($data, $this->pageLimit)
             ->appends([

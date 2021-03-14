@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Helpers\ModelHelper;
+use App\Helpers\RouteHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -230,6 +231,44 @@ abstract class BaseService
                 $item->link = route('front.' . $table . '.show', $item->id);
                 return $item;
             });
+    }
+
+    /**
+     * @param Model $model
+     * @param array $ids
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Collection
+     */
+    public static function getListGeoData(Model $model, array $ids)
+    {
+        $models = $model::query()
+            ->with('socialFields')
+            ->whereIn('id', $ids)
+            ->get(['id', 'name', 'location', 'lat', 'lng', 'site_link']);
+
+        return $models->map(function (Model $model) {
+            $output = [];
+            $namespace = RouteHelper::namespace($model);
+
+            $output['lat'] = $model->lat;
+            $output['lng'] = $model->lng;
+            $output['name'] = $model->name;
+            $output['location'] = $model->location;
+            $output['site_link'] = $model->site_link;
+            $output['type'] = __('global.types.' . $namespace);
+
+            $output['phone'] = $model->socialFields()
+                ->where(function ($query) {
+                    $query->where('field', 'link_phones')
+                        ->orWhere('field', 'phones');
+                })
+                ->where('type', 'phone')
+                ->first()->url ?? "";
+
+            $output['label'] = __("global.types.$namespace");
+            $output['link'] = route('front.' . $namespace . '.show', $model->id);
+
+            return $output;
+        });
     }
 
     /**

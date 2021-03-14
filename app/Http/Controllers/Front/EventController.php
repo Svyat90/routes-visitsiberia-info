@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\FrontController;
+use App\Services\BaseService;
 use Illuminate\Http\Request;
 use App\Services\DictionaryService;
 use App\Models\Event;
@@ -45,9 +46,11 @@ class EventController extends FrontController
 
         $data = $this->service->getFilteredEvents($request);
 
-        $geoData = $data->map(function (Event $event) {
-            return ['lat' => $event->lat, 'lng' => $event->lng, 'name' => $event->name];
-        });
+        $ids = array_map(function ($model) {
+            return $model['id'];
+        }, $data->toArray());
+
+        $geoData = BaseService::getListGeoData(Event::make(), $ids);
 
         $events = CollectionHelper::paginate($data, $this->pageLimit)
             ->appends([
