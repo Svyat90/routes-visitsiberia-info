@@ -180,8 +180,10 @@ abstract class BaseService
                 {$table}.id,
                 {$table}.name,
                 {$table}.city,
+                {$table}.location,
                 {$table}.lat,
                 {$table}.lng,
+                {$table}.site_link,
                 (6371 * acos(
                     cos(radians({$lat})) *
                     cos(radians(lat)) *
@@ -194,7 +196,14 @@ abstract class BaseService
                     FROM media
                     WHERE media.model_id = {$table}.id
                     AND media.model_type='App\\\\Models\\\\" . ucfirst(Str::singular($table)) . "'
-                    LIMIT 1) as media_data
+                    LIMIT 1) as media_data,
+                (SELECT title
+                    FROM social_fields
+                    WHERE social_fields.sociable_id = {$table}.id
+                    AND social_fields.type='phone'
+                    AND (social_fields.field='phones' OR social_fields.field='link_phones')
+                    AND social_fields.sociable_type='App\\\\Models\\\\" . ucfirst(Str::singular($table)) . "'
+                    LIMIT 1) as phone
             FROM {$table}
             HAVING distance < {$radius}
             ORDER BY distance
@@ -208,13 +217,17 @@ abstract class BaseService
             ->map(function (\stdClass $item) use ($locale, $table) {
                 $defaultLocale = 'ru';
                 $names = json_decode($item->name);
+                $locations = json_decode($item->location);
                 $cities = json_decode($item->city);
                 $item->name = $names->$locale ?? $names->$defaultLocale ?? '';
+                $item->location = $locations->$locale ?? $locations->$defaultLocale ?? '';
                 $item->city = $cities->$locale ?? $cities->$defaultLocale ?? '';
                 $item->distance = round($item->distance, 2);
                 $item->type = $table;
+                $item->label = __("global.types.$table");
                 $item->imagePath = $this->urlForImage($item,'near');
                 $item->averageRating = $this->getAverageRating($item->id, $table);
+                $item->link = route('front.' . $table . '.show', $item->id);
                 return $item;
             });
     }

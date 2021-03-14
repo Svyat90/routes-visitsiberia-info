@@ -49,6 +49,78 @@
 <script src="{{ asset('front/js/favourites.js') }}"></script>
 <script src="{{ asset('front/js/routes.js') }}"></script>
 
+<script>
+    /**
+     *
+     * @param name
+     * @param type
+     * @param phoneFirst
+     * @param phoneSecond
+     * @param location
+     * @param lat
+     * @param lng
+     * @param site
+     * @param link
+     * @returns {string}
+     */
+    function renderPopup(name, type, phoneFirst, phoneSecond, location, lat, lng, site, link)
+    {
+        let phoneSecondSection = '';
+        if (phoneSecond) {
+            phoneSecondSection = `<a href="#"
+                                           style="font-size: 18px; display: flex; align-items: center; padding-left: 25px;"
+                                           class="material-icons article__contact article__link"
+                                       >
+                                       ` + phoneSecond + `
+                                       </a>`;
+        }
+
+        let yandexLink = 'https://yandex.ru/maps/?whatshere[point]=' + lat +',' + lng + '&whatshere[zoom]=17';
+
+        return `<div style="min-width: 310px;">
+                        <p style="font-size: 20px;">`  + name + `</p>
+                        <span style="color: grey; font-size: 16px;">` + type + `</span>
+                        <hr style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                        <a href="#"
+                           style="font-size: 18px; display: flex; align-items: center;"
+                           class="material-icons article__contact article__link"
+                        >
+                        <span style="font-size: 20px;" class="material-icons">call</span>
+                            ` + phoneFirst + `
+                                </a>
+                        ` + phoneSecondSection + `
+                                <hr style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                                <span style="color: grey; font-size: 18px; display: flex; align-items: center;">
+                                    <span
+                                        style="color: #00314d; font-size: 20px;"
+                                        class="material-icons">room
+                                    </span>
+                    ` + location + `
+                                </span>
+                                <a href="` + site + `" target="_blank"
+                                   style="font-size: 18px; display: flex; align-items: center;"
+                                   class="material-icons article__contact article__link"
+                                >
+                                    <span style="font-size: 20px;" class="material-icons">link</span>` + '{{ __('global.website')}}' + `</a>
+                        <hr style="margin-top: 0.5rem;">
+                        <div class="d-flex">
+                            <a href="` + link + `" target="_blank"
+                               style="border-radius: 4px; color: black; background-color: #F2F6F9; padding: 3px 10px; text-align: center; width: 50%;"
+                            >
+                                ` + '{{ __('global.details')}}' + `
+                                </a>
+                                &nbsp;&nbsp;
+                                <a href="` + yandexLink + `" target="_blank"
+                                   style="border-radius: 4px; color: white; background-color: #599cc1; padding: 3px 10px; text-align: center; width: 50%;"
+                                >
+                    ` + '{{ __('global.navigate_route')}}' + `
+                                </a>
+                            </div>
+                        </div>
+                    `;
+    }
+</script>
+
 @yield('scripts')
 
 </body>

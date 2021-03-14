@@ -6,9 +6,14 @@
     <main class="main" id="index">
         <div class="index d-flex flex-column" id="index-vue">
             <div class="index__header d-flex flex-column align-items-center justify-content-center">
+                <video loop autoplay muted class="index__video">
+                    <source src="{{ asset('front/video/videoplayback.webm') }}" type="video/webm">
+                </video>
+
                 <h1 class="index__tagline">
                     {{ $vars['home_title'] }}
                 </h1>
+
                 <div class="index__constructor-wr">
                     <div class="index__constructor">
                         <form action="{{ route('front.routes.index') }}" name="filters" class="heading__selects heading__selects--index" >
