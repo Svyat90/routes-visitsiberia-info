@@ -304,7 +304,7 @@
                 name: '{{ $meal->name }}',
             }
 
-            let image = '{!! $meal->image ? ImageHelper::image($meal->image->id . '/' . $meal->image->file_name, 100) : '' !!}';
+            let popup = renderPopup(item.name, item.label, item.phone, '', item.location, item.lat, item.lng, item.site_link, item.link);
 
             let name = '';
             if (item.name) {
@@ -326,7 +326,7 @@
 
             placeMap.geoObjects.add(new ymaps.Placemark([item.lat, item.lng], {
                     hintContent: name,
-                    balloonContent: image
+                    balloonContent: popup
                 }, {
                     // options
                     iconLayout: 'default#imageWithContent',
