@@ -166,12 +166,21 @@ class RouteController extends FrontController
 
         $routeType = $dictionaryService->getRouteTransportType($route);
 
+        $socialLinks = $this->service->repository->getSocialLinks($route);
+        $additionalLinks = $this->service->repository->getAdditionalLinks($route);
+        $phoneLinks = $this->service->repository->getPhoneLinks($route);
+        $addresses = $this->service->repository->getAddresses($route);
+
         return view('front.routes.show', compact(
             'route',
             'routable',
             'geoData',
             'nearGeoDataAll',
-            'routeType'
+            'routeType',
+            'socialLinks',
+            'additionalLinks',
+            'phoneLinks',
+            'addresses'
         ));
     }
 

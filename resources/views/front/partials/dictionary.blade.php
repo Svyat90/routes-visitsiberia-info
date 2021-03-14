@@ -1,6 +1,6 @@
 @if($dictionary = DictionaryHelper::getFirst($model->dictionaries, $parentType))
     <p class="article__sign-bold">
-        {{ ($base ?? false) ? $dictionary->parent->name : __('global.category') }}:
+        {{ ($base ?? false) ? __('global.season') : __('global.category') }}:
         <span href="#" class="article__link">
             {{ $dictionary->name }}
         </span>

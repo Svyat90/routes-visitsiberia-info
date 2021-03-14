@@ -29,9 +29,9 @@
                         @include('front.partials.dictionary', ['model' => $route, 'parentType' => \App\Services\DictionaryService::TYPE_REST])
                         @include('front.partials.dictionary', ['model' => $route, 'parentType' => \App\Services\DictionaryService::TYPE_SEASON, 'base' => true])
 
-                        <p class="article__information article__text" id="desc">
+                        <div class="article__information article__text" id="desc">
                             {!! \App\Helpers\HtmlHelper::clearHtml($route->page_desc) !!}
-                        </p>
+                        </div>
                     </div>
                 </div>
 
@@ -75,20 +75,9 @@
 
             <section class="article__info" style="margin-top: 0px;">
                 <div class="article__text article__block-info wow fadeInUp">
-                    {!! \App\Helpers\HtmlHelper::clearHtml($route->page_desc) !!}
-
                     <p class="article__contact-title" id="info">
                         {{ $vars['base_help_info'] }}:
                     </p>
-
-                    <p>{!! $route->life_hacks !!}</p>
-                    <p>{!! $route->features !!}</p>
-                    <p>{!! $route->static_info !!}</p>
-                    <p>{!! $route->duration !!}</p>
-                    <p>{!! $route->list_points !!}</p>
-                    <p>{!! $route->addresses_representatives !!}</p>
-                    <p>{!! $route->phones_representatives !!}</p>
-                    <p>{!! $route->more_info !!}</p>
 
                     @if($route->site_link)
                         <a href="{{ $route->site_link }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $route->name }}</a>
@@ -96,6 +85,43 @@
 
                     @if($route->email)
                         <a href="{{ $route->email }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $route->email }}</a>
+                    @endif
+
+                    @if($socialLinks)
+                        @foreach($socialLinks as $link)
+                            @if($link->url && $link->title)
+                                <a href="{{ $link->url }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link->title }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    @if($additionalLinks)
+                        @foreach($additionalLinks as $link)
+                            @if($link->url && $link->title)
+                                <a href="{{ $link->url }}" class="material-icons article__contact article__link"><span class="material-icons">link</span>{{ $link->title }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    @if($phoneLinks)
+                        @foreach($phoneLinks as $phone)
+                            @if($phone->title)
+                                <a href="tel:{{ $phone->url }}" class="material-icons article__contact article__link"><span class="material-icons">call</span>{{ $phone->title }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    @if($addresses)
+                        @foreach($addresses as $address)
+                            @if($address->title)
+                                <a class="material-icons article__contact article__link"
+                                   href="#"
+                                >
+                                    <span class="material-icons">room</span>
+                                    {{ $address->title }}
+                                </a>
+                            @endif
+                        @endforeach
                     @endif
 
                     @if($route->location)
@@ -109,6 +135,159 @@
                     @endif
                 </div>
             </section>
+
+            <section class="article__slider article__block wow fadeInUp" id="photo" style="margin-bottom: 0px;">
+                <div class="swiper-container article__slider-container">
+                    <div class="swiper-wrapper">
+                        @foreach($route->image_gallery as $image)
+                            <div class="swiper-slide d-flex flex-column align-items-center">
+                                <div class="article__slider-img-wr">
+                                    {{ $image->img('gallery')->lazy() }}
+                                </div>
+                                <p class="article__slider-description exo">
+                                    {{ $image->getCustomProperty('title') }}
+                                </p>
+                                <p class="article__slider-author">
+                                    {{ $image->getCustomProperty('desc') }}
+                                </p>
+                            </div>
+                        @endforeach
+
+                        @foreach($routable as $entity)
+                            @foreach($entity->image_gallery as $image)
+                            <div class="swiper-slide d-flex flex-column align-items-center">
+                                <div class="article__slider-img-wr">
+                                    {{ $image->img('gallery')->lazy() }}
+                                </div>
+                                <p class="article__slider-description exo">
+                                    {{ $image->getCustomProperty('title') }}
+                                </p>
+                                <p class="article__slider-author">
+                                    {{ $image->getCustomProperty('desc') }}
+                                </p>
+                            </div>
+                            @endforeach
+                        @endforeach
+                    </div>
+                </div>
+                <div class="swiper-button-next swiper-button"></div>
+                <div class="swiper-button-prev swiper-button"></div>
+                <script>
+                    const gallerySwiper = new Swiper('.article__slider-container', {
+                        slidesPerView: 1,
+
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                    })
+                </script>
+            </section>
+
+            @if($route->life_hacks)
+                <section class="article__history article__block" id="">
+                    <div class="article__history-block wow fadeInLeft">
+                        <h2 class="article__name exo">{{ __('global.life_hacks') }}</h2>
+                        <div class="article__history-text">
+                            <div class="article__text">
+                                {!! \App\Helpers\HtmlHelper::clearHtml($route->life_hacks) !!}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
+
+            <section class="article__history article__block" id="story">
+                <div class="article__history-block wow fadeInLeft">
+                    <h2 class="article__name exo">{{ __('global.features') }}</h2>
+
+                    <div class="article__history-text">
+                        <dic class="article__text">
+                            {!! \App\Helpers\HtmlHelper::clearHtml($route->features_desc) !!}
+                        </dic>
+                        <div class="d-flex">
+                            <div class="ch-mb-0">
+                                <p class="article__text article__text-bold mb-0">
+                                    - {{ __('global.with_children') }}
+                                </p>
+                                <p class="article__text">
+                                    {{ $route->with_children ? __('global.yes') : __('global.no') }}
+                                </p>
+                                <p class="article__text article__text-bold">
+                                    - {{ __('global.walking_route') }}
+                                </p>
+                                <p class="article__text">
+                                    {{ $route->walking_route ? __('global.yes') : __('global.no') }}
+                                </p>
+                                <p class="article__text article__text-bold">
+                                    - {{ __('global.available_for_invalids') }}
+                                </p>
+                                <p class="article__text">
+                                    {{ $route->available_for_invalids ? __('global.yes') : __('global.no') }}
+                                </p>
+                                <p class="article__text article__text-bold">
+                                    - {{ __('global.can_by_car') }}
+                                </p>
+                                <p class="article__text">
+                                    {{ $route->can_by_car ? __('global.yes') : __('global.no') }}
+                                </p>
+                                @if($route->duration)
+                                    <p class="article__text article__text-bold">
+                                        - {{ __('global.duration') }}
+                                    </p>
+                                    <div class="article__text">
+                                        {!! \App\Helpers\HtmlHelper::clearHtml($route->duration) !!}
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="article__history--desc ch-mb-0">
+                                <p class="article__text">
+                                    {!! \App\Helpers\HtmlHelper::clearHtml($route->statistic_info_desc) !!}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            @if($route->list_points)
+                <section class="article__history article__block" id="">
+                    <div class="article__history-block wow fadeInLeft">
+                        <h2 class="article__name exo">{{ __('global.list_points') }}</h2>
+                        <div class="article__history-text">
+                            <div class="article__text">
+                                {!! \App\Helpers\HtmlHelper::clearHtml($route->list_points) !!}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
+
+            @if($route->what_take)
+                <section class="article__history article__block" id="">
+                    <div class="article__history-block wow fadeInLeft">
+                        <h2 class="article__name exo">{{ __('global.what_take') }}</h2>
+                        <div class="article__history-text">
+                            <div class="article__text">
+                                {!! \App\Helpers\HtmlHelper::clearHtml($route->what_take) !!}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
+
+            @if($route->more_info)
+                <section class="article__history article__block" id="">
+                    <div class="article__history-block wow fadeInLeft">
+                        <h2 class="article__name exo">{{ __('global.more_info') }}</h2>
+                        <div class="article__history-text">
+                            <div class="article__text">
+                                {!! \App\Helpers\HtmlHelper::clearHtml($route->more_info) !!}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
 
             <section class="article__block article__pass" id="way">
                 <div class="article__pass-text">
