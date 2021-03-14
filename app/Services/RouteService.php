@@ -19,7 +19,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\Front\Routes\IndexRouteRequest;
 
-class RouteService
+class RouteService extends BaseService
 {
     /**
      * @var RouteRepository
@@ -33,6 +33,7 @@ class RouteService
      */
     public function __construct(RouteRepository $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
     }
 
@@ -206,9 +207,6 @@ class RouteService
     private function handleMediaFiles($request, Route $route) : void
     {
         MediaHelper::handleMedia($route, 'image', $request->image);
-        MediaHelper::handleMedia($route, 'image_history', $request->image_history);
-        MediaHelper::handleMedia($route, 'pdf_map', $request->pdf_map);
-
         MediaHelper::handleMediaCollect($route, 'image_gallery', $request->image_gallery);
     }
 
@@ -219,6 +217,15 @@ class RouteService
     private function handleRelationships(Route $route, $request) : void
     {
         $route->dictionaries()->sync($request->dictionary_ids);
+
+        if ($request instanceof UpdateRouteRequest) {
+            $route->socialFields()->delete();
+        }
+
+        $this->saveSocialLinks($route, $request);
+        $this->saveAdditionalLinks($route, $request);
+        $this->savePhoneLinks($route, $request);
+        $this->saveAddresses($route, $request);
     }
 
 }

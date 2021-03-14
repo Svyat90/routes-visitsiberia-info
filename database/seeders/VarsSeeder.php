@@ -45,7 +45,7 @@ class VarsSeeder extends Seeder
             'en' => 'Make a route'
         ],
         'footer_title' => [
-            'ru' => 'Туристский <br> информационный центр <br> КРАСНОЯРСКОГО КРАЯ',
+            'ru' => 'Туристский <br> информационный центр <br> Красноярского края',
             'en' => 'Tourist <br> Information Center <br> KRASNOYARSKY KRAI'
         ],
         'footer_address' => [

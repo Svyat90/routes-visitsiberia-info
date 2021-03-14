@@ -25,7 +25,7 @@
                     </tr>
 
                     @foreach($route->getFillable() as $field)
-                        @if($field === 'active' || $field === 'recommended')
+                        @if(in_array($field, ['active', 'with_children', 'walking_route', 'available_for_invalids', 'can_by_car']))
                             <tr>
                                 <th>
                                     {{ __("cruds.routes.fields.{$field}") }}
@@ -43,10 +43,45 @@
                         @endif
                     @endforeach
 
+                    @foreach($socialLinks as $index => $social)
+                        <tr>
+                            <th>
+                                {{ __("cruds.places.fields.social_links") }} #{{ $index + 1 }}
+                            </th>
+                            <td><a href="{{ $social->url }}" target="_blank">{{ $social->title }}</a></td>
+                        </tr>
+                    @endforeach
+
+                    @foreach($additionalLinks as $index => $link)
+                        <tr>
+                            <th>
+                                {{ __("cruds.places.fields.additional_links") }} #{{ $index + 1 }}
+                            </th>
+                            <td><a href="{{ $link->url }}" target="_blank">{{ $link->title }}</a></td>
+                        </tr>
+                    @endforeach
+
+                    @foreach($phoneLinks as $index => $phone)
+                        <tr>
+                            <th>
+                                {{ __("cruds.places.fields.link_phones") }} #{{ $index + 1 }}
+                            </th>
+                            <td><a href="tel:{{ $phone->url }}" target="_blank">{{ $phone->title }}</a></td>
+                        </tr>
+                    @endforeach
+
+                    @foreach($addresses as $index => $address)
+                        <tr>
+                            <th>
+                                {{ __("cruds.events.fields.addresses") }} #{{ $index + 1 }}
+                            </th>
+                            <td>{{ $address->title }}</td>
+                        </tr>
+                    @endforeach
+
                     @include('admin.partials.item-action-table-dates', ['model' => $route])
 
                     @include('admin.partials.show-media', ['name' => 'image', 'model' => $route, 'namespace' => 'routes'])
-                    @include('admin.partials.show-media', ['name' => 'image_history', 'model' => $route, 'namespace' => 'routes'])
                     @include('admin.partials.show-media', ['name' => 'image_gallery', 'model' => $route, 'namespace' => 'routes'])
 
                     </tbody>
@@ -70,12 +105,22 @@
                     {{ trans('global.dictionaries') }}
                 </a>
             </li>
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link" href="#related-places" role="tab" data-toggle="tab">--}}
+{{--                    {{ trans('global.places') }}--}}
+{{--                </a>--}}
+{{--            </li>--}}
         </ul>
         <div class="tab-content">
             <div class="tab-pane" role="tabpanel" id="related-dictionaries">
                 @includeIf('admin.partials.relationships.related-dictionaries', ['namespace' => 'routes', 'entity_id' => $route->id, 'dictionaries' => $route->dictionaries])
             </div>
         </div>
+{{--        <div class="tab-content">--}}
+{{--            <div class="tab-pane" role="tabpanel" id="related-places">--}}
+{{--                @includeIf('admin.partials.relationships.related-places', ['items' => $routableList])--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
 
 @endsection

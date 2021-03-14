@@ -17,21 +17,20 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property array $contact_desc
  * @property array $location
  * @property array $city
- * @property array $features
- * @property array $static_info
+ * @property array $features_desc
+ * @property array $statistic_info_desc
  * @property array $duration
  * @property array $list_points
  * @property array $what_take
- * @property array $addresses_representatives
- * @property array $phones_representatives
  * @property array $more_info
+ * @property array $social_links
+ * @property array $addresses
  * @property array $additional_links
+ * @property array $link_phones
  * @property boolean $active
  * @property boolean $recommended
  * @property string $image
- * @property string $image_history
  * @property array $image_gallery
- * @property string $pdf_map
  * @property array $dictionary_ids
  * @property array $routable_ids
  */
@@ -55,12 +54,6 @@ class UpdateRouteRequest extends FormRequest
             'id' => 'required|int|exists:routes,id',
             'name' => 'sometimes|array',
             'name.*' => 'string|nullable',
-            'meta_title' => 'sometimes|array',
-            'meta_title.*' => 'string|nullable',
-            'meta_description' => 'sometimes|array',
-            'meta_description.*' => 'string|nullable',
-            'header_desc' => 'sometimes|array',
-            'header_desc.*' => 'string|nullable',
             'page_desc' => 'sometimes|array',
             'page_desc.*' => 'string|nullable',
             'history_desc' => 'sometimes|array',
@@ -70,37 +63,35 @@ class UpdateRouteRequest extends FormRequest
             'life_hacks' => 'sometimes|array',
             'life_hacks.*' => 'string|nullable',
             'active' => 'required|bool',
-            'recommended' => 'required|bool',
+            'with_children' => 'required|bool',
+            'walking_route' => 'required|bool',
+            'available_for_invalids' => 'required|bool',
+            'can_by_car' => 'required|bool',
             'lat' => 'required|string',
             'lng' => 'required|string',
             'email' => 'sometimes|nullable|string',
             'location' => 'sometimes|array',
             'location.*' => 'string|nullable',
-            'city' => 'sometimes|array',
-            'city.*' => 'string|nullable',
-            'features' => 'sometimes|array',
-            'features.*' => 'string|nullable',
-            'static_info' => 'sometimes|array',
-            'static_info.*' => 'string|nullable',
+            'features_desc' => 'sometimes|array',
+            'features_desc.*' => 'string|nullable',
+            'statistic_info_desc' => 'sometimes|array',
+            'statistic_info_desc.*' => 'string|nullable',
             'duration' => 'sometimes|array',
             'duration.*' => 'string|nullable',
             'list_points' => 'sometimes|array',
             'list_points.*' => 'string|nullable',
             'what_take' => 'sometimes|array',
             'what_take.*' => 'string|nullable',
-            'addresses_representatives' => 'sometimes|array',
-            'addresses_representatives.*' => 'string|nullable',
-            'phones_representatives' => 'sometimes|array',
-            'phones_representatives.*' => 'string|nullable',
             'more_info' => 'sometimes|array',
             'more_info.*' => 'string|nullable',
-            'additional_links' => 'sometimes|array',
-            'additional_links.*' => 'string|nullable',
+            'site_link' => 'sometimes|nullable|string',
+            'social_links' => 'sometimes|nullable|array',
+            'addresses' => 'sometimes|nullable|array',
+            'additional_links' => 'sometimes|nullable|array',
+            'link_phones' => 'sometimes|nullable|array',
             'image' => 'required|string',
-            'image_history' => 'sometimes|nullable|string',
             'image_gallery' => 'sometimes|nullable|array',
             'image_gallery.*' => 'required|string',
-            'pdf_map' => 'sometimes|nullable|string',
             'dictionary_ids'   => 'sometimes|array',
             'dictionary_ids.*' => 'integer|exists:dictionaries,id',
             'routable_ids'   => 'sometimes|array',

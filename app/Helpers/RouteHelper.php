@@ -37,4 +37,25 @@ class RouteHelper
         return strtolower(class_basename($model));
     }
 
+    /**
+     * @param Model $model
+     * @return string
+     */
+    public static function showAdmin(Model $model) : string
+    {
+        $namespace = self::namespace($model);
+
+        return route('admin.' . $namespace . '.show', $model->id);
+    }
+
+    /**
+     * @param Model $model
+     * @return string
+     */
+    public static function editAdmin(Model $model) : string
+    {
+        $namespace = self::namespace($model);
+
+        return route('admin.' . $namespace . '.edit', $model->id);
+    }
 }

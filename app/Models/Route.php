@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -18,21 +19,18 @@ class Route extends BaseModel
      * @var array|string[]
      */
     public array $translatable = [
-        'name', 'header_desc', 'page_desc', 'city', 'location', 'history_desc', 'contact_desc', 'life_hacks',
-        'meta_title', 'meta_description', 'additional_links', 'features',
-        'static_info', 'duration', 'list_points', 'what_take', 'addresses_representatives',
-        'phones_representatives', 'more_info',
+        'name', 'page_desc', 'location', 'history_desc', 'contact_desc', 'life_hacks',
+        'features_desc', 'statistic_info_desc', 'duration', 'list_points', 'what_take', 'more_info',
     ];
 
     /**
      * @var string[]
      */
     protected $fillable = [
-        'name', 'header_desc', 'page_desc', 'recommended', 'active', 'life_hacks', 'history_desc',
-        'contact_desc', 'lat', 'lng', 'city', 'location', 'meta_title', 'meta_description', 'site_link',
-        'additional_links', 'features', 'email',
-        'static_info', 'duration', 'list_points', 'what_take', 'addresses_representatives',
-        'phones_representatives', 'more_info',
+        'name', 'page_desc', 'active', 'with_children', 'walking_route', 'available_for_invalids',
+        'can_by_car', 'life_hacks', 'history_desc', 'contact_desc', 'lat', 'lng', 'location',
+        'site_link', 'features_desc', 'email', 'statistic_info_desc', 'duration', 'list_points',
+        'what_take', 'more_info',
     ];
 
     /**
@@ -43,7 +41,7 @@ class Route extends BaseModel
     /**
      * @var string[]
      */
-    protected $appends = ['image', 'image_history', 'image_gallery', 'pdf_map'];
+    protected $appends = ['image', 'image_gallery'];
 
     /**
      * @return BelongsToMany
@@ -59,23 +57,19 @@ class Route extends BaseModel
     }
 
     /**
-     * @return Media|null
+     * @return MorphMany
      */
-    public function getImageAttribute()
+    public function socialFields() : MorphMany
     {
-        if (! $media = $this->getMedia('image')->last()) {
-            return null;
-        }
-
-        return $this->fillMedia($media);
+        return $this->morphMany(SocialField::class, 'sociable');
     }
 
     /**
      * @return Media|null
      */
-    public function getImageHistoryAttribute()
+    public function getImageAttribute()
     {
-        if (! $media = $this->getMedia('image_history')->last()) {
+        if (! $media = $this->getMedia('image')->last()) {
             return null;
         }
 
@@ -94,14 +88,6 @@ class Route extends BaseModel
         return $mediaCollect->map(function (Media $media) {
             return $this->fillMedia($media);
         });
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPdfMapAttribute()
-    {
-        return $this->getMedia('pdf_map')->last();
     }
 
 }

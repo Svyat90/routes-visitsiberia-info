@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
 use App\Models\Route;
+use App\Services\DictionaryService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +15,6 @@ use App\Http\Requests\Admin\Routes\StoreRouteRequest;
 use App\Http\Requests\Admin\Routes\UpdateRouteRequest;
 use App\Http\Requests\Admin\Routes\MassDestroyRouteRequest;
 use App\Services\RouteService;
-use App\Repositories\DictionaryRepository;
 
 class RouteController extends AdminController
 {
@@ -50,17 +50,20 @@ class RouteController extends AdminController
     }
 
     /**
-     * @param Route                $route
-     * @param DictionaryRepository $dictionaryRepository
-     *
+     * @param DictionaryService $dictionaryService
      * @return View
      */
-    public function create(Route $route, DictionaryRepository $dictionaryRepository) : View
+    public function create(DictionaryService $dictionaryService) : View
     {
-        $dictionaryChildren = $dictionaryRepository->getChildrenForSelect();
         $routableList = $this->service->getRoutableList();
 
-        return view('admin.routes.create', compact('route', 'dictionaryChildren', 'routableList'));
+        return view('admin.routes.create', [
+            'routableList' => $routableList,
+            'placeList' => $dictionaryService->getCategoryPlaceList(),
+            'seasonList' => $dictionaryService->getSeasonList(),
+            'typesList' => $dictionaryService->getTypesList(),
+            'whomList' => $dictionaryService->getWhomList()
+        ]);
     }
 
     /**
@@ -82,25 +85,37 @@ class RouteController extends AdminController
      */
     public function show(Route $route)
     {
-        $route->load('dictionaries');
+        $route->load('dictionaries', 'socialFields');
 
-        return view('admin.routes.show', compact('route'));
+        $socialLinks = $this->service->repository->getSocialLinks($route);
+        $additionalLinks = $this->service->repository->getAdditionalLinks($route);
+        $phoneLinks = $this->service->repository->getPhoneLinks($route);
+        $addresses = $this->service->repository->getAddresses($route);
+        $routableList = $this->service->getRoutableList();
+
+        return view('admin.routes.show', compact('route', 'socialLinks', 'additionalLinks', 'phoneLinks', 'addresses', 'routableList'));
     }
 
     /**
-     * @param Route                $route
-     * @param DictionaryRepository $dictionaryRepository
-     *
+     * @param Route $route
+     * @param DictionaryService $dictionaryService
      * @return Application|Factory|View
      */
-    public function edit(Route $route, DictionaryRepository $dictionaryRepository)
+    public function edit(Route $route, DictionaryService $dictionaryService)
     {
         return view('admin.routes.edit', [
             'route' => $route,
-            'dictionaryChildren' => $dictionaryRepository->getChildrenForSelect(),
+            'placeList' => $dictionaryService->getCategoryPlaceList(),
+            'seasonList' => $dictionaryService->getSeasonList(),
+            'typesList' => $dictionaryService->getTypesList(),
+            'whomList' => $dictionaryService->getWhomList(),
             'dictionaryIds' => $this->service->repository->getRelatedDictionaryIds($route),
             'routableList' => $this->service->getRoutableList(),
-            'routableIds' => $this->service->repository->getRelatedRoutableIds($route)->toArray()
+            'routableIds' => $this->service->repository->getRelatedRoutableIds($route)->toArray(),
+            'socialLinks' => $this->service->repository->getSocialLinks($route),
+            'additionalLinks' => $this->service->repository->getAdditionalLinks($route),
+            'linkPhones' => $this->service->repository->getPhoneLinks($route),
+            'addresses' => $this->service->repository->getAddresses($route),
         ]);
     }
 

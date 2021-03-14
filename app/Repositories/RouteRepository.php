@@ -3,12 +3,11 @@
 namespace App\Repositories;
 
 use App\Models\Route;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use App\Helpers\SlugHelper;
 use App\Models\Routable;
 
-class RouteRepository extends Model
+class RouteRepository extends BaseRepository
 {
 
     /**
