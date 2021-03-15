@@ -74,6 +74,7 @@
                     @include('admin.partials.components.input.create-text', ['name' => 'lng', 'namespace' => 'hotels'])
 
                     @include('admin.partials.components.translable.input.create-text', ['field' => 'location', 'namespace' => 'hotels'])
+                    @include('admin.partials.components.translable.textarea.create', ['field' => 'contact_desc', 'namespace' => 'hotels'])
 
                     <div class="form-group">
                         <button class="btn btn-danger" type="submit">

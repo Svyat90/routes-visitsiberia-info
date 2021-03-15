@@ -249,11 +249,11 @@ abstract class BaseService
             $output = [];
             $namespace = RouteHelper::namespace($model);
 
-            $output['lat'] = $model->lat;
-            $output['lng'] = $model->lng;
-            $output['name'] = $model->name;
-            $output['location'] = $model->location;
-            $output['site_link'] = $model->site_link;
+            $output['lat'] = $model->lat ?? '';
+            $output['lng'] = $model->lng ?? '';
+            $output['name'] = $model->name ?? '';
+            $output['location'] = $model->location ?? '';
+            $output['site_link'] = $model->site_link ?? '';
             $output['type'] = __('global.types.' . $namespace);
 
             $output['phone'] = $model->socialFields()
