@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Helpers\LabelHelper;
+use App\Helpers\YandexGeoHelper;
 use App\Models\Event;
 use App\Models\Hotel;
 use App\Models\Meal;
@@ -42,9 +42,16 @@ class SearchService
 
         return $model::query()
             ->whereRaw("LOWER(json_extract(`name`, '$.\"{$locale}\"')) LIKE '%" . mb_strtolower($query) . "%';")
-            ->get(['id', 'name', 'city'])
+            ->get(['id', 'name', 'city', 'lng', 'lat'])
             ->map(function ($model) {
                 $model->averageRating = $model->averageRating() ?? 0;
+                if (! $model->city) {
+                    $model->city = [
+                        'ru' => '',
+                        'en' => ''
+                    ];
+                }
+                $model->geoLink = YandexGeoHelper::yandexMapLink($model->lng, $model->lat);
                 return $model;
             });
     }

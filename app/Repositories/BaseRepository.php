@@ -21,7 +21,7 @@ class BaseRepository extends Model
             return [
                 'ru' => null,
                 'en' => null
-            ];;
+            ];
         }
 
         return [

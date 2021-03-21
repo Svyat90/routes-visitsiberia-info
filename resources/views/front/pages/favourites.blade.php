@@ -46,7 +46,7 @@
                                             </p>
                                             <a class="list__city"
                                                target="_blank"
-                                               href="{{ YandexGeoHelper::yandexMapLink($place->lng, $place->lat) }}"
+                                               href="{{ YandexGeoHelper::yandexMapLink($entity->lng, $entity->lat) }}"
                                             >
                                                 @if($entity->city)
                                                     <span class="material-icons">room&nbsp;</span>
