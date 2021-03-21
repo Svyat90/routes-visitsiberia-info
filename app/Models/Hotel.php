@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use \Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
- * Class Place
+ * Class Hotel
  *
  * @mixin IdeHelperHotel
  */
@@ -19,14 +19,14 @@ class Hotel extends BaseModel
      */
     public array $translatable = [
         'name', 'description', 'rooms_fund', 'conditions_accommodation',
-        'additional_services', 'contact_desc', 'location'
+        'additional_services', 'contact_desc', 'location', 'city'
     ];
 
     /**
      * @var string[]
      */
     protected $fillable = [
-        'active', 'recommended', 'name',
+        'active', 'recommended', 'name', 'city',
         'conditions_accommodation', 'conditions_payment',
         'contact_desc', 'site_link', 'additional_services',
         'location', 'lat', 'lng', 'description', 'have_food_point'

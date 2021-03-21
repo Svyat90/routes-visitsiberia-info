@@ -19,7 +19,7 @@ class Route extends BaseModel
      * @var array|string[]
      */
     public array $translatable = [
-        'name', 'page_desc', 'location', 'history_desc', 'contact_desc', 'life_hacks',
+        'name', 'page_desc', 'location', 'history_desc', 'contact_desc', 'life_hacks', 'city',
         'features_desc', 'statistic_info_desc', 'duration', 'list_points', 'what_take', 'more_info',
     ];
 
@@ -30,7 +30,7 @@ class Route extends BaseModel
         'name', 'page_desc', 'active', 'with_children', 'walking_route', 'available_for_invalids',
         'can_by_car', 'life_hacks', 'history_desc', 'contact_desc', 'lat', 'lng', 'location',
         'site_link', 'features_desc', 'email', 'statistic_info_desc', 'duration', 'list_points',
-        'what_take', 'more_info',
+        'what_take', 'more_info', 'city'
     ];
 
     /**

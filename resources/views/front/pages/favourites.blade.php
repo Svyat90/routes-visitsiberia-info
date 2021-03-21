@@ -44,12 +44,15 @@
                                             <p href="{{ RouteHelper::show($entity) }}" class="list__name exo">
                                                 {{ $entity->name }}
                                             </p>
-{{--                                            <p href="{{ RouteHelper::show($entity) }}" class="list__city">--}}
-{{--                                                @if($entity->city)--}}
-{{--                                                    <span class="material-icons">room&nbsp;</span>--}}
-{{--                                                    {{ $entity->city }}--}}
-{{--                                                @endif--}}
-{{--                                            </p>--}}
+                                            <a class="list__city"
+                                               target="_blank"
+                                               href="{{ YandexGeoHelper::yandexMapLink($place->lng, $place->lat) }}"
+                                            >
+                                                @if($entity->city)
+                                                    <span class="material-icons">room&nbsp;</span>
+                                                    {{ $entity->city }}
+                                                @endif
+                                            </a>
                                         </a>
                                         <div class="list__buttons d-flex flex-row align-items-center">
                                             <button class="list__button list__button-add route-item-add" data-id="{{ $entity->id }}" data-type="route-{{ $namespace }}">

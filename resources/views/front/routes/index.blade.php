@@ -101,15 +101,15 @@
                                                 <a href="{{ RouteHelper::show($entity) }}" class="list__slide-name exo">
                                                     {{ $entity->name }}
                                                 </a>
-{{--                                                <a class="list__slide-city"--}}
-{{--                                                   target="_blank"--}}
-{{--                                                   href="{{ YandexGeoHelper::yandexMapLink($entity->lng, $entity->lat) }}"--}}
-{{--                                                >--}}
-{{--                                                    @if($entity->city)--}}
-{{--                                                        <span class="material-icons">room&nbsp;</span>--}}
-{{--                                                        {{ $entity->city }}--}}
-{{--                                                    @endif--}}
-{{--                                                </a>--}}
+                                                <a class="list__slide-city"
+                                                   target="_blank"
+                                                   href="{{ YandexGeoHelper::yandexMapLink($entity->lng, $entity->lat) }}"
+                                                >
+                                                    @if($entity->city)
+                                                        <span class="material-icons">room&nbsp;</span>
+                                                        {{ $entity->city }}
+                                                    @endif
+                                                </a>
                                             </div>
                                         </div>
                                         @endforeach

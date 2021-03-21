@@ -60,15 +60,15 @@
                             {{ $entity->image ? $entity->image->img('route')->lazy() : '' }}
                         </a>
                         <a href="{{ RouteHelper::show($entity) }}" class="page__route-name exo">{{ $entity->name }}</a>
-{{--                        <a class="page__route-city"--}}
-{{--                           target="_blank"--}}
-{{--                           href="{{ YandexGeoHelper::yandexMapLink($entity->lng, $entity->lat) }}"--}}
-{{--                        >--}}
-{{--                            @if($entity->city)--}}
-{{--                                <span class="material-icons">room</span>--}}
-{{--                                {{ $entity->city }}--}}
-{{--                            @endif--}}
-{{--                        </a>--}}
+                        <a class="page__route-city"
+                           target="_blank"
+                           href="{{ YandexGeoHelper::yandexMapLink($entity->lng, $entity->lat) }}"
+                        >
+                            @if($entity->city)
+                                <span class="material-icons">room</span>
+                                {{ $entity->city }}
+                            @endif
+                        </a>
                     </div>
                 @endforeach
             </section>
@@ -442,7 +442,7 @@
             for (let k = 0; k < nearItems.length; k++) {
                 let item = nearItems[k]
 
-                let popup = renderPopup(item.name, item.label, item.phone, '', item.location, item.lat, item.lng, item.site_link, item.link);
+                let popup = renderPopup(item.name, item.label, item.phone, '', item.city, item.lat, item.lng, item.site_link, item.link);
 
                 let name = '';
                 if (item.name) {

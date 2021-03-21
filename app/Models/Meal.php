@@ -18,7 +18,7 @@ class Meal extends BaseModel
      * @var array|string[]
      */
     public array $translatable = [
-        'name', 'description', 'location', 'working_hours'
+        'name', 'description', 'location', 'working_hours', 'city'
     ];
 
     /**
@@ -27,7 +27,7 @@ class Meal extends BaseModel
     protected $fillable = [
         'name', 'description', 'recommended', 'active', 'have_breakfasts',
         'have_business_lunch', 'delivery_available', 'working_hours',
-        'lat', 'lng', 'location', 'site_link'
+        'lat', 'lng', 'location', 'site_link', 'city'
     ];
 
     /**

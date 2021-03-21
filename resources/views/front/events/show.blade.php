@@ -327,7 +327,7 @@
                 phone: '{{ $phoneLinks->first() ? $phoneLinks->first()->url : ''}}',
             }
 
-            let popup = renderPopup(item.name, item.label, item.phone, '', item.location, item.lat, item.lng, item.site_link, item.link);
+            let popup = renderPopup(item.name, item.label, item.phone, '', item.city, item.lat, item.lng, item.site_link, item.link);
 
             let name = '';
             if (item.name) {
@@ -364,7 +364,7 @@
             for (let j = 0; j < nearItems.length; j++) {
                 let item = nearItems[j]
 
-                let popup = renderPopup(item.name, item.label, item.phone, '', item.location, item.lat, item.lng, item.site_link, item.link);
+                let popup = renderPopup(item.name, item.label, item.phone, '', item.city, item.lat, item.lng, item.site_link, item.link);
 
                 let name = '';
                 if (item.name) {

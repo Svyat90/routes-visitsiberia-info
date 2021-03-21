@@ -162,10 +162,13 @@
                                     </a>
                                     <div class="index__events-info d-flex flex-column">
                                         <a href="{{ route('front.events.show', $event->id) }}" class="index__ways-place-name exo text-color-imp">{{ $event->name }}</a>
-                                        <a href="{{ route('front.events.show', $event->id) }}" class="index__ways-place-city text-color-imp">
-                                            @if($event->location)
+                                        <a class="index__ways-place-city text-color-imp"
+                                           target="_blank"
+                                           href="{{ YandexGeoHelper::yandexMapLink($event->lng, $event->lat) }}"
+                                        >
+                                            @if($event->city)
                                                 <span class="material-icons">room&nbsp;</span>
-                                                {{ $event->location }}
+                                                {{ $event->city }}
                                             @endif
                                         </a>
                                     </div>

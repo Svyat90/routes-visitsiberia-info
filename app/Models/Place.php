@@ -20,7 +20,7 @@ class Place extends BaseModel
      */
     public array $translatable = [
         'name', 'page_desc', 'location', 'history_desc',
-        'life_hacks', 'contact_desc',
+        'life_hacks', 'contact_desc', 'city'
     ];
 
     /**
@@ -28,7 +28,7 @@ class Place extends BaseModel
      */
     protected $fillable = [
         'name', 'page_desc', 'recommended', 'active', 'life_hacks',
-        'contact_desc', 'lat', 'lng', 'location', 'history_desc',
+        'contact_desc', 'lat', 'lng', 'location', 'history_desc', 'city'
     ];
 
     /**

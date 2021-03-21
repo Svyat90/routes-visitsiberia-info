@@ -56,14 +56,14 @@
      * @param type
      * @param phoneFirst
      * @param phoneSecond
-     * @param location
+     * @param city
      * @param lat
      * @param lng
      * @param site
      * @param link
      * @returns {string}
      */
-    function renderPopup(name, type, phoneFirst, phoneSecond, location, lat, lng, site, link)
+    function renderPopup(name, type, phoneFirst, phoneSecond, city, lat, lng, site, link)
     {
         let phoneSecondSection = '';
         if (phoneSecond) {
@@ -95,7 +95,7 @@
                                         style="color: #00314d; font-size: 20px;"
                                         class="material-icons">room
                                     </span>
-                    ` + location + `
+                    ` + city + `
                                 </span>
                                 <a href="` + site + `" target="_blank"
                                    style="font-size: 18px; display: flex; align-items: center;"

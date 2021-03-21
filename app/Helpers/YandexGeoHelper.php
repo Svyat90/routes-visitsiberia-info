@@ -2,9 +2,11 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Facades\Http;
+
 class YandexGeoHelper
 {
-    const API_KEY = '';
+    const GEOCODER_URL = 'https://geocode-maps.yandex.ru/1.x/';
 
     /**
      * @param $lng
@@ -26,13 +28,33 @@ class YandexGeoHelper
     }
 
     /**
-     * @param $lat
      * @param $lng
+     * @param $lat
+     * @return string
      */
-    public static function getCity($lat, $lng)
+    public static function getAddress($lng, $lat) : string
     {
-        $key = self::API_KEY;
-        $link = "https://geocode-maps.yandex.ru/1.x/?apikey={$key}&geocode=$lat,$lng";
+        $queryData = [
+            'apikey' => config('app.yandex_key'),
+            'geocode' => "$lng,$lat",
+            'format' => 'json',
+            'kind' => 'locality',
+            'results' => 1,
+            'lang' => 'ru_RU'
+        ];
+
+        try {
+            $response = Http::get(self::GEOCODER_URL . "?" . http_build_query($queryData));
+            $data = json_decode($response->body());
+            if (! empty($data->response->GeoObjectCollection->featureMember)) {
+                return $data->response->GeoObjectCollection->featureMember[0]->GeoObject->name;
+            }
+
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+        }
+
+        return "";
     }
 
 }

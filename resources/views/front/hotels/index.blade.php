@@ -98,15 +98,15 @@
                                         <p class="list__name exo">
                                             {{ $hotel->name }}
                                         </p>
-{{--                                        <a class="list__city"--}}
-{{--                                           target="_blank"--}}
-{{--                                           href="{{ YandexGeoHelper::yandexMapLink($hotel->lng, $hotel->lat) }}"--}}
-{{--                                        >--}}
-{{--                                            @if($hotel->city)--}}
-{{--                                                <span class="material-icons">room&nbsp;</span>--}}
-{{--                                                {{ $hotel->city }}--}}
-{{--                                            @endif--}}
-{{--                                        </a>--}}
+                                        <a class="list__city"
+                                           target="_blank"
+                                           href="{{ YandexGeoHelper::yandexMapLink($hotel->lng, $hotel->lat) }}"
+                                        >
+                                            @if($hotel->city)
+                                                <span class="material-icons">room&nbsp;</span>
+                                                {{ $hotel->city }}
+                                            @endif
+                                        </a>
                                     </a>
                                     <div class="list__buttons d-flex flex-row align-items-center">
                                         <button class="list__button list__button-add route-item-add" data-id="{{ $hotel->id }}" data-type="route-hotels">
@@ -235,7 +235,7 @@
 
                 for (let i = 0; i < data.length; i++) {
                     let item = data[i];
-                    let popup = renderPopup(item.name, item.label, item.phone, '', item.location, item.lat, item.lng, item.site_link, item.link);
+                    let popup = renderPopup(item.name, item.label, item.phone, '', item.city, item.lat, item.lng, item.site_link, item.link);
 
                     myPlacemark = new ymaps.Placemark([data[i].lat, data[i].lng], {
                         hintContent: data[i].name,

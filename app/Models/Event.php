@@ -18,7 +18,7 @@ class Event extends BaseModel
      * @var array|string[]
      */
     public array $translatable = [
-        'name', 'page_desc', 'location',
+        'name', 'page_desc', 'location', 'city',
         'history_desc', 'contact_desc', 'life_hacks',
     ];
 
@@ -28,7 +28,7 @@ class Event extends BaseModel
     protected $fillable = [
         'name', 'page_desc', 'active', 'life_hacks',
         'history_desc', 'contact_desc', 'lat', 'lng',
-        'site_link', 'have_camping', 'location',
+        'site_link', 'have_camping', 'location', 'city'
     ];
 
     /**

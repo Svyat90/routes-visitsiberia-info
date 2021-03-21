@@ -27,15 +27,15 @@
             <p class="list__name exo">
                 {{ $hotel->name }}
             </p>
-{{--            <a class="list__city"--}}
-{{--               target="_blank"--}}
-{{--               href="{{ YandexGeoHelper::yandexMapLink($hotel->lng, $hotel->lat) }}"--}}
-{{--            >--}}
-{{--                @if($hotel->city)--}}
-{{--                    <span class="material-icons">room&nbsp;</span>--}}
-{{--                    {{ $hotel->city }}--}}
-{{--                @endif--}}
-{{--            </a>--}}
+            <a class="list__city"
+               target="_blank"
+               href="{{ YandexGeoHelper::yandexMapLink($hotel->lng, $hotel->lat) }}"
+            >
+                @if($hotel->city)
+                    <span class="material-icons">room&nbsp;</span>
+                    {{ $hotel->city }}
+                @endif
+            </a>
         </a>
     </div>
 </div>
