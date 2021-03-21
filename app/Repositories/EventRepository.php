@@ -101,6 +101,7 @@ class EventRepository extends BaseRepository
     {
         $event = new Event($data);
         $event->slug = SlugHelper::generate(new Event(), $data['name']);
+        $event->city = $this->detectCity($data['lng'], $data['lat']);
         $event->save();
 
         return $event->refresh();

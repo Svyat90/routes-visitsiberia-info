@@ -85,6 +85,7 @@ class PlaceRepository extends BaseRepository
     {
         $place = new Place($data);
         $place->slug = SlugHelper::generate($place, $data['name']);
+        $place->city = $this->detectCity($data['lng'], $data['lat']);
         $place->save();
 
         return $place->refresh();

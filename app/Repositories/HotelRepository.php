@@ -101,6 +101,7 @@ class HotelRepository extends BaseRepository
     {
         $hotel = new Hotel($data);
         $hotel->slug = SlugHelper::generate($hotel, $data['name']);
+        $hotel->city = $this->detectCity($data['lng'], $data['lat']);
         $hotel->save();
 
         return $hotel->refresh();

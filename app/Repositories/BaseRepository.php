@@ -2,11 +2,33 @@
 
 namespace App\Repositories;
 
+use App\Helpers\YandexGeoHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class BaseRepository extends Model
 {
+
+    /**
+     * @param $lng
+     * @param $lat
+     * @return array
+     */
+    protected function detectCity($lng, $lat) : array
+    {
+        $city = YandexGeoHelper::getAddress($lng, $lat);
+        if (! $city) {
+            return [
+                'ru' => null,
+                'en' => null
+            ];;
+        }
+
+        return [
+            'ru' => $city,
+            'en' => $city
+        ];
+    }
 
     /**
      * @param Model $model

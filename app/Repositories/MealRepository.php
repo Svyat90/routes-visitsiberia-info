@@ -59,13 +59,13 @@ class MealRepository extends BaseRepository
     }
 
     /**
-     * @param Meal $place
+     * @param Meal $meal
      *
      * @return array
      */
-    public function getRelatedDictionaryIds(Meal $place) : array
+    public function getRelatedDictionaryIds(Meal $meal) : array
     {
-        return $place
+        return $meal
             ->dictionaries
             ->pluck('id')
             ->toArray();
@@ -99,25 +99,26 @@ class MealRepository extends BaseRepository
      */
     public function saveMeal(array $data) : Meal
     {
-        $place = new Meal($data);
-        $place->slug = SlugHelper::generate(new Meal(), $data['name']);
-        $place->save();
+        $meal = new Meal($data);
+        $meal->slug = SlugHelper::generate(new Meal(), $data['name']);
+        $meal->city = $this->detectCity($data['lng'], $data['lat']);
+        $meal->save();
 
-        return $place->refresh();
+        return $meal->refresh();
     }
 
     /**
      * @param array    $data
-     * @param Meal $place
+     * @param Meal $meal
      *
      * @return Meal
      */
-    public function updateData(array $data, Meal $place) : Meal
+    public function updateData(array $data, Meal $meal) : Meal
     {
-        $place->slug = SlugHelper::generate(new Meal(), $data['name']);
-        $place->update($data);
+        $meal->slug = SlugHelper::generate(new Meal(), $data['name']);
+        $meal->update($data);
 
-        return $place->refresh();
+        return $meal->refresh();
     }
 
     /**
@@ -130,8 +131,8 @@ class MealRepository extends BaseRepository
         Meal::query()
             ->whereIn('id', $ids)
             ->get()
-            ->each(function (Meal $place) {
-                $place->delete();
+            ->each(function (Meal $meal) {
+                $meal->delete();
             });
     }
 

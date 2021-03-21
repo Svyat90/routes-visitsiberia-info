@@ -77,6 +77,7 @@ class RouteRepository extends BaseRepository
     {
         $route = new Route($data);
         $route->slug = SlugHelper::generate(new Route(), $data['name']);
+        $route->city = $this->detectCity($data['lng'], $data['lat']);
         $route->save();
 
         return $route->refresh();
