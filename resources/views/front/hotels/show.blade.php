@@ -200,22 +200,20 @@
                 </section>
             @endif
 
-            @if($hotel->contact_desc)
-                <section class="article__block article__pass" id="way">
-                    <div class="article__pass-text">
-                        <h2 class="article__name wow fadeInUp">
-                            {{ $vars['base_how_to_get'] }}
-                        </h2>
-                        <div class="article__text wow fadeInUp">
-                            {!! \App\Helpers\HtmlHelper::clearHtml($hotel->contact_desc) !!}
-                        </div>
+            <section class="article__block article__pass" id="way">
+                <div class="article__pass-text">
+                    <h2 class="article__name wow fadeInUp">
+                        {{ $vars['base_how_to_get'] }}
+                    </h2>
+                    <div class="article__text wow fadeInUp">
+                        {!! \App\Helpers\HtmlHelper::clearHtml($hotel->contact_desc) !!}
                     </div>
+                </div>
 
-                    <div class="article__map-wrap">
-                        <div id="map"></div>
-                    </div>
-                </section>
-            @endif
+                <div class="article__map-wrap">
+                    <div id="map"></div>
+                </div>
+            </section>
 
             @include('front.partials.reviews', ['entity' => $hotel, 'namespace' => 'hotels'])
 
