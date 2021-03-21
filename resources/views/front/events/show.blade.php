@@ -321,6 +321,7 @@
                 lng: '{{ $event->lng }}',
                 name: '{{ $event->name }}',
                 label: '{{ __("global.types.events") }}',
+                city: '{{ $event->city }}',
                 location: '{{ $event->location }}',
                 site_link: '{{ $event->site_link }}',
                 link: '{{ route('front.events.show', $event->id) }}',

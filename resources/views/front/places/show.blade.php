@@ -308,6 +308,7 @@
                 lat: '{{ $place->lat }}',
                 lng: '{{ $place->lng }}',
                 name: '{{ $place->name }}',
+                city: '{{ $place->city }}',
                 label: '{{ __("global.types.places") }}',
                 location: '{{ $place->location }}',
                 site_link: '{{ $place->site_link }}',

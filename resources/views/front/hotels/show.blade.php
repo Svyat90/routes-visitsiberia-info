@@ -321,6 +321,7 @@
                 lng: '{{ $hotel->lng }}',
                 name: '{{ $hotel->name }}',
                 label: '{{ __("global.types.hotels") }}',
+                city: '{{ $hotel->city }}',
                 location: '{{ $hotel->location }}',
                 site_link: '{{ $hotel->site_link }}',
                 link: '{{ route('front.hotels.show', $hotel->id) }}',

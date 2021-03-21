@@ -207,7 +207,7 @@
                     }, {
                         // options
                         iconLayout: 'default#imageWithContent',
-                        iconImageHref: 'front/img/geo.svg',
+                        iconImageHref:  '{{ asset('front/img/Ygeo.svg') }}',
                         iconImageSize: [48, 48],
                         iconImageOffset: [-24, -24],
                         iconContentOffset: [15, 15],

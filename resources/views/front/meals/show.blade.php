@@ -303,6 +303,7 @@
                 lng: '{{ $meal->lng }}',
                 name: '{{ $meal->name }}',
                 label: '{{ __("global.types.meals") }}',
+                city: '{{ $meal->city }}',
                 location: '{{ $meal->location }}',
                 site_link: '{{ $meal->site_link }}',
                 link: '{{ route('front.meals.show', $meal->id) }}',

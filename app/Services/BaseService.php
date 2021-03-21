@@ -249,7 +249,7 @@ abstract class BaseService
         $models = $model::query()
             ->with('socialFields')
             ->whereIn('id', $ids)
-            ->get(['id', 'name', 'location', 'lat', 'lng', 'site_link']);
+            ->get(['id', 'name', 'location', 'lat', 'lng', 'site_link', 'city']);
 
         return $models->map(function (Model $model) {
             $output = [];
@@ -259,6 +259,7 @@ abstract class BaseService
             $output['lng'] = $model->lng ?? '';
             $output['name'] = $model->name ?? '';
             $output['location'] = $model->location ?? '';
+            $output['city'] = $model->city ?? '';
             $output['site_link'] = $model->site_link ?? '';
             $output['type'] = __('global.types.' . $namespace);
 
