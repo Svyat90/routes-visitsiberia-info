@@ -257,8 +257,8 @@ abstract class BaseService
 
             $output['lat'] = $model->lat ?? '';
             $output['lng'] = $model->lng ?? '';
-            $output['name'] = $model->name ?? '';
-            $output['location'] = $model->location ?? '';
+            $output['name'] = $model->name ? str_replace("\"", "'", $model->name) : '';
+            $output['location'] = $model->location ? str_replace("\"", "'", $model->location) : '';
             $output['city'] = $model->city ?? '';
             $output['site_link'] = $model->site_link ?? '';
             $output['type'] = __('global.types.' . $namespace);
