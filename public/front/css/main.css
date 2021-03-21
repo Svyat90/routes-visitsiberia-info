@@ -1346,7 +1346,7 @@ button.datepick-cmd {
   color: #00314d;
 }
 .swiper-button-disabled {
-  display: none;
+  /*display: none;*/
 }
 @media screen and (max-width: 850px) {
   .wow {
@@ -4137,7 +4137,7 @@ width: calc(100% - 120px);
   }
 }
 
-  
+
 
 .constructor__input-wr {
   display: flex;
@@ -4595,7 +4595,7 @@ margin-bottom: 0;
   font-size: 24px;
   line-height: 30px;
   color: #00314d !important;
-} 
+}
 
 .modal__icon {
   width: 60px;
