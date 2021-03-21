@@ -220,8 +220,11 @@ abstract class BaseService
                 $names = json_decode($item->name);
                 $locations = json_decode($item->location);
                 $cities = json_decode($item->city);
-                $item->name = $names->$locale ?? $names->$defaultLocale ?? '';
-                $item->location = $locations->$locale ?? $locations->$defaultLocale ?? '';
+                $name = $names->$locale ?? $names->$defaultLocale ?? '';
+                $location = $locations->$locale ?? $locations->$defaultLocale ?? '';
+
+                $item->name = $name ? str_replace("\"", "'", $name) : '';
+                $item->location = $location ? str_replace("\"", "'", $location) : '';
                 $item->city = $cities->$locale ?? $cities->$defaultLocale ?? '';
                 $item->distance = round($item->distance, 2);
                 $item->type = $table;
@@ -229,6 +232,9 @@ abstract class BaseService
                 $item->imagePath = $this->urlForImage($item,'near');
                 $item->averageRating = $this->getAverageRating($item->id, $table);
                 $item->link = route('front.' . $table . '.show', $item->id);
+
+                unset($item->media_data, $item->distance, $item->type);
+
                 return $item;
             });
     }

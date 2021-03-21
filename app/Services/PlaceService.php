@@ -114,7 +114,10 @@ class PlaceService extends BaseService
             ->merge($meals)
             ->merge($hotels);
 
-        return [$events, $meals, $hotels, $geoData];
+        return [
+            $events, $meals, $hotels,
+            $geoData
+        ];
     }
 
     /**
