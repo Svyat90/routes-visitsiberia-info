@@ -28,7 +28,7 @@
 
                     <div class="article__sign wow fadeInLeft">
 
-                        @include('front.partials.dictionary', ['model' => $event, 'parentType' => \App\Services\DictionaryService::TYPE_SEASON, 'base' => true])
+{{--                        @include('front.partials.dictionary', ['model' => $event, 'parentType' => \App\Services\DictionaryService::TYPE_SEASON, 'base' => true])--}}
 
                         <p class="article__information article__text" id="desc">
                             {!! \App\Helpers\HtmlHelper::clearHtml($event->page_desc) !!}

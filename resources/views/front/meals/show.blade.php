@@ -38,8 +38,8 @@
 
                     <div class="article__sign wow fadeInLeft" id="desc">
 
-                        @include('front.partials.dictionary', ['model' => $meal, 'parentType' => \App\Services\DictionaryService::TYPE_CATEGORY_FOOD])
-                        @include('front.partials.dictionary', ['model' => $meal, 'parentType' => \App\Services\DictionaryService::TYPE_SEASON, 'base' => true])
+{{--                        @include('front.partials.dictionary', ['model' => $meal, 'parentType' => \App\Services\DictionaryService::TYPE_CATEGORY_FOOD])--}}
+{{--                        @include('front.partials.dictionary', ['model' => $meal, 'parentType' => \App\Services\DictionaryService::TYPE_SEASON, 'base' => true])--}}
 
                         <p class="article__information article__text" id="desc">
                             {!! $meal->description !!}

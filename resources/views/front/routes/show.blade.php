@@ -26,8 +26,8 @@
 
                     <div class="article__sign wow fadeInLeft">
 
-                        @include('front.partials.dictionary', ['model' => $route, 'parentType' => \App\Services\DictionaryService::TYPE_REST])
-                        @include('front.partials.dictionary', ['model' => $route, 'parentType' => \App\Services\DictionaryService::TYPE_SEASON, 'base' => true])
+{{--                        @include('front.partials.dictionary', ['model' => $route, 'parentType' => \App\Services\DictionaryService::TYPE_REST])--}}
+{{--                        @include('front.partials.dictionary', ['model' => $route, 'parentType' => \App\Services\DictionaryService::TYPE_SEASON, 'base' => true])--}}
 
                         <div class="article__information article__text" id="desc">
                             {!! \App\Helpers\HtmlHelper::clearHtml($route->page_desc) !!}
