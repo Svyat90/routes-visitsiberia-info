@@ -75,7 +75,7 @@
                                        </a>`;
         }
 
-        let yandexLink = 'https://yandex.ru/maps/?whatshere[point]=' + lat +',' + lng + '&whatshere[zoom]=17';
+        let yandexLink = 'https://yandex.ru/maps/?whatshere[point]=' + lng +',' + lat + '&whatshere[zoom]=17';
 
         return `<div style="min-width: 310px;">
                         <p style="font-size: 20px;">`  + name + `</p>
