@@ -35,6 +35,7 @@ class HomeController extends FrontController
             'typeList' => $dictionaryService->getTypesList(),
             'transportList' => $dictionaryService->getTransportList(),
             'whomList' => $dictionaryService->getWhomList(),
+            'seasonList' => $dictionaryService->getSeasonList()
         ]);
     }
 

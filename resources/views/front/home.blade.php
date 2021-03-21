@@ -20,9 +20,17 @@
                             <input name="date_from" type="hidden" />
                             <input name="date_to" type="hidden" />
 
-                            <div class="heading__select">
-                                <input name="date_range" id="first" autocomplete="off" placeholder="{{ $vars['filter_time_range'] }}" readonly="readonly">
-                            </div>
+                            <select name="season_id" id="season_id">
+                                @php $seasonId = request()->get('season_id') ?? null; @endphp
+                                <option value="" disabled="disabled" selected="selected">{{ $vars['filter_season'] }}</option>
+                                @foreach($seasonList as $season)
+                                    <option
+                                        value="{{ $season->id }}"
+                                        {{ $seasonId && $seasonId == $season->id ? 'selected' : '' }} >
+                                        {{ $season->name }}
+                                    </option>
+                                @endforeach
+                            </select>
 
                             <select name="transport_id"  id="transport_id">
                                 @php $transportId = request()->get('transport_id') ?? null; @endphp
@@ -193,7 +201,7 @@
 @section('scripts')
     @parent
     <script>
-        let dateRange = $('#first');
+        let season = $('#season_id');
         let type = $('#type_id');
         let transport = $('#transport_id');
         let whom = $('#whom_id');
@@ -201,32 +209,10 @@
         let dateFrom = $('input[name="date_from"]');
         let dateTo = $('input[name="date_to"]');
 
+        season.selectmenu();
         type.selectmenu();
         transport.selectmenu()
         whom.selectmenu();
 
-        dateRange.datepick({
-            onSelect: function (dates) {
-                dates.map((date, index) => {
-                    if (index === 0) {
-                        dateFrom.val((new Date(date)).getTime() / 1000)
-                    } else {
-                        dateTo.val((new Date(date)).getTime() / 1000)
-                    }
-                });
-            },
-            yearRange: 'c-0:c+2',
-            firstDay: 1,
-            multiSelect: 2,
-            multiSeparator: ' — ',
-            dateFormat: 'd M yyyyy',
-            dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-            monthNamesShort: ['янв', 'фев', 'мар', 'апр', 'май', 'июн',
-                'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'
-            ],
-            monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-            ],
-        });
     </script>
 @endsection
