@@ -2751,6 +2751,7 @@ button.datepick-cmd {
   font-family: inherit;
   color: #0090cc;
   font-weight: 400;
+  white-space: normal;
 }
 .article__link .material-icons {
   margin-right: 5px;
