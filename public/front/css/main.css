@@ -1354,9 +1354,6 @@ button.datepick-cmd {
   font-size: 20px !important;
   color: #00314d;
 }
-.swiper-button-disabled {
-  display: none;
-}
 @media screen and (max-width: 850px) {
   .wow {
     -webkit-animation-name: none !important;
@@ -2760,6 +2757,7 @@ button.datepick-cmd {
   font-family: inherit;
   color: #0090cc;
   font-weight: 400;
+    white-space: normal;
 }
 .article__link .material-icons {
   margin-right: 5px;
@@ -4152,7 +4150,7 @@ width: calc(100% - 120px);
   }
 }
 
-  
+
 
 .constructor__input-wr {
   display: flex;
@@ -4610,7 +4608,7 @@ margin-bottom: 0;
   font-size: 24px;
   line-height: 30px;
   color: #00314d !important;
-} 
+}
 
 .modal__icon {
   width: 60px;
