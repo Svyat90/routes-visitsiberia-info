@@ -468,6 +468,15 @@ button.datepick-cmd {
   .header {
     max-width: 100%;
   }
+  .navbar {
+    height: 60px;
+  }
+  .nav-link.d-flex.align-items-center {
+    margin-top: -12px;
+  }
+  body {
+    padding-top: 60px !important;
+  }
 }
 .header__buttons {
   display: none;
@@ -1346,7 +1355,7 @@ button.datepick-cmd {
   color: #00314d;
 }
 .swiper-button-disabled {
-  /*display: none;*/
+  display: none;
 }
 @media screen and (max-width: 850px) {
   .wow {
@@ -1387,7 +1396,7 @@ button.datepick-cmd {
 .heading__title {
   margin-bottom: 62px;
   font-weight: 200;
-  font-size: 120px;
+  font-size: 80px;
   line-height: 144px;
   color: #fff;
 }
@@ -2751,7 +2760,6 @@ button.datepick-cmd {
   font-family: inherit;
   color: #0090cc;
   font-weight: 400;
-  white-space: normal;
 }
 .article__link .material-icons {
   margin-right: 5px;
@@ -2972,17 +2980,17 @@ button.datepick-cmd {
 }
 @media screen and (max-width: 1240px) {
   .article__history-text {
-    padding-bottom: 180px;
+    padding-bottom: 100px;
   }
 }
 @media screen and (max-width: 800px) {
   .article__history-text {
-    padding-bottom: 150px;
+    padding-bottom: 750px;
   }
 }
 @media screen and (max-width: 400px) {
   .article__history-text {
-    padding-bottom: 125px;
+    padding-bottom: 25px;
   }
 }
 @media screen and (max-width: 1608px) {
@@ -3623,6 +3631,7 @@ font-size: 24px;
 @media screen and (max-width: 900px) {
   .article__block {
     margin-top: 280px;
+    margin-bottom: 0px;
   }
   .article__header {
     padding-left: 45px;
@@ -3717,17 +3726,21 @@ font-size: 24px;
 }
 @media screen and (max-width: 400px) {
   .article__block {
-    margin-top: 102px;
+    margin-top: 40px;
   }
   .article__header {
     padding-left: 32px;
   }
   .article__text {
     font-size: 16px;
+    margin-top: 20px;
   }
   .article__link,
   .article__sign-bold {
     font-size: 13px;
+  }
+  .article__link .material-icons {
+    font-size: 14px;
   }
   .article__recommendation {
     margin-bottom: 22px;
@@ -3751,6 +3764,7 @@ font-size: 24px;
   }
   .article__name {
     font-size: 24px;
+    margin-bottom: 20px;
   }
   .article__name::after {
     top: 3px;
@@ -4138,7 +4152,7 @@ width: calc(100% - 120px);
   }
 }
 
-
+  
 
 .constructor__input-wr {
   display: flex;
@@ -4596,7 +4610,7 @@ margin-bottom: 0;
   font-size: 24px;
   line-height: 30px;
   color: #00314d !important;
-}
+} 
 
 .modal__icon {
   width: 60px;
