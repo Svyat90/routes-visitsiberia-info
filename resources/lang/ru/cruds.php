@@ -109,6 +109,8 @@ return [
             'with_children_helper'       => '',
             'image_history'              => 'Изображение (История)',
             'image_history_helper'       => '',
+            'city'              => 'Населенный пункт',
+            'city_helper'       => '',
         ],
     ],
     'vars'                     => [
@@ -165,6 +167,8 @@ return [
             'location_helper'       => '',
             'contact_desc'              => 'Как добраться - Текстовое описание',
             'contact_desc_helper'       => 'Пошаговая инструкция как добраться. Может содержать контакты организаций, которые могут обеспечить  доставку.',
+            'city'              => 'Населенный пункт',
+            'city_helper'       => '',
         ],
     ],
     'meals'                     => [
@@ -205,6 +209,8 @@ return [
             'phones_helper'       => '',
             'working_hours'              => 'Режим работы',
             'working_hours_helper'       => '',
+            'city'              => 'Населенный пункт',
+            'city_helper'       => '',
         ],
     ],
     'events'                     => [
@@ -243,6 +249,8 @@ return [
             'have_camping_helper'       => '',
             'additional_links'              => 'Узнать больше - Дополнительные ссылки',
             'additional_links_helper'       => 'Ссылки на сайты или соц. сети, относящиеся к событию. Для каждой ссылки напишите название, описание и саму ссылку',
+            'city'              => 'Населенный пункт',
+            'city_helper'       => '',
         ],
     ],
     'routes'                     => [
@@ -309,6 +317,8 @@ return [
             'with_children_helper'       => '',
             'pdf_map'              => 'Карта pdf',
             'pdf_map_helper'       => '',
+            'city'              => 'Населенный пункт',
+            'city_helper'       => '',
         ],
     ],
     'reviews'                     => [

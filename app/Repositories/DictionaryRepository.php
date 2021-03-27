@@ -40,6 +40,17 @@ class DictionaryRepository extends Dictionary
     }
 
     /**
+     * @return Dictionary
+     */
+    public function getParentCityDictionary() : Model
+    {
+        return Dictionary::query()
+            ->with('children')
+            ->where('type', 'city')
+            ->first();
+    }
+
+    /**
      * @return Collection
      */
     public function getListForSelect() : Collection

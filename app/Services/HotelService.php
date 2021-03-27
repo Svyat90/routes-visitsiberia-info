@@ -71,6 +71,7 @@ class HotelService extends BaseService
 
         $this->handleMediaFiles($request, $hotel);
         $this->handleRelationships($hotel, $request);
+        $this->handleCityDictionary($hotel);
 
         return $hotel;
     }

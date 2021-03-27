@@ -69,6 +69,7 @@ class EventService extends BaseService
 
         $this->handleMediaFiles($request, $event);
         $this->handleRelationships($event, $request);
+        $this->handleCityDictionary($event);
 
         return $event;
     }

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Helpers\ModelHelper;
 use App\Helpers\RouteHelper;
+use App\Repositories\DictionaryRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -354,6 +355,38 @@ abstract class BaseService
         })->first(function (bool $val) {
             return $val === false;
         }, true);
+    }
+
+    /**
+     * @param Model $model
+     */
+    protected function handleCityDictionary(Model $model) : void
+    {
+        $cityName = $model->city;
+        if (! $cityName) {
+            return;
+        }
+
+        $dictionaryRepository = app(DictionaryRepository::class);
+        $parent = $dictionaryRepository->getParentCityDictionary();
+        $dictionaryIds = $parent->children->pluck('id', 'name')->toArray();
+
+        if (! isset($dictionaryIds[$cityName])) {
+            $dictionary = $dictionaryRepository->saveChildDictionary([
+                'dictionary_id' => $parent->id,
+                'name' => [
+                    'ru' => $cityName,
+                    'en' => $cityName
+                ]
+            ]);
+
+            $idToAttach = $dictionary->id;
+
+        } else {
+            $idToAttach = $dictionaryIds[$cityName];
+        }
+
+        $model->dictionaries()->attach($idToAttach);
     }
 
     /**

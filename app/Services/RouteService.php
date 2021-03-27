@@ -72,6 +72,7 @@ class RouteService extends BaseService
 
         $this->handleMediaFiles($request, $route);
         $this->handleRelationships($route, $request);
+        $this->handleCityDictionary($route);
 
         return $route;
     }

@@ -65,6 +65,7 @@ class PlaceService extends BaseService
 
         $this->handleMediaFiles($request, $place);
         $this->handleRelationships($place, $request);
+        $this->handleCityDictionary($place);
 
         return $place;
     }

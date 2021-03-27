@@ -64,6 +64,7 @@ class MealService extends BaseService
 
         $this->handleMediaFiles($request, $meal);
         $this->handleRelationships($meal, $request);
+        $this->handleCityDictionary($meal);
 
         return $meal;
     }
