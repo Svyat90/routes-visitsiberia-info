@@ -90,9 +90,13 @@ class MealService extends BaseService
      */
     public function getFilteredMeals(IndexMealRequest $request) : Collection
     {
-        return Meal::query()
-            ->active()
-            ->get()
+        $builder = Meal::query()->active();
+
+        if ($request->have_breakfasts !== null) {
+            $builder->where('have_breakfasts', $request->have_breakfasts);
+        }
+
+        return $builder->get()
             ->filter(function (Meal $meal) use ($request) {
                 $dictionaryIds = $meal->dictionaries->pluck('id');
                 return $this->setFilters($dictionaryIds, $request);
@@ -129,7 +133,7 @@ class MealService extends BaseService
 
         return $this->filterDictionaries(
             $request->category_id,
-            $request->season_id,
+            $request->city_id,
             $request->delivery_id
         );
     }

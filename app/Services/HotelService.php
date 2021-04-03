@@ -136,7 +136,7 @@ class HotelService extends BaseService
 
         return $this->filterDictionaries(
             $request->city_id,
-            $request->distance_id,
+            $request->season_id,
             $request->placement_id
         );
     }

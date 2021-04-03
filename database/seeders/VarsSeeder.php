@@ -129,8 +129,8 @@ class VarsSeeder extends Seeder
             'en' => 'Showed'
         ],
         'base_results' => [
-            'ru' => 'результата',
-            'en' => 'results'
+            'ru' => '',
+            'en' => ''
         ],
         'base_help_info' => [
             'ru' => 'Полезная информация',
@@ -232,6 +232,10 @@ class VarsSeeder extends Seeder
             'ru' => 'Тип отдыха',
             'en' => 'Type of rest'
         ],
+        'filter_have_breakfasts' => [
+            'ru' => 'Завтраки',
+            'en' => 'Breakfasts'
+        ],
         'filter_season' => [
             'ru' => 'Сезон',
             'en' => 'Season'
@@ -249,7 +253,7 @@ class VarsSeeder extends Seeder
             'en' => 'Delivery'
         ],
         'filter_city' => [
-            'ru' => 'Город',
+            'ru' => 'Место',
             'en' => 'City'
         ],
         'filter_distance' => [

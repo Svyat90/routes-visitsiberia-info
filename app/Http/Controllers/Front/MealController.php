@@ -40,7 +40,7 @@ class MealController extends FrontController
      */
     public function index(IndexMealRequest $request, DictionaryService $dictionaryService)
     {
-        $seasonList = $dictionaryService->getSeasonList();
+        $cityList = $dictionaryService->getCityList();
         $categoryList = $dictionaryService->getCategoryFoodList();
         $deliveryList = $dictionaryService->getDeliveryFoodList();
 
@@ -54,14 +54,15 @@ class MealController extends FrontController
 
         $meals = CollectionHelper::paginate($data, $this->pageLimit)
             ->appends([
-                'season_id' => $request->season_id,
+                'city_id' => $request->city_id,
                 'category_id' => $request->category_id,
-                'delivery_id' => $request->delivery_id
+                'delivery_id' => $request->delivery_id,
+                'have_breakfasts' => $request->have_breakfasts,
             ]);
 
         return view('front.meals.index', compact(
             'meals',
-            'seasonList',
+            'cityList',
             'categoryList',
             'deliveryList',
             'geoData'

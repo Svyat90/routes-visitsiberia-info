@@ -121,14 +121,13 @@
         tinymce.init({
             language: "ru",
             selector: '.tinymceTextarea',
-            plugins: "code,link",
+            plugins: "code,link,lists",
             themes: "modern",
             valid_elements : '*',
             valid_styles: '*',
             extended_valid_elements: "*[*]",
             // extended_valid_elements: "svg[*],defs[*],pattern[*],desc[*],metadata[*],g[*],mask[*],path[*],line[*],marker[*],rect[*],circle[*],ellipse[*],polygon[*],polyline[*],linearGradient[*],radialGradient[*],stop[*],image[*],view[*],text[*],textPath[*],title[*],tspan[*],glyph[*],symbol[*],switch[*],use[*]",
             height: 300,
-            toolbar: "code",
             toolbar: "code | insertfile undo redo | link | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
         });
 

@@ -22,17 +22,26 @@
                         </select>
                     </div>
 
-                    <div class="heading__select" id="heading-second">
-                        <select name="season_id" id="season_id">
-                            @php $seasonId = request()->get('season_id') ?? null; @endphp
-                            <option value="" disabled="disabled" selected="selected">{{ $vars['filter_season'] }}</option>
-                            @foreach($seasonList as $season)
+                    <div class="heading__select" id="heading-type_id">
+                        <select name="city_id" id="city_id">
+                            @php $cityId = request()->get('city_id') ?? null; @endphp
+                            <option value="" disabled="disabled" selected="selected">{{ $vars['filter_city'] }}</option>
+                            @foreach($cityList as $city)
                                 <option
-                                    value="{{ $season->id }}"
-                                    {{ $seasonId && $seasonId == $season->id ? 'selected' : '' }} >
-                                    {{ $season->name }}
+                                    value="{{ $city->id }}"
+                                    {{ $cityId && $cityId == $city->id ? 'selected' : '' }} >
+                                    {{ $city->name }}
                                 </option>
                             @endforeach
+                        </select>
+                    </div>
+
+                    <div class="heading__select" id="heading-type_id">
+                        <select name="have_breakfasts" id="have_breakfasts">
+                            @php $haveBreakfast = request()->get('have_breakfasts') ?? null; @endphp
+                            <option value="" disabled="disabled" selected="selected">{{ $vars['filter_have_breakfasts'] }}</option>
+                            <option value="0" {{ $haveBreakfast && $haveBreakfast == "0" ? 'selected' : '' }}>{{ __('global.no') }}</option>
+                            <option value="1" {{ $haveBreakfast && $haveBreakfast == "1" ? 'selected' : '' }}>{{ __('global.yes') }}</option>
                         </select>
                     </div>
 
@@ -153,16 +162,18 @@
 
     <script>
         $(function () {
-            let season = $('#season_id');
+            let city = $('#city_id');
             let category = $('#category_id');
             let delivery = $('#delivery_id');
+            let have_breakfasts = $('#have_breakfasts');
             let filterForm = $('form[name="filters"]');
 
-            season.selectmenu();
+            city.selectmenu();
             category.selectmenu()
             delivery.selectmenu();
+            have_breakfasts.selectmenu();
 
-            season.on('selectmenuchange', e => {
+            city.on('selectmenuchange', e => {
                 e.preventDefault();
                 filterForm.submit();
             })
@@ -173,6 +184,11 @@
             })
 
             delivery.on('selectmenuchange', e => {
+                e.preventDefault();
+                filterForm.submit();
+            })
+
+            have_breakfasts.on('selectmenuchange', e => {
                 e.preventDefault();
                 filterForm.submit();
             })

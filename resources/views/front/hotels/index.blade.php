@@ -8,35 +8,35 @@
             <div class="rooms__heading heading heading--blue" id="heading">
                 <h1 class="heading__title">{{ $vars['hotels_title'] }}</h1>
                 <form action="{{ route('front.hotels.index') }}" name="filters" class="heading__selects heading__selects--rooms" >
-                        <div class="heading__select" id="heading-type_id">
-                            <select name="city_id" id="city_id">
-                                @php $cityId = request()->get('city_id') ?? null; @endphp
-                                <option value="" disabled="disabled" selected="selected">{{ $vars['filter_city'] }}</option>
-                                @foreach($cityList as $city)
-                                    <option
-                                        value="{{ $city->id }}"
-                                        {{ $cityId && $cityId == $city->id ? 'selected' : '' }} >
-                                        {{ $city->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <div class="heading__select" id="heading-type_id">
+                        <select name="city_id" id="city_id">
+                            @php $cityId = request()->get('city_id') ?? null; @endphp
+                            <option value="" disabled="disabled" selected="selected">{{ $vars['filter_city'] }}</option>
+                            @foreach($cityList as $city)
+                                <option
+                                    value="{{ $city->id }}"
+                                    {{ $cityId && $cityId == $city->id ? 'selected' : '' }} >
+                                    {{ $city->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <div class="heading__select" id="heading-second">
-                            <select name="distance_id" id="distance_id">
-                                @php $distanceId = request()->get('distance_id') ?? null; @endphp
-                                @foreach($distanceList as $distance)
-                                    <option value="" disabled="disabled" selected="selected">{{ $vars['filter_distance'] }}</option>
-                                    <option
-                                        value="{{ $distance->id }}"
-                                        {{ $distanceId && $distanceId == $distance->id ? 'selected' : '' }} >
-                                        {{ $distance->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <div class="heading__select" id="heading-second">
+                        <select name="season_id" id="season_id">
+                            @php $seasonId = request()->get('season_id') ?? null; @endphp
+                            <option value="" disabled="disabled" selected="selected">{{ $vars['filter_season'] }}</option>
+                            @foreach($seasonList as $season)
+                                <option
+                                    value="{{ $season->id }}"
+                                    {{ $seasonId && $seasonId == $season->id ? 'selected' : '' }} >
+                                    {{ $season->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <div class="heading__select" id="heading-third">
+                    <div class="heading__select" id="heading-third">
                             <select name="placement_id" id="placement_id">
                                 @php $placementId = request()->get('placement_id') ?? null; @endphp
                                 <option value="" disabled="disabled" selected="selected">{{ $vars['filter_type_allocation'] }}</option>
@@ -160,14 +160,14 @@
         $(function () {
             let dateRange = $('#first');
             let city = $('#city_id');
-            let distance = $('#distance_id');
+            let season = $('#season_id');
             let placement = $('#placement_id');
             let filterForm = $('form[name="filters"]');
             let dateFrom = $('input[name="date_from"]');
             let dateTo = $('input[name="date_to"]');
 
             city.selectmenu();
-            distance.selectmenu()
+            season.selectmenu();
             placement.selectmenu();
 
             dateRange.datepick({
@@ -203,7 +203,7 @@
                 filterForm.submit();
             })
 
-            distance.on('selectmenuchange', e => {
+            season.on('selectmenuchange', e => {
                 e.preventDefault();
                 filterForm.submit();
             })

@@ -41,7 +41,7 @@ class HotelController extends FrontController
     public function index(IndexHotelRequest $request, DictionaryService $dictionaryService)
     {
         $cityList = $dictionaryService->getCityList();
-        $distanceList = $dictionaryService->getDistanceList();
+        $seasonList = $dictionaryService->getSeasonList();
         $placementList = $dictionaryService->getPlacementList();
 
         $data = $this->service->getFilteredHotels($request);
@@ -55,14 +55,14 @@ class HotelController extends FrontController
         $hotels = CollectionHelper::paginate($data, $this->pageLimit)
             ->appends([
                 'city_id' => $request->city_id,
-                'distance_id' => $request->distance_id,
+                'season_id' => $request->season_id,
                 'placement_id' => $request->placement_id
             ]);
 
         return view('front.hotels.index', compact(
             'hotels',
             'cityList',
-            'distanceList',
+            'seasonList',
             'placementList',
             'geoData'
         ));
